@@ -1,0 +1,186 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% block dashtitle %}
+    Dashboard Primaseru <br />
+    <a class="btn btn-light" data-toggle="modal" data-target="#registerModal" href="javascript:void(0)">Tambah Pendaftar</a>
+{% endblock dashtitle %}
+{% block head %}
+    {{ block.super  }}
+{% endblock head %}
+{% block maindash %}
+    <div class="row py-4">
+        <div class="col-md m-2 p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4>
+            <br />
+            <h3 class="mb-0 mt-1">{{ jumlah_siswa }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2 p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-danger">BELUM TERVERIFIKASI</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ siswa_not_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2  p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-primary">TERVERIFIKASI</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ siswa_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2  p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-success">DITERIMA/LULUS</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ siswa_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+    </div>
+
+    <div class="row px-2">
+        <div class="col-md-12 py-2 bg-white rounded shadow">
+            <div class="row">
+                <div class="col">
+                    <h3 class="judul">Daftar Calon Murid</h3>
+                </div>
+                <div class="col d-flex justify-content-end align-items-start">
+                    <a class="btn btn-sm btn-outline-danger" href="">Export</a>
+                </div>
+            </div>
+            <div class="table-responsive-md">
+                <table class="table table-hover table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" class="w-25">Nama</th>
+                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Tempat Lahir</th>
+                            <th scope="col">Tanggal Lahir</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in siswa %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter  }}</th>
+                                <td><a href="">{{ s.student.full_name|title  }}</a></td>
+                                <td>{{ s.get_sex_display  }}</td>
+                                <td>{{ s.city_born  }}</td>
+                                <td>{{ s.date_born|date:"d M Y"  }}</td>
+                                <td>
+                                    {% if s.student.studentstatus.accepted %}
+                                        <span class="badge badge-success">DITERIMA</span>
+                                    {% elif s.verified %}
+                                        <span class="badge badge-primary">TERVERIFIKASI</span>
+                                    {% else %}
+                                        <span class="badge badge-danger">BELUM TERVERIFIKASI</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <form method="POST" class="" action="">
+                                        {% csrf_token %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-danger dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <input type="submit" value="Delete" class="dropdown-item">
+                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.student.pk }}/change/">Nama dan Email</a>
+                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.student.pk }}/password/">Password</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <!-- PAGINATING -->
+        {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center ">
+                    {% if siswa.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page{{ siswa.previous_page_number }}">
+                                <span aria-colspan="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="">First</a></li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">
+                                <span aria-colspan="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for n in siswa.paginator.page_range %}
+                        {% if siswa.number == n %}
+                            <li class="page-item active">
+                                <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+                            </li>
+                        {% elif n > siswa.number|add:'-4' and n < siswa.number|add:'4' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if siswa.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ siswa.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ siswa.paginator.num_pages }}">Last</a></li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Last</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModal">Tambah Calon Siswa Baru</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="add-student">
+                        {% csrf_token %}
+                        {{ form_r|crispy  }}
+                        {{ form_a|crispy  }}
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" form="add-student">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock maindash %}
+{% block js %}
+    {{ block.super  }}
+    <script type="text/javascript">
+     let formError = {{ form_error  }};
+     if(formError) {
+         $('#registerModal').modal('show');
+     }
+    </script>
+
+{% endblock js %}

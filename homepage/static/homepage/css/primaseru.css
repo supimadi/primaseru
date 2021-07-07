@@ -1,0 +1,105 @@
+ html {
+  scroll-behavior: smooth;
+}
+.text-primaseru {
+    background: linear-gradient(37deg, rgba(224,26,10,1) 0%, rgba(255,229,0,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.navbar .border-line .nav-item::after {
+    content: "";
+    display: block;
+    width: 0;
+    border-bottom: 2px solid #941D15;
+    transition: .5s;
+}
+.navbar .border-line .nav-item:hover::after {
+    width: 100%;
+}
+
+.underline {
+    border-bottom: 4px solid #CBE01F;
+}
+.underline-sm::after {
+    content: "";
+    display: block;
+    width: 50px;
+    margin-top: 5px;
+    border-bottom: 3px solid #CBE01F;
+}
+.text-banner {
+    color: #610A04;
+}
+.custom-header {
+  background: #ffc9cb !important;
+  border: 1px solid #f97479;
+}
+.banner-text {
+    font-family: 'Lato', sans-serif;
+}
+.hero {
+    font-size: 4rem !important;
+}
+.alur-pendaftaran::before {
+    content: "";
+    background: rgb(246,188,3);
+    background: linear-gradient(0deg, rgba(246,188,3,0.4247898988697041) 0%, rgba(245,70,77,1) 100%);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+}
+.grey-background::before {
+    content: "";
+    background: #f8f9fa;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+}
+.bi-book::before {
+    content: "";
+    background: #e01a0a;
+    display: block;
+    height: 100%;
+    width: 100%;
+
+}
+body::before {
+    content: " ";
+    width: 57.1%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: -10;
+    background: #e01a0a;
+}
+nav .container {
+    z-index: 10;
+}
+.custom-list li {
+    list-style-image: url("/static/homepage/images/checkmark.png") ;
+    margin: 1rem 0 !important;
+    font-size: 1.13rem;
+}
+.custom-list.custom-list-black li {
+    list-style-image: url("/static/homepage/images/checkmark-black.png") ;
+}
+.bg-weave-gradient::before {
+    content: "";
+    background: rgb(246,188,3);
+    background: url("/static/homepage/images/Group 1.svg") no-repeat;
+    background-size: cover;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+}
+.bg-white-50 {
+    background: rgba(255,255,255,0.1);
+}
+#bantuan .bi {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}

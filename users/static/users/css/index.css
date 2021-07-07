@@ -1,0 +1,21 @@
+.scrolled{
+    background-color: #fff;
+    transition: 150ms linear;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.asteriskField{
+    color: red;
+    margin-left: 0.25rem;
+}
+.judul {
+    font-family: 'Source Sans Pro', sans-serif;
+}

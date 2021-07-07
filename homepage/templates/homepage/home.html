@@ -1,0 +1,370 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="{% static 'homepage/css/primaseru.css' %}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{% static 'homepage/css/timeline.css' %}" type="text/css" media="screen" />
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+{% endblock head %}
+{% block container %}
+    container-fluid
+{% endblock container %}
+{% block main %}
+
+    <div class="row mx-5" style="min-height: 100vh" id="home">
+        <div class="text-banner col-lg-6 col-sm-12 mt-5">
+            <div class="banner-text h1">
+                    <span class="underline">Primaseru</span> </br>
+                    <span style="font-size: 1.4rem">Penerimaan Peserta Didik Baru</span>
+            </div>
+            <div class="banner-text h1 hero my-4">
+                <b>Achieve Your Dream With Us</b>
+            </div>
+            <div class="banner" style="max-width: 400px">
+                Sekolah Berbasis Teknologi Informasi dan Komunikasi Terbaik 3 di Jawa Barat Tahun 2019, UNBK Terbaik di Kabupaten Bandung Tahun 2016 dan 2019. Program Asrama, Patriot dan Tahfizh.
+            </div>
+            <div class="border rounded mt-4 shadow p-3 bg-white text-center" style="max-width: 400px">
+                {% for j in jadwal %}
+                    {% if j.is_ongoing %}
+                        <b>{{ j.name  }} Sudah Dibuka!</b> <br />
+                    {% endif %}
+                {% endfor %}
+                <a class="btn btn-danger btn-block mt-2" href="https://bit.ly/InfoPPDBSMKTelBdg9">Daftar Sekarang</a>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="d-none d-md-none d-lg-block">
+                <img src="{% static 'homepage/images/banner-white-100.png' %}" alt="image-banner" class="img-fluid"  loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" id="jurusan">
+        <div class="row mb-5">
+            <div class="col-12 border shadow rounded p-3">
+                <div style="margin-bottom: -0.9rem">
+                    <h2 class="ml-2 judul text-black-50"><b>Jurusan di SMK Telkom Bandung</b></h2>
+                </div>
+                <h1 class="ml-2 mb-3 judul text-primaseru"><b>Pilih Passion Kamu!</b></h1>
+                <div class="carousel">
+                    <div class="mx-2">
+                        <a href="https://www.youtube.com/watch?v=n6uD5j9qjIU">
+                            <img src="{% static 'homepage/images/mm.png' %}" alt=" gambar jurusan" class="img-fluid rounded-lg" loading="lazy" />
+                        </a>
+                        <p class="judul h4 text-center"><b>Multimedia</b></p>
+                    </div>
+                    <div class="mx-2">
+                        <a href="https://www.youtube.com/watch?v=pTCIRvri8k4">
+                            <img src="{% static 'homepage/images/tkj.png' %}" alt=" gambar jurusan" class="img-fluid rounded-lg" loading="lazy" />
+                        </a>
+                        <p class="judul h4 text-center"><b>Teknik Komputer dan Jaringan</b></p>
+                    </div>
+                    <div class="mx-2">
+                        <a href="https://www.youtube.com/watch?v=-UYECQmvEqE">
+                            <img src="{% static 'homepage/images/tja.png' %}" alt=" gambar jurusan" class="img-fluid rounded-lg" loading="lazy" />
+                        </a>
+                        <p class="judul h4 text-center"><b>Teknik Jaringan Akses</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3" id="alur-pendaftaran">
+        <div class="col-12 alur-pendaftaran">
+            <div class="container">
+                <div class="row">
+                <div class="col-lg-5 col-sm-12">
+                    <h2 class="judul text-white mt-4">
+                        Bagaimana <br />
+                        <span class=""><b>Cara Memulai Pendaftaran?</b></span>
+                    </h2>
+                    <p class="text-white">
+                        Calon siswa akan mengikuti beberapa tahapan yang harus dipenuhi agar semua rangkaian pendaftaran berjalan lancar.
+                    </p>
+                </div>
+                <div class="col">
+                </div>
+            </div>
+            <section class="timeline text-white judul">
+                <ul>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                                    <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
+                                1. Pendaftaran (Online atau Offline)
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-cash-stack" viewBox="0 0 16 16">
+                                    <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                                    <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+                                </svg>
+                                2. Membayar Biaya Pendaftaran
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16">
+                                    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                                </svg>
+                                3. Mengisi Formulir
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-file-earmark-check" viewBox="0 0 16 16">
+                                    <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                </svg>
+                                4. Melengkapi Berkas
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg>
+                                5. Menentukan Jadwal Tes
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                </svg>
+                                6. Melaksanakan Tes
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-megaphone" viewBox="0 0 16 16">
+                                    <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975l1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z"/>
+                                </svg>
+                                7. Pengumuman Hasil Tes
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                                </svg>
+                                8. Membayar Biaya Daftar Ulang
+                            </time>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <time>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="mb-1 mr-2 bi bi-file-earmark-medical" viewBox="0 0 16 16">
+                                    <path d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                </svg>
+                                9. Mengisi Formulir Daftar Ulang
+                            </time>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mx-lg-5 mx-sm-1 mx-md-5 mx-1 mx-xl-5 mb-5 mt-5" id="berkas">
+        <div class="col-lg-4 col-md-5 col-sm-12 text-white rounded-lg shadow" style="background: #f54f50">
+            <h2 class="judul mt-3 ml-3 text-wrap">
+                Ayo Mulai Kumpulkan <br />
+                <b>Berkas Pendaftarannya!</b>
+            </h2>
+            <ul class="custom-list judul mt-1 mt-lg-4">
+                <li>Surat Kelakuan Baik dari Sekolah Asal</li>
+                <li>Surat Keterangan Sehat dari Puskesmas, RS atau Klinik</li>
+                <li>Surat Keterangan Tidak Buta Warna dari Puskesmas, RS atau Klinik</li>
+                <li>Foto Copy Rapor Semester 1-5</li>
+                <li>Pas Foto 3x4 sejumlah 4 lembar Latar Merah (Pakai Seragam Sekolah)</li>
+                <li>Foto Copy Akte Kelahiran</li>
+                <li>Foto Copy Kartu Keluarga</li>
+                <li>Foto Copy Ijazah (menyusul)</li>
+            </ul>
+        </div>
+        <div class="col-md-7 col-sm-12 col-lg-7 ml-0 ml-xl-4 p-0 px-md-4 mt-3 mt-md-0 mt-sm-0 mt-lg-0">
+            <h2 class="judul mt-1 mt-lg-2 mt-sm-1 mb-lg-3 mb-md-3 mb-sm-1">
+                Khusus Buat Kamu <br />
+                yang <b>Berprestasi</b>
+            </h2>
+            <p class="text-muted">
+                Ada dua jalur menunggu buat ditempuh loh....
+            </p>
+            <div class="row judul mt-0 mt-md-4">
+                <div class="col mx-2 bg-light rounded-lg border p-3 mb-3 mb-md-3 mb-sm-3 mb-lg-0">
+                    <h3 class="my-1 underline-sm">Prestasi <b>(Akademik)</b></h3>
+                    <ul class="custom-list custom-list-black judul mt-1">
+                        <li>Rata-rata Nilai Rapor Minimal 75 dari semester 1 s.d 5</li>
+                        <li>Mata Pelajaran yang dihitung (B.Indonesia, B.Inggris, Matematika dan IPA)</li>
+                    </ul>
+                </div>
+                <div class="col mx-2 bg-light rounded-lg border p-3">
+                    <h3 class="my-1 underline-sm">Prestasi <b>(Non Akademik)</b></h3>
+                    <ul class="custom-list custom-list-black judul mt-1 mt-lg-4">
+                        <li>Sertifikat Kejuaraan/Lomba Bidang Sains, Seni Budaya, Olahraga (Minimal Peringkat 3 Tingkat Kota/Kabupaten)</li>
+                        <hr />
+                        <li>Sertifikat Tahfizh Minimal 5 Juz</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row border rounded-lg p-3 justify-content-center mx-5" id="asrama">
+        <div class="col-12 judul mb-3">
+            <h2>Kami Juga Memiliki Program <br /> <b>Asrama dan Tahfidz</b></h2>
+        </div>
+        <div class="col-12 col-md-5 mx-1  shadow rounded-lg text-center p-4">
+            <img src="{% static 'homepage/images/dorm.svg' %}" alt="payment" class="img-fluid w-25 mb-2" />
+            <h3 class="judul">Asrama</h3>
+            <p class="text-muted">
+                Buat kamu yang rumahnya jauh, SMK Telkom Bandung menyediakan asrama, dengan program yang menarik, membuat kamu betah buat tinggal.
+            </p>
+        </div>
+        <div class="col-12 col-md-5 mx-1  shadow rounded-lg text-center p-4">
+            <img src="{% static 'homepage/images/quran.svg' %}" alt="payment" class="img-fluid w-25 mb-2" />
+            <h3 class="judul">Tahfidz</h3>
+            <p class="text-muted">
+                Insyaallah, hafalan kamu pasti bertambah, dengan bersekolah di SMK Telkom Bandung. Soalnya kami mempunyai program tahfidz yang sayang buat dilewatkan.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mt-5 " id="biaya">
+        <div class="col-12 grey-background">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-12 judul bg-white rounded-lg mx-2 text-center p-4 shadow">
+                        <img src="{% static 'homepage/images/payment-method.svg' %}" alt="payment" class="img-fluid w-50 mb-2" />
+                        <h2 ><b>Biaya</b> <br /> Pendaftaran</h2>
+                        <h1 ><b>Rp. 300.000,-</b></h1>
+                        <p class="text-muted mt-3">
+                            Transfer ke No. Rek Bank Mandiri <br />
+                            131 00 154 128 95 <br />
+                            Nofrizal
+                        </p>
+                        <hr />
+                        <p class="text-muted mt-3" style="font-size: 0.9rem">
+                            Ada potongan Rp. 50.000,- jika menyebarkan informasi PRIMASERU SMK TELKOM BANDUNG ke 10 kontak WA/5 Grup WA atau Posting di Instagram dan Tag 5 Akun IG temannya
+                        </p>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 judul bg-white rounded-lg mx-2 text-center p-4 shadow mt-2 mt-md-0">
+                        <img src="{% static 'homepage/images/clock.svg' %}" alt="time" class="img-fluid w-50 mb-2" />
+                        <h2 class="judul"><b>Jadwal</b> <br /> Pendaftaran</h2>
+                        <p class="mt-3">
+                            <ul class="list-group list-group-flush">
+                                {% for j in jadwal %}
+                                    <li class="list-group-item">{{ j.name }} <br /> <span class="text-muted">{{ j.start_date|date:"M" }} - {{ j.end_date|date:"M Y"  }}</span></li>
+                                {% endfor %}
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="row">
+        <div class="col-12 px-5 bg-weave-gradient">
+            <div class="row text-white">
+                <div class="col-12 col-md-5 rounded-lg bg-white-50 my-5 p-3">
+                    <div class="text-center my-3">
+                        <img src="{% static 'homepage/images/Putih-Primer.png' %}"  class="img-fluid w-50" alt="logo primaseru" loading="lazy">
+                    </div>
+                    <p class="text-justify">
+                        Guiding the Generation Supporting Enhancement of Nation's Competitiveness. Berdiri tahun 2013 dan sudah terakreditasi "A" dengan menghasilkan lulusan yang berkualitas sehingga langsung diserap oleh dunia industri.
+                    </p>
+                    <div>
+                        <h2 class="judul"><b>Follow Us On</b></h2>
+                        <div style="font-size: 2rem">
+                            <a href="https://www.youtube.com/channel/UCctJsaIiE-oh-VmT8AAU4tg" target="_blank" class="text-white"><i class="bi mx-2 bi-youtube"></i></a>
+                            <a class="text-white" href="https://www.instagram.com/smktelbdg/" target="_blank"><i class="bi mx-2 bi-instagram"></i></a>
+                            <a class="text-white" href="https://www.facebook.com/smktelbdg/" target="_blank"><i class="bi mx-2 bi-facebook"></i></a>
+                            <a class="text-white" href="https://twitter.com/smktelbdg" target="_blank"><i class="bi mx-2 bi-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 ml-md-4 ml-0 col-md-6 my-0 my-md-5">
+                    <div class="row">
+                        <div class="col-12 col-md-6 judul" id="bantuan">
+                            <h2 class="judul underline-sm"><b>Bantuan</b></h2>
+                            <div class="mb-2">
+                                <i  class="bi bi-geo "></i><span>Jalan Radio Palasari, Citeureup, Dayeuhkolot, Bandung</span>
+                            </div>
+                            <div class="mb-2">
+                                <i  class="bi bi-whatsapp "></i><span>+62 812-2275-8538</span>
+                            </div>
+                            <div class="mb-2">
+                                <i  class="bi bi-whatsapp "></i><span>+62 812-2308-9612</span>
+                            </div>
+                            <div class="mb-2">
+                                <i  class="bi bi-whatsapp "></i><span>+62 812-2426-8767</span>
+                            </div>
+                            <div class="mb-2">
+                                <i class="bi bi-mailbox"></i><span>primaseru@smktelkom-bdg.sch.id</span>
+                            </div>
+                            <div class="mb-2">
+                                <i  class="bi bi-globe2 "></i><a class="text-white" href="https://smktelkom-bdg.sch.id">SMK Telkom Bandung</a>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3 mt-md-0 col-md-6">
+                            <h2 class="judul underline-sm"><b>Lokasi Kami</b></h2>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.3048050413518!2d107.62461351450054!3d-6.9733203702188105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9abfaadb37f%3A0x7245c560108cfac8!2sSMK%20Telkom%20Bandung!5e0!3m2!1sid!2sid!4v1597902658222!5m2!1sid!2sid"
+                                width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false"
+                                tabindex="0">
+
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-center pt-3">
+            <p class="m-0 text-muted">
+                Copyrights © {% now "Y" %} All rights reserved by IT & Siswa TKJ SMK Telkom Bandung
+            </p>
+        </div>
+        <div class="col-12 text-center text-muted pb-3" style="font-size: 0.9rem">
+<div>Some icons are made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        </div>
+    </footer>
+
+    <!-- <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+{% endblock main %}
+{% block js %}
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="{% static 'homepage/js/home.js' %}"></script>
+    <script type="text/javascript" src="{% static 'homepage/js/timeline.js' %}"></script>
+{% endblock js %}
