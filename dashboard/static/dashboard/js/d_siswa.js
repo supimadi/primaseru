@@ -14,7 +14,6 @@ $(document).ready(() => {
         }
     });
 
-
     $("#updateNameUser").one('click', (e) => {
         let elem = $("#changeNameModal .modal-body");
         $.ajax({

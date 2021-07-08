@@ -1,0 +1,18 @@
+.icon {
+    margin-right: 0.75rem;
+    border-radius: 0.25rem;
+}
+.danger {
+    background: #f4cbcb;
+    color: #f42c2f;
+}
+
+.success {
+    background: #cff4cb;
+    color: #14b505;
+}
+
+.warning {
+    background: #f7e7b9;
+    color: #f4bd18;
+}

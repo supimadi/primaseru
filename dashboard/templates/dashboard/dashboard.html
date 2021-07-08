@@ -162,8 +162,7 @@
                 <div class="modal-body">
                     <form method="POST" id="add-student">
                         {% csrf_token %}
-                        {{ form_r|crispy  }}
-                        {{ form_a|crispy  }}
+                        {% crispy form %}
                     </form>
                 </div>
                 <div class="modal-footer">
