@@ -12,7 +12,7 @@
 {% endblock head %}
 {% block maindash %}
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" >
             <div class="col-12 col-md-7 m-3 p-4 bg-white rounded shadow">
                 {% if not success %}
                 <form id="add-participant" method="POST">
@@ -20,7 +20,7 @@
                     <button type="submit" class="btn btn-outline-success">Submit</button>
                 </form>
                 {% else %}
-                <div class="mx-5 p-3">
+                <div class="mx-5 p-3"  id="kartu-peserta">
                     <h4 class='judul text-center mb-0 font-weight-bold'>
                         Akun Peserta Primaseru
                     </h4>
@@ -31,7 +31,7 @@
                             </svg>
                             <div class="media-body">
                                 <p class="font-weight-bold mb-2">Nama Lengkap</p>
-                                <p class="h5">Lukman Hakim</p>
+                                <p class="h5">{{ full_name  }}</p>
                             </div>
                         </div>
                         <div class="media rounded-lg border my-2 p-3">
@@ -41,7 +41,7 @@
                             </svg>
                             <div class="media-body">
                                 <p class="font-weight-bold mb-2">Nomor Peserta</p>
-                                <p class="h5">221001</p>
+                                <p class="h5">{{ registration_number  }}</p>
                             </div>
                         </div>
                         <div class="media rounded-lg border my-2 p-3">
@@ -51,7 +51,7 @@
                             </svg>
                             <div class="media-body">
                                 <p class="font-weight-bold mb-2">Password</p>
-                                <p class="h5">221001</p>
+                                <p class="h5">{{ password  }}</p>
                             </div>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
         <div class="container py-2 px-0">
             <div class="row justify-content-center">
                 <div class="col-12 p-0 col-md-7">
-                    <button class="btn btn-primary">Tambah Peserta</button>
-                    <button class="btn btn-primary">Screen Shoot</button>
+                    <a class="btn btn-primary" href="{% url 'insert-participant' %}">Tambah Peserta</a>
+                    <button class="btn btn-primary" id="screenshoot">Screen Shoot</button>
                 </div>
             </div>
         </div>
@@ -76,4 +76,5 @@
 {% block js %}
     {{ block.super  }}
     <script src="{% static 'dashboard/js/insert_participant.js' %}" type="text/javascript"></script>
+    <script src="{% static 'dashboard/js/html2canvas.min.js' %}" type="text/javascript"></script>
 {% endblock js %}

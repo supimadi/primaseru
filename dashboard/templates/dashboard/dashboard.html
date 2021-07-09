@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block dashtitle %}
     Dashboard Primaseru <br />
-    <a class="btn btn-light" data-toggle="modal" data-target="#registerModal" href="javascript:void(0)">Tambah Pendaftar</a>
+    <a class="btn btn-light"  href="{% url 'insert-participant' %}">Tambah Pendaftar</a>
 {% endblock dashtitle %}
 {% block head %}
     {{ block.super  }}

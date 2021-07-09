@@ -54,7 +54,7 @@
                                 </li>
                                 {% if user.is_staff %}
                                     <li class="nav-item mx-1">
-                                        <a class="btn btn-block btn-outline-light btn-block" href="">Dashboard</a>
+                                        <a class="btn btn-block btn-outline-light btn-block" href="{% url 'dashboard' %}">Dashboard</a>
                                     </li>
                                 {% else %}
                                     <li class="nav-item mx-1">

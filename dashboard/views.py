@@ -1,50 +1,35 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.contrib.auth.decorators import permission_required
 from django.utils import timezone
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
-from .forms import RegisterStudentForm
+
 from users.models import CustomUser
-from .models import ParticipantCount
+from users.mixins import UserIsStaffMixin
 
-@login_required
+from .forms import RegisterStudentForm, RegisterScheduleForm
+from .models import ParticipantCount, RegisterSchedule
+from .generator import register_number_generator
+
+@permission_required('users.is_staff')
 def dashboard(request):
-
     context = {
         'form': RegisterStudentForm
     }
 
     return render(request, 'dashboard/dashboard.html', context)
 
-def register_number_generator():
-    year_today = timezone.now()
-    year_today.year
-    year_today = [y for y in str(year_today.year)]
-    year_today.remove('0')
-
-    try:
-        obj = ParticipantCount.objects.get(pk=1)
-    except Person.DoesNotExist:
-        obj = ParticipantCount(count='001')
-        obj.save()
-
-    registration_number = "".join(map(str, year_today)) + str(obj.count)
-    obj.count = "{0:03}".format(int(obj.count) + 1)
-    obj.save()
-
-    return registration_number
-
-
+@permission_required('users.is_staff')
 def insert_participant(request):
-
     if request.method == 'POST':
         form = RegisterStudentForm(request.POST)
         if form.is_valid():
             registration_number = register_number_generator()
             form_field = form.save(commit=False)
 
-            user = CustomUser.objects.create_user(registration_number, form.cleaned_data['password'])
             password = form.cleaned_data['password']
+            full_name = form.cleaned_data['full_name']
+            user = CustomUser.objects.create_user(registration_number, password)
 
             form_field.registration_number = registration_number
             form.instance.account = user
@@ -56,11 +41,31 @@ def insert_participant(request):
                 'success': True,
                 'registration_number': registration_number,
                 'password': password,
+                'full_name': full_name,
             }
             return render(request, 'dashboard/insert_participant.html', context)
-
 
     context = {
         'form': RegisterStudentForm,
     }
     return render(request, 'dashboard/insert_participant.html', context)
+
+class RegisterScheduleListView(UserIsStaffMixin, ListView):
+    template_name = 'dashboard/registerschedule_list.html'
+    model = RegisterSchedule
+
+class RegisterScheduleCreateView(UserIsStaffMixin, CreateView):
+    model = RegisterSchedule
+    form_class = RegisterScheduleForm
+    template_name = "dashboard/registerschedule_form.html"
+    success_url = '/d/j/pendaftaran/'
+
+class RegisterSchduleDeleteView(UserIsStaffMixin, DeleteView):
+    model = RegisterSchedule
+    success_url = '/d/j/pendaftaran/'
+
+class RegisterSchduleUpdateView(UserIsStaffMixin, UpdateView):
+    model = RegisterSchedule
+    form_class = RegisterScheduleForm
+    template_name = "dashboard/registerschedule_form.html"
+    success_url = '/d/j/pendaftaran/'
