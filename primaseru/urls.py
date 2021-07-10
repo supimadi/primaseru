@@ -23,6 +23,7 @@ from users.forms import CustomAuthenticationForm
 urlpatterns = [
     path('', include('homepage.urls')),
     path('d/', include('dashboard.urls')),
+    path('p/', include('participant_profile.urls')),
     path('admin/', admin.site.urls),
 
 

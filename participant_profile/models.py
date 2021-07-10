@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from users.models import CustomUser
+
 from PIL import Image
 
 from . import choices
@@ -11,8 +13,9 @@ def user_directory_path(instance, filename):
     return f'berkas_{instance.student.id}_{instance.student.full_name}/{filename}'
 
 class StudentFile(models.Model):
-    # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False, db_index=True)
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
     msg = models.CharField("Pesan", max_length=120, null=True, blank=True)
     ra_sem_1 = models.FileField('Rapor Semester 1', upload_to=user_directory_path, null=True, blank=True)
     ra_sem_2 = models.FileField('Rapor Semester 2', upload_to=user_directory_path, null=True, blank=True)
@@ -29,8 +32,8 @@ class StudentFile(models.Model):
 
 
 class PhotoProfile(models.Model):
-    # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     image = models.ImageField('Photo', default='default_photo.png', upload_to='profile_pics')
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Photo {self.student}'
@@ -47,6 +50,7 @@ class PhotoProfile(models.Model):
 
 class ParticipantProfile(models.Model):
     verified = models.BooleanField('Verifikasi',default=False, db_index=True)
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     sex = models.CharField('Jenis Kelamin', max_length=1, choices=choices.SEX)
     religion = models.CharField('Agama', max_length=3, choices=choices.RELIGION)
@@ -88,6 +92,8 @@ class ParticipantProfile(models.Model):
 class MajorStudent(models.Model):
      # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
      verified = models.BooleanField(default=False, db_index=True)
+     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
      first_major = models.CharField('Pilihan Jurusan Pertama', choices=choices.MAJOR, max_length=4)
      second_major = models.CharField('Pilihan Jurusan Kedua', choices=choices.MAJOR, max_length=4)
      info = models.CharField('Info Primaseru (PPDB)', max_length=3, choices=choices.INFORMATION_PRIMASERU)
@@ -102,7 +108,7 @@ class ProfileParent(models.Model):
     https://docs.djangoproject.com/en/3.1/topics/db/models/#abstract-base-classes
     """
     verified = models.BooleanField('Verifikasi', default=False, db_index=True)
-    # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     full_name = models.CharField('Nama Lengkap', max_length=120, db_index=True)
     city_born = models.CharField('Kota/Kabupaten Kelahiran', max_length=120, help_text="Contoh pengisian tempat lahir: Kab bandung")
     date_born = models.DateField('Tanggal Lahir', null=True)
