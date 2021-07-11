@@ -73,7 +73,7 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
 )
 
 PARENT_FORM_LAYOUT = Layout(
-    Fieldset('Data Orang Tua',
+    Fieldset('Data Pribadi',
         Row(
             Div(Field('full_name', css_class='form-control-sm'), css_class="col-sm-12"),
         ),
@@ -99,27 +99,31 @@ PARENT_FORM_LAYOUT = Layout(
 
 
 FILE_FORM_LAYOUT = Layout(
-    Row(
-        Div('ra_sem_1', css_class='col-md-12')
-    ),
-    Row(
-        Div('ra_sem_2', css_class='col-md-12')
-    ),
-    Row(
-        Div('ra_sem_3', css_class='col-md-12')
-    ),
-    Row(
-        Div('ra_sem_4', css_class='col-md-12')
-    ),
-    Row(
-        Div('ra_sem_5', css_class='col-md-12')
-    ),
-    Row(
-        Div('color_blind_cert', css_class='col-md-12')
-    ),
-    Row(
-        Div('healty_cert', css_class='col-md-12')
-    ),
+    Fieldset("Berkas",
+        Row(
+            Div('ra_sem_1', css_class='col-md-12')
+        ),
+        Row(
+            Div('ra_sem_2', css_class='col-md-12')
+        ),
+        Row(
+            Div('ra_sem_3', css_class='col-md-12')
+        ),
+        Row(
+            Div('ra_sem_4', css_class='col-md-12')
+        ),
+        Row(
+            Div('ra_sem_5', css_class='col-md-12')
+        ),
+        Row(
+            Div('color_blind_cert', css_class='col-md-12')
+        ),
+        Row(
+            Div('healty_cert', css_class='col-md-12')
+        ),
+        css_class=FIELDSET_CLASS
+    )
+
 )
 
 MAJOR_FORM_LAYOUT = Layout(

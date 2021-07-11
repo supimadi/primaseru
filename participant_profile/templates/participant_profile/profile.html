@@ -14,6 +14,9 @@
                 Silahkan memilih {{ name|capfirst }} Anda sesuai minat, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
                 <samp class="text-danger">Jurusan yang sudah dipilih tidak bisa diubah.</samp>
             {% else %}
+                {% if name == 'wali' %}
+                    <p class="p-2 border">Jika tidak mempunyai Wali, boleh dikosongkan.</p>
+                {% endif %}
                 Silahkan melengkapi data {{ name|capfirst }} Anda sesuai kolom yang tersedia, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
                 <samp class="text-danger">Data yang sudah terverifikasi tidak bisa diubah.</samp>
             {% endif %}
@@ -90,7 +93,6 @@ $(form).submit(() => {
         },
         error: (response) => {
             $("#form-body-{{ name }}").empty().html(response.responseJSON.form_s);
-            console.log(response.responseJSON.form_s);
             datePicker();
         },
     });

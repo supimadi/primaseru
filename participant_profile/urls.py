@@ -8,6 +8,7 @@ urlpatterns = [
     path('mother/', views.MotherProfileView.as_view(), name="ajax-mother"),
     path('guardian/', views.GuardianProfileView.as_view(), name="ajax-guardian"),
     path('major/', views.MajorParticipantView.as_view(), name="ajax-major"),
+    path('files/', views.ParticipantFilesView.as_view(), name="ajax-files"),
     # path('add-participant/', views.insert_participant, name="insert-participant"),
 
     # path('j/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),

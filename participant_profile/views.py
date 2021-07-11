@@ -28,8 +28,8 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         # make sure the request came from ajax
-        # if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        #     raise PermissionDenied
+        if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            raise PermissionDenied
 
         try:
             data = self.model.objects.get(participant=request.user)
@@ -44,20 +44,21 @@ class ProfileView(LoginRequiredMixin, View):
 
         try:
             data = self.model.objects.get(participant=request.user)
-            form = self.form_class(request.POST, instance=data)
-
-            if data.verified:
+            if data.is_data_verified(): # when data is validated user cannot edit it
                 return JsonResponse({'success': False}, status=403)
 
-        except self.model.DoesNotExist:
-            form = self.form_class(request.POST)
-            form.save(commit=False)
-            form.instance.participant = request.user
+            form = self.form_class(request.POST, request.FILES or None, instance=data)
+
+        except (self.model.DoesNotExist, ValueError):
+            form = self.form_class(request.POST, request.FILES or None)
 
         ctx = {}
         ctx.update(csrf(request))
 
         if form.is_valid():
+            form.save(commit=False)
+            form.instance.participant = request.user
+
             form.save(commit=True)
             form = render_crispy_form(form, context=ctx)
             return JsonResponse({'success': True, 'form_s': form}, status=200)
@@ -84,3 +85,9 @@ class MajorParticipantView(ProfileView):
     form_class = forms.ParticipantMajorForm
     model = models.MajorStudent
     name = "jurusan"
+
+class ParticipantFilesView(ProfileView):
+    form_class = forms.ParticipantFilesForm
+    model = models.StudentFile
+    template_name = "participant_profile/participant_files.html"
+    name = "berkas"

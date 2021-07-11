@@ -10,7 +10,7 @@ from . import choices
 
 
 def user_directory_path(instance, filename):
-    return f'berkas_{instance.student.id}_{instance.student.full_name}/{filename}'
+    return f'berkas_{instance.participant.username}/{filename}'
 
 class StudentFile(models.Model):
     verified = models.BooleanField(default=False, db_index=True)
@@ -29,6 +29,10 @@ class StudentFile(models.Model):
 
     def __str__(self):
         return f'Raport {self.student}'
+
+    @property
+    def is_data_verified(self):
+        return self.verified
 
 
 class PhotoProfile(models.Model):
@@ -88,6 +92,10 @@ class ParticipantProfile(models.Model):
     def __str__(self):
         return f'{self.id} profile'
 
+    @property
+    def is_data_verified(self):
+        return self.verified
+
 
 class MajorStudent(models.Model):
      # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -101,6 +109,9 @@ class MajorStudent(models.Model):
      def __str__(self):
          return f'{self.student} - {self.first_major}'
 
+     @property
+     def is_data_verified(self):
+         return self.verified
 
 class ProfileParent(models.Model):
     """
@@ -122,8 +133,13 @@ class ProfileParent(models.Model):
     def __str__(self):
         return self.full_name
 
+    @property
+    def is_data_verified(self):
+        return self.verified
+
     class Meta:
         abstract = True
+
 
 class FatherStudentProfile(ProfileParent):
     pass

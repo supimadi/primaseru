@@ -16,7 +16,7 @@ $(document).ready(() => {
         [$("#ibu-form"), "#v-pills-id-ibu-tab", "mother"],
         [$("#wali-form"), "#v-pills-id-wali-tab", "guardian"],
         [$("#jurusan-form"), "#v-pills-major-tab", "major"],
-        [$("#files-form"), "#v-pills-files-tab", "berkas"],
+        [$("#berkas-form"), "#v-pills-files-tab", "files"],
     ];
     for (let a = 0; a < container.length; a++){
         $("#v-pills-tab").one("click", container[a][1], () => {
