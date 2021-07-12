@@ -21,12 +21,12 @@ class ParticipantCount(models.Model):
 class Participant(models.Model):
     full_name = models.CharField(_('Full Name'), max_length=100)
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    registration_number = models.IntegerField(_('Registration Number'), unique=True, db_index=True)
-    participant_phone_number = models.IntegerField(_('Participant Phone Number'))
-    homeroom_teacher_phone_number = models.IntegerField(_('Homeroom Teacher Phone Number'), null=True, blank=True)
+    registration_number = models.CharField(_('Registration Number'), unique=True, db_index=True, max_length=20)
+    participant_phone_number = models.CharField(_('Participant Phone Number'), max_length=15)
+    homeroom_teacher_phone_number = models.CharField(_('Homeroom Teacher Phone Number'), null=True, blank=True, max_length=15)
     parent_full_name = models.CharField(_('Parent Full Name'), max_length=100)
     representative = models.CharField(_('Representative'), max_length=1, choices=REPRESENTATIVE_CHOICES)
-    parent_phone_number = models.IntegerField(_('Parent Phone Number'))
+    parent_phone_number = models.CharField(_('Parent Phone Number'), max_length=15)
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'
@@ -47,3 +47,11 @@ class RegisterSchedule(models.Model):
    @property
    def is_past_date(self):
        return date.today() > self.end_date
+
+
+class RegisterStep(models.Model):
+    step = models.CharField('Langkap Pendaftaran', max_length=100)
+    icon = models.ImageField('Icon', upload_to='register_step_icon')
+
+    def __str__(self):
+        return self.step

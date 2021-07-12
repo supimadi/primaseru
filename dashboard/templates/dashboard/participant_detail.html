@@ -1,0 +1,76 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    {{ block.super  }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <style type="text/css" media="screen">
+     legend {
+         display: inline !important;
+         font-family: 'Source Sans Pro', sans-serif;
+         width: auto !important;
+         max-width: 100%;
+         padding: 0 0.5rem !important;
+         margin-bottom: .5rem;
+         font-size: 1.75rem;
+         line-height: inherit;
+         color: inherit;
+         white-space: normal;
+     }
+    </style>
+{% endblock head %}
+{% block dashtitle %}
+    Detail Profile: <b>{{ participant_name.participant.full_name }}</b>
+{% endblock dashtitle %}
+{% block maindash %}
+    <div class="row">
+        <div class="col-2 col-md-2 mb-3">
+            <div class="list-group mt-4 shadow border-0 sticky-top">
+                <li class="list-group-item">
+                    <img src="" alt="photo-profile" class="img-fluid" />
+                </li>
+                <a href="" class="list-group-item list-group-item-action disabled judul" tabindex="-1" aria-disabled="true"><b>Data Peserta PPDB</b></a>
+                <a href="{% url 'participant-profile' pk %}" class="list-group-item list-group-item-action">Identitas Peserta</a>
+                <a href="{% url 'participant-father' pk %}" class="list-group-item list-group-item-action">Identitas Ayah</a>
+                <a href="{% url 'participant-mother' pk %}" class="list-group-item list-group-item-action">Identitas Ibu</a>
+                <a href="{% url 'participant-guardian' pk %}" class="list-group-item list-group-item-action">Identitas Wali</a>
+                <a href="{% url 'participant-major' pk %}" class="list-group-item list-group-item-action">Jurusan Pilihan</a>
+                <a href="{% url 'participant-files' pk %}" class="list-group-item list-group-item-action">Berkas Siswa</a>
+                <a href="" class="list-group-item list-group-item-action">Akun Ujian</a>
+                <a href="" class="list-group-item list-group-item-action">Pembayaran Daftar Ulang</a>
+            </div>
+        </div>
+        <div class="col bg-white p-3 my-4 mr-3 shadow rounded">
+            <div class="mx-3 p-3 border border-danger rounded" style="background: #fff2f2">
+                <p class="m-0 judul">
+                    {% if text == 'Berkas Peserta' %}
+                        Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
+                        sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
+                        seperti berkas kurang jelas, silahkan ketik di kolom pesan.
+                    {% else %}
+                    Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
+                    sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit.
+                    {% endif %}
+                </p>
+            </div>
+            <form method="POST"
+                  {% if text == 'Berkas Peserta' %}
+                  enctype="multipart/form-data"
+                  {% endif %}
+                  action="">
+                {% crispy form %}
+                {% if is_account %}
+                    <a class="btn btn-outline-primary" href="">Ganti Kata Sandi</a>
+                    <a class="btn btn-outline-danger" href="">Delete Akun</a>
+                {% endif %}
+            </form>
+            {% block files %}{% endblock files %}
+        </div>
+    </div>
+{% endblock maindash %}
+{% block js %}
+    {{ block.super  }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
+{% endblock js %}

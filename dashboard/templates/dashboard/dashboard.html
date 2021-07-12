@@ -32,35 +32,35 @@
     </div>
 
     <div class="row px-2">
-        <div class="col-md-12 py-2 bg-white rounded shadow">
+        <div class="col-md-12 py-3 bg-white rounded border">
             <div class="row">
                 <div class="col">
                     <h3 class="judul">Daftar Calon Murid</h3>
                 </div>
                 <div class="col d-flex justify-content-end align-items-start">
-                    <a class="btn btn-sm btn-outline-danger" href="">Export</a>
+                    <a class="btn btn-sm btn-outline-danger mt-1" href="">Export</a>
                 </div>
             </div>
-            <div class="table-responsive-md">
+            <div class="table-responsive-md mt-2">
                 <table class="table table-hover table-sm">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">No. Peserta</th>
                             <th scope="col" class="w-25">Nama</th>
                             <th scope="col">Jenis Kelamin</th>
-                            <th scope="col">Tempat Lahir</th>
                             <th scope="col">Tanggal Lahir</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for s in siswa %}
+                        {% for s in participant_profile %}
                             <tr>
                                 <th scope="row">{{ forloop.counter  }}</th>
-                                <td><a href="">{{ s.student.full_name|title  }}</a></td>
+                                <td>{{ s.participant.username }}</td>
+                                <td><a href="{% url 'participant-detail' s.participant.pk %}">{{ s.participant.participant.full_name|title  }}</a></td>
                                 <td>{{ s.get_sex_display  }}</td>
-                                <td>{{ s.city_born  }}</td>
                                 <td>{{ s.date_born|date:"d M Y"  }}</td>
                                 <td>
                                     {% if s.student.studentstatus.accepted %}
@@ -148,38 +148,4 @@
         {% endif %}
 
     </div>
-
-    <!-- MODAL -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModal">Tambah Calon Siswa Baru</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" id="add-student">
-                        {% csrf_token %}
-                        {% crispy form %}
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary" form="add-student">Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock maindash %}
-{% block js %}
-    {{ block.super  }}
-    <script type="text/javascript">
-     let formError = {{ form_error  }};
-     if(formError) {
-         $('#registerModal').modal('show');
-     }
-    </script>
-
-{% endblock js %}
