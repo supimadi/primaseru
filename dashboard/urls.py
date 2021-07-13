@@ -13,6 +13,8 @@ urlpatterns = [
     path('langkah/pendaftaran/', views.RegisterStepListView.as_view(), name='register-step'),
     path('langkah/pendaftaran/insert/', views.RegisterStepCreateView.as_view(), name='register-step-create'),
 
+    path('ganti-password/<int:pk>/', views.PasswordChangeViewDashboard.as_view(), name='participant-change-password'),
+
     path('peserta/<int:pk>/', views.ParticipantUpdateView.as_view(), name='participant-detail'),
     path('peserta/profile/<int:pk>/', views.ParticipantProfileView.as_view(), name='participant-profile'),
     path('peserta/ayah/<int:pk>/', views.ParticipantFatherProfileView.as_view(), name='participant-father'),
@@ -20,4 +22,5 @@ urlpatterns = [
     path('peserta/wali/<int:pk>/', views.ParticipantGuardianProfile.as_view(), name='participant-guardian'),
     path('peserta/berkas/<int:pk>/', views.ParticipantFilesView.as_view(), name='participant-files'),
     path('peserta/jurusan/<int:pk>/', views.ParticipantMajorView.as_view(), name='participant-major'),
+    path('peserta/kelulusan/<int:pk>/', views.ParticipantGradiationView.as_view(), name='participant-graduation'),
 ]

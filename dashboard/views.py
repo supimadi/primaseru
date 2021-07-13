@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth.decorators import permission_required
 from django.utils import timezone
 from django.views import View
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.views import PasswordChangeView
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
 
 from . import forms
 
-from .models import ParticipantCount, RegisterSchedule, RegisterStep, Participant
+from .models import (ParticipantCount, RegisterSchedule,
+                     RegisterStep, Participant, ParticipantGraduation)
 from .generator import register_number_generator
 
 from participant_profile.models import (
@@ -65,6 +67,22 @@ def insert_participant(request):
         'form': forms.RegisterStudentForm,
     }
     return render(request, 'dashboard/insert_participant.html', context)
+
+class PasswordChangeViewDashboard(PasswordChangeView):
+    template_name = 'dashboard/participant_detail.html'
+    success_url = 'participant-change-password'
+    form_class = forms.SetPasswordDashboardForm
+    name = 'Password'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        context['text'] = self.name
+        return context
+
+    def get_success_url(self):
+        return reverse(self.success_url, kwargs={'pk': self.kwargs['pk']})
+
 
 # REGISTER SCHEDULE VIEW
 class RegisterScheduleListView(UserIsStaffMixin, ListView):
@@ -181,21 +199,22 @@ class ParticipantUpdateView(ParticipantBaseView):
     model = Participant
     form_class = forms.RegisterStudentFormDashboard
     success_url_name = 'participant-detail'
-    name = 'Peserta'
+    name = 'Akun Peserta'
+    is_account = True
 
 class ParticipantProfileView(ParticipantBaseView):
     model = ParticipantProfile
-    form_class = participant_profile_forms.ParticipantProfileForm
+    form_class = forms.ParticipantProfileDashboardForm
     success_url_name = 'participant-profile'
     name = 'Profile Peserta'
 
-class ParticipantFatherProfileView(ParticipantUpdateView):
+class ParticipantFatherProfileView(ParticipantBaseView):
     model = FatherStudentProfile
     form_class = forms.FatherParticipantDashboardForm
     success_url_name = 'participant-father'
     name = 'Ayah Peserta'
 
-class ParticipantMotherProfileView(ParticipantUpdateView):
+class ParticipantMotherProfileView(ParticipantBaseView):
     model = MotherStudentProfile
     form_class = forms.MotherParticipantDashboardForm
     success_url_name = 'participant-mother'
@@ -218,3 +237,9 @@ class ParticipantMajorView(ParticipantBaseView):
     form_class = forms.ParticipantMajorDashboard
     success_url_name = 'participant-major'
     name = 'Jurusan Pilihan Peserta'
+
+class ParticipantGradiationView(ParticipantBaseView):
+    model = ParticipantGraduation
+    form_class = forms.ParticipantGraduationForm
+    success_url_name = 'participant-graduation'
+    name = 'Kelulusan'

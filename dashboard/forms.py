@@ -1,13 +1,32 @@
 import datetime
 from django import forms
+from django.contrib.auth.forms import SetPasswordForm
 
 from crispy_forms.helper import FormHelper
 
-from .models import Participant, RegisterSchedule, RegisterStep, REPRESENTATIVE_CHOICES
+from .models import Participant, RegisterSchedule, RegisterStep, ParticipantGraduation, REPRESENTATIVE_CHOICES
 from . import forms_layout
 
 from participant_profile import models as participant_models
 
+
+class SetPasswordDashboardForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.SET_PASSWORD_LAYOUT
+
+class ParticipantGraduationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.GRADUATION_FORM_DASHBOARD
+
+    class Meta:
+        model = ParticipantGraduation
+        exclude = ['participant']
 
 class RegisterStudentForm(forms.ModelForm):
     representative = forms.ChoiceField(choices=REPRESENTATIVE_CHOICES, label="")
@@ -50,6 +69,17 @@ class RegisterStepForm(forms.ModelForm):
     class Meta:
         model = RegisterStep
         fields = '__all__'
+
+class ParticipantProfileDashboardForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.PARTICIPANT_PROFILE_LAYOUT_DASHBOARD
+
+    class Meta:
+        model = participant_models.ParticipantProfile
+        exclude = ['participant']
 
 class ParticipantMajorDashboard(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -25,17 +25,19 @@
 {% block maindash %}
     <div class="row">
         <div class="col-2 col-md-2 mb-3">
-            <div class="list-group mt-4 shadow border-0 sticky-top">
+            <div class="list-group mt-4 shadow border-0">
                 <li class="list-group-item">
                     <img src="" alt="photo-profile" class="img-fluid" />
                 </li>
                 <a href="" class="list-group-item list-group-item-action disabled judul" tabindex="-1" aria-disabled="true"><b>Data Peserta PPDB</b></a>
+                <a href="{% url 'participant-detail' pk %}" class="list-group-item list-group-item-action">Akun Peserta</a>
                 <a href="{% url 'participant-profile' pk %}" class="list-group-item list-group-item-action">Identitas Peserta</a>
                 <a href="{% url 'participant-father' pk %}" class="list-group-item list-group-item-action">Identitas Ayah</a>
                 <a href="{% url 'participant-mother' pk %}" class="list-group-item list-group-item-action">Identitas Ibu</a>
                 <a href="{% url 'participant-guardian' pk %}" class="list-group-item list-group-item-action">Identitas Wali</a>
                 <a href="{% url 'participant-major' pk %}" class="list-group-item list-group-item-action">Jurusan Pilihan</a>
                 <a href="{% url 'participant-files' pk %}" class="list-group-item list-group-item-action">Berkas Siswa</a>
+                <a href="{% url 'participant-graduation' pk %}" class="list-group-item list-group-item-action">Kelulusan</a>
                 <a href="" class="list-group-item list-group-item-action">Akun Ujian</a>
                 <a href="" class="list-group-item list-group-item-action">Pembayaran Daftar Ulang</a>
             </div>
@@ -47,6 +49,10 @@
                         Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
                         sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
                         seperti berkas kurang jelas, silahkan ketik di kolom pesan.
+                    {% elif text == 'Akun Peserta' %}
+                        Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan otomatis.
+                    {% elif text == 'Password' %}
+                        Password tidak bisa dilihat. Silahkan masukan password baru pada form yang disediakan.
                     {% else %}
                     Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
                     sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit.
@@ -54,14 +60,16 @@
                 </p>
             </div>
             <form method="POST"
-                  {% if text == 'Berkas Peserta' %}
+                  {% if text == 'Berkas Peserta' or 'Kelulusan' %}
                   enctype="multipart/form-data"
                   {% endif %}
                   action="">
                 {% crispy form %}
                 {% if is_account %}
-                    <a class="btn btn-outline-primary" href="">Ganti Kata Sandi</a>
-                    <a class="btn btn-outline-danger" href="">Delete Akun</a>
+                    <div class="mx-3">
+                        <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
+                        <a class="btn btn-outline-danger" href="">Delete Akun</a>
+                    </div>
                 {% endif %}
             </form>
             {% block files %}{% endblock files %}

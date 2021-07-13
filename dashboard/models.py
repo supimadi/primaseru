@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from users.models import CustomUser
+from participant_profile.choices import MAJOR
 
 
 # PHONE_REGEX = '^(\+[62]{1,2}|0)[0-9]{10,12}\b'
@@ -11,12 +12,21 @@ REPRESENTATIVE_CHOICES = [
     ('W', 'Wali'),
 ]
 
+class ParticipantLMS(models.Model):
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    username = models.CharField('Username', max_length=120)
+    password = models.CharField('Password', max_length=120)
+
+class ParticipantGraduation(models.Model):
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    letter = models.FileField('Surat Kelulusan', null=True, blank=True, upload_to='berkas_kelulusan/')
+    chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR)
+
 class ParticipantCount(models.Model):
     count = models.CharField(max_length=6, db_index=True)
 
     def __str__(self):
         return self.count
-
 
 class Participant(models.Model):
     full_name = models.CharField(_('Full Name'), max_length=100)
@@ -30,7 +40,6 @@ class Participant(models.Model):
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'
-
 
 class RegisterSchedule(models.Model):
    name = models.CharField('Nama Gelombang Pendaftaran', max_length=120)
@@ -47,7 +56,6 @@ class RegisterSchedule(models.Model):
    @property
    def is_past_date(self):
        return date.today() > self.end_date
-
 
 class RegisterStep(models.Model):
     step = models.CharField('Langkap Pendaftaran', max_length=100)
