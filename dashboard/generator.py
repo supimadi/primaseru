@@ -9,7 +9,7 @@ def register_number_generator():
 
     try:
         obj = ParticipantCount.objects.get(pk=1)
-    except Person.DoesNotExist:
+    except ParticipantCount.DoesNotExist:
         obj = ParticipantCount(count='001')
         obj.save()
 

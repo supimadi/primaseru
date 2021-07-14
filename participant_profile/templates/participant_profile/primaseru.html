@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block head %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'dashboard/css/insert_participant.css' %}" type="text/css" media="screen" />
     <style type="text/css" media="screen">
      .min-vh{
          min-height: 50vh;
@@ -89,8 +90,10 @@
                 <a class="nav-link tab-profile" id="v-pills-major-tab" data-toggle="pill" href="#v-pills-major" role="tab" aria-controls="v-pills-major" aria-selected="false">Jurusan</a>
                 <a class="nav-link tab-profile" id="v-pills-files-tab" data-toggle="pill" href="#v-pills-files" role="tab" aria-controls="v-pills-files" aria-selected="false">Berkas</a>
                 <a class="nav-link tab-profile" id="v-pills-exam-tab" data-toggle="pill" href="#v-pills-exam" role="tab" aria-controls="v-pills-exam" aria-selected="false">Akun Ujian</a>
-                <a class="nav-link tab-profile" id="v-pills-exam-tab" data-toggle="pill" href="#v-pills-exam" role="tab" aria-controls="v-pills-exam" aria-selected="false">Pengumuman</a>
-                <a class="nav-link tab-profile" id="v-pills-exam-tab" data-toggle="pill" href="#v-pills-exam" role="tab" aria-controls="v-pills-exam" aria-selected="false">Pembayaran</a>
+                <a class="nav-link tab-profile" id="v-pills-graduation-tab" data-toggle="pill" href="#v-pills-graduation" role="tab" aria-controls="v-pills-graduation" aria-selected="false">Pengumuman</a>
+                {% if kelulusan %}
+                <a class="nav-link tab-profile" id="v-pills-graduation-tab" data-toggle="pill" href="#v-graduation-exam" role="tab" aria-controls="v-pills-graduation" aria-selected="false">Pembayaran</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -142,8 +145,15 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-exam" role="tabpanel" aria-labelledby="v-pills-exam-tab">
-                        <div class="row  rounded py-2 bg-white min-vh border mb-4">
-                            <div class="col-12" id="exam-content">
+                        <div class="row rounded py-2 bg-white min-vh border mb-4">
+                            <div class="col-12" id="lms-content">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-graduation" role="tabpanel" aria-labelledby="v-pills-graduation-tab">
+                        <div class="row rounded py-2 bg-white min-vh border mb-4">
+                            <div class="col-12" id="graduation-content">
 
                             </div>
                         </div>

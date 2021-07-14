@@ -17,6 +17,8 @@ $(document).ready(() => {
         [$("#wali-form"), "#v-pills-id-wali-tab", "guardian"],
         [$("#jurusan-form"), "#v-pills-major-tab", "major"],
         [$("#berkas-form"), "#v-pills-files-tab", "files"],
+        [$("#lms-content"), "#v-pills-exam-tab", "lms"],
+        [$("#graduation-content"), "#v-pills-graduation-tab", "graduation"],
     ];
     for (let a = 0; a < container.length; a++){
         $("#v-pills-tab").one("click", container[a][1], () => {

@@ -55,13 +55,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for s in participant_profile %}
+                        {% for s in participant %}
                             <tr>
                                 <th scope="row">{{ forloop.counter  }}</th>
-                                <td>{{ s.participant.username }}</td>
-                                <td><a href="{% url 'participant-detail' s.participant.pk %}">{{ s.participant.participant.full_name|title  }}</a></td>
-                                <td>{{ s.get_sex_display  }}</td>
-                                <td>{{ s.date_born|date:"d M Y"  }}</td>
+                                <td>{{ s.registration_number }}</td>
+                                <td><a href="{% url 'participant-detail' s.account.pk %}">{{ s.full_name|title  }}</a></td>
+                                <td>{{ s.account.participantprofile.get_sex_display  }}</td>
+                                <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td>
                                 <td>
                                     {% if s.student.studentstatus.accepted %}
                                         <span class="badge badge-success">DITERIMA</span>

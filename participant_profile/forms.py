@@ -79,3 +79,15 @@ class ParticipantFilesForm(forms.ModelForm):
     class Meta:
         model = models.StudentFile
         exclude = ['participant', 'verified', 'msg', 'created_at', 'updated_at']
+
+
+class ParticipantPaymentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.PAYMENT_FORM_LAYOUT
+
+    class Meta:
+        model = models.PaymentUpload
+        exclude = ['participant', 'verified', 'created_at', 'updated_at']

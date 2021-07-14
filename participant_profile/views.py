@@ -8,10 +8,18 @@ from django.template.context_processors import csrf
 from crispy_forms.utils import render_crispy_form
 
 from . import models, forms
+from dashboard.models import ParticipantGraduation
+
+from dashboard.models import ParticipantLMS
 
 
 def index(request):
-    return render(request, 'participant_profile/primaseru.html')
+    try:
+        kelulusan = ParticipantGraduation.objects.get(participant=request.user)
+    except ParticipantGraduation.DoesNotExist:
+        kelulusan = False
+
+    return render(request, 'participant_profile/primaseru.html', {'kelulusan': kelulusan})
 
 class ProfileView(LoginRequiredMixin, View):
     """
@@ -91,3 +99,19 @@ class ParticipantFilesView(ProfileView):
     model = models.StudentFile
     template_name = "participant_profile/participant_files.html"
     name = "berkas"
+
+class ParticipantLMSAccount(LoginRequiredMixin, View):
+    model = ParticipantLMS
+    template_name = "participant_profile/lms_account.html"
+
+    def get(self, request, *args, **kwargs):
+        try:
+            data = self.model.objects.get(participant=request.user)
+        except self.model.DoesNotExist:
+            data = None
+
+        return render(request, self.template_name, {'data': data})
+
+class ParticipantGraduationView(ParticipantLMSAccount):
+    model = ParticipantGraduation
+    template_name = "participant_profile/graduation.html"

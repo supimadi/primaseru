@@ -144,6 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGOUT_REDIRECT_URL = 'homepage'
 LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'profile'
 
 # Set template pack for crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

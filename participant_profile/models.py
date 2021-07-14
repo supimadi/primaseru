@@ -8,7 +8,6 @@ from PIL import Image
 from . import choices
 
 
-
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
 
@@ -34,6 +33,15 @@ class StudentFile(models.Model):
     def is_data_verified(self):
         return self.verified
 
+class PaymentUpload(models.Model):
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    verified = models.BooleanField('Verifikasi', default=False, db_index=True)
+    payment = models.FileField('Upload Bukti Pembayaran', upload_to=user_directory_path)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.participant
 
 class PhotoProfile(models.Model):
     image = models.ImageField('Photo', default='default_photo.png', upload_to='profile_pics')

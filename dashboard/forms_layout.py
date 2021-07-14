@@ -6,8 +6,8 @@ from participant_profile import forms_layout as forms_layout_participant
 
 SET_PASSWORD_LAYOUT = Layout(
     Fieldset('Ganti Password',
-        'new_password1',
-        'new_password2',
+        'password1',
+        'password2',
         css_class="border p-3 rounded m-3 border-primary"
     ),
     Div(
@@ -104,6 +104,7 @@ FILES_FORM_DASHBOARD = Layout(
 GRADUATION_FORM_DASHBOARD = Layout(
     Div(
         'letter',
+        'passed',
         'chose_major',
         css_class="rounded border border-primary p-3 m-3"
     ),
@@ -111,4 +112,29 @@ GRADUATION_FORM_DASHBOARD = Layout(
         Submit('submit', 'Submit'),
         css_class="mx-3"
     )
+)
+
+LMS_FORM_LAYOUT = Layout(
+    Fieldset('Akun Ujian LMS',
+        Div(
+            'username',
+            'password',
+            'schedule',
+            'time',
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
+    Div(
+        Submit('submit', 'Submit'),
+        css_class="mx-3"
+    ),
+)
+
+PAYMENY_FORM_DASHBOARD_LAYOUT = Layout(
+    forms_layout_participant.PAYMENT_FORM_LAYOUT,
+    Div(
+        # Submit('submit', 'Submit'),
+        'verified',
+        css_class="mx-3"
+    ),
 )

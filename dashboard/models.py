@@ -12,15 +12,23 @@ REPRESENTATIVE_CHOICES = [
     ('W', 'Wali'),
 ]
 
+PASSED_CHOICES = [
+    ('L', 'Lulus'),
+    ('TL', 'Tidak Lulus'),
+]
+
 class ParticipantLMS(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField('Username', max_length=120)
     password = models.CharField('Password', max_length=120)
+    schedule = models.DateField('Tanggal')
+    time = models.CharField('Pukul', max_length=6)
 
 class ParticipantGraduation(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    passed = models.CharField('Lulus/Tidak Lulus', max_length=2, choices=PASSED_CHOICES, default='TL')
     letter = models.FileField('Surat Kelulusan', null=True, blank=True, upload_to='berkas_kelulusan/')
-    chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR)
+    chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR, null=True, blank=True)
 
 class ParticipantCount(models.Model):
     count = models.CharField(max_length=6, db_index=True)

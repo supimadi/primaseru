@@ -1,4 +1,4 @@
-from crispy_forms.layout import Layout, Fieldset, Row, Div, HTML, Field
+from crispy_forms.layout import Layout, Fieldset, Row, Div, Field, Submit
 from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup
 
 
@@ -133,4 +133,15 @@ MAJOR_FORM_LAYOUT = Layout(
         Field('info', css_class="custom-select custom-select-sm"),
         css_class=FIELDSET_CLASS
     )
+)
+
+PAYMENT_FORM_LAYOUT = Layout(
+    Fieldset("Unggah Bukti Pembayaran",
+        'payment',
+        css_class=FIELDSET_CLASS
+    ),
+    Div(
+        Submit('submit', 'Submit'),
+        css_class="mx-3"
+    ),
 )

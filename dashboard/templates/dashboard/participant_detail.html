@@ -38,8 +38,8 @@
                 <a href="{% url 'participant-major' pk %}" class="list-group-item list-group-item-action">Jurusan Pilihan</a>
                 <a href="{% url 'participant-files' pk %}" class="list-group-item list-group-item-action">Berkas Siswa</a>
                 <a href="{% url 'participant-graduation' pk %}" class="list-group-item list-group-item-action">Kelulusan</a>
-                <a href="" class="list-group-item list-group-item-action">Akun Ujian</a>
-                <a href="" class="list-group-item list-group-item-action">Pembayaran Daftar Ulang</a>
+                <a href="{% url 'participant-lms' pk %}" class="list-group-item list-group-item-action">Akun Ujian</a>
+                <a href="{% url 'participant-payment' pk %}" class="list-group-item list-group-item-action">Pembayaran Daftar Ulang</a>
             </div>
         </div>
         <div class="col bg-white p-3 my-4 mr-3 shadow rounded">
@@ -60,7 +60,7 @@
                 </p>
             </div>
             <form method="POST"
-                  {% if text == 'Berkas Peserta' or 'Kelulusan' %}
+                  {% if is_media %}
                   enctype="multipart/form-data"
                   {% endif %}
                   action="">

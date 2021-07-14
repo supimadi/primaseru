@@ -23,4 +23,6 @@ urlpatterns = [
     path('peserta/berkas/<int:pk>/', views.ParticipantFilesView.as_view(), name='participant-files'),
     path('peserta/jurusan/<int:pk>/', views.ParticipantMajorView.as_view(), name='participant-major'),
     path('peserta/kelulusan/<int:pk>/', views.ParticipantGradiationView.as_view(), name='participant-graduation'),
+    path('peserta/lms/<int:pk>/', views.ParticipantLMSView.as_view(), name='participant-lms'),
+    path('peserta/pembayaran/<int:pk>/', views.ParticipantPaymentDashboardView.as_view(), name='participant-payment'),
 ]

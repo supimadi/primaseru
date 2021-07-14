@@ -13,24 +13,25 @@ from users.mixins import UserIsStaffMixin
 from . import forms
 
 from .models import (ParticipantCount, RegisterSchedule,
-                     RegisterStep, Participant, ParticipantGraduation)
+                     RegisterStep, Participant, ParticipantGraduation,
+                     ParticipantLMS)
 from .generator import register_number_generator
 
 from participant_profile.models import (
     ParticipantProfile, MotherStudentProfile,
     FatherStudentProfile, StudentGuardianProfile,
-    StudentFile, MajorStudent
+    StudentFile, MajorStudent, PaymentUpload
 )
 from participant_profile import forms as participant_profile_forms
 
 @permission_required('users.is_staff')
 def dashboard(request):
 
-    participant = Participant.objects.all().count()
+    participant = Participant.objects.all()
 
     context = {
         'participant_profile': ParticipantProfile.objects.all(),
-        'total_participant': participant,
+        'participant': participant,
     }
 
     return render(request, 'dashboard/dashboard.html', context)
@@ -68,20 +69,41 @@ def insert_participant(request):
     }
     return render(request, 'dashboard/insert_participant.html', context)
 
-class PasswordChangeViewDashboard(PasswordChangeView):
+class PasswordChangeViewDashboard(UserIsStaffMixin, View):
     template_name = 'dashboard/participant_detail.html'
     success_url = 'participant-change-password'
     form_class = forms.SetPasswordDashboardForm
+    is_verify = False
     name = 'Password'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        context['text'] = self.name
-        return context
-
-    def get_success_url(self):
+    def _get_success_url(self):
         return reverse(self.success_url, kwargs={'pk': self.kwargs['pk']})
+
+    def get(self, request, *args, **kwargs):
+        pk = self.kwargs['pk']
+        user = CustomUser.objects.get(pk=pk)
+
+        context = {
+            'pk': pk,
+            'form': self.form_class(),
+            'is_verify': self.is_verify
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs['pk']
+        user = CustomUser.objects.get(pk=pk)
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            password = form.cleaned_data['password1']
+            print(password)
+            user.set_password(password)
+            return redirect(self._get_success_url())
+
+        print("The Fuck!")
+        return render(request, self.template_name, {'pk': pk, 'form': form, 'is_verify': self.is_verify})
 
 
 # REGISTER SCHEDULE VIEW
@@ -123,6 +145,8 @@ class ParticipantBaseView(UserIsStaffMixin, View):
     template_name = "dashboard/participant_detail.html"
     success_url_name = 'participant-detail'
     is_account = False
+    is_verify = True
+    is_media = False
     name = None
 
     def _get_success_url(self):
@@ -151,6 +175,8 @@ class ParticipantBaseView(UserIsStaffMixin, View):
             'participant_name': CustomUser.objects.get(pk=pk),
             'text': self.name,
             'pk': pk,
+            'is_media': self.is_media,
+            'is_verify': self.is_verify,
         }
         return render(request, self.template_name, context)
 
@@ -192,6 +218,8 @@ class ParticipantBaseView(UserIsStaffMixin, View):
             'participant_name': CustomUser.objects.get(pk=pk),
             'text': self.name,
             'pk': pk,
+            'is_media': self.is_media,
+            'is_verify': self.is_verify,
         }
         return render(request, self.template_name, context)
 
@@ -200,6 +228,7 @@ class ParticipantUpdateView(ParticipantBaseView):
     form_class = forms.RegisterStudentFormDashboard
     success_url_name = 'participant-detail'
     name = 'Akun Peserta'
+    is_verify = True
     is_account = True
 
 class ParticipantProfileView(ParticipantBaseView):
@@ -231,6 +260,8 @@ class ParticipantFilesView(ParticipantBaseView):
     form_class = forms.ParticipantFilesDashboardForm
     success_url_name = 'participant-files'
     name = 'Berkas Peserta'
+    is_verify = True
+    is_media = True
 
 class ParticipantMajorView(ParticipantBaseView):
     model = MajorStudent
@@ -242,4 +273,18 @@ class ParticipantGradiationView(ParticipantBaseView):
     model = ParticipantGraduation
     form_class = forms.ParticipantGraduationForm
     success_url_name = 'participant-graduation'
+    is_media = True
     name = 'Kelulusan'
+
+class ParticipantLMSView(ParticipantBaseView):
+    model = ParticipantLMS
+    form_class = forms.ParticipantLMSAccountForm
+    success_url_name = 'participant-lms'
+    name = 'Akun LMS'
+
+class ParticipantPaymentDashboardView(ParticipantBaseView):
+    model = PaymentUpload
+    form_class = forms.ParticipantPaymentDashboardForm
+    success_url_name = 'participant-payment'
+    name = 'Pembayaran Daftar Ulang'
+    is_media = True

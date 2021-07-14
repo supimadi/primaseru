@@ -1,21 +1,40 @@
 import datetime
 from django import forms
-from django.contrib.auth.forms import SetPasswordForm
+from django.core.exceptions import ValidationError
 
 from crispy_forms.helper import FormHelper
 
-from .models import Participant, RegisterSchedule, RegisterStep, ParticipantGraduation, REPRESENTATIVE_CHOICES
+from .models import (
+    Participant, RegisterSchedule, RegisterStep,
+    ParticipantGraduation, REPRESENTATIVE_CHOICES, ParticipantLMS
+    )
 from . import forms_layout
 
 from participant_profile import models as participant_models
 
 
-class SetPasswordDashboardForm(SetPasswordForm):
+class SetPasswordDashboardForm(forms.Form):
+    password1 = forms.CharField(max_length=120, widget=forms.PasswordInput, label="Password Baru")
+    password2 = forms.CharField(max_length=120, widget=forms.PasswordInput, label="Konfirmasi Password Baru")
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = forms_layout.SET_PASSWORD_LAYOUT
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2:
+            # Only do something if both fields are valid so far.
+            if not password1 == password2:
+                raise ValidationError(
+                    "Password tidak sama. "
+                )
+
 
 class ParticipantGraduationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -123,4 +142,30 @@ class ParticipantFilesDashboardForm(forms.ModelForm):
 
     class Meta:
         model = participant_models.StudentFile
+        exclude = ['participant', 'created_at', 'updated_at']
+
+class ParticipantLMSAccountForm(forms.ModelForm):
+
+    schedule = forms.DateField(help_text="Tanggal dimulai ujian.", label="Tanggal")
+    time = forms.CharField(help_text="Pukul saat ujian dimulai.", label="Pukul")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.LMS_FORM_LAYOUT
+
+    class Meta:
+        model = ParticipantLMS
+        exclude = ['participant']
+
+class ParticipantPaymentDashboardForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.PAYMENY_FORM_DASHBOARD_LAYOUT
+
+    class Meta:
+        model = participant_models.PaymentUpload
         exclude = ['participant', 'created_at', 'updated_at']
