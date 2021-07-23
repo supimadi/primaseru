@@ -20,52 +20,34 @@
     <body class="{% block body-color %}bg-light{% endblock body-color %}">
 
         {% block navbar %}
-            <nav class="navbar sticky-top navbar-expand-lg navbar-light border-0 grad-dark">
+            <!-- NAVBAR -->
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top">
                 <div class="container">
-                    <a class="navbar-brand" href="{% url 'homepage' %}">
-                        <img src="{% static 'homepage/images/smktelbdg.png' %}"  height="30" class="d-inline-block align-top" alt="logo primaseru" loading="lazy">
+                    <a class="navbar-brand" href="#">
+                        <img src="{% static 'homepage/images/logo.png' %}" width="120" alt="logo smk telkom bandung">
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#primaseruNavbar" aria-controls="primaseruNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
                     </button>
-
-                    <div class="collapse navbar-collapse" id="primaseruNavbar">
-                        <ul class="navbar-nav mr-auto border-line">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto align-items-center">
                             <li class="nav-item">
-                                <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="#section-2">Jurusan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#jurusan">Jurusan</a>
+                                <a class="nav-link" href="#section-4">Alur pendaftaran</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#alur-pendaftaran">Alur Pendaftaran</a>
+                                <a class="nav-link" href="#section-5">Berkas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#berkas">Berkas</a>
+                                <a class="nav-link" href="#section-8">Biaya</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#biaya">Biaya</a>
+                                <a class="nav-link my-btn-primary py-2 px-3 text-white" href="pendaftaran.html">Daftar PPDB</a>
                             </li>
-                        </ul>
-                        <ul class="navbar-nav ml-auto">
-                            {% if user.is_authenticated %}
-                                <li class="nav-item mx-1">
-                                    <a class="btn btn-block btn-light btn-block" href="{% url 'logout' %}">Logout</a>
-                                </li>
-                                {% if user.is_staff %}
-                                    <li class="nav-item mx-1">
-                                        <a class="btn btn-block btn-outline-light btn-block" href="{% url 'dashboard' %}">Dashboard</a>
-                                    </li>
-                                {% else %}
-                                    <li class="nav-item mx-1">
-                                        <a class="btn btn-block btn-light btn-block" href="{% url 'profile' %}">Profile</a>
-                                    </li>
-                                {% endif %}
-                            {% else %}
-                                <li class="nav-item">
-                                    <a class="btn btn-block btn-light" href="{% url 'login' %}">Login</a>
-                                </li>
-                            {% endif %}
                         </ul>
                     </div>
                 </div>
