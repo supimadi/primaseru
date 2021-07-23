@@ -1,0 +1,81 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'participant_profile/css/initial.css' %}" type="text/css" media="screen" />
+    <style type="text/css" media="screen">
+     legend {
+         display: inline !important;
+         font-family: 'Source Sans Pro', sans-serif;
+         width: auto !important;
+         max-width: 100%;
+         padding: 0 0.5rem !important;
+         margin-bottom: .5rem;
+         font-size: 1.75rem;
+         line-height: inherit;
+         color: inherit;
+         white-space: normal;
+     }
+    </style>
+{% endblock head %}
+{% block navbar %}{% endblock navbar %}
+{% block main %}
+
+<div class="row" style="display: grid; place-items: center">
+
+    <div class="col col-sm-8 my-3 my-sm-5 p-3 p-sm-1 shadow-sm rounded bg-white">
+        <div class="row py-0 py-sm-3 px-3 px-sm-5 mb-4">
+            <div class="col text-center d-flex align-items-center justify-content-center">
+                <div class="second circle">
+                    <p></p>
+                </div>
+            </div>
+            <div class="col col-sm-9">
+                <p class="pt-3 pb-2 judul font-weight-bold h4">
+                    <span class="rounded px-2 text-white" style="background: #ff0c00" id="step-number">{{ step }}</span> <span id="title-text"></span>
+                </p>
+                <p class="text-muted" id="desc-text">
+                    Silahkan isi kolom
+                </p>
+            </div>
+        </div>
+
+        <div class="row mx-0 mx-sm-3 my-1 my-sm-4">
+            <div class="col">
+                <form method="POST" id="form-initial" {% if last %} action="{% url 'profile' %}" enctype="multipart/form-data" {% else %} action="{% url 'initial-form' %}" {% endif %}>
+                    <div id="form-body" class="border rounded p-3 mb-3">
+                        {% crispy form %}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" form='previous' class="btn btn-block btn-outline-secondary">Sebelumnya</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" form="form-initial" class="btn btn-block btn-danger">Selanjutnya</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style='display: none'>
+    <form method="POST" id="previous">
+        {% csrf_token %}
+        <input type="hidden" name="previous" value="previous" />
+    </form>
+</div>
+
+{% endblock main %}
+{% block js %}
+    <script type="text/javascript">
+     var step = {{ step  }};
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{% static 'participant_profile/js/circle-progress.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'participant_profile/js/initial.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
+{% endblock js %}

@@ -2,11 +2,11 @@ from crispy_forms.layout import Layout, Fieldset, Row, Div, Field, Submit
 from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup
 
 
-FIELDSET_CLASS = "border p-3 rounded m-3 border-primary"
-
-
+# LAYOUT FORMS FOR INITIAL FORM
 PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
-    Fieldset("Data Diri",
+    Div(
+        'step',
+        'model',
         Row(
             Div(Field("sex", css_class='custom-select custom-select-sm'), css_class="col-sm-6"),
             Div(Field('religion', css_class='custom-select custom-select-sm'), css_class="col-sm-6"),
@@ -31,11 +31,14 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
         ),
         Row(
             Div(Field('achievement', css_class='form-control-sm'), css_class="col-sm-12"),
-        ),
-        css_class=FIELDSET_CLASS
+        )#, css_class="border rounded pt-3 px-3",
     ),
+)
 
-    Fieldset("Alamat",
+PARTICIPANT_ADDRESS_LAYOUT = Layout(
+    Div(
+        'step',
+        'model',
         Row(
             Div(Field("resident", css_class='form-control-sm'), css_class="col-sm-6"),
             Div(Field('transport', css_class='form-control-sm'), css_class="col-sm-6"),
@@ -53,13 +56,16 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
             Div(Field("kk_address", css_class='form-control-sm'), css_class="col-sm-6"),
             Div(Field("real_address", css_class='form-control-sm'), css_class="col-sm-6"),
         ),
-        css_class=FIELDSET_CLASS
     ),
+)
 
-    Fieldset('Catatan Kesehatan',
+PARTICIPANT_MEDIC_LAYOUT = Layout(
+    Div(
+        'step',
+        'model',
         Row(
             Div(Field("blood_type", css_class='custom-select custom-select-sm'), css_class="col-sm-6"),
-            Div(Field("in_medicine", css_class='custom-select custom-select-sm'), css_class="col-sm-6"),
+            Div(Field("in_medicine", css_class='form-control-sm'), css_class="col-sm-6"),
         ),
         Row(
             Div(Field("private_doctor", css_class='form-control-sm'), css_class="col-sm-6"),
@@ -68,12 +74,13 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
         Row(
             Div(Field('medic_record', css_class='form-control-sm  auto-size'), css_class="col-sm-12"),
         ),
-        css_class=FIELDSET_CLASS
     )
 )
 
-PARENT_FORM_LAYOUT = Layout(
-    Fieldset('Data Pribadi',
+PARENT_PROFILE_LAYOUT = Layout(
+    Div(
+        'step',
+        'model',
         Row(
             Div(Field('full_name', css_class='form-control-sm'), css_class="col-sm-12"),
         ),
@@ -93,57 +100,15 @@ PARENT_FORM_LAYOUT = Layout(
             Div(Field('email', css_class='form-control-sm'), css_class="col-sm-6"),
             Div(Field('phone', css_class='form-control-sm'), css_class="col-sm-6"),
         ),
-        css_class=FIELDSET_CLASS
     )
 )
 
-
-FILE_FORM_LAYOUT = Layout(
-    Fieldset("Berkas",
-        Row(
-            Div('ra_sem_1', css_class='col-md-12')
-        ),
-        Row(
-            Div('ra_sem_2', css_class='col-md-12')
-        ),
-        Row(
-            Div('ra_sem_3', css_class='col-md-12')
-        ),
-        Row(
-            Div('ra_sem_4', css_class='col-md-12')
-        ),
-        Row(
-            Div('ra_sem_5', css_class='col-md-12')
-        ),
-        Row(
-            Div('color_blind_cert', css_class='col-md-12')
-        ),
-        Row(
-            Div('healty_cert', css_class='col-md-12')
-        ),
-        css_class=FIELDSET_CLASS
-    )
-
-)
-
-MAJOR_FORM_LAYOUT = Layout(
-    Fieldset("Pilihan Jurusan",
+MAJOR_FORM = Layout(
+    Div(
+        'step',
+        'model',
         Field('first_major', css_class="custom-select custom-select-sm"),
         Field('second_major', css_class="custom-select custom-select-sm"),
         Field('info', css_class="custom-select custom-select-sm"),
-        css_class=FIELDSET_CLASS
     )
 )
-
-PAYMENT_FORM_LAYOUT = Layout(
-    Fieldset("Unggah Bukti Pembayaran",
-        'payment',
-        css_class=FIELDSET_CLASS
-    ),
-    Div(
-        Submit('submit', 'Submit'),
-        css_class="mx-3"
-    ),
-)
-
-

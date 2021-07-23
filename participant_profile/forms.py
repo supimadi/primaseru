@@ -11,6 +11,12 @@ DATE_BORN = forms.DateField(label='Tanggal Lahir',initial=datetime.date.today, w
 
 SUBMIT_BUTTON = Submit('submit', 'Submit', css_class="ml-3 mb-0")
 
+
+class PhotoProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.PhotoProfile
+        exclude = ['participant']
+
 class ParticipantProfileForm(forms.ModelForm):
     date_born = DATE_BORN
 

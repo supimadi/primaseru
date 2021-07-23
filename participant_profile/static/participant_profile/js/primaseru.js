@@ -11,20 +11,6 @@ $(document).ready( () => {
         document.forms["photo-profile-form"].submit();
     });
 
-    $("#v-pills-exam-tab").on("click", () => {
-        $.ajax({
-            url: `/exam/`,
-            method: "GET",
-            async: true,
-            beforeSend: () => {
-                $("#exam-content").html(`<div class="m-auto"><span class="spinner-border spinner-border-lg text-danger" role="status" aria-hidden="true"></span></div>`)
-            },
-            success: (data) => {
-                $("#exam-content").empty().html(data);
-            },
-        });
-    });
-
     // TODO Add more name to :
     // full name (done), city_born, education, salary, email, phone
     let tabs = $(".tab-profile");

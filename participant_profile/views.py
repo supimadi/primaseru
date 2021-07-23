@@ -1,25 +1,170 @@
-from django.shortcuts import render
+import datetime
+from django.shortcuts import render, redirect
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.template.context_processors import csrf
+from django.contrib.auth.decorators import login_required
 
 from crispy_forms.utils import render_crispy_form
 
 from . import models, forms
-from dashboard.models import ParticipantGraduation
+from .initial_forms import initial_forms
+from dashboard.models import ParticipantGraduation, ParticipantLMS
 
-from dashboard.models import ParticipantLMS
-
-
+@login_required
 def index(request):
+
+    if request.method == 'POST':
+        try:
+            photo = models.PhotoProfile.objects.get(pk=request.user.pk)
+            form = forms.PhotoProfileForm(request.POST, request.FILES, instance=photo)
+        except Exception:
+            form = forms.PhotoProfileForm(request.POST, request.FILES)
+            form.instance.participant = request.user
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
     try:
         kelulusan = ParticipantGraduation.objects.get(participant=request.user)
     except ParticipantGraduation.DoesNotExist:
         kelulusan = False
 
     return render(request, 'participant_profile/primaseru.html', {'kelulusan': kelulusan})
+
+class InitialFormView(LoginRequiredMixin, View):
+    form_classes = [ # Pairing the form with it model
+        [
+            initial_forms.ParticipantProfileForm,
+            models.ParticipantProfile,
+        ],
+        [
+            initial_forms.ParticipantAddressForm,
+            models.ParticipantProfile,
+        ],
+        [
+            initial_forms.ParticipantMedicalRecord,
+            models.ParticipantProfile,
+        ],
+        [
+            initial_forms.ParticipantParentProfileForm,
+            models.FatherStudentProfile,
+        ],
+        [
+            initial_forms.ParticipantParentProfileForm,
+            models.MotherStudentProfile,
+        ],
+        [
+            initial_forms.ParticipantParentProfileForm,
+            models.StudentGuardianProfile,
+        ],
+        [
+            initial_forms.MajorParticipantForm,
+            models.MajorStudent,
+        ],
+        [
+            initial_forms.PhotoProfile,
+            models.PhotoProfile,
+        ],
+    ]
+    template_name = 'participant_profile/initial_form.html'
+
+    def get(self, request, *args, **kwargs):
+        # Retrive or set a value to session
+        try:
+            step = request.session['step']
+        except KeyError:
+            step = request.session['step'] = 1
+
+        data = request.session.get(f'{step}_data')
+        model = self.form_classes[step-1][1].__name__
+
+        # If user click previous retrive
+        # data from session
+        try:
+           if not 'previous' in data:
+               initial = data
+           else:
+               initial = {'step': step, 'model': model}
+        except Exception:
+               initial = {'step': step, 'model': model}
+
+        last = False
+        if step == len(self.form_classes):
+            last = True
+
+        form =  self.form_classes[step-1][0](initial=initial)
+        return render(request, self.template_name, {'form': form, 'step': step, 'last': last})
+
+    def _save_to_db(self, request):
+        """
+        Save form data from session to database
+        """
+        data = None
+        for model in self.form_classes:
+            if data == request.session[f'{model[1].__name__}_data']:
+                continue
+            data = request.session[f'{model[1].__name__}_data']
+
+            # Delete unnecessary keys and values
+            try:
+                del data['step']
+                del data['model']
+                del data['csrfmiddlewaretoken']
+                data['date_born'] = datetime.datetime.strptime(data['date_born'], '%d/%m/%Y').strftime('%Y-%m-%d')
+            except KeyError:
+                pass
+            # change date format and then save it to db
+            data_model = model[1].objects.create(**data, participant_id=request.user.pk)
+            data_model.save()
+
+    def _previous_form(self, request):
+        """
+        Just decrement step from session
+        """
+        step = request.session['step']
+
+        if step == 1:
+            return
+        else:
+            request.session["step"] -= 1
+
+    def post(self, request, *args, **kwargs):
+        step = request.session['step']
+        if request.POST.get('step'):
+            request.session[f'{step}_data'] = request.POST.dict()
+
+        ctx = {}
+        ctx.update(csrf(request))
+
+        request.session['model'] = request.POST.get('model', None)
+        form =  self.form_classes[step-1][0](request.POST)
+
+        if request.POST.get('previous') == 'previous':
+            self._previous_form(request)
+            return redirect('initial-form')
+
+        if not form.is_valid():
+            return render(request, self.template_name, {'form': form, 'step': step})
+
+        # create session for form data, or append to it when
+        # the model name are the same
+        try:
+            request.session[f'{request.POST["model"]}_data'].update(request.POST.dict())
+        except Exception:
+            request.session[f'{request.POST["model"]}_data'] = request.POST.dict()
+
+        # Check if step already max, save the form data to db
+        if request.session['step'] == len(self.form_classes):
+            self._save_to_db(request)
+            return redirect('profile')
+
+        request.session['step'] += 1
+        return redirect('initial-form')
+
 
 class ProfileView(LoginRequiredMixin, View):
     """
@@ -52,7 +197,7 @@ class ProfileView(LoginRequiredMixin, View):
 
         try:
             data = self.model.objects.get(participant=request.user)
-            if data.is_data_verified(): # when data is validated user cannot edit it
+            if data.verified: # when data is validated user cannot edit it
                 return JsonResponse({'success': False}, status=403)
 
             form = self.form_class(request.POST, request.FILES or None, instance=data)

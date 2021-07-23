@@ -1,0 +1,22 @@
+.circles {
+  margin-bottom: -10px;
+}
+.circle {
+  width: 100px;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  line-height: 1.2;
+}
+.circle canvas {
+  vertical-align: top;
+}
+.circle p {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 1.2rem;
+}
