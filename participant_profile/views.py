@@ -18,7 +18,7 @@ def index(request):
 
     if request.method == 'POST':
         try:
-            photo = models.PhotoProfile.objects.get(pk=request.user.pk)
+            photo = models.PhotoProfile.objects.get(participant=request.user.pk)
             form = forms.PhotoProfileForm(request.POST, request.FILES, instance=photo)
         except Exception:
             form = forms.PhotoProfileForm(request.POST, request.FILES)
@@ -34,6 +34,24 @@ def index(request):
         kelulusan = False
 
     return render(request, 'participant_profile/primaseru.html', {'kelulusan': kelulusan})
+
+@login_required
+def initial_photo(request):
+    form = forms.PhotoProfileForm()
+    if request.method == 'POST':
+        try:
+            photo = models.PhotoProfile.objects.get(participant=request.user.pk)
+            form = forms.PhotoProfileForm(request.POST, request.FILES, instance=photo)
+        except Exception:
+            form = forms.PhotoProfileForm(request.POST, request.FILES)
+            form.instance.participant = request.user
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    return render(request, 'participant_profile/initial_form_photo.html', {'form': form, 'step': 8})
+
 
 class InitialFormView(LoginRequiredMixin, View):
     form_classes = [ # Pairing the form with it model
@@ -65,10 +83,6 @@ class InitialFormView(LoginRequiredMixin, View):
             initial_forms.MajorParticipantForm,
             models.MajorStudent,
         ],
-        [
-            initial_forms.PhotoProfile,
-            models.PhotoProfile,
-        ],
     ]
     template_name = 'participant_profile/initial_form.html'
 
@@ -92,12 +106,8 @@ class InitialFormView(LoginRequiredMixin, View):
         except Exception:
                initial = {'step': step, 'model': model}
 
-        last = False
-        if step == len(self.form_classes):
-            last = True
-
         form =  self.form_classes[step-1][0](initial=initial)
-        return render(request, self.template_name, {'form': form, 'step': step, 'last': last})
+        return render(request, self.template_name, {'form': form, 'step': step})
 
     def _save_to_db(self, request):
         """
@@ -105,6 +115,7 @@ class InitialFormView(LoginRequiredMixin, View):
         """
         data = None
         for model in self.form_classes:
+            # check if the data is the same as before
             if data == request.session[f'{model[1].__name__}_data']:
                 continue
             data = request.session[f'{model[1].__name__}_data']
@@ -118,8 +129,8 @@ class InitialFormView(LoginRequiredMixin, View):
             except KeyError:
                 pass
             # change date format and then save it to db
-            data_model = model[1].objects.create(**data, participant_id=request.user.pk)
-            data_model.save()
+            # data_model = model[1].objects.create(**data, participant_id=request.user.pk)
+            # data_model.save()
 
     def _previous_form(self, request):
         """
@@ -136,9 +147,6 @@ class InitialFormView(LoginRequiredMixin, View):
         step = request.session['step']
         if request.POST.get('step'):
             request.session[f'{step}_data'] = request.POST.dict()
-
-        ctx = {}
-        ctx.update(csrf(request))
 
         request.session['model'] = request.POST.get('model', None)
         form =  self.form_classes[step-1][0](request.POST)
@@ -160,7 +168,7 @@ class InitialFormView(LoginRequiredMixin, View):
         # Check if step already max, save the form data to db
         if request.session['step'] == len(self.form_classes):
             self._save_to_db(request)
-            return redirect('profile')
+            return redirect('initial-photo')
 
         request.session['step'] += 1
         return redirect('initial-form')

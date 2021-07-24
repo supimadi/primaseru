@@ -27,7 +27,7 @@ class StudentFile(models.Model):
     updated_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'Raport {self.student}'
+        return f'Raport {self.participant}'
 
     @property
     def is_data_verified(self):
@@ -115,7 +115,7 @@ class MajorStudent(models.Model):
      info = models.CharField('Info Primaseru (PPDB)', max_length=3, choices=choices.INFORMATION_PRIMASERU)
 
      def __str__(self):
-         return f'{self.student} - {self.first_major}'
+         return f'{self.participant} - {self.first_major}'
 
      @property
      def is_data_verified(self):

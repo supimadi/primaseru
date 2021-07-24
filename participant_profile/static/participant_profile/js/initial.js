@@ -1,11 +1,11 @@
 function updateCircle() {
   $('.second.circle').circleProgress({
-    value: step / 7,
+    value: step / 8,
     fill: {
       gradient: ["red", "orange"]
     }
   }).on('circle-animation-progress', function(event, progress) {
-    $(this).find('p').html(Math.round(step * progress) + '/7');
+    $(this).find('p').html(Math.round(step * progress) + '/8');
   });
 }
 const TITLE_TEXT = [

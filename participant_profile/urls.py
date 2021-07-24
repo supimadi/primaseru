@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name="profile"),
     path('initial/', views.InitialFormView.as_view(), name="initial-form"),
+    path('initial/photo', views.initial_photo, name="initial-photo"),
+
     path('participant/', views.ProfileView.as_view(), name="ajax-participant"),
     path('father/', views.FatherProfileView.as_view(), name="ajax-father"),
     path('mother/', views.MotherProfileView.as_view(), name="ajax-mother"),

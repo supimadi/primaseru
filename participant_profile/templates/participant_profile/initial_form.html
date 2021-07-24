@@ -43,19 +43,21 @@
 
         <div class="row mx-0 mx-sm-3 my-1 my-sm-4">
             <div class="col">
-                <form method="POST" id="form-initial" {% if last %} action="{% url 'profile' %}" enctype="multipart/form-data" {% else %} action="{% url 'initial-form' %}" {% endif %}>
-                    <div id="form-body" class="border rounded p-3 mb-3">
-                        {% crispy form %}
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" form='previous' class="btn btn-block btn-outline-secondary">Sebelumnya</button>
+                {% block form %}
+                    <form method="POST" id="form-initial" action="{% url 'initial-form' %}">
+                        <div id="form-body" class="border rounded p-3 mb-3">
+                            {% crispy form %}
                         </div>
-                        <div class="col">
-                            <button type="submit" form="form-initial" class="btn btn-block btn-danger">Selanjutnya</button>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" form='previous' class="btn btn-block btn-outline-secondary">Sebelumnya</button>
+                            </div>
+                            <div class="col">
+                                <button type="submit" form="form-initial" class="btn btn-block btn-danger">Selanjutnya</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                {% endblock form %}
             </div>
         </div>
     </div>
@@ -71,7 +73,7 @@
 {% endblock main %}
 {% block js %}
     <script type="text/javascript">
-     var step = {{ step  }};
+     var step = {% block step %}{{ step  }}{% endblock step %};
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
