@@ -4,12 +4,15 @@ from django.contrib.auth import authenticate, login
 
 from . import forms
 from users.models import CustomUser
-from dashboard.models import Participant
+from dashboard.models import Participant, RegisterSchedule
 from dashboard.generator import register_number_generator
 
 
 def home(request):
-    return render(request, 'homepage/home.html')
+    ctx = {
+        'schedule': RegisterSchedule.objects.all()
+    }
+    return render(request, 'homepage/home.html', ctx)
 
 def register(request):
     form = forms.UserRegisterForm()
