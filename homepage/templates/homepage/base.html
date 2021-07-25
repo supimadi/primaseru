@@ -1,6 +1,6 @@
 <!doctype html>
 {% load static %}
-<html lang="en">
+<html lang="id">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -23,7 +23,7 @@
             <!-- NAVBAR -->
             <nav class="navbar navbar-expand-lg navbar-light fixed-top">
                 <div class="container">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{% url 'homepage' %}">
                         <img src="{% static 'homepage/images/logo.png' %}" width="120" alt="logo smk telkom bandung">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
                                 <a class="nav-link" href="#section-8">Biaya</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link my-btn-primary py-2 px-3 text-white" href="pendaftaran.html">Daftar PPDB</a>
+                                <a class="nav-link my-btn-primary py-2 px-3 text-white" href="{% url 'register' %}">Daftar PPDB</a>
                             </li>
                         </ul>
                     </div>

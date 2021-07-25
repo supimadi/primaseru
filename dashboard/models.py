@@ -37,14 +37,12 @@ class ParticipantCount(models.Model):
         return self.count
 
 class Participant(models.Model):
-    full_name = models.CharField(_('Full Name'), max_length=100)
+    full_name = models.CharField(_('Nama Lengkap'), max_length=100)
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    registration_number = models.CharField(_('Registration Number'), unique=True, db_index=True, max_length=20)
-    participant_phone_number = models.CharField(_('Participant Phone Number'), max_length=15)
-    homeroom_teacher_phone_number = models.CharField(_('Homeroom Teacher Phone Number'), null=True, blank=True, max_length=15)
-    parent_full_name = models.CharField(_('Parent Full Name'), max_length=100)
-    representative = models.CharField(_('Representative'), max_length=1, choices=REPRESENTATIVE_CHOICES)
-    parent_phone_number = models.CharField(_('Parent Phone Number'), max_length=15)
+    registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20)
+    participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15)
+    homeroom_teacher_phone_number = models.CharField(_('No. HP Wali Kelas'), null=True, blank=True, max_length=15)
+    parent_phone_number = models.CharField(_('No. HP Orang Tua/Wali'), max_length=15)
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'

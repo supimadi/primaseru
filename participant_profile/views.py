@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse, QueryDict
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -53,7 +53,7 @@ def initial_photo(request):
     return render(request, 'participant_profile/initial_form_photo.html', {'form': form, 'step': 8})
 
 
-class InitialFormView(LoginRequiredMixin, View):
+class InitialFormView(UserPassesTestMixin, View):
     form_classes = [ # Pairing the form with it model
         [
             initial_forms.ParticipantProfileForm,
@@ -86,6 +86,15 @@ class InitialFormView(LoginRequiredMixin, View):
     ]
     template_name = 'participant_profile/initial_form.html'
 
+    def test_func(self):
+        try:
+            data = models.MajorStudent.objects.get(participant=self.request.user.pk)
+        except Exception:
+            data = None
+
+        done = self.request.session.get('finish-initial-form', False)
+        return False if data and done else True
+
     def get(self, request, *args, **kwargs):
         # Retrive or set a value to session
         try:
@@ -106,6 +115,13 @@ class InitialFormView(LoginRequiredMixin, View):
         except Exception:
                initial = {'step': step, 'model': model}
 
+        if step == 1:
+            initial.update({
+                'date_born': request.session.get('date_born'),
+                'city_born': request.session.get('place_born'),
+                'school_origin': request.session.get('school'),
+            })
+
         form =  self.form_classes[step-1][0](initial=initial)
         return render(request, self.template_name, {'form': form, 'step': step})
 
@@ -119,6 +135,7 @@ class InitialFormView(LoginRequiredMixin, View):
             if data == request.session[f'{model[1].__name__}_data']:
                 continue
             data = request.session[f'{model[1].__name__}_data']
+            print(data)
 
             # Delete unnecessary keys and values
             try:
@@ -129,8 +146,9 @@ class InitialFormView(LoginRequiredMixin, View):
             except KeyError:
                 pass
             # change date format and then save it to db
-            # data_model = model[1].objects.create(**data, participant_id=request.user.pk)
-            # data_model.save()
+            data_model = model[1].objects.create(**data, participant_id=request.user.pk)
+            data_model.save()
+            request.session['finish-initial-form'] = True
 
     def _previous_form(self, request):
         """
