@@ -30,6 +30,17 @@ p, span, a {
     color: #FFFFFF;
     transition: .3s;
 }
+.my-btn-outline-primary {
+    border: 1px solid #f00;
+    border-radius: 30px;
+    padding: 16px 24px;
+    color: #f00 !important;
+    transition: .3s;
+}
+.my-btn-outline-primary:hover {
+    text-decoration: none;
+    box-shadow: 0 5px 20px rgba(255, 49, 49, 0.4);
+}
 .my-btn-primary:hover {
     color: #EEEEEE;
     text-decoration: none;
