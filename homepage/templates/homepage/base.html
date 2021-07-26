@@ -45,12 +45,18 @@
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="#section-8">Biaya</a>
                             </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link my-btn-outline-primary py-2 px-3 text-white" href="{% url 'login' %}">Login</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link my-btn-primary py-2 px-3 text-white" href="{% url 'register' %}">Daftar PPDB</a>
-                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link my-btn-primary py-2 px-3 text-white" href="{% url 'profile' %}">Profile</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link my-btn-outline-primary py-2 px-3 text-white" href="{% url 'login' %}">Login</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link my-btn-primary py-2 px-3 text-white" href="{% url 'register' %}">Daftar PPDB</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

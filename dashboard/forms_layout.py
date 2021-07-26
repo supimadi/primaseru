@@ -29,7 +29,8 @@ REGISTER_STUDENT_LAYOUT = Layout(
     ),
     Row(
         Div(Field('parent_full_name'), css_class="col-md-12"),
-        Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
+        Div(Field('parent_phone_number'), css_class="col-md-12"),
+        # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
     ),
 )
 
@@ -45,7 +46,8 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
         ),
         Row(
             Div(Field('parent_full_name'), css_class="col-md-12"),
-            Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
+            Div(Field('parent_phone_number'), css_class="col-md-12"),
+            # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
         ),
         Row(
             Div(

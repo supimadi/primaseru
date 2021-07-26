@@ -12,22 +12,22 @@
         <div class="col-md m-2 p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4>
             <br />
-            <h3 class="mb-0 mt-1">{{ jumlah_siswa }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ part_count }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
         <div class="col-md m-2 p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-danger">BELUM TERVERIFIKASI</span>
             <br />
-            <h3 class="mb-0 mt-1">{{ siswa_not_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ not_verified }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
         <div class="col-md m-2  p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-primary">TERVERIFIKASI</span>
             <br />
-            <h3 class="mb-0 mt-1">{{ siswa_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ verified }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
         <div class="col-md m-2  p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-success">DITERIMA/LULUS</span>
             <br />
-            <h3 class="mb-0 mt-1">{{ siswa_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ passed_test }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
     </div>
 
@@ -72,7 +72,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <form method="POST" class="" action="">
+                                    <form method="POST" class="" action="{% url 'delete-participant' s.account.pk %}">
                                         {% csrf_token %}
                                         <div class="dropdown">
                                             <button class="btn btn-danger dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,8 +80,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <input type="submit" value="Delete" class="dropdown-item">
-                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.student.pk }}/change/">Nama dan Email</a>
-                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.student.pk }}/password/">Password</a>
+                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.account.pk }}/password/">Password</a>
                                             </div>
                                         </div>
                                     </form>

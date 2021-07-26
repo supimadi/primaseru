@@ -12,9 +12,11 @@ from users.mixins import UserIsStaffMixin
 
 from . import forms
 
-from .models import (ParticipantCount, RegisterSchedule,
-                     RegisterStep, Participant, ParticipantGraduation,
-                     ParticipantLMS)
+from .models import (
+    ParticipantCount, RegisterSchedule,
+    RegisterStep, Participant, ParticipantGraduation,
+    ParticipantLMS
+)
 from .generator import register_number_generator
 
 from participant_profile.models import (
@@ -24,14 +26,23 @@ from participant_profile.models import (
 )
 from participant_profile import forms as participant_profile_forms
 
+
 @permission_required('users.is_staff')
 def dashboard(request):
 
     participant = Participant.objects.all()
+    profile = ParticipantProfile.objects.all()
+    passed_test = ParticipantGraduation.objects.all().count()
+
+    verified = profile.filter(verified=True).count()
+    not_verified = participant.count() - verified
 
     context = {
-        'participant_profile': ParticipantProfile.objects.all(),
         'participant': participant,
+        'part_count': participant.count(),
+        'not_verified': not_verified,
+        'verified': verified,
+        'passed_test': passed_test,
     }
 
     return render(request, 'dashboard/dashboard.html', context)
@@ -68,6 +79,10 @@ def insert_participant(request):
         'form': forms.RegisterStudentForm,
     }
     return render(request, 'dashboard/insert_participant.html', context)
+
+class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
+    model = CustomUser
+    success_url = reverse_lazy('dashboard')
 
 class PasswordChangeViewDashboard(UserIsStaffMixin, View):
     template_name = 'dashboard/participant_detail.html'

@@ -15,6 +15,11 @@ from dashboard.models import ParticipantGraduation, ParticipantLMS
 
 @login_required
 def index(request):
+    if request.user.is_staff:
+        return redirect('dashboard')
+
+    if not request.session.get('finish-initial-form', False):
+        return redirect('initial-form')
 
     if request.method == 'POST':
         try:

@@ -68,7 +68,10 @@
                 {% if is_account %}
                     <div class="mx-3">
                         <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
-                        <a class="btn btn-outline-danger" href="">Delete Akun</a>
+                        <form method="POST" action="{% url 'delete-participant' pk %}">
+
+                            <button type="submit" class="btn btn-outline-danger">Hapus Akun</button>
+                        </form>
                     </div>
                 {% endif %}
             </form>

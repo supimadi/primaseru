@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.dashboard, name="dashboard"),
     path('add-participant/', views.insert_participant, name="insert-participant"),
+    path('delete-participant/<int:pk>', views.ParticipantDeleteView.as_view(), name="delete-participant"),
 
     path('jadwal/pendaftaran/', views.RegisterScheduleListView.as_view(), name='register-schedule'),
     path('jadwal/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),
