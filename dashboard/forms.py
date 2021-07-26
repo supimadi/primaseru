@@ -48,7 +48,6 @@ class ParticipantGraduationForm(forms.ModelForm):
         exclude = ['participant']
 
 class RegisterStudentForm(forms.ModelForm):
-    representative = forms.ChoiceField(choices=REPRESENTATIVE_CHOICES, label="")
     password = forms.CharField(max_length=100, widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
@@ -62,7 +61,6 @@ class RegisterStudentForm(forms.ModelForm):
         exclude = ['account', 'registration_number']
 
 class RegisterStudentFormDashboard(forms.ModelForm):
-    representative = forms.ChoiceField(choices=REPRESENTATIVE_CHOICES, label="")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

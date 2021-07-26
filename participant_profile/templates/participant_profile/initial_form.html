@@ -52,6 +52,11 @@
                             <div class="col">
                                 <button type="submit" form='previous' class="btn btn-block btn-outline-secondary">Sebelumnya</button>
                             </div>
+                            {% if skipable %}
+                                <div class="col">
+                                    <button type="submit" form="skip" class="btn btn-block btn-outline-danger">Lewati</button>
+                                </div>
+                            {% endif %}
                             <div class="col">
                                 <button type="submit" form="form-initial" class="btn btn-block btn-danger">Selanjutnya</button>
                             </div>
@@ -67,6 +72,10 @@
     <form method="POST" id="previous">
         {% csrf_token %}
         <input type="hidden" name="previous" value="previous" />
+    </form>
+    <form method="POST" action="" id="skip">
+        {% csrf_token %}
+        <input type="hidden" name="skip" value="skip" />
     </form>
 </div>
 

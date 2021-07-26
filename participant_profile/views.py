@@ -110,6 +110,11 @@ class InitialFormView(UserPassesTestMixin, View):
         data = request.session.get(f'{step}_data')
         model = self.form_classes[step-1][1].__name__
 
+        if model == 'StudentGuardianProfile':
+            skipable = True
+        else:
+            skipable = False
+
         # If user click previous retrive
         # data from session
         try:
@@ -128,7 +133,7 @@ class InitialFormView(UserPassesTestMixin, View):
             })
 
         form =  self.form_classes[step-1][0](initial=initial)
-        return render(request, self.template_name, {'form': form, 'step': step})
+        return render(request, self.template_name, {'form': form, 'step': step, 'skipable': skipable})
 
     def _save_to_db(self, request):
         """
@@ -137,10 +142,12 @@ class InitialFormView(UserPassesTestMixin, View):
         data = None
         for model in self.form_classes:
             # check if the data is the same as before
-            if data == request.session[f'{model[1].__name__}_data']:
+            try:
+                if data == request.session[f'{model[1].__name__}_data']:
+                    continue
+                data = request.session[f'{model[1].__name__}_data']
+            except KeyError:
                 continue
-            data = request.session[f'{model[1].__name__}_data']
-            print(data)
 
             # Delete unnecessary keys and values
             try:
@@ -166,6 +173,14 @@ class InitialFormView(UserPassesTestMixin, View):
         else:
             request.session["step"] -= 1
 
+    def _skip_form(self, request):
+        step = request.session['step']
+
+        if step == 1:
+            return
+        else:
+            request.session["step"] += 1
+
     def post(self, request, *args, **kwargs):
         step = request.session['step']
         if request.POST.get('step'):
@@ -176,6 +191,10 @@ class InitialFormView(UserPassesTestMixin, View):
 
         if request.POST.get('previous') == 'previous':
             self._previous_form(request)
+            return redirect('initial-form')
+
+        if request.POST.get('skip') == 'skip':
+            self._skip_form(request)
             return redirect('initial-form')
 
         if not form.is_valid():

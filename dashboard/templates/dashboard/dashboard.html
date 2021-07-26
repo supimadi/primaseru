@@ -80,7 +80,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <input type="submit" value="Delete" class="dropdown-item">
-                                                <a class="dropdown-item" href="/admin/users/customuser/{{ s.account.pk }}/password/">Password</a>
+                                                <a class="dropdown-item" href="{% url 'participant-change-password' s.account.pk %}">Password</a>
                                             </div>
                                         </div>
                                     </form>
