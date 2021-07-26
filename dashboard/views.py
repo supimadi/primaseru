@@ -86,7 +86,7 @@ class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
 
 class PasswordChangeViewDashboard(UserIsStaffMixin, View):
     template_name = 'dashboard/participant_detail.html'
-    success_url = 'participant-change-password'
+    success_url = 'participant-detail'
     form_class = forms.SetPasswordDashboardForm
     is_verify = False
     name = 'Password'
@@ -101,7 +101,8 @@ class PasswordChangeViewDashboard(UserIsStaffMixin, View):
         context = {
             'pk': pk,
             'form': self.form_class(),
-            'is_verify': self.is_verify
+            'is_verify': self.is_verify,
+            'participant_name': CustomUser.objects.get(pk=pk),
         }
 
         return render(request, self.template_name, context)
@@ -113,11 +114,10 @@ class PasswordChangeViewDashboard(UserIsStaffMixin, View):
 
         if form.is_valid():
             password = form.cleaned_data['password1']
-            print(password)
             user.set_password(password)
+            user.save()
             return redirect(self._get_success_url())
 
-        print("The Fuck!")
         return render(request, self.template_name, {'pk': pk, 'form': form, 'is_verify': self.is_verify})
 
 
