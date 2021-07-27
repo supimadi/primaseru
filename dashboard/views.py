@@ -229,6 +229,16 @@ class RegisterStepCreateView(UserIsStaffMixin, CreateView):
     template_name = "dashboard/registerstep_form.html"
     success_url = reverse_lazy('register-step')
 
+class RegisterStepDeleteView(UserIsStaffMixin, DeleteView):
+    model = RegisterStep
+    success_url = reverse_lazy('register-step')
+
+class RegisterStepUpdateView(UserIsStaffMixin, UpdateView):
+    model = RegisterStep
+    form_class = forms.RegisterStepForm
+    template_name = "dashboard/registerstep_form.html"
+    success_url = reverse_lazy('register-step')
+
 # PARTICIPANT PROFILE VIEW
 class ParticipantBaseView(UserIsStaffMixin, View):
     form_class = None

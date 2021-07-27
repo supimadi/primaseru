@@ -21,6 +21,8 @@ urlpatterns = [
 
     path('langkah/pendaftaran/', views.RegisterStepListView.as_view(), name='register-step'),
     path('langkah/pendaftaran/insert/', views.RegisterStepCreateView.as_view(), name='register-step-create'),
+    path('langkah/pendaftaran/delete/<int:pk>', views.RegisterStepDeleteView.as_view(), name='register-step-delete'),
+    path('langkah/pendaftaran/update/<int:pk>', views.RegisterStepUpdateView.as_view(), name='register-step-update'),
 
     path('ganti-password/<int:pk>/', views.PasswordChangeViewDashboard.as_view(), name='participant-change-password'),
 

@@ -66,7 +66,6 @@ class RegisterSchedule(models.Model):
 
 class RegisterStep(models.Model):
     step = models.CharField('Langkap Pendaftaran', max_length=100)
-    icon = models.ImageField('Icon', upload_to='register_step_icon')
 
     def __str__(self):
         return self.step

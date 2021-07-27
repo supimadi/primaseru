@@ -5,7 +5,7 @@
 {% endblock head %}
 {% block dashtitle %}
     Daftar Langkah Pendaftaran <br />
-    <a class="btn btn-light" href="{% url 'register-step-create' %}">Tambah Jadwal</a>
+    <a class="btn btn-light" href="{% url 'register-step-create' %}">Tambah Langkah Pendaftaran</a>
 {% endblock dashtitle %}
 {% block maindash %}
     <div class="row">
@@ -15,9 +15,7 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col" class="w-25">Nama Gelombang Pendaftaran</th>
-                            <th scope="col">Tanggal Mulai</th>
-                            <th scope="col">Tanggal Selesai</th>
+                            <th scope="col">Langkah Pendaftaran</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -25,14 +23,12 @@
                         {% for s in object_list %}
                             <tr>
                                 <th scope="row">{{ forloop.counter  }}</th>
-                                <td>{{ s.name  }}</td>
-                                <td>{{ s.start_date  }}</td>
-                                <td>{{ s.end_date  }}</td>
+                                <td>{{ s.step  }}</td>
                                 <td>
-                                    <form method="POST" class="" action="{% url 'register-schedule-delete' s.pk %}">
+                                    <form method="POST" class="" action="{% url 'register-step-delete' s.pk %}">
                                         {% csrf_token %}
                                         <input type="submit" value="Delete" class="btn btn-outline-primary btn-sm">
-                                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'register-schedule-update' s.pk %}">Edit</a>
+                                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'register-step-update' s.pk %}">Edit</a>
                                     </form>
                                 </td>
                             </tr>
