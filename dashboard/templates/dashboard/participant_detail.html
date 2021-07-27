@@ -27,7 +27,7 @@
         <div class="col-2 col-md-2 mb-3">
             <div class="list-group mt-4 shadow border-0">
                 <li class="list-group-item">
-                    <img src="" alt="photo-profile" class="img-fluid" />
+                    <img src="{{ participant_name.photoprofile.image.url }}" alt="photo-profile" class="img-fluid" />
                 </li>
                 <a href="" class="list-group-item list-group-item-action disabled judul" tabindex="-1" aria-disabled="true"><b>Data Peserta PPDB</b></a>
                 <a href="{% url 'participant-detail' pk %}" class="list-group-item list-group-item-action">Akun Peserta</a>

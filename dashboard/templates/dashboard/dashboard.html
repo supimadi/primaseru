@@ -38,7 +38,7 @@
                     <h3 class="judul">Daftar Calon Murid</h3>
                 </div>
                 <div class="col d-flex justify-content-end align-items-start">
-                    <a class="btn btn-sm btn-outline-danger mt-1" href="">Export</a>
+                    <a class="btn btn-sm btn-outline-danger mt-1" href="{% url 'export-participant' %}">Export</a>
                 </div>
             </div>
             <div class="table-responsive-md mt-2">
@@ -63,9 +63,9 @@
                                 <td>{{ s.account.participantprofile.get_sex_display  }}</td>
                                 <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td>
                                 <td>
-                                    {% if s.student.studentstatus.accepted %}
+                                    {% if s.account.participantgraduation.passed == 'L' %}
                                         <span class="badge badge-success">DITERIMA</span>
-                                    {% elif s.verified %}
+                                    {% elif s.account.participantprofile.verified %}
                                         <span class="badge badge-primary">TERVERIFIKASI</span>
                                     {% else %}
                                         <span class="badge badge-danger">BELUM TERVERIFIKASI</span>
