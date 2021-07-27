@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.utils import timezone
 from django.views import View
 from django.urls import reverse_lazy, reverse
@@ -9,6 +9,10 @@ from django.contrib.auth.views import PasswordChangeView
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
+
+from excel_response import ExcelResponse
+from openpyxl import Workbook
+from openpyxl.writer.excel import save_virtual_workbook
 
 from . import forms
 
@@ -79,6 +83,78 @@ def insert_participant(request):
         'form': forms.RegisterStudentForm,
     }
     return render(request, 'dashboard/insert_participant.html', context)
+
+@permission_required('users.is_staff')
+def export(request):
+    ctx = {
+        'export': [
+            {
+                'title': 'Data Peserta',
+                'link': reverse('export-participant'),
+            },
+            {
+                'title': 'Data Ayah',
+                'link': reverse('export-father'),
+            },
+            {
+                'title': 'Data Ibu',
+                'link': reverse('export-mother'),
+            },
+            {
+                'title': 'Data Wali',
+                'link': reverse('export-guardian'),
+            },
+            {
+                'title': 'Data Jurusan Peserta',
+                'link': reverse('export-major'),
+            },
+        ]
+    }
+    return render(request, 'dashboard/export.html', ctx)
+
+class ExportToExcel(UserIsStaffMixin, View):
+    model = None
+    file_name = 'Data PPDB'
+
+    def post(self, request, *args, **kwargs):
+        PARTICIPANT = list(Participant.objects.values_list('registration_number', 'full_name'))
+        PARTICIPANT_PROFILE = [
+            x for x in self.model.objects.values_list(*[i.name for i in self.model._meta.fields[3:]])
+        ]
+
+        for a in range(1, len(PARTICIPANT)+1):
+            try:
+                PARTICIPANT[a-1] = list(PARTICIPANT[a-1])
+                PARTICIPANT[a-1] += (PARTICIPANT_PROFILE[a-1])
+            except IndexError:
+                continue
+
+        column = ['No. Pendaftaran', 'Nama Lengkap']
+        column += [i.verbose_name for i in self.model._meta.fields[3:]]
+        data = [column]
+
+        data += PARTICIPANT
+        return ExcelResponse(data, self.file_name)
+
+class ExExcelParticipant(ExportToExcel):
+    model = ParticipantProfile
+    file_name = 'Data Peserta PPDB'
+
+class ExExcelFather(ExportToExcel):
+    model = FatherStudentProfile
+    file_name = 'Data Ayah Peserta PPDB'
+
+class ExExcelMother(ExportToExcel):
+    model = MotherStudentProfile
+    file_name = 'Data Ibu Peserta PPDB'
+
+class ExExcelGuardian(ExportToExcel):
+    model = StudentGuardianProfile
+    file_name = 'Data Wali Peserta PPDB'
+
+class ExExcelMajor(ExportToExcel):
+    model = MajorStudent
+    file_name = 'Data Jurusan Pilihan Peserta PPDB'
 
 class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
     model = CustomUser

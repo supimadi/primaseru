@@ -4,7 +4,15 @@ from . import views
 urlpatterns = [
     path('', views.dashboard, name="dashboard"),
     path('add-participant/', views.insert_participant, name="insert-participant"),
+    path('export/', views.export, name="export"),
     path('delete-participant/<int:pk>', views.ParticipantDeleteView.as_view(), name="delete-participant"),
+
+    path('export/participant/', views.ExExcelParticipant.as_view(), name="export-participant"),
+    path('export/ayah/', views.ExExcelFather.as_view(), name="export-father"),
+    path('export/ibu/', views.ExExcelMother.as_view(), name="export-mother"),
+    path('export/wali/', views.ExExcelGuardian.as_view(), name="export-guardian"),
+    path('export/jurusan/', views.ExExcelMajor.as_view(), name="export-major"),
+
 
     path('jadwal/pendaftaran/', views.RegisterScheduleListView.as_view(), name='register-schedule'),
     path('jadwal/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),
