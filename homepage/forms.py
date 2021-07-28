@@ -49,7 +49,11 @@ class ParticipantRegisterForm(forms.Form):
                 Div('date_born', css_class='col-12 col-sm-6 input-group'),
             ),
             Row(
-                Div('school', css_class='col-12 input-group'),
+                Div(
+                    Div(Field('school', autocomplete="off"), css_class=''),
+                    Div(css_class='autocom-box'),
+                    css_class="search-input col-12 input-group"
+                )
             ),
             Row(
                 Div('participant_phone_number', css_class='col-12 input-group'),
