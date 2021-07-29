@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/smkbandung/public_html/primaseru/
+    - /bin/cp -r * $DEPLOYPATH
+    # - /bin/cp index.html $DEPLOYPATH
+    # - /bin/cp style.css $DEPLOYPATH
