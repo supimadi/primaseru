@@ -1,6 +1,12 @@
 const navbar = document.querySelector('.navbar');
 const navToggler = document.querySelector('.navbar-toggler');
 
+// AOS Initzilation
+AOS.init({
+    startEvent: 'DOMContentLoaded',
+    duration: 1000,
+});
+
 document.addEventListener('scroll', ()=> {
     const scrollTop = this.pageYOffset;
     if(scrollTop >= 50){
