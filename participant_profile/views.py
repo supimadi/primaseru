@@ -98,7 +98,7 @@ class InitialFormView(UserPassesTestMixin, View):
             data = None
 
         done = self.request.session.get('finish-initial-form', False)
-        return False if data and done else True
+        return False if data or done else True
 
     def get(self, request, *args, **kwargs):
         # Retrive or set a value to session
