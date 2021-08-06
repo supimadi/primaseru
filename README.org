@@ -6,23 +6,23 @@ Primaseru is [[https://smktelkom-bdg.sch.id/][Vocational High School Telkom Band
 * Set Up
 Before doing any steps, make sure python installed,
 for windows make sure python can be accessed from cmd or powershell (or just install Linux)
-** Indeed, clone this repository
+*** Indeed, clone this repository
 #+BEGIN_SRC shell
 git clone https://github.com/Lukmanhakim112/primaseru
 #+END_SRC
-** Creting a new virtual environment
+*** Creting a new virtual environment
 #+BEGIN_SRC shell
 python -m venv venv
 #+END_SRC
-** Install required packages
+*** Install required packages
 #+BEGIN_SRC shell
 pip install -r requirements.txt
 #+END_SRC
-** Migrate models
+*** Migrate models
 #+BEGIN_SRC shell
 ./manage.py migrate
 #+END_SRC
-** Done
+*** Done
 Test by typing:
 #+BEGIN_SRC shell
 ./manage.py runserver
