@@ -1,7 +1,7 @@
 #+TITLE: Readme
 
 
-Primaseru is [[https:smktelkom-bdg.sch.id][Vocational High School Telkom Bandung]] web app for registering a new student.
+Primaseru is [[https://smktelkom-bdg.sch.id/][Vocational High School Telkom Bandung]] web app for registering a new student.
 
 * Set Up
 Before doing any steps, make sure python installed,
