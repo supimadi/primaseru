@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/smkbandung/public_html/primaseru/
+    - export DEPLOYPATH=/home/smkbandung/python_app/primaseru/
     - /bin/cp -r * $DEPLOYPATH
     # - /bin/cp index.html $DEPLOYPATH
     # - /bin/cp style.css $DEPLOYPATH
