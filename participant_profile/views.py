@@ -1,4 +1,5 @@
 import datetime
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse, QueryDict
@@ -18,7 +19,14 @@ def index(request):
     if request.user.is_staff:
         return redirect('dashboard')
 
-    if not request.session.get('finish-initial-form', False):
+    try:
+        data = models.MajorStudent.objects.get(participant=request.user.pk)
+    except Exception:
+        data = None
+
+    done = request.session.get('finish-initial-form', False)
+
+    if not data or done:
         return redirect('initial-form')
 
     if request.method == 'POST':
@@ -57,8 +65,18 @@ def initial_photo(request):
 
     return render(request, 'participant_profile/initial_form_photo.html', {'form': form, 'step': 8})
 
+@login_required
+def id_card(request):
+    data = models.ParticipantProfile.objects.get(participant=request.user.pk)
+    image = models.PhotoProfile.objects.get(participant=request.user.pk)
 
-class InitialFormView(UserPassesTestMixin, View):
+    return render(request, 'participant_profile/id_card.html', {'data': data, 'image': image})
+
+def upload_files(request):
+    pass
+
+
+class InitialFormView(View):
     form_classes = [ # Pairing the form with it model
         [
             initial_forms.ParticipantProfileForm,
@@ -91,17 +109,26 @@ class InitialFormView(UserPassesTestMixin, View):
     ]
     template_name = 'participant_profile/initial_form.html'
 
-    def test_func(self):
+    # Check if user already filling the form
+    def _check_done(self):
         try:
             data = models.MajorStudent.objects.get(participant=self.request.user.pk)
         except Exception:
             data = None
 
         done = self.request.session.get('finish-initial-form', False)
-        return False if data or done else True
+
+        if data or done:
+            return True
+        else:
+            return False
 
     def get(self, request, *args, **kwargs):
         # Retrive or set a value to session
+
+        if self._check_done():
+            return redirect('profile')
+
         try:
             step = request.session['step']
         except KeyError:

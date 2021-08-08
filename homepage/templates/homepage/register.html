@@ -21,7 +21,7 @@
             <h1 class="heading-section mb-5">Form Pendaftaran PPDB <br><span class="red-text">SMK Telkom Bandung</span></h1>
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <form action="" method="POST">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% crispy form2 %}
                         {% crispy form %}

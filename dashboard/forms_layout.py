@@ -28,10 +28,13 @@ REGISTER_STUDENT_LAYOUT = Layout(
         Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-12"),
     ),
     Row(
-        Div(Field('parent_full_name'), css_class="col-md-12"),
+        # Div(Field('parent_full_name'), css_class="col-md-12"),
         Div(Field('parent_phone_number'), css_class="col-md-12"),
         # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
     ),
+    Row(
+        Div(Field('family_card'), css_class="col-md-12"),
+    )
 )
 
 REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
@@ -45,9 +48,11 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
             Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-12"),
         ),
         Row(
-            Div(Field('parent_full_name'), css_class="col-md-12"),
             Div(Field('parent_phone_number'), css_class="col-md-12"),
             # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
+        ),
+        Row(
+            Div(Field('family_card'), css_class="col-md-12"),
         ),
         Row(
             Div(

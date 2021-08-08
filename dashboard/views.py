@@ -54,7 +54,7 @@ def dashboard(request):
 @permission_required('users.is_staff')
 def insert_participant(request):
     if request.method == 'POST':
-        form = forms.RegisterStudentForm(request.POST)
+        form = forms.RegisterStudentForm(request.POST, request.FILES)
         if form.is_valid():
             registration_number = register_number_generator()
             form_field = form.save(commit=False)
@@ -329,6 +329,7 @@ class ParticipantUpdateView(ParticipantBaseView):
     form_class = forms.RegisterStudentFormDashboard
     success_url_name = 'participant-detail'
     name = 'Akun Peserta'
+    is_media = True
     is_verify = True
     is_account = True
 

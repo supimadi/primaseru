@@ -121,6 +121,12 @@ FILE_FORM_LAYOUT = Layout(
         Row(
             Div('healty_cert', css_class='col-md-12')
         ),
+        Row(
+            Div('birth_cert', css_class='col-md-12')
+        ),
+        Row(
+            Div('good_behave_cert', css_class='col-md-12')
+        ),
         css_class=FIELDSET_CLASS
     )
 

@@ -18,6 +18,9 @@ PASSED_CHOICES = [
     ('TL', 'Tidak Lulus'),
 ]
 
+def user_directory_path(instance, filename):
+    return f'berkas_{instance.account.username}/{filename}'
+
 class ParticipantLMS(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField('Username', max_length=120)
@@ -44,6 +47,7 @@ class Participant(models.Model):
     participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15)
     homeroom_teacher_phone_number = models.CharField(_('No. HP Wali Kelas'), null=True, blank=True, max_length=15)
     parent_phone_number = models.CharField(_('No. HP Orang Tua/Wali'), max_length=15)
+    family_card = models.FileField(_('Kartu Keluarga'), upload_to=user_directory_path, null=True)
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'

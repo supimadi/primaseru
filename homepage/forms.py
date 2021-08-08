@@ -34,6 +34,7 @@ class ParticipantRegisterForm(forms.Form):
     participant_phone_number = forms.CharField(label='No. HP Calon Siswa')
     parent_phone_number = forms.CharField(label='No. HP Orang Tua/Wali')
     homeroom_teacher_phone_number = forms.CharField(label='No. HP Wali Kelas', help_text='Isi dengan nomor hp wali kelas, kelas 9 di SMP.', required=False)
+    family_card = forms.FileField(label='Kartu Keluarga')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -63,5 +64,8 @@ class ParticipantRegisterForm(forms.Form):
             ),
             Row(
                 Div('homeroom_teacher_phone_number', css_class='col-12 input-group'),
+            ),
+            Row(
+                Div('family_card', css_class='col-12 input-group'),
             ),
         )

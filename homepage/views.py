@@ -21,7 +21,7 @@ def register(request):
 
     if request.method == 'POST':
         form = forms.UserRegisterForm(request.POST)
-        form2 = forms.ParticipantRegisterForm(request.POST)
+        form2 = forms.ParticipantRegisterForm(request.POST, request.FILES)
 
         if form.is_valid() and form2.is_valid():
             register_number = register_number_generator()
@@ -44,6 +44,7 @@ def register(request):
                     participant_phone_number=form2.cleaned_data['participant_phone_number'],
                     homeroom_teacher_phone_number=form2.cleaned_data['homeroom_teacher_phone_number'],
                     parent_phone_number=form2.cleaned_data['parent_phone_number'],
+                    family_card=form2.cleaned_data['family_card'],
                 )
                 participant.save()
 

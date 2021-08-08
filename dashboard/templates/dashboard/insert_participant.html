@@ -15,7 +15,7 @@
         <div class="row justify-content-center" >
             <div class="col-12 col-md-7 m-3 p-4 bg-white rounded shadow">
                 {% if not success %}
-                <form id="add-participant" method="POST">
+                <form id="add-participant" method="POST" enctype="multipart/form-data">
                     {% crispy form %}
                     <button type="submit" class="btn btn-outline-success">Submit</button>
                 </form>
