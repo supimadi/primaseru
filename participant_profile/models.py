@@ -68,8 +68,8 @@ class ParticipantProfile(models.Model):
 
     sex = models.CharField('Jenis Kelamin', max_length=1, choices=choices.SEX)
     religion = models.CharField('Agama', max_length=3, choices=choices.RELIGION)
-    city_born = models.CharField('Kota Tempat Lahir', max_length=100, help_text='Contoh: Kabupaten Bandung')
-    date_born = models.DateField('Tanggal Lahir')
+    city_born = models.CharField('Kota Tempat Lahir', max_length=100, help_text='Contoh: Kabupaten Bandung', db_index=True)
+    date_born = models.DateField('Tanggal Lahir', db_index=True)
     social_media = models.CharField('Alamat Sosial Media', max_length=50, help_text='Seperti Instagram atau FB')
     achievement = models.TextField('Penghargaan', null=True, blank=True, help_text='Contoh: Juara 1 Lomba Basket Tingkat Nasional')
 

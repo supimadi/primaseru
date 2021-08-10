@@ -72,9 +72,22 @@ def id_card(request):
 
     return render(request, 'participant_profile/id_card.html', {'data': data, 'image': image})
 
+@login_required
 def upload_files(request):
-    pass
+    try:
+        data = models.StudentFile.objects.get(participant=request.user.pk)
+    except models.StudentFile.DoesNotExist:
+        data = None
 
+    form = forms.ParticipantFilesForm(instance=data)
+    if request.method == 'POST':
+        form = forms.ParticipantFilesForm(request.POST, request.FILES, instance=data)
+
+        if form.is_valid():
+            form.save()
+            return render(request, 'participant_profile/upload_files.html', {'form': form})
+
+    return render(request, 'participant_profile/upload_files.html', {'form': form, 'data': data})
 
 class InitialFormView(View):
     form_classes = [ # Pairing the form with it model

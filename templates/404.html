@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="id">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Oops, Halamnya Tidak Ada...</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style type="text/css" media="screen">
+         .container {
+             display: grid;
+             place-items: center;
+         }
+         .button-container {
+             margin-top: 1rem;
+         }
+         .button-container a, buttton {
+             background: #444;
+             color: #fff;
+             text-decoration: none;
+             padding: 0.5rem;
+             border-radius: 0.2rem;
+         }
+         a:visited {
+             color: #fff;
+         }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img src="{% static 'homepage/images/404.jpg' %}" alt="" />
+            <div class="button-container">
+                <a href="#" onclick="window.history.back()">Kembali</a>
+            </div>
+        </div>
+    </body>
+</html>

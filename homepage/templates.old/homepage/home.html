@@ -1,0 +1,424 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="{% static 'homepage/css/primaseru.css' %}" type="text/css" media="screen" />
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+{% endblock head %}
+{% block container %}
+{% endblock container %}
+{% block body-color %}{% endblock body-color %}
+{% block main %}
+
+    <header class="hero">
+        <div class="container">
+            <div class="row justify-content-center align-items-center text-center text-lg-left">
+                <div class="col-lg-6 col-md-10">
+                    <span class="d-block" data-aos="fade-down">Penerimaan Siswa Baru (PRIMASERU)</span>
+                    <h1 class="font-weight-bold" data-aos="fade-right" data-aos-delay="200">Achieve Your Dream <span class="red-text">With Us</span></h1>
+                    <div data-aos="fade-up" data-aos-delay="400">
+                        <p class="mb-5 mt-3">Sekolah Berbasis Teknologi Informasi dan Komunikasi Terbaik 3 di Jawa Barat Tahun 2019, UNBK Terbaik di Kabupaten Bandung Tahun 2016 dan 2019. Program Asrama, Patriot dan Tahfizh.</p>
+                        <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-10 mt-5 mt-lg-0">
+                    <img loading="lazy" data-aos="fade-left" data-aos-delay="600" class="w-100" src="{% static 'homepage/images/hero-img.jpg' %}" alt="hero image">
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END HERO -->
+    <!-- SECTION 2 -->
+    <section id="section-2">
+        <div class="container">
+            <div class="row justify-content-center align-items-end">
+                <div class="col-lg-6 col-md-10">
+                    <h1 class="heading-section mb-3">Jurusan di SMK Telkom Bandung <span class="red-text">Pilih Passion Kamu!</span></h1>
+                    <p  class="mb-5 mb-lg-0">Sekolah Berbasis Teknologi Informasi dan Komunikasi Terbaik 3 di Jawa Barat Tahun 2019, UNBK Terbaik di Kabupaten Bandung Tahun 2016 dan 2019. Program Asrama, Patriot dan Tahfizh.</p>
+                </div>
+
+                <div class="col-lg-6 col-md-10">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="box-jurusan">
+                                <img loading="lazy" src="{% static 'homepage/images/logo-tjat.png' %}" alt="logo tja">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="box-jurusan">
+                                <img loading="lazy" src="{% static 'homepage/images/logo-tkj.png' %}" alt="logo tkj">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="box-jurusan">
+                                <img loading="lazy" src="{% static 'homepage/images/logo-mm.png' %}" llt="logo mm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 2 -->
+    <!-- SECTION 3 -->
+    <section id="section-3">
+        <div class="container">
+
+            <div class="row align-items-center my-5 py-5 my-lg-4 py-lg-4 justify-content-center">
+                <div class="col-lg-6 col-md-10 order-lg-2 mb-3">
+                    <img loading="lazy" src="{% static 'homepage/images/tjat.jpg' %}" class="w-100" alt="tjat">
+                </div>
+                <div class="col-lg-6 col-md-10 order-lg-1">
+                    <article>
+                        <h2 class="font-weight-bold">Teknik Jaringan Akses Telekomunikasi</h2>
+                        <p>Tau ga bagaimana internet di rumah kalian bisa tersambung? Atau penasaran sama bagaimana gawai kalian tersambung ke internet? Nah, jika kalian masuk Teknik Jaringan Akses Telekomunikasi (TJAT), kalian akan tau bagaimana jaringan dibangun dan dipelihara, mulai dari jaringan akses tembaga sampai fiber optic, dan tak lupa jaringan akses nirkabel juga seperti VSAT.</p>
+                        <p class="fs-md">Materi Keahlian:</p>
+                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
+                            <ul class="mb-0 py-0">
+                                <li>Sistem Telekomunikasi</li>
+                                <li>Jaringan Akses Fiber Optik</li>
+                                <li>Perangkat Terminal Pelanggan</li>
+                            </ul>
+                            <ul class="pt-0">
+                                <li>Jaringan Akses Radio</li>
+                                <li>Jaringan Akses Tembaga</li>
+                                <li>Jaringan Akses Seluler(3G,4G, LTE-A)</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=3Ry_C4pkHsI" target="_blank" class="my-btn-primary ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                            Detail Video
+                        </a>
+                    </article>
+                </div>
+            </div>
+
+            <div class="row align-items-center my-5 py-5 my-lg-4 py-lg-4 my-lg- justify-content-center">
+                <div class="col-lg-6 col-md-10 mb-3">
+                    <img loading="lazy" src="{% static 'homepage/images/tkj.jpg' %}" class="w-100" alt="tkj">
+                </div>
+                <div class="col-lg-6 col-md-10">
+                    <article>
+                        <h2 class="font-weight-bold">Teknik Komputer dan Jaringan</h2>
+                        <p>Jika kalian suka dengan komputer, programing, atau mungkin jaringan komputer, kalian mungkin cocok dengan jurusan Teknik Komputer dan Jaringan (TKJ), disini kalian akan mempelajari tentang komputer, mulai dari hardware, jaringan, sampai software pun akan kalian pelajari.</p>
+                        <p class="fs-md">Materi Keahlian:</p>
+                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
+                            <ul class="mb-0 py-0">
+                                <li>Administrasi Jaringan(LAN-WAN)</li>
+                                <li>Servis Jaringan Komputer</li>
+                                <li>Teknik Komputer(Hardware & Software)</li>
+                            </ul>
+                            <ul class="pt-0">
+                                <li>Instalasi Server & Client</li>
+                                <li>Pemrograman Web & Mobile</li>
+                                <li>Internet of Things(IoT)</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=suJspcDDhQk" target="_blank" class="my-btn-primary ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                            Detail Video
+                        </a>
+                    </article>
+                </div>
+            </div>
+
+            <div class="row align-items-center my-5 py-5 my-lg-4 py-lg-4 my-lg- justify-content-center">
+                <div class="col-lg-6 col-md-10 order-lg-2 mb-3">
+                    <img loading="lazy" src="{% static 'homepage/images/multimedia.jpg' %}" class="w-100" alt="mm">
+                </div>
+                <div class="col-lg-6 col-md-10 order-lg-1">
+                    <article>
+                        <h2 class="font-weight-bold">Multimedia</h2>
+                        <p>Kalian suka menggambar? Atau photo mungkin? Nah kalau kalian suka itu atau yang lainnya seperti animasi, video editing, dan lain - lain, kalian mungkin cocok tuh masuk jurusan Multimedia (MM). Di sini kalian akan belajar photography sampai membuat game loh. Seru banget tuh pasti.</p>
+                        <p class="fs-md">Materi Keahlian:</p>
+                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
+                            <ul class="mb-0 py-0">
+                                <li>Desain Grafis</li>
+                                <li>Pengembangan Web</li>
+                                <li>Multimedia Interaktif</li>
+                            </ul>
+                            <ul class="pt-0">
+                                <li>Animasi 2D dan 3D</li>
+                                <li>Audio and Video Production</li>
+                                <li>Fotografi</li>
+                            </ul>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=2RSx7ikipWA" target="_blank" class="my-btn-primary ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                            Detail Video
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 3 -->
+
+    <!-- SECTION 4 -->
+    <section id="section-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
+                    <h1 class="heading-section mb-3">Bagaimana Cara  Memulai <span class="red-text">Pendaftaran?</span></h1>
+                    <p class="mb-5">Calon siswa akan mengikuti beberapa tahapan yang harus dipenuhi agar semua rangkaian pendaftaran berjalan lancar.</p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-12">
+                    <div class="timeline">
+                        {% for s in step %}
+                        <div class="container-tl {% if forloop.counter|divisibleby:2 %}right {% else %}left text-right{% endif %}">
+                            <h1 class="icon">{{ forloop.counter  }}</h1>
+                            <div class="content">
+                                <h2>{{ s.step  }}</h2>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 4 -->
+    <!-- SECTION 5 -->
+    <section id="section-5">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-7 col-md-10 mx-auto mx-lg-0">
+                    <h1 class="heading-section mb-5">Ayo Mulai Kumpulkan Berkas <span class="red-text">Pendaftarannya!</span></h1>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-5 col-md-10">
+                    <div class="card-berkas card-red-gradient">
+                        <h5>A. Berkas Pendaftaran</h5>
+                        <ul>
+                            <li>Scan Kartu Keluarga</li>
+                        </ul>
+                        <hr class="my-3">
+                        <h5>B. Berkas Daftar Ulang</h5>
+                        <ul>
+                            <li>Surat Kelakuan Baik dari Sekolah Asal</li>
+                            <li>Surat Keterangan Sehat dari Puskesmas, RS atau Klinik</li>
+                            <li>Surat Keterangan Tidak Buta Warna dari Puskesmas, RS atau Klinik</li>
+                            <li>Scan Rapor Semester 1-5</li>
+                            <li>Pas Foto 3x4 sejumlah 4 lembar Latar Merah (Pakai Seragam Sekolah)</li>
+                            <li>Scan Akte Kelahiran</li>
+                            <li>Scan Kartu Keluarga</li>
+                            <li>Scan Ijazah (menyusul)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-10 pl-lg-5 d-none d-lg-block">
+                    <img loading="lazy" src="{% static 'homepage/images/berkas-section.jpg' %}" class="w-100" alt="gambar berkas">
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-5 mb-4">
+                <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
+                    <h2 class="font-weight-bold mb-5">Khusus Buat Kamu yang <span class="red-text">Berprestasi</span></h2>
+                </div>
+            </div>
+            <div class="row align-self-stretch justify-content-center position-relative">
+                <img loading="lazy" src="{% static 'homepage/images/pattern-3.svg' %}" class="pattern-section-5" alt="">
+                <div class="col-lg-6 col-md-10 mb-4 mb-lg-0 ">
+                    <div class="card-berkas card-red-gradient">
+                        <h2>Prestasi (Akademik)</h2>
+                        <ul>
+                            <li>Rata-rata Nilai Rapor Minimal 75 dari semester 1 s.d 5</li>
+                            <li>Mata Pelajaran yang dihitung (B.Indonesia, B.Inggris, Matematika dan IPA)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-10">
+                    <div class="card-berkas card-red-gradient">
+                        <h2>Prestasi (Non Akademik)</h2>
+                        <ul>
+                            <li>Sertifikat Kejuaraan/Lomba Bidang Sains, Seni Budaya, Olahraga (Minimal Peringkat 3 Tingkat Kota/Kabupaten)</li>
+                            <hr>
+                            <li>Sertifikat Tahfizh Minimal 5 Juz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 5 -->
+
+    <!-- SECTION 6 -->
+    <section id="section-6">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
+                    <h1 class="heading-section">Ada Program apa sih di <span class="red-text">SMK Telkom Bandung?</span></h1>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-8 col-md-12">
+                    <div class="card-program my-4">
+                        <img loading="lazy" src="{% static 'homepage/images/asrama.jpg' %}" class="mb-4 mb-md-0 order-md-2" alt="asrama">
+                        <div class="pr-4">
+                            <h3 class="font-weight-bold order-md-1">Asrama</h3>
+                            <p>Buat kamu yang rumahnya jauh, SMK Telkom Bandung menyediakan asrama, dengan program yang menarik, membuat kamu betah buat tinggal.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-12 ml-auto">
+                    <div class="card-program my-4 right">
+                        <img loading="lazy" src="{% static 'homepage/images/tahfidz.jpg' %}" class="mb-4 mb-md-0" alt="tahfidz">
+                        <div class="pl-4">
+                            <h3 class="font-weight-bold">Tahfidz</h3>
+                            <p>Insyaallah, hafalan kamu pasti bertambah, dengan bersekolah di SMK Telkom Bandung. Soalnya kami mempunyai program tahfidz yang sayang buat dilewatkan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 6 -->
+
+    <!-- END SECTION 7 -->
+    <section id="section-7">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="card-red-gradient box-countdown text-center">
+                        {% for s in schedule %}
+                            {% if s.is_ongoing %}
+                                <h1 class="font-weight-bold mb-5">{{ s }} <br> Sedang Dibuka sampai</h1>
+                                <script type="text/javascript">
+                                    var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
+                                </script>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="countdown d-flex justify-content-center">
+                            <div class="flex mx-3 mx-md-4 text-center">
+                                <h1 class="mb-1" id="day">00</h1>
+                                <span>HARI</span>
+                            </div>
+                            <div class="flex mx-3 mx-md-4 text-center">
+                                <h1 class="mb-1" id="hour">00</h1>
+                                <span>JAM</span>
+                            </div>
+                            <div class="flex mx-3 mx-md-4 text-center">
+                                <h1 class="mb-1" id="minute">00</h1>
+                                <span>MENIT</span>
+                            </div>
+                            <div class="flex mx-3 mx-md-4 text-center">
+                                <h1 class="mb-1" id="second">00</h1>
+                                <span>DETIK</span>
+                            </div>
+                        </div>
+                        <!-- Jadwal pendaftaran -->
+                        <div class="timeline-hr">
+                            {% for s in schedule %}
+                            <div class="container-tl-hr">
+                                <div class="content">
+                                    <p>{{ s  }}</p>
+                                    <p><b>{{ s.start_date|date:'d F' }} - {{ s.end_date|date:'d F Y'  }}</b></p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION 7 -->
+    <!-- SECTION 8 -->
+    <section id="section-8">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-md-12 p-4 bg-white wrapper-biaya">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="card-red-gradient text-center card-biaya">
+                                <h2 class="font-weight-bold">Biaya Pendaftaran</h2>
+                                <h1 class="font-weight-bold mb-4">Rp 300.000</h1>
+                                <p>Transfer ke No. Rek Bank Mandiri <br> 131 00 154 128 95 <br> Nofrizal</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center py-5">
+                            <p class="mb-4">Ada potongan Rp. 50.000,- jika menyebarkan informasi PRIMASERU SMK TELKOM BANDUNG ke 10 kontak WA/5 Grup WA atau Posting di Instagram dan Tag 5 Akun IG temannya</p>
+                            <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0 order-lg-2">
+                    <h4>Informasi</h4>
+                    <ul class="p-0">
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                            <p class="pl-2 m-0">Jalan Radio Palasari, Citeureup, Dayeuhkolot, Bandung</p>
+                        </li>
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                            <p class="pl-2 m-0">+62 812-2275-8538</p>
+                        </li>
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                            <p class="pl-2 m-0">+62 812-2308-9612</p>
+                        </li>
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                            <p class="pl-2 m-0">+62 812-2426-8767</p>
+                        </li>
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                            </svg>
+                            <p href="" class="pl-2 m-0">primaseru@smktelkom-bdg.sch.id</p>
+                        </li>
+                        <li class="d-flex my-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+                                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+                            </svg>
+                            <p href="" class="pl-2">https://smktelkom-bdg.sch.id</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 order-lg-3">
+                    <h4>Lokasi Kami</h4>
+                    <iframe class="w-100" height="300" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.304805041355!2d107.62461351436788!3d-6.973320370218472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e9abfaadb37f%3A0x7245c560108cfac8!2sSMK%20Telkom%20Bandung!5e0!3m2!1sid!2sid!4v1626538528846!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-5 mt-lg-0 order-lg-1">
+                    <img loading="lazy" src="{% static 'homepage/images/logo.png' %}" class="img-fluid mb-4" alt="logo smk telkom bandung">
+                    <p>Guiding the Generation Supporting Enhancement of Nation's Competitiveness. Berdiri tahun 2013 dan sudah terakreditasi "A" dengan menghasilkan lulusan yang berkualitas sehingga langsung diserap oleh dunia industri.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- <div>Some Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+{% endblock main %}
+{% block js %}
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script type="text/javascript" src="{% static 'homepage/js/home.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="mx-0 mx-sm-5 py-0 p-sm-3 d-flex justify-content-center"  id="kartu-peserta">
+        <div class="w-100">
+            {% if data.passed == 'L' %}
+            <div class="border rounded p-3" style="background: #f4fff2">
+                <h4 class="judul text-center">Pengumuman Hasil Seleksi</h4>
+                <hr />
+                <p>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Nomor Peserta</td>
+                            <td>:</td>
+                            <td>{{ data.participant.username  }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nama Lengkap</td>
+                            <td>:</td>
+                            <td>{{ data.participant.participant.full_name  }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Lahir</td>
+                            <td>:</td>
+                            <td>{{ data.participant.participantprofile.date_born  }}</td>
+                        </tr>
+                    </table>
+                </p>
+                <p class="judul font-weight-bold">
+                    Selamat! Anda dinyatakan lulus seleksi
+                    Primaseru SMK Telkom Bandung tahun 2021:
+                </p>
+                <p class="border border-success rounded p-3 bg-white">
+                    Program Studi: Teknik Komputer dan Jaringan
+                </p>
+                <div>
+                    <p>
+                        Silahkan unggah berkas yang diperlukan untuk menyelesaikan proses pendaftaran.
+                    </p>
+                <a class="btn btn-block btn-primary" href="{% url 'files' %}">Unggah Berkas</a>
+                {% if data.letter %}
+                <a class="btn btn-block btn-primary" href="{{ data.letter.url  }}">Unggah Berkas</a>
+                {% endif %}
+                </div>
+            </div>
+            {% elif data.passed == 'TL' %}
+            <div class="border rounded p-3" style="background: #fff5f2">
+                <h4 class="judul text-center">Pengumuman Hasil Seleksi</h4>
+                <hr />
+                <p class="border border-danger rounded p-3 bg-white">
+                    Mohon maaf, Anda tidak lulus seleksi Primaseru SMK Telkom Bandung. <br />
+                    Jangan menyerah dan putus asa, masih ada banyak jalan yang bisa ditempuh.
+                </p>
+            </div>
+            {% else %}
+            <div class="border rounded p-3" style="background: #f4fff2">
+                <h4 class="judul text-center">Kelulusan akan diumumkan, minimal satu minggu setelah tes.</h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,18 @@
+{% extends 'participant_profile/initial_form.html' %}
+{% load crispy_forms_tags %}
+{% block form %}
+    <form method="POST" id="form-initial" action="" enctype="multipart/form-data">
+        <div id="form-body" class="border rounded p-3 mb-3">
+            {% crispy form %}
+        </div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-block btn-outline-secondary" href="{% url 'initial-form' %}">Sebelumnya</a>
+            </div>
+            <div class="col">
+                <button type="submit" form="form-initial" class="btn btn-block btn-danger">Selanjutnya</button>
+            </div>
+        </div>
+    </form>
+{% endblock form %}
+{% block step %}{{ step }}{% endblock step %}

@@ -1,0 +1,42 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+{% block head %}
+    {{ block.super  }}
+{% endblock head %}
+{% block dashtitle %}
+    Daftar Langkah Pendaftaran <br />
+    <a class="btn btn-light" href="{% url 'register-step-create' %}">Tambah Langkah Pendaftaran</a>
+{% endblock dashtitle %}
+{% block maindash %}
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive bg-white rounded p-3 mt-4 shadow">
+                <table class="table table-hover table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Langkah Pendaftaran</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in object_list %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter  }}</th>
+                                <td>{{ s.step  }}</td>
+                                <td>
+                                    <form method="POST" class="" action="{% url 'register-step-delete' s.pk %}">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-outline-secondary btn-sm">
+                                        <a class="btn btn-outline-primary btn-sm" href="{% url 'register-step-update' s.pk %}">Edit</a>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock maindash %}

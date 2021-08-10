@@ -1,0 +1,68 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% block navbar %}{% endblock navbar %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'users/css/floating-labels.css' %}" type="text/css" media="screen" />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+{% endblock head %}
+{% block main %}
+    <div class="p-3">
+        <form class="form-signin login-form  rounded p-5 mt-5 mt-sm-4 bg-white shadow" method="POST">
+            {% csrf_token %}
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                </svg>
+            </a>
+            <div class="text-center mb-4">
+                <img src="{% static 'users/images/Sekunder.png'  %}" alt="logo smk telkom bandung" width="125vh" />
+                <h1 class="h3 my-3 font-weight-normal judul">Login Primaseru</h1>
+                <p class="text-muted">Jika belum mempunyai akun atau ingin <b>mendaftar</b> di <b>SMK Telkom Bandung</b> silahkan klik <a href="{% url 'register' %}">disini.</a></p>
+            </div>
+
+            <div class="form-label-group">
+                {% if form.errors %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        Username dan Password tidak valid!
+                    </div>
+                    <p class="text-muted text-center small m-0">Besar kecil huruf berpengaruh.</p>
+                {% endif %}
+            </div>
+
+            <div class="form-label-group">
+                {% if form.username.value %}
+                <input type="text" name="{{ form.username.name }}" id="inputUsername" value="{{ form.username.value }}" class="form-control" placeholder="Nomor Pendaftaran" required autofocus>
+                {% else %}
+                <input type="text" name="{{ form.username.name }}" id="inputUsername" class="form-control" placeholder="Nomor Pendaftaran" required autofocus>
+                {% endif %}
+                <label for="inputUsername">Nomor Pendaftaran</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" name="{{ form.password.name }}" id="inputPassword" class="form-control" placeholder="Kata Sandi" required>
+                <label for="inputPassword">Kata Sandi</label>
+            </div>
+
+            <button class="btn btn-lg btn-danger btn-block login-button" type="submit">Login</button>
+        </form>
+    </div>
+
+{% endblock main %}
+{% block js %}
+    <script src="{% static 'users/js/login.js' %}" type="text/javascript"></script>
+{% endblock js %}

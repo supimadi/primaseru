@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name="profile"),
     path('id-card/', views.id_card, name="id-card"),
+    path('files-upload/', views.upload_files, name="files"),
     path('initial/', views.InitialFormView.as_view(), name="initial-form"),
     path('initial/photo', views.initial_photo, name="initial-photo"),
 

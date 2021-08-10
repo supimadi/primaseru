@@ -30,11 +30,11 @@ class ParticipantRegisterForm(forms.Form):
     full_name = forms.CharField(label='Nama Lengkap', help_text='Isi sesuai dengan akta kelahiran')
     place_born = forms.CharField(label='Tempat Lahir', help_text='Isi sesuai dengan akta kelahiran.')
     date_born = forms.DateField(label='Tanggal Lahir', help_text='Isi sesuai dengan akta kelahiran.')
-    school = forms.CharField(label='Asal Sekolah')
+    school = forms.CharField(label='Asal Sekolah', help_text="Harus sesuai dengan data yang muncul (ketika mengetik nama sekolah).")
     participant_phone_number = forms.CharField(label='No. HP Calon Siswa')
     parent_phone_number = forms.CharField(label='No. HP Orang Tua/Wali')
     homeroom_teacher_phone_number = forms.CharField(label='No. HP Wali Kelas', help_text='Isi dengan nomor hp wali kelas, kelas 9 di SMP.', required=False)
-    family_card = forms.FileField(label='Kartu Keluarga')
+    family_card = forms.FileField(label='Kartu Keluarga', help_text="Scan Kartu Keluarga, dengan jelas dan tidak terpotong.")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

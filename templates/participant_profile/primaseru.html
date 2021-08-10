@@ -1,0 +1,164 @@
+{% extends 'homepage/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'dashboard/css/insert_participant.css' %}" type="text/css" media="screen" />
+    <style type="text/css" media="screen">
+     .min-vh{
+         min-height: 50vh;
+     }
+     .banner {
+         border-radius: 0.25rem;
+         color: #fff;
+         background-color: #FF0000;
+     }
+     .nav .nav-link:hover::after {
+         width: 100%;
+     }
+     #v-pills-tab .nav-link:hover {
+         border-bottom: 2px solid #aaa;
+     }
+     #v-pills-tab .nav-link.active{
+         color: red;
+         border-bottom: 2px solid red;
+         background: #fff;
+     }
+     .card-bg {
+         background-color: #fff2f4;
+         border-color: #ffc9c6;
+     }
+     legend {
+         display: inline !important;
+         font-family: 'Source Sans Pro', sans-serif;
+         width: auto !important;
+         max-width: 100%;
+         padding: 0 0.5rem !important;
+         margin-bottom: .5rem;
+         font-size: 1.75rem;
+         line-height: inherit;
+         color: inherit;
+         white-space: normal;
+     }
+    </style>
+{% endblock head %}
+{% block navbar %}{% endblock navbar %}
+{% block container %}container-fluid{% endblock container %}
+{% block main %}
+
+
+    <div class="row mx-1 mx-sm-4 my-0 my-sm-3 py-2 pt-4">
+        <div class="col-sm-3 text-center mb-1">
+            <img src="{{ user.photoprofile.image.url }}" alt="photo profile" width="175" height="175" />
+        </div>
+        <div class="col-sm-9 mb-1">
+            <h1>{{ user.participant.full_name|title  }} </h1>
+            <h6 class="text-muted">Asal Sekolah: {{ user.participantprofile.school_origin|upper  }}</h6>
+            <h6 class="text-muted">Nomor Peserta: {{ user.participant.registration_number  }}</h6>
+            <form method="POST" enctype="multipart/form-data" id="photo-profile-form" name="photo-profile-form">
+                {% csrf_token %}
+                <div class="custom-file">
+                    <input type="file" accept="image/*" class="custom-file-input" value="{{ form_ph.image.value }}" id="{{ form_ph.image.auto_id }}" name="image">
+                    <label class="custom-file-label" for="{{ form_ph.image.auto_id }}">Upload Photo</label>
+                </div>
+            </form>
+            <a class="btn btn-outline-secondary btn-sm mt-3" href="{% url 'logout' %}">Logout</a>
+            <a class="btn btn-info btn-sm mt-3" href="{% url 'id-card' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                    <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z"/>
+                </svg>
+                Kartu Peserta
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 px-2 px-lg-5 bg-light border-bottom border-top">
+            <div class="nav nav-fill mx-0 mx-lg-5 px-0 px-lg-3" id="v-pills-tab" role="navigation">
+                <a class="nav-link tab-profile active" id="v-pills-identity-tab" data-toggle="pill" href="#v-pills-identity" role="tab" aria-controls="v-pills-identity" aria-selected="true">Identitas Diri</a>
+                <a class="nav-link tab-profile" id="v-pills-id-ayah-tab" data-toggle="pill" href="#v-pills-id-ayah" role="tab" aria-controls="v-pills-id-ayah" aria-selected="false">Identitas Ayah</a>
+                <a class="nav-link tab-profile" id="v-pills-id-ibu-tab" data-toggle="pill" href="#v-pills-id-ibu" role="tab" aria-controls="v-pills-id-ibu" aria-selected="false">Identitas Ibu</a>
+                <a class="nav-link tab-profile" id="v-pills-id-wali-tab" data-toggle="pill" href="#v-pills-id-wali" role="tab" aria-controls="v-pills-id-wali" aria-selected="false">Identitas Wali</a>
+                <a class="nav-link tab-profile" id="v-pills-major-tab" data-toggle="pill" href="#v-pills-major" role="tab" aria-controls="v-pills-major" aria-selected="false">Jurusan</a>
+                <a class="nav-link tab-profile" id="v-pills-exam-tab" data-toggle="pill" href="#v-pills-exam" role="tab" aria-controls="v-pills-exam" aria-selected="false">Akun Ujian</a>
+                <a class="nav-link tab-profile" id="v-pills-graduation-tab" data-toggle="pill" href="#v-pills-graduation" role="tab" aria-controls="v-pills-graduation" aria-selected="false">Pengumuman</a>
+                {% if kelulusan %}
+                    <!-- <a class="nav-link tab-profile" id="v-pills-files-tab" data-toggle="pill" href="#v-pills-files" role="tab" aria-controls="v-pills-files" aria-selected="false">Berkas</a> -->
+                <a class="nav-link tab-profile" id="v-pills-graduation-tab" data-toggle="pill" href="#v-graduation-exam" role="tab" aria-controls="v-pills-graduation" aria-selected="false">Pembayaran</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row bg-light pt-3">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-identity" role="tabpanel" aria-labelledby="v-pills-identity-tab">
+                        <div class="row shadow rounded py-2 bg-white min-vh mb-4">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-participant' %}" id="peserta-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-id-ayah" role="tabpanel" aria-labelledby="v-pills-id-ayah-tab">
+                        <div class="row shadow rounded py-2 bg-white min-vh mb-4" id="father-content">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-father' %}" id="ayah-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-id-ibu" role="tabpanel" aria-labelledby="v-pills-id-ibu-tab">
+                        <div class="row shadow rounded py-2 bg-white min-vh border mb-4" id="mother-content">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-mother' %}" id="ibu-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-id-wali" role="tabpanel" aria-labelledby="v-pills-id-wali-tab">
+                        <div class="row shadow rounded py-2 bg-white min-vh mb-4" id="guardian-content">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-guardian' %}" id="wali-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-major" role="tabpanel" aria-labelledby="v-pills-major-tab">
+                        <div class="row shadow rounded py-2 bg-white min-vh mb-4" id="major-content">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-major' %}" id="jurusan-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-files" role="tabpanel" aria-labelledby="v-pills-files-tab">
+                        <div class="row shadow  rounded py-2 bg-white min-vh mb-4" id="files-content">
+                            <form method="POST" class="col-12 px-3 pt-3" action="{% url 'ajax-files' %}" id="berkas-form">
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-exam" role="tabpanel" aria-labelledby="v-pills-exam-tab">
+                        <div class="row rounded py-2 bg-white min-vh border mb-4">
+                            <div class="col-12" id="lms-content">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-graduation" role="tabpanel" aria-labelledby="v-pills-graduation-tab">
+                        <div class="row rounded py-2 bg-white min-vh border mb-4">
+                            <div class="col-12" id="graduation-content">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock main %}
+{% block js %}
+    <script type="text/javascript" src="{% static 'participant_profile/js/jquery-auto-resize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'participant_profile/js/getFormPrimaseru.js' %}"></script>
+    <script type="text/javascript" src="{% static 'participant_profile/js/primaseru.js' %}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+{% endblock js %}
