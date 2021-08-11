@@ -7,7 +7,7 @@ let linkTag = searchWrapper.querySelector("a");
 let webLink;
 
 async function retriveSchool(search) {
-  let url = `http://localhost:8000/fetch/school/${search}`
+  let url = `${window.location.origin}/fetch/school/${search}`
   const response = await fetch(url, {
     method: 'GET',
   });
