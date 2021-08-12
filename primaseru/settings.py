@@ -47,10 +47,12 @@ INSTALLED_APPS = [
     'participant_profile.apps.ParticipantProfileConfig',
     'homepage.apps.HomepageConfig',
     'dashboard.apps.DashboardConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,6 +155,11 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGOUT_REDIRECT_URL = 'homepage'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
+
+# Cors
+CORS_ALLOWED_ORIGINS = [
+    "https://referensi.data.kemdikbud.go.id",
+]
 
 # Set template pack for crispy_forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
