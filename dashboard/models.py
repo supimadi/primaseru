@@ -46,7 +46,8 @@ class Participant(models.Model):
 
     full_name = models.CharField(_('Nama Lengkap'), max_length=100)
     registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20, null=True)
-    participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15)
+    participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15, unique=True, db_index=True)
+    previous_school = models.CharField(_('Nama Asal Sekolah'), max_length=100, db_index=True, null=True)
 
     parent_phone_number = models.CharField(_('No. HP Orang Tua/Wali'), max_length=15)
     parent_full_name = models.CharField(_('Nama Lengkap Orang Tua'), max_length=100, null=True)

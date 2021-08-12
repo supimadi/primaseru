@@ -4,6 +4,7 @@
 {% block head %}
     {{ block.super  }}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{% static 'css/school-list.css' %}" type="text/css" media="screen" />
     <style type="text/css" media="screen">
      legend {
          display: inline !important;
@@ -85,5 +86,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/schoolList.js' %}"></script>
     <script type="text/javascript" src="{% static 'dashboard/js/participant_detail.js' %}"></script>
 {% endblock js %}

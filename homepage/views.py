@@ -31,9 +31,6 @@ def register(request):
             if user is not None:
                 login(request, user) # Attach user to session
 
-                # Save some data to session
-                request.session['school'] = form2.cleaned_data['school']
-
                 participant = Participant.objects.create(
                     full_name=form2.cleaned_data['full_name'],
                     account=request.user,
@@ -42,6 +39,7 @@ def register(request):
                     bk_teacher_phone_number=form2.cleaned_data['bk_teacher_phone_number'],
                     parent_phone_number=form2.cleaned_data['parent_phone_number'],
                     parent_full_name=form2.cleaned_data['parent_full_name'],
+                    previous_school=form2.cleaned_data['school']
                 )
                 participant.save()
                 return redirect('profile')

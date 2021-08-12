@@ -9,6 +9,7 @@
 {% block head %}
     {{ block.super  }}
     <link rel="stylesheet" href="{% static 'dashboard/css/insert_participant.css' %}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{% static 'css/school-list.css' %}" type="text/css" media="screen" />
 {% endblock head %}
 {% block maindash %}
     <div class="container">
@@ -40,8 +41,8 @@
                                 <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"/>
                             </svg>
                             <div class="media-body">
-                                <p class="font-weight-bold mb-2">Nomor Peserta</p>
-                                <p class="h5">{{ registration_number  }}</p>
+                                <p class="font-weight-bold mb-2">No HP Calon Siswa</p>
+                                <p class="h5">{{ phone_number  }}</p>
                             </div>
                         </div>
                         <div class="media rounded-lg border my-2 p-3">
@@ -77,4 +78,5 @@
     {{ block.super  }}
     <script src="{% static 'dashboard/js/insert_participant.js' %}" type="text/javascript"></script>
     <script src="{% static 'dashboard/js/html2canvas.min.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'js/schoolList.js' %}"></script>
 {% endblock js %}

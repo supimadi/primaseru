@@ -64,14 +64,13 @@ def insert_participant(request):
     if request.method == 'POST':
         form = forms.RegisterStudentForm(request.POST, request.FILES)
         if form.is_valid():
-            registration_number = register_number_generator()
             form_field = form.save(commit=False)
 
             password = form.cleaned_data['password']
             full_name = form.cleaned_data['full_name']
-            user = CustomUser.objects.create_user(registration_number, password)
+            phone_number = form.cleaned_data['participant_phone_number']
+            user = CustomUser.objects.create_user(phone_number, password)
 
-            form_field.registration_number = registration_number
             form.instance.account = user
 
             form.save(commit=True)
@@ -79,8 +78,8 @@ def insert_participant(request):
 
             context = {
                 'success': True,
-                'registration_number': registration_number,
                 'password': password,
+                'phone_number': phone_number,
                 'full_name': full_name,
             }
             return render(request, 'dashboard/insert_participant.html', context)

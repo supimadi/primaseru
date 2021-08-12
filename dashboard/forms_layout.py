@@ -25,15 +25,22 @@ REGISTER_STUDENT_LAYOUT = Layout(
     ),
     Row(
         Div(Field('password'), css_class="col-md-12"),
-        Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-12"),
     ),
     Row(
-        # Div(Field('parent_full_name'), css_class="col-md-12"),
-        Div(Field('parent_phone_number'), css_class="col-md-12"),
+        Div(
+            Div(Field('previous_school', autocomplete="off"), css_class='col-12 p-0'),
+            Div(css_class='autocom-box'),
+            css_class="search-input col-12 input-group"
+        )
+    ),
+    Row(
+        Div(Field('parent_full_name'), css_class="col-md-6"),
+        Div(Field('parent_phone_number'), css_class="col-md-6"),
         # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
     ),
     Row(
-        Div(Field('family_card'), css_class="col-md-12"),
+        Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-6"),
+        Div(Field('bk_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-6"),
     )
 )
 
@@ -43,6 +50,13 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
             Div(Field('full_name'), css_class="col-md-4"),
             Div(Field('registration_number'), css_class="col-md-4"),
             Div(Field('participant_phone_number'), css_class="col-md-4"),
+        ),
+        Row(
+            Div(
+                Div(Field('previous_school', autocomplete="off"), css_class='col-12 p-0'),
+                Div(css_class='autocom-box'),
+                css_class="search-input col-12 input-group"
+            )
         ),
         Row(
             Div(Field('parent_phone_number'), css_class="col-md-6"),
@@ -59,7 +73,7 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
         Row(
             Div(
                 Submit('submit', 'Submit'),
-                HTML('<button type="button" id="generate-registration" class="btn btn-danger">Buat No. Registrasi</button>'),
+                HTML('<button type="button" id="generate-registration" class="btn btn-danger">Buat No. Pendaftaran</button>'),
                 css_class="col-sm-6"
                 ),
         ), css_class="p-3 m-3 border border-primary rounded"
