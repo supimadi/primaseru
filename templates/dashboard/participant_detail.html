@@ -20,7 +20,7 @@
     </style>
 {% endblock head %}
 {% block dashtitle %}
-    Detail Profile: <b>{{ participant_name.participant.full_name }}</b>
+    Detail Profile: <b>{{ participant_name.participant.full_name|capfirst }}</b>
 {% endblock dashtitle %}
 {% block maindash %}
     <div class="row">
@@ -50,7 +50,8 @@
                         sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
                         seperti berkas kurang jelas, silahkan ketik di kolom pesan.
                     {% elif text == 'Akun Peserta' %}
-                        Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan otomatis.
+                        Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan dengan men-click tombol di bawah. Harap diingat,
+                        admin hanya perlu sekali membuat nomor registrasi untuk setiap peserta.
                     {% elif text == 'Password' %}
                         Password tidak bisa dilihat. Silahkan masukan password baru pada form yang disediakan.
                     {% else %}
@@ -84,4 +85,5 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dashboard/js/participant_detail.js' %}"></script>
 {% endblock js %}

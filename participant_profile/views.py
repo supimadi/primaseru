@@ -12,22 +12,16 @@ from crispy_forms.utils import render_crispy_form
 
 from . import models, forms
 from .initial_forms import initial_forms
-from dashboard.models import ParticipantGraduation, ParticipantLMS
+from dashboard.models import ParticipantGraduation, ParticipantLMS, Participant
 
 @login_required
 def index(request):
     if request.user.is_staff:
         return redirect('dashboard')
 
-    try:
-        data = models.MajorStudent.objects.get(participant=request.user.pk)
-    except Exception:
-        data = None
-
-    done = request.session.get('finish-initial-form', False)
-
-    if not data or done:
-        return redirect('initial-form')
+    participant = Participant.objects.get(account=request.user.pk)
+    if not participant.verified:
+        return render(request, 'participant_profile/payment.html')
 
     if request.method == 'POST':
         try:
@@ -334,6 +328,12 @@ class ParticipantFilesView(ProfileView):
     model = models.StudentFile
     template_name = "participant_profile/participant_files.html"
     name = "berkas"
+
+class ParticipantKKView(ProfileView):
+    form_class = forms.ParticipantKKForm
+    model = models.StudentFile
+    template_name = "participant_profile/participant_files.html"
+    name = "KK"
 
 class ParticipantLMSAccount(LoginRequiredMixin, View):
     model = ParticipantLMS

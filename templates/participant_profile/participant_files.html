@@ -3,18 +3,12 @@
     <div class="card-body">
         <h5 class="card-title">Unggah {{ name|capfirst  }}</h5>
         <p class="card-text">
-            Silahkan Mengunggah {{ name }} sesuai kolom yang tersedua, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
-            <samp class="text-danger">Berkas yang sudah terverifikasi tidak bisa diubah.</samp>
+            Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan scan terhadap file yang akan di unggah, supaya jelas terlihat.
         </p>
         {% if data.msg %}
         <div class="alert alert-danger" role="alert">
             {{ data.msg  }}
         </div>
-        {% endif %}
-        {% if data.verified %}
-        Status : <span class="badge badge-success">Terverifikasi</span>
-        {% else %}
-        Status : <span class="badge badge-warning">Belum Terverifikasi</span>
         {% endif %}
     </div>
 </div>

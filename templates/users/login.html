@@ -38,7 +38,7 @@
             <div class="form-label-group">
                 {% if form.errors %}
                     <div class="alert alert-danger text-center" role="alert">
-                        Username dan Password tidak valid!
+                        Nomor HP dan Password tidak valid!
                     </div>
                     <p class="text-muted text-center small m-0">Besar kecil huruf berpengaruh.</p>
                 {% endif %}
@@ -48,9 +48,9 @@
                 {% if form.username.value %}
                 <input type="text" name="{{ form.username.name }}" id="inputUsername" value="{{ form.username.value }}" class="form-control" placeholder="Nomor Pendaftaran" required autofocus>
                 {% else %}
-                <input type="text" name="{{ form.username.name }}" id="inputUsername" class="form-control" placeholder="Nomor Pendaftaran" required autofocus>
+                <input type="text" name="{{ form.username.name }}" id="inputUsername" class="form-control" placeholder="Nomor HP" required autofocus>
                 {% endif %}
-                <label for="inputUsername">Nomor Pendaftaran</label>
+                <label for="inputUsername">Nomor HP</label>
             </div>
 
             <div class="form-label-group">

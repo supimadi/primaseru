@@ -5,8 +5,8 @@ urlpatterns = [
     path('', views.index, name="profile"),
     path('id-card/', views.id_card, name="id-card"),
     path('files-upload/', views.upload_files, name="files"),
-    path('initial/', views.InitialFormView.as_view(), name="initial-form"),
-    path('initial/photo', views.initial_photo, name="initial-photo"),
+    # path('initial/', views.InitialFormView.as_view(), name="initial-form"),
+    # path('initial/photo', views.initial_photo, name="initial-photo"),
 
     path('participant/', views.ProfileView.as_view(), name="ajax-participant"),
     path('father/', views.FatherProfileView.as_view(), name="ajax-father"),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('guardian/', views.GuardianProfileView.as_view(), name="ajax-guardian"),
     path('major/', views.MajorParticipantView.as_view(), name="ajax-major"),
     path('files/', views.ParticipantFilesView.as_view(), name="ajax-files"),
+    path('kk/', views.ParticipantKKView.as_view(), name="ajax-kk"),
 
     path('lms/', views.ParticipantLMSAccount.as_view(), name="profile-lms"),
     path('graduation/', views.ParticipantGraduationView.as_view(), name="profile-graduation"),

@@ -1,4 +1,4 @@
-from crispy_forms.layout import Layout, Div, Row, Field, Submit, Fieldset, HTML
+from crispy_forms.layout import Layout, Div, Row, Field, Submit, Fieldset, HTML, Button
 from crispy_forms.bootstrap import PrependedText, FieldWithButtons
 
 from participant_profile import forms_layout as forms_layout_participant
@@ -45,18 +45,21 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
             Div(Field('participant_phone_number'), css_class="col-md-4"),
         ),
         Row(
-            Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-12"),
-        ),
-        Row(
-            Div(Field('parent_phone_number'), css_class="col-md-12"),
+            Div(Field('parent_phone_number'), css_class="col-md-6"),
+            Div(Field('parent_full_name'), css_class="col-md-6"),
             # Div(FieldWithButtons('parent_phone_number', Field('representative')), css_class="col-md-12"),
         ),
         Row(
-            Div(Field('family_card'), css_class="col-md-12"),
+            Div(Field('homeroom_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-6"),
+            Div(Field('bk_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-6"),
+        ),
+        Row(
+            Div(Field('verified'), css_class="col-md-12"),
         ),
         Row(
             Div(
                 Submit('submit', 'Submit'),
+                HTML('<button type="button" id="generate-registration" class="btn btn-danger">Buat No. Registrasi</button>'),
                 css_class="col-sm-6"
                 ),
         ), css_class="p-3 m-3 border border-primary rounded"

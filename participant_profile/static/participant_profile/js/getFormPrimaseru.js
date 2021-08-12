@@ -1,13 +1,13 @@
 $(document).ready(() => {
     $.ajax({
-        url: `/p/participant/`,
+        url: `/p/major/`,
         method: "GET",
         async: true,
         beforeSend: () => {
-            $("#peserta-form").html(`<div class="m-auto"><span class="spinner-border spinner-border-lg text-danger" role="status" aria-hidden="true"></span></div>`)
+            $("#jurusan-form").html(`<div class="m-auto"><span class="spinner-border spinner-border-lg text-danger" role="status" aria-hidden="true"></span></div>`)
         },
         success: (data) => {
-            $("#peserta-form").empty().html(data);
+            $("#jurusan-form").empty().html(data);
         },
     });
 
@@ -17,6 +17,7 @@ $(document).ready(() => {
         [$("#wali-form"), "#v-pills-id-wali-tab", "guardian"],
         [$("#jurusan-form"), "#v-pills-major-tab", "major"],
         [$("#berkas-form"), "#v-pills-files-tab", "files"],
+        [$("#KK-form"), "#v-pills-files-tab", "kk"],
         [$("#lms-content"), "#v-pills-exam-tab", "lms"],
         [$("#graduation-content"), "#v-pills-graduation-tab", "graduation"],
     ];

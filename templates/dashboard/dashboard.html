@@ -65,7 +65,7 @@
                                 <td>
                                     {% if s.account.participantgraduation.passed == 'L' %}
                                         <span class="badge badge-success">DITERIMA</span>
-                                    {% elif s.account.participantprofile.verified %}
+                                    {% elif s.verified %}
                                         <span class="badge badge-primary">TERVERIFIKASI</span>
                                     {% else %}
                                         <span class="badge badge-danger">BELUM TERVERIFIKASI</span>

@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils import timezone
 from django.views import View
+from django.http import JsonResponse
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -38,7 +40,7 @@ def dashboard(request):
     profile = ParticipantProfile.objects.all()
     passed_test = ParticipantGraduation.objects.all().count()
 
-    verified = profile.filter(verified=True).count()
+    verified = participant.filter(verified=True).count()
     not_verified = participant.count() - verified
 
     context = {
@@ -50,6 +52,12 @@ def dashboard(request):
     }
 
     return render(request, 'dashboard/dashboard.html', context)
+
+@permission_required('users.is_staff')
+def get_register_number(request):
+    register_number = register_number_generator()
+
+    return JsonResponse({'reg_num': register_number})
 
 @permission_required('users.is_staff')
 def insert_participant(request):

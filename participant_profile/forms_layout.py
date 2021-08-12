@@ -125,11 +125,13 @@ FILE_FORM_LAYOUT = Layout(
             Div('birth_cert', css_class='col-md-12')
         ),
         Row(
+            Div('family_cert', css_class='col-md-12')
+        ),
+        Row(
             Div('good_behave_cert', css_class='col-md-12')
         ),
         css_class=FIELDSET_CLASS
     )
-
 )
 
 MAJOR_FORM_LAYOUT = Layout(
@@ -153,3 +155,11 @@ PAYMENT_FORM_LAYOUT = Layout(
 )
 
 
+KK_FORM_LAYOUT = Layout(
+    Fieldset("Berkas",
+        Row(
+            Div('family_cert', css_class='col-md-12')
+        ),
+        css_class=FIELDSET_CLASS
+    )
+)
