@@ -38,12 +38,16 @@ BLOOD_TYPE = [
 
 INFORMATION_PRIMASERU = [
     ('WEB', 'Website'),
-    ('FB', 'Facebook'),
     ('IG', 'Instagram'),
-    ('SDR', 'Sodara'),
-    ('TMB', 'Teman Ibu'),
-    ('TMA', 'Teman Ayah'),
-    ('TMN', 'Teman Anak'),
-    ('KAN', 'Kakak Alumni Anak'),
+    ('FB', 'Facebook'),
+    ('TW', 'Twitter'),
+    ('TK', 'Tiktok'),
+    ('SDR', 'Sodara/Keluarga'),
+    ('ALK', 'Alumni SMK Telkom'),
+    ('ALS', 'Alumni SMP'),
+    ('GMP', 'Guru SMP'),
+    ('GRK', 'Guru SMK'),
+    ('BRS', 'Brosur'),
+    ('RDO', 'Radio'),
     ('LLY', 'Lainnya'),
 ]
