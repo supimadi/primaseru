@@ -6,12 +6,13 @@
         <p class="card-text">
             Silahkan catat <b>Username</b> dan <b>Password</b> supaya dapat mengakses halaman Ujian Primaseru.
             <hr />
-            Jadwal Ujian <br />
-            Tanggal:  08 Agustus 2020 <br />
-            Pukul:  08 Agustus 2020 <br />
-            <a href="">Masuk Ujian</a>
-
+            <div class="border bg-white py-3 px-2">
+                <b class="judul">Jadwal Ujian</b> <br />
+                Tanggal:  {{ data.schedule|date:"l, d F Y" }} <br />
+                Pukul:  {{ data.time }} <br />
+            </div>
         </p>
+        <a href="http://elearning.smktelkom-bdg.sch.id/" target="_blank" class="btn btn-danger btn-sm">Masuk Ujian</a>
     </div>
 </div>
 

@@ -26,7 +26,7 @@ class ParticipantLMS(models.Model):
     username = models.CharField('Username', max_length=120)
     password = models.CharField('Password', max_length=120)
     schedule = models.DateField('Tanggal')
-    time = models.CharField('Pukul', max_length=6)
+    time = models.CharField('Pukul', max_length=20)
 
 class ParticipantGraduation(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

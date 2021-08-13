@@ -12,6 +12,7 @@ $(document).ready(() => {
     });
 
     let container = [
+        [$("#peserta-form"), "#v-pills-identity-tab", "participant"],
         [$("#ayah-form"), "#v-pills-id-ayah-tab", "father"],
         [$("#ibu-form"), "#v-pills-id-ibu-tab", "mother"],
         [$("#wali-form"), "#v-pills-id-wali-tab", "guardian"],

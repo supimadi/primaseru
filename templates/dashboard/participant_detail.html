@@ -52,7 +52,7 @@
                         seperti berkas kurang jelas, silahkan ketik di kolom pesan.
                     {% elif text == 'Akun Peserta' %}
                         Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan dengan men-click tombol di bawah. Harap diingat,
-                        admin hanya perlu sekali membuat nomor registrasi untuk setiap peserta.
+                        admin hanya perlu sekali membuat nomor registrasi untuk setiap peserta. <b>Jangan lupa setelah buat Nomor Registrasi, click Submit</b>
                     {% elif text == 'Password' %}
                         Password tidak bisa dilihat. Silahkan masukan password baru pada form yang disediakan.
                     {% else %}
@@ -65,7 +65,7 @@
                   {% if is_media %}
                   enctype="multipart/form-data"
                   {% endif %}
-                  action="">
+                  action="" id="participantForm">
                 {% crispy form %}
                 {% if is_account %}
                     <div class="mx-3">

@@ -1,4 +1,4 @@
-from crispy_forms.layout import Layout, Fieldset, Row, Div, Field, Submit
+from crispy_forms.layout import Layout, Fieldset, Row, Div, Field, Submit, HTML
 from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup
 
 
@@ -73,7 +73,13 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
 )
 
 PARENT_FORM_LAYOUT = Layout(
-    Fieldset('Data Pribadi',
+    Fieldset("\
+        {% if text %} \
+        {{ text }}\
+        {% elif name %}\
+        {{ name|title }} \
+        {% endif %}\
+        ",
         Row(
             Div(Field('full_name', css_class='form-control-sm'), css_class="col-sm-12"),
         ),
