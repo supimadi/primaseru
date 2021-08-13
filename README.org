@@ -47,4 +47,4 @@ Test by typing:
 [] make visual change on generate register number button
 [] fix button on on "Pengumuman"
 [] add re-register payment page
-[] apply new payment page
+[x] apply new payment page
