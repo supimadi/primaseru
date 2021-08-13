@@ -138,7 +138,7 @@ MAJOR_FORM_LAYOUT = Layout(
     Fieldset("Pilihan Jurusan",
         Field('first_major', css_class="custom-select custom-select-sm"),
         Field('second_major', css_class="custom-select custom-select-sm"),
-        Field('info', css_class="custom-select custom-select-sm"),
+        # Field('info', css_class="custom-select custom-select-sm"),
         css_class=FIELDSET_CLASS
     )
 )

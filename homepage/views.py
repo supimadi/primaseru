@@ -39,7 +39,8 @@ def register(request):
                     bk_teacher_phone_number=form2.cleaned_data['bk_teacher_phone_number'],
                     parent_phone_number=form2.cleaned_data['parent_phone_number'],
                     parent_full_name=form2.cleaned_data['parent_full_name'],
-                    previous_school=form2.cleaned_data['school']
+                    previous_school=form2.cleaned_data['school'],
+                    info=form2.cleaned_data['info']
                 )
                 participant.save()
                 return redirect('profile')

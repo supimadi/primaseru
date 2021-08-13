@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from users.models import CustomUser
-from participant_profile.choices import MAJOR
+from participant_profile.choices import MAJOR, INFORMATION_PRIMASERU
 
 
 # PHONE_REGEX = '^(\+[62]{1,2}|0)[0-9]{10,12}\b'
@@ -54,6 +54,8 @@ class Participant(models.Model):
 
     homeroom_teacher_phone_number = models.CharField(_('No. HP Wali Kelas'), null=True, blank=True, max_length=15)
     bk_teacher_phone_number = models.CharField(_('No. HP Guru BK'), null=True, blank=True, max_length=15)
+
+    info = models.CharField(_('Info Primaseru (PPDB)'), max_length=3, choices=INFORMATION_PRIMASERU, null=True)
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'

@@ -14,11 +14,11 @@
     flex-direction: column;
     margin: 20px 0;
 }
-.input-group input {
-    background-color: #FFEFEF;
+.input-group input, select {
+    background-color: #FFEFEF !important;
     padding: 20px 34px;
-    border-radius: 80px;
-    border: 1px solid #ffc3c3;
+    border-radius: 80px !important;
+    border: 1px solid #ffc3c3 !important;
 }
 .input-group input:focus-visible {
     outline: none;
