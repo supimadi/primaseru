@@ -37,7 +37,7 @@ Test by typing:
 ./manage.py runserver
 #+END_SRC
 * TODO
-[] Move PPDB information source to register page
+[x] Move PPDB information source to register page
 [] Re-arrange side bar dashboard
 [] add verification status at family certificate
 [] add alert when update the data in the dashboard
