@@ -7,7 +7,9 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
+
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -261,6 +263,17 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         pk = self.kwargs['pk']
         return reverse_lazy(self.success_url_name, kwargs={'pk': pk})
 
+    def _get_context(self, form, pk):
+        return {
+            'form': form,
+            'is_account': self.is_account,
+            'participant_name': CustomUser.objects.get(pk=pk),
+            'text': self.name,
+            'pk': pk,
+            'is_media': self.is_media,
+            'is_verify': self.is_verify,
+        }
+
     def get(self, request, *args, **kwargs):
         # Taking primary key from url
         pk = self.kwargs.get('pk') # is this safe? if not pls fix it for me, ty
@@ -277,16 +290,7 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         except self.model.DoesNotExist:
             form = self.form_class()
 
-        context = {
-            'form': form,
-            'is_account': self.is_account,
-            'participant_name': CustomUser.objects.get(pk=pk),
-            'text': self.name,
-            'pk': pk,
-            'is_media': self.is_media,
-            'is_verify': self.is_verify,
-        }
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, self._get_context(form, pk))
 
     def _set_form_instance(self, request, data=None):
         if data:
@@ -318,18 +322,10 @@ class ParticipantBaseView(UserIsStaffMixin, View):
 
         if form.is_valid():
             form.save()
-            return redirect(self._get_success_url())
+            messages.success(request, f'Data {self.name} berhasil di update.')
+            return render(request, self.template_name, self._get_context(form, pk))
 
-        context = {
-            'form': form,
-            'is_account': self.is_account,
-            'participant_name': CustomUser.objects.get(pk=pk),
-            'text': self.name,
-            'pk': pk,
-            'is_media': self.is_media,
-            'is_verify': self.is_verify,
-        }
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, self._get_context(form, pk))
 
 class ParticipantUpdateView(ParticipantBaseView):
     model = Participant

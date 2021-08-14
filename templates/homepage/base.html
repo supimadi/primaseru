@@ -69,13 +69,6 @@
 
 
         <main role="main">
-            {% if messages %}
-                {% for m in messages%}
-                    <div class="alert alert-{{ m.tags }} my-3">
-                        {{m}}
-                    </div>
-                {% endfor%}
-            {% endif%}
             <div class="{% block container %}container{% endblock container %}">
                 {% block main %} {% endblock main %}
             </div>

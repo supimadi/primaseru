@@ -75,6 +75,15 @@
                         {% endblock dashtitle %}
                     </h2>
                 </div>
+                {% if messages %}
+                    {% for m in messages%}
+                        <div class="bg-white mt-4 p-3 rounded shadow-sm">
+                            <div class="m-0 alert alert-{{ m.tags }}">
+                                <b>{{m}}</b>
+                            </div>
+                        </div>
+                    {% endfor%}
+                {% endif%}
                 {% block maindash %}
                 {% endblock maindash %}
             </div>

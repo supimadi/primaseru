@@ -40,7 +40,7 @@ Test by typing:
 [X] Move PPDB information source to register page
 [X] Re-arrange side bar dashboard
 [X] add verification status at family certificate
-[] add alert when update the data in the dashboard
+[X] add alert when update the data in the dashboard
 [x] add length to test schedule
 [X] fix LMS account schedule page
 [X] make form legend changes dynamically
