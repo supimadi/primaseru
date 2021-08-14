@@ -107,6 +107,9 @@ PARENT_FORM_LAYOUT = Layout(
 FILE_FORM_LAYOUT = Layout(
     Fieldset("Berkas",
         Row(
+            Div('family_cert', css_class='col-md-12')
+        ),
+        Row(
             Div('ra_sem_1', css_class='col-md-12')
         ),
         Row(
@@ -129,9 +132,6 @@ FILE_FORM_LAYOUT = Layout(
         ),
         Row(
             Div('birth_cert', css_class='col-md-12')
-        ),
-        Row(
-            Div('family_cert', css_class='col-md-12')
         ),
         Row(
             Div('good_behave_cert', css_class='col-md-12')

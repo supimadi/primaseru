@@ -5,6 +5,11 @@
         <p class="card-text">
             Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan scan terhadap file yang akan di unggah, supaya jelas terlihat.
         </p>
+        {% if data.verified %}
+            Status : <span class="badge badge-success">Terverifikasi</span>
+        {% else %}
+            Status : <span class="badge badge-warning">Belum Terverifikasi</span>
+        {% endif %}
         {% if data.msg %}
         <div class="alert alert-danger" role="alert">
             {{ data.msg  }}
