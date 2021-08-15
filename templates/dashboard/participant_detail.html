@@ -67,16 +67,16 @@
                   {% endif %}
                   action="" id="participantForm">
                 {% crispy form %}
-                {% if is_account %}
-                    <div class="mx-3">
-                        <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
-                        <form method="POST" action="{% url 'delete-participant' pk %}">
-
-                            <button type="submit" class="btn btn-outline-danger">Hapus Akun</button>
-                        </form>
-                    </div>
-                {% endif %}
             </form>
+            {% if is_account %}
+                <div class="mx-3">
+                    <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
+                    <form class="d-inline" method="POST" action="{% url 'delete-participant' pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-danger">Hapus Akun</button>
+                    </form>
+                </div>
+            {% endif %}
             {% block files %}{% endblock files %}
         </div>
     </div>

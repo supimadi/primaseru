@@ -45,8 +45,8 @@ Test by typing:
 [X] fix LMS account schedule page
 [X] make form legend changes dynamically
 [X] make visual change on generate register number button
-[] fix button on on "Pengumuman"
-[] add re-register payment page
+[X] fix button on on "Pengumuman"
+[X] add re-register payment page
 [x] apply new payment page
 [] change from choice to multiple choice, ppdb
 [] add "keinginan siapa masuk ke smk"

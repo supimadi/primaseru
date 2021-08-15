@@ -6,7 +6,8 @@ from crispy_forms.helper import FormHelper
 
 from .models import (
     Participant, RegisterSchedule, RegisterStep,
-    ParticipantGraduation, REPRESENTATIVE_CHOICES, ParticipantLMS
+    ParticipantGraduation, REPRESENTATIVE_CHOICES, ParticipantLMS,
+    ParticipantRePayment
     )
 from . import forms_layout
 
@@ -162,8 +163,19 @@ class ParticipantPaymentDashboardForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
-        self.helper.layout = forms_layout.PAYMENY_FORM_DASHBOARD_LAYOUT
+        self.helper.layout = forms_layout.PAYMENT_FORM_DASHBOARD_LAYOUT
 
     class Meta:
         model = participant_models.PaymentUpload
+        exclude = ['participant', 'created_at', 'updated_at']
+
+class ParticipantRePaymentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.RE_PAYMENT_DASHBOARD_FORM
+
+    class Meta:
+        model = ParticipantRePayment
         exclude = ['participant', 'created_at', 'updated_at']

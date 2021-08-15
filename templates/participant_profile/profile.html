@@ -31,74 +31,26 @@
 <div id="form-body-{{ name  }}">
     {% crispy form %}
 </div>
-<script type="text/javascript">
- function datePicker(){
+<!-- <script type="text/javascript">
+     function datePicker(){
      $('.dateinput').daterangepicker({
-         singleDatePicker: true,
-         showDropdowns: true,
-         minYear: 1930,
-         maxYear: parseInt(moment().format('YYYY'),10) + 5,
-         locale: {
-             'format': "DD/MM/YYYY",
-             'daysOfWeek': [
-                 "Min",
-                 "Sen",
-                 "Sel",
-                 "Rab",
-                 "Kam",
-                 "Jum",
-                 "Sab",
-             ]
-         }
+     singleDatePicker: true,
+     showDropdowns: true,
+     minYear: 1930,
+     maxYear: parseInt(moment().format('YYYY'),10) + 5,
+     locale: {
+     'format': "DD/MM/YYYY",
+     'daysOfWeek': [
+     "Min",
+     "Sen",
+     "Sel",
+     "Rab",
+     "Kam",
+     "Jum",
+     "Sab",
+     ]
+     }
      });
- }
-</script>
-{% if data.verified %}
-    <script type="text/javascript">
-    $("#{{ name }}-form .form-control").prop('disabled', true);
-    $("#{{ name }}-form").submit(() => {
-        let alertSuccess = `<div class="alert alert-warning alert-dismissible fade show" role="alert">Data yang sudah diverifikasi, tidak bisa diubah \
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">\
-        &times;</span></button></div>`;
-        $("#{{ name }}-form").prepend(alertSuccess);
-        return false;
-    });
-    </script>
-{% else %}
-<script type="text/javascript">
-{
-let form = $("#{{ name }}-form");
-$(form).submit(() => {
-    $.ajax({
-        url: form.attr('action'),
-        type: "POST",
-        data: $(form).serialize(),
-        dataType: 'json',
-        beforeSend: () => {
-            $("#form-body-{{ name }}").empty().html(`<div class="d-flex justify-content-center" >
-         <div class="spinner-border text-danger" role="status" style="width: 3rem; height: 3rem;">
-             <span class="sr-only">Loading...</span>
-         </div>
-         </div>`
-            );
-        },
-        success: (response) => {
-            $("#form-body-{{ name }}").replaceWith(response.form_s);
-            let alertSuccess = `<div class="alert alert-success alert-dismissible fade show" role="alert">Berhasil Menyimpan Data {{ name|capfirst }} \
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">\
-            &times;</span></button></div>`;
-            $(form).prepend(alertSuccess);
-            $('html,body').scrollTop(0);
-            datePicker();
-        },
-        error: (response) => {
-            $("#form-body-{{ name }}").empty().html(response.responseJSON.form_s);
-            datePicker();
-        },
-    });
-    return false;
-});
- }
-</script>
-{% endif %}
+     }
+     </script> -->
 <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>

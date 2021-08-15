@@ -2,14 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.utils import timezone
 from django.views import View
 from django.http import JsonResponse
+from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
-
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -23,7 +21,7 @@ from . import forms
 from .models import (
     ParticipantCount, RegisterSchedule,
     RegisterStep, Participant, ParticipantGraduation,
-    ParticipantLMS
+    ParticipantLMS, ParticipantRePayment
 )
 from .generator import register_number_generator
 
@@ -263,7 +261,7 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         pk = self.kwargs['pk']
         return reverse_lazy(self.success_url_name, kwargs={'pk': pk})
 
-    def _get_context(self, form, pk):
+    def _get_context(self, pk, form=None):
         return {
             'form': form,
             'is_account': self.is_account,
@@ -290,7 +288,7 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         except self.model.DoesNotExist:
             form = self.form_class()
 
-        return render(request, self.template_name, self._get_context(form, pk))
+        return render(request, self.template_name, self._get_context(pk, form))
 
     def _set_form_instance(self, request, data=None):
         if data:
@@ -323,9 +321,10 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         if form.is_valid():
             form.save()
             messages.success(request, f'Data {self.name} berhasil di update.')
-            return render(request, self.template_name, self._get_context(form, pk))
+            return redirect(self._get_success_url())
+            # return render(request, self.template_name, self._get_context(pk, form))
 
-        return render(request, self.template_name, self._get_context(form, pk))
+        return render(request, self.template_name, self._get_context(pk, form))
 
 class ParticipantUpdateView(ParticipantBaseView):
     model = Participant
@@ -390,6 +389,13 @@ class ParticipantLMSView(ParticipantBaseView):
 class ParticipantPaymentDashboardView(ParticipantBaseView):
     model = PaymentUpload
     form_class = forms.ParticipantPaymentDashboardForm
+    success_url_name = 'participant-payment'
+    name = 'Pembayaran Daftar Ulang'
+    is_media = True
+
+class RePaymentDView(ParticipantBaseView):
+    model = ParticipantRePayment
+    form_class = forms.ParticipantRePaymentForm
     success_url_name = 'participant-payment'
     name = 'Pembayaran Daftar Ulang'
     is_media = True

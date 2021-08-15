@@ -160,6 +160,14 @@ PAYMENT_FORM_LAYOUT = Layout(
     ),
 )
 
+RE_PAYMENT_FORM_LAYOUT = Layout(
+    Fieldset('Pembayaran Daftar Ulang',
+        Row(Div('payment_1', css_class="col-12")),
+        Row(Div('payment_2', css_class="col-12")),
+        Row(Div('payment_3', css_class="col-12")),
+        css_class=FIELDSET_CLASS
+    )
+)
 
 KK_FORM_LAYOUT = Layout(
     Fieldset("Berkas",

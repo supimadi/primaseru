@@ -160,11 +160,43 @@ LMS_FORM_LAYOUT = Layout(
     ),
 )
 
-PAYMENY_FORM_DASHBOARD_LAYOUT = Layout(
+PAYMENT_FORM_DASHBOARD_LAYOUT = Layout(
     forms_layout_participant.PAYMENT_FORM_LAYOUT,
     Div(
         # Submit('submit', 'Submit'),
         'verified',
+        css_class="mx-3"
+    ),
+)
+
+RE_PAYMENT_DASHBOARD_FORM = Layout(
+    Fieldset('Pembayaran Daftar Ulang',
+        Row(Div('message', css_class="col-12"), css_class="pb-3 px-3"),
+        Row(
+            Div('payment_1', css_class="col-12"),
+            Div('comment_1', css_class="col-12"),
+            Div('deadline_1', css_class="col-12"),
+            Div('verfied_1', css_class="col-12"),
+            css_class="border border-dark rounded p-3 mx-3 mb-3"
+        ),
+        Row(
+            Div('payment_2', css_class="col-12"),
+            Div('comment_2', css_class="col-12"),
+            Div('deadline_2', css_class="col-12"),
+            Div('verfied_2', css_class="col-12"),
+            css_class="border border-dark rounded p-3 mx-3 mb-3"
+        ),
+        Row(
+            Div('payment_3', css_class="col-12"),
+            Div('comment_3', css_class="col-12"),
+            Div('deadline_3', css_class="col-12"),
+            Div('verfied_3', css_class="col-12"),
+            css_class="border border-dark rounded p-3 mx-3 mb-3"
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
+    Div(
+        Submit('submit', 'Submit'),
         css_class="mx-3"
     ),
 )

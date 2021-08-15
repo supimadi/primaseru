@@ -1,0 +1,33 @@
+{% extends 'homepage/base.html' %}
+{% load crispy_forms_tags %}
+{% block navbar %}{% endblock navbar %}
+{% block container %}container{% endblock container %}
+{% block head %}
+{% endblock head %}
+{% block main %}
+
+    <div class="center mx-auto">
+
+        <div class="bg-white border rounded px-3 py-2 my-3">
+            <h4 class="judul">
+                Silahkan unggah photo profile dengan ketentuan:
+            </h4>
+            <p>
+                <ul>
+                    <li>asd</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="bg-light">
+            <div class="shadow rounded py-2 bg-white min-vh mb-4">
+                <form method="POST" enctype="multipart/form-data" class="p-3" action="{% url 'set-photo-profile' %}">
+                    {% crispy form %}
+                    <button type="submit" class="btn btn-danger btn-block mb-2">Unggah Photo</button>
+                    <a class="btn btn-outline-secondary btn-block mb-3" href="/p/">Kembali</a>
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock main %}

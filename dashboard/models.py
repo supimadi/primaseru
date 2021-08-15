@@ -1,5 +1,6 @@
 from datetime import date
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from users.models import CustomUser
@@ -19,7 +20,7 @@ PASSED_CHOICES = [
 ]
 
 def user_directory_path(instance, filename):
-    return f'berkas_{instance.account.username}/{filename}'
+    return f'berkas_{instance.participant.username}/bukti_bayar_daftar_ulang/{filename}'
 
 class ParticipantLMS(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -81,3 +82,29 @@ class RegisterStep(models.Model):
 
     def __str__(self):
         return self.step
+
+class ParticipantRePayment(models.Model):
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    message = models.CharField('Pesan', max_length=120, null=True, blank=True)
+
+    # REVIEW can anyone make this not repetitive?
+    payment_1 = models.FileField('Pembayaran Ke 1', upload_to=user_directory_path)
+    verfied_1 = models.BooleanField('Verifikasi Pembayaran 1', default=False)
+    comment_1 = models.CharField('Komentar Pembayaran 1', max_length=100, null=True, blank=True)
+    deadline_1 = models.DateField('Tengat Pembayaran Ke 1', null=True, blank=True)
+
+    payment_2 = models.FileField('Pembayaran Ke 2', null=True, blank=True, upload_to=user_directory_path)
+    verfied_2 = models.BooleanField('Verifikasi Pembayaran 2', default=False)
+    comment_2 = models.CharField('Komentar Pembayaran 2', max_length=100, null=True, blank=True)
+    deadline_2 = models.DateField('Tengat Pembayaran Ke 2', null=True, blank=True)
+
+    payment_3 = models.FileField('Pembayaran Ke 3', null=True, blank=True, upload_to=user_directory_path)
+    verfied_3 = models.BooleanField('Verifikasi Pembayaran 3', default=False)
+    comment_3 = models.CharField('Komentar Pembayaran 3', max_length=100, null=True, blank=True)
+    deadline_3 = models.DateField('Tengat Pembayaran Ke 3', null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Pembayaran {self.participant}'

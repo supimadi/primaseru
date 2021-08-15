@@ -70,6 +70,17 @@
 
         <main role="main">
             <div class="{% block container %}container{% endblock container %}">
+                {% block alert %}
+                {% if messages %}
+                    <div class="bg-white m-3 p-3 rounded shadow">
+                        {% for m in messages%}
+                            <div class="m-0 alert alert-{{ m.tags }}">
+                                <b>{{m}}</b>
+                            </div>
+                        {% endfor%}
+                    </div>
+                {% endif %}
+                {% endblock alert %}
                 {% block main %} {% endblock main %}
             </div>
             {% block dashboard %} {% endblock dashboard %}
