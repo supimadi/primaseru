@@ -40,9 +40,10 @@ def register(request):
                     parent_phone_number=form2.cleaned_data['parent_phone_number'],
                     parent_full_name=form2.cleaned_data['parent_full_name'],
                     previous_school=form2.cleaned_data['school'],
-                    info=form2.cleaned_data['info']
+                    # info=form2.cleaned_data['info']
                 )
                 participant.save()
+                participant.info.set(form2.cleaned_data['info'])
                 return redirect('profile')
 
     ctx = {

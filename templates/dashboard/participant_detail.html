@@ -4,6 +4,7 @@
 {% block head %}
     {{ block.super  }}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{% static 'css/school-list.css' %}" type="text/css" media="screen" />
     <style type="text/css" media="screen">
      legend {
@@ -88,4 +89,8 @@
     <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/schoolList.js' %}"></script>
     <script type="text/javascript" src="{% static 'dashboard/js/participant_detail.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.16/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript">
+     $('#id_info').selectpicker();
+    </script>
 {% endblock js %}

@@ -41,6 +41,12 @@ class ParticipantCount(models.Model):
     def __str__(self):
         return self.count
 
+class InfoSourcePPDB(models.Model):
+    info_source = models.CharField('Sumber Info Primaseru', max_length=100, unique=True)
+
+    def __str__(self):
+        return self.info_source
+
 class Participant(models.Model):
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(_('Verified'), default=False, db_index=True)
@@ -56,7 +62,7 @@ class Participant(models.Model):
     homeroom_teacher_phone_number = models.CharField(_('No. HP Wali Kelas'), null=True, blank=True, max_length=15)
     bk_teacher_phone_number = models.CharField(_('No. HP Guru BK'), null=True, blank=True, max_length=15)
 
-    info = models.CharField(_('Info Primaseru (PPDB)'), max_length=3, choices=INFORMATION_PRIMASERU, null=True)
+    info = models.ManyToManyField(InfoSourcePPDB)
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'

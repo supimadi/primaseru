@@ -71,7 +71,7 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
             Div(Field('bk_teacher_phone_number', place_holder='Boleh Dikosongkan'), css_class="col-md-6"),
         ),
         Row(
-            Div(Field('info', css_class="custom-select custom-select"), css_class="col-md-12"),
+            Div('info', css_class="col-md-12"),
         ),
         Row(
             Div(Field('verified'), css_class="col-md-12"),

@@ -51,3 +51,9 @@ INFORMATION_PRIMASERU = [
     ('RDO', 'Radio'),
     ('LLY', 'Lainnya'),
 ]
+
+ENTER_SMK_CHOICES = [
+    ('ORT', 'Orang Tua'),
+    ('SDR', 'Sendiri'),
+    ('ODS', 'Orang Tua dan Sendiri'),
+]

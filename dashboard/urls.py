@@ -14,6 +14,10 @@ urlpatterns = [
     path('export/wali/', views.ExExcelGuardian.as_view(), name="export-guardian"),
     path('export/jurusan/', views.ExExcelMajor.as_view(), name="export-major"),
 
+    path('info/ppdb/', views.InfoSourcePPDBView.as_view(), name='info-ppdb'),
+    path('info/ppdb/insert/', views.InfoSourcePPDBCreate.as_view(), name='info-ppdb-create'),
+    path('info/ppdb/delete/<int:pk>/', views.InfoSourcePPDBDelete.as_view(), name='info-ppdb-delete'),
+    path('info/ppdb/update/<int:pk>/', views.InfoSourcePPDBUpdate.as_view(), name='info-ppdb-update'),
 
     path('jadwal/pendaftaran/', views.RegisterScheduleListView.as_view(), name='register-schedule'),
     path('jadwal/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),

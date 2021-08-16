@@ -116,6 +116,8 @@ class MajorStudent(models.Model):
      first_major = models.CharField('Pilihan Jurusan Pertama', choices=choices.MAJOR, max_length=4)
      second_major = models.CharField('Pilihan Jurusan Kedua', choices=choices.MAJOR, max_length=4)
 
+     enter_smk = models.CharField('Keinginan Siapa Masuk SMK', max_length=4, null=True, choices=choices.ENTER_SMK_CHOICES)
+
      def __str__(self):
          return f'{self.participant} - {self.first_major}'
 

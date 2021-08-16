@@ -17,11 +17,10 @@ from openpyxl import Workbook
 from openpyxl.writer.excel import save_virtual_workbook
 
 from . import forms
-
 from .models import (
     ParticipantCount, RegisterSchedule,
     RegisterStep, Participant, ParticipantGraduation,
-    ParticipantLMS, ParticipantRePayment
+    ParticipantLMS, ParticipantRePayment, InfoSourcePPDB
 )
 from .generator import register_number_generator
 
@@ -74,6 +73,7 @@ def insert_participant(request):
             form.instance.account = user
 
             form.save(commit=True)
+            form.save_m2m()
             user.save()
 
             context = {
@@ -245,6 +245,27 @@ class RegisterStepUpdateView(UserIsStaffMixin, UpdateView):
     form_class = forms.RegisterStepForm
     template_name = "dashboard/registerstep_form.html"
     success_url = reverse_lazy('register-step')
+
+# INFO SOURCE PPDB
+class InfoSourcePPDBView(UserIsStaffMixin, ListView):
+    model = InfoSourcePPDB
+    template_name = 'dashboard/infoppdb_list.html'
+
+class InfoSourcePPDBDelete(UserIsStaffMixin, DeleteView):
+    model = InfoSourcePPDB
+    success_url = reverse_lazy('info-ppdb')
+
+class InfoSourcePPDBCreate(UserIsStaffMixin, CreateView):
+    model = InfoSourcePPDB
+    form_class = forms.InfoSourcePPDBForm
+    template_name = "dashboard/infoppdb_form.html"
+    success_url = reverse_lazy('info-ppdb')
+
+class InfoSourcePPDBUpdate(UserIsStaffMixin, UpdateView):
+    model = InfoSourcePPDB
+    form_class = forms.InfoSourcePPDBForm
+    template_name = "dashboard/infoppdb_form.html"
+    success_url = reverse_lazy('info-ppdb')
 
 # PARTICIPANT PROFILE VIEW
 class ParticipantBaseView(UserIsStaffMixin, View):

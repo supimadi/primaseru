@@ -48,5 +48,5 @@ Test by typing:
 [X] fix button on on "Pengumuman"
 [X] add re-register payment page
 [x] apply new payment page
-[] change from choice to multiple choice, ppdb
-[] add "keinginan siapa masuk ke smk"
+[X] change from choice to multiple choice, ppdb
+[X] add "keinginan siapa masuk ke smk"
