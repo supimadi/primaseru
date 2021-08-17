@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from django.core.exceptions import FieldError, ObjectDoesNotExist
+from django.core.exceptions import FieldError, ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
 
@@ -22,7 +22,7 @@ from .models import (
     RegisterStep, Participant, ParticipantGraduation,
     ParticipantLMS, ParticipantRePayment, InfoSourcePPDB
 )
-from .generator import register_number_generator
+from .generator import register_number_generator, reset_register_number
 
 from participant_profile.models import (
     ParticipantProfile, MotherStudentProfile,
@@ -54,9 +54,22 @@ def dashboard(request):
 
 @permission_required('users.is_staff')
 def get_register_number(request):
-    register_number = register_number_generator()
+    if request.method == 'POST':
+        register_number = register_number_generator()
+        return JsonResponse({'reg_num': register_number})
 
-    return JsonResponse({'reg_num': register_number})
+    raise PermissionDenied
+
+@permission_required('users.is_staff')
+def reset_registration_number(request):
+
+    if request.method == 'POST':
+        success = reset_register_number()
+
+        if success:
+            messages.success('asd')
+
+    return render(request, 'dashboard/reset_registration_number.html')
 
 @permission_required('users.is_staff')
 def insert_participant(request):

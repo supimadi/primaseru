@@ -2,9 +2,11 @@ $("#generate-registration").on("click", function() {
   if ($("#id_registration_number").val()) {
     alert("Data tidak kosong");
   } else {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     $.ajax({
       url: `/d/reg-num/`,
-      method: "GET",
+      method: "POST",
+      headers: {'X-CSRFToken': csrftoken},
       async: true,
       success: (data) => {
         $("#id_registration_number").val(data.reg_num);
