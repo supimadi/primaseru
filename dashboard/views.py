@@ -64,10 +64,14 @@ def get_register_number(request):
 def reset_registration_number(request):
 
     if request.method == 'POST':
-        success = reset_register_number()
+        berhasil = reset_register_number()
 
-        if success:
-            messages.success('asd')
+        if berhasil:
+            messages.success(request, 'Berhasil Me-Reset Nomor Pendaftaran.')
+            return redirect('dashboard')
+        else:
+            messages.warning(request, 'Gagal Me-reset Nomor Pendaftaran.')
+            return redirect('dashboard')
 
     return render(request, 'dashboard/reset_registration_number.html')
 

@@ -18,3 +18,14 @@ def register_number_generator():
     obj.save()
 
     return registration_number
+
+def reset_register_number():
+
+    try:
+        count = ParticipantCount.objects.get(pk=1)
+        count.count = '001'
+        count.save()
+    except Exception:
+        return False
+
+    return True

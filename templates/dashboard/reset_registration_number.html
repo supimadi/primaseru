@@ -1,0 +1,21 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% block dashtitle %}
+    Reset Nomor Registrasi (Nomor Peserta) <br />
+{% endblock dashtitle %}
+{% block maindash %}
+    <div class="row">
+        <div class="col m-5 p-3 rounded shadow bg-white">
+            <h2 class="judul">Konfirmasi</h2>
+            <hr />
+            <p style="font-size: 1.1rem;">
+                Apakah Anda yakin untuk meng-reset <b>Nomor Pendaftaran Primaseru</b> ?
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Reset Nomor Pendaftaran</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Kembali</a>
+                </form>
+            </p>
+        </div>
+    </div>
+{% endblock maindash %}
