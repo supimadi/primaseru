@@ -50,3 +50,7 @@ Test by typing:
 [x] apply new payment page
 [X] change from choice to multiple choice, ppdb
 [X] add "keinginan siapa masuk ke smk"
+[X] make first repayment not mandatory
+[] add "dana sumbangan"
+[] dowload ziip
+[] add virtual account number to repayment-page

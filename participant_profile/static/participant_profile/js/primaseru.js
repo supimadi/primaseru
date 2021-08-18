@@ -1,4 +1,9 @@
 $(document).ready( () => {
+
+    if (verifikasi == 'True') {
+        $("form :input").prop("disabled", true);
+    }
+
     let textbox = [
         $('#id_address_kk'),
         $('#id_real_address'),

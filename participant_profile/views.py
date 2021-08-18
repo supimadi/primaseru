@@ -187,5 +187,5 @@ class RePaymentPage(IsPassessTestPPDB, ProfileView):
     model = ParticipantRePayment
     form_class = forms.ParticipantRePaymentForm
     url_name = 'participant-payment'
-    # template_name = "participant_profile/re-payment.html"
+    template_name = "participant_profile/re_payment.html"
     name = 'Pembayaran Daftar Ulang'

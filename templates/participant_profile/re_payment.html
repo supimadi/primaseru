@@ -24,7 +24,7 @@
          border-bottom: 2px solid red;
          background: #fff;
      }
-     .card-bg {
+     .card-detail {
          background-color: #fff2f4;
          border-color: #ffc9c6;
      }
@@ -97,76 +97,81 @@
 
                     <div class="card card-bg mt-3 mx-4">
                         <div class="card-body">
-                            <h4 class="card-title judul">
-                                {% if name == 'jurusan' %}
-                                    Pemilihan {{ name|capfirst  }}
-                                {% else %}
-                                    {{ name|capfirst  }}
-                                {% endif %}
+                            <h4 class="judul">
+                            {{ name|capfirst  }}
                             </h4>
+                            <hr />
                             <p class="card-text">
-                                {% if name == 'jurusan' %}
-                                    Silahkan memilih {{ name|capfirst }} Anda sesuai minat, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
-                                    <samp class="text-danger">Jurusan yang sudah dipilih tidak bisa diubah.</samp>
-                                {% elif name == 'Pembayaran Daftar Ulang' %}
-                                    Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan scan terhadap file yang akan di unggah, supaya terlihat jelas. Pembayaran
-                                    Daftar Ulang dapat dilakukan maksimal selama tiga kali.
-                                {% else %}
-                                    {% if name == 'wali' %}
-                                        <p class="p-2 border bg-white"><b>Jika tidak mempunyai Wali, boleh formulir ini dikosongkan.</b></p>
-                                    {% endif %}
-                                    Silahkan melengkapi data {{ name|capfirst }} Anda sesuai kolom yang tersedia, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
-                                    <samp class="text-danger">Data yang sudah terverifikasi tidak bisa diubah.</samp>
-                                {% endif %}
+                                Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan scan terhadap file yang akan di unggah, supaya terlihat jelas. Pembayaran
+                                Daftar Ulang dapat dilakukan maksimal selama tiga kali.
                             </p>
-                            {% if name == 'Pembayaran Daftar Ulang' %}
-                                {% if data.verified_1 %}
-                                    <div class="my-3">Pembayaran Ke 1 : <span class="badge badge-success">Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_1|date:'d F Y'  }}</div>
-                                {% else %}
-                                    <div class="my-3">Pembayaran Ke 1 : <span class="badge badge-warning">Belum Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_1|date:'d F Y'  }}</div>
-                                {% endif %}
+                            <hr />
+                            <div class="row px-3">
+                                <div class="card-detail border border-danger ml-0 mb-2 mb-md-0 p-2 rounded col-12 col-md">
+                                    <h5 class="judul"><b>Pembayaran Pertama</b></h5>
+                                    <hr class="my-2" />
+                                    {% if data.verified_1 %}
+                                        Status : <span class="badge badge-success">Terverifikasi</span>
+                                    {% else %}
+                                        Status : <span class="badge badge-warning">Belum Terverifikasi</span>
+                                    {% endif %}
+                                    <p>
+                                        Nominal Pembayaran: Rp. {{ data.pay_mount_1|floatformat:"0g" }},- <br />
+                                        Tenggat Pembayaran: {{ data.deadline_1|date:'d F Y'  }}
+                                    </p>
+                                </div>
+                                <div class="card-detail border border-danger  mx-md-2 ml-0 mb-2 mb-md-0 p-2 rounded col-12 col-md">
+                                    <h5 class="judul"><b>Pembayaran Kedua</b></h5>
+                                    <hr class="my-2" />
+                                    {% if data.verified_1 %}
+                                        Status : <span class="badge badge-success">Terverifikasi</span>
+                                    {% else %}
+                                        Status : <span class="badge badge-warning">Belum Terverifikasi</span>
+                                    {% endif %}
+                                    <p>
+                                        Nominal Pembayaran: Rp. {{ data.pay_mount_2|floatformat:"0g" }},- <br />
+                                        Tenggat Pembayaran: {{ data.deadline_2|date:'d F Y'  }}
+                                    </p>
+                                </div>
+                                <div class="card-detail border border-danger ml-0 mb-2 mb-md-0 p-2 rounded col-12 col-md">
+                                    <h5 class="judul"><b>Pembayaran Ketiga</b></h5>
+                                    <hr class="my-2" />
+                                    {% if data.verified_1 %}
+                                        Status : <span class="badge badge-success">Terverifikasi</span>
+                                    {% else %}
+                                        Status : <span class="badge badge-warning">Belum Terverifikasi</span>
+                                    {% endif %}
+                                    <p>
+                                        Nominal Pembayaran: Rp. {{ data.pay_mount_3|floatformat:"0g" }},- <br />
+                                        Tenggat Pembayaran: {{ data.deadline_3|date:'d F Y'  }}
+                                    </p>
+                                </div>
+                            </div>
 
-                                {% if data.verified_2 %}
-                                    <div class="my-3">Pembayaran Ke 2 : <span class="badge badge-success">Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_2|date:'d F Y'  }}</div>
-                                {% else %}
-                                    <div class="my-3">Pembayaran Ke 2 : <span class="badge badge-warning">Belum Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_2|date:'d F Y'  }}</div>
-                                {% endif %}
 
-                                {% if data.verified_3 %}
-                                    <div class="my-3">Pembayaran Ke 3 : <span class="badge badge-success">Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_3|date:'d F Y'  }}</div>
-                                {% else %}
-                                    <div class="my-3">Pembayaran Ke 3 : <span class="badge badge-warning">Belum Terverifikasi</span> | Tenggat Pembayaran: {{ data.deadline_3|date:'d F Y'  }}</div>
-                                {% endif %}
-                                {% if data.comment_1 %}
-                                    <div class="border bg-white p-2 rounded">
-                                        <h5 class="judul">Komentar Pembayaran Ke-1</h5>
-                                        <p class="mb-0">
-                                            {{ data.comment_1  }}
-                                        </p>
-                                    </div>
-                                {% endif %}
-                                {% if data.comment_2 %}
-                                    <div class="border bg-white p-2 rounded">
-                                        <h5 class="judul">Komentar Pembayaran Ke-1</h5>
-                                        <p class="mb-0">
-                                            {{ data.comment_2  }}
-                                        </p>
-                                    </div>
-                                {% endif %}
-                                {% if data.comment_3 %}
-                                    <div class="border bg-white p-2 rounded">
-                                        <h5 class="judul">Komentar Pembayaran Ke-1</h5>
-                                        <p class="mb-0">
-                                            {{ data.comment_3  }}
-                                        </p>
-                                    </div>
-                                {% endif %}
-                            {% else %}
-                                {% if data.verified %}
-                                    Status : <span class="badge badge-success">Terverifikasi</span>
-                                {% else %}
-                                    Status : <span class="badge badge-warning">Belum Terverifikasi</span>
-                                {% endif %}
+                            {% if data.comment_1 %}
+                                <div class="border bg-white p-2 rounded">
+                                    <h5 class="judul">Komentar Pembayaran Ke-1</h5>
+                                    <p class="mb-0">
+                                        {{ data.comment_1  }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if data.comment_2 %}
+                                <div class="border bg-white p-2 rounded">
+                                    <h5 class="judul">Komentar Pembayaran Ke-1</h5>
+                                    <p class="mb-0">
+                                        {{ data.comment_2  }}
+                                    </p>
+                                </div>
+                            {% endif %}
+                            {% if data.comment_3 %}
+                                <div class="border bg-white p-2 rounded">
+                                    <h5 class="judul">Komentar Pembayaran Ke-1</h5>
+                                    <p class="mb-0">
+                                        {{ data.comment_3  }}
+                                    </p>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
