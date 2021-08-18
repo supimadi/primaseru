@@ -145,6 +145,7 @@ MAJOR_FORM_LAYOUT = Layout(
         Field('first_major', css_class="custom-select custom-select-sm"),
         Field('second_major', css_class="custom-select custom-select-sm"),
         Field('enter_smk', css_class="custom-select custom-select-sm"),
+        Field('charity', css_class="custom-select custom-select-sm"),
         css_class=FIELDSET_CLASS
     )
 )

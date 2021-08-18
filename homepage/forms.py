@@ -19,8 +19,8 @@ class UserRegisterForm(UserCreationForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Div('password1', css_class='col-12 col-sm-6 input-group'),
-                Div('password2', css_class='col-12 col-sm-6 input-group'),
+                Div('password1', css_class='col-12 col-md-6 input-group'),
+                Div('password2', css_class='col-12 col-md-6 input-group'),
             )
         )
 
@@ -45,8 +45,8 @@ class ParticipantRegisterForm(forms.Form):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             Row(
-                Div('full_name', css_class='col-6 input-group'),
-                Div('participant_phone_number', css_class='col-6 input-group'),
+                Div('full_name', css_class='col-12 col-md-6 input-group'),
+                Div('participant_phone_number', css_class='col-12 col-md-6 input-group'),
             ),
             Row(
                 Div(
@@ -56,12 +56,12 @@ class ParticipantRegisterForm(forms.Form):
                 )
             ),
             Row(
-                Div('parent_full_name', css_class='col-6 input-group'),
-                Div('parent_phone_number', css_class='col-6 input-group'),
+                Div('parent_full_name', css_class='col-12 col-md-6 input-group'),
+                Div('parent_phone_number', css_class='col-12 col-md-6 input-group'),
             ),
             Row(
-                Div('homeroom_teacher_phone_number', css_class='col-6 input-group'),
-                Div('bk_teacher_phone_number', css_class='col-6 input-group'),
+                Div('homeroom_teacher_phone_number', css_class='col-12 col-md-6 input-group'),
+                Div('bk_teacher_phone_number', css_class='col-12 col-md-6 input-group'),
             ),
             Row(
                 Div(Field('info', css_class="custom-select custom-select"), css_class="col-md-12"),

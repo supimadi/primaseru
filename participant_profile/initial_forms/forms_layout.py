@@ -110,5 +110,6 @@ MAJOR_FORM = Layout(
         Field('first_major', css_class="custom-select custom-select-sm"),
         Field('second_major', css_class="custom-select custom-select-sm"),
         Field('info', css_class="custom-select custom-select-sm"),
+        Field('charity', css_class="custom-select custom-select-sm"),
     )
 )
