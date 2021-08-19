@@ -52,5 +52,7 @@ Test by typing:
 [X] add "keinginan siapa masuk ke smk"
 [X] make first repayment not mandatory
 [X] add "dana sumbangan"
-[] dowload ziip
+[X] dowload ziip
 [] add virtual account number to repayment-page
+[] create 'skl'
+[] create registration card

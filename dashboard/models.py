@@ -93,7 +93,7 @@ class ParticipantRePayment(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     message = models.CharField('Pesan', max_length=120, null=True, blank=True)
 
-    # REVIEW can anyone make this not repetitive?
+    # FIXME need to make seperate model
     payment_1 = models.FileField('Pembayaran Ke 1', upload_to=user_directory_path, null=True, blank=True)
     verfied_1 = models.BooleanField('Verifikasi Pembayaran 1', default=False)
     comment_1 = models.CharField('Komentar Pembayaran 1', max_length=100, null=True, blank=True)

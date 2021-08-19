@@ -14,7 +14,7 @@ def user_directory_path(instance, filename):
 class StudentFile(models.Model):
     verified = models.BooleanField(default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-
+    # FIXME need to create seperate model
     msg = models.CharField("Pesan", max_length=120, null=True, blank=True)
     ra_sem_1 = models.FileField('Rapor Semester 1', upload_to=user_directory_path, null=True, blank=True)
     ra_sem_2 = models.FileField('Rapor Semester 2', upload_to=user_directory_path, null=True, blank=True)

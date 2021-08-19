@@ -1,13 +1,18 @@
+import os
+from io import BytesIO
+import zipfile
+
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils import timezone
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
+from django.conf import settings
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -108,37 +113,60 @@ def insert_participant(request):
     }
     return render(request, 'dashboard/insert_participant.html', context)
 
+
 @permission_required('users.is_staff')
-def export(request):
-    ctx = {
-        'export': [
-            {
-                'title': 'Data Peserta',
-                'link': reverse('export-participant'),
-            },
-            {
-                'title': 'Data Ayah',
-                'link': reverse('export-father'),
-            },
-            {
-                'title': 'Data Ibu',
-                'link': reverse('export-mother'),
-            },
-            {
-                'title': 'Data Wali',
-                'link': reverse('export-guardian'),
-            },
-            {
-                'title': 'Data Jurusan Peserta',
-                'link': reverse('export-major'),
-            },
-        ]
-    }
-    return render(request, 'dashboard/export.html', ctx)
+def files_download(request, pk):
+    participant = Participant.objects.get(account=pk)
+
+    fbuffer = BytesIO()
+    path = f'{settings.MEDIA_ROOT}/berkas_{participant.account.username}/'
+    files = os.listdir(path=path)
+
+    zf = zipfile.ZipFile(fbuffer, "w")
+    os.chdir(path)
+
+    for fname in files:
+        zf.write(f'{fname}')
+
+    zf.close()
+
+    resp = HttpResponse(fbuffer.getvalue(), headers={
+        'Content-Type': "application/x-zip-compressed",
+        'Content-Disposition': f'attachment; filename="Berkas_{participant.full_name}.zip"',
+    })
+
+    return resp
 
 class ExportToExcel(UserIsStaffMixin, View):
     model = None
     file_name = 'Data PPDB'
+
+    def get(self, request, *args, **kwargs):
+        ctx = {
+            'export': [
+                {
+                    'title': 'Data Peserta',
+                    'link': reverse('export-participant'),
+                },
+                {
+                    'title': 'Data Ayah',
+                    'link': reverse('export-father'),
+                },
+                {
+                    'title': 'Data Ibu',
+                    'link': reverse('export-mother'),
+                },
+                {
+                    'title': 'Data Wali',
+                    'link': reverse('export-guardian'),
+                },
+                {
+                    'title': 'Data Jurusan Peserta',
+                    'link': reverse('export-major'),
+                },
+            ]
+        }
+        return render(request, 'dashboard/export.html', ctx)
 
     def post(self, request, *args, **kwargs):
         PARTICIPANT = list(Participant.objects.values_list('registration_number', 'full_name'))
