@@ -92,6 +92,7 @@ class RegisterStep(models.Model):
 class ParticipantRePayment(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     message = models.CharField('Pesan', max_length=120, null=True, blank=True)
+    virt_acc_number = models.CharField('Nomor Virtual Account', max_length=30, null=True)
 
     # FIXME need to make seperate model
     payment_1 = models.FileField('Pembayaran Ke 1', upload_to=user_directory_path, null=True, blank=True)

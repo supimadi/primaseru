@@ -172,6 +172,7 @@ PAYMENT_FORM_DASHBOARD_LAYOUT = Layout(
 RE_PAYMENT_DASHBOARD_FORM = Layout(
     Fieldset('Pembayaran Daftar Ulang',
         Row(Div('message', css_class="col-12"), css_class="pb-3 px-3"),
+        Row(Div('virt_acc_number', css_class="col-12"), css_class="pb-3 px-3"),
         Row(
             Div('payment_1', css_class="col-12"),
             Div('comment_1', css_class="col-12"),

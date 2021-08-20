@@ -53,6 +53,7 @@ Test by typing:
 [X] make first repayment not mandatory
 [X] add "dana sumbangan"
 [X] dowload ziip
-[] add virtual account number to repayment-page
+[X] add virtual account number to repayment-page
 [] create 'skl'
 [] create registration card
+[] create grafik or analytic page
