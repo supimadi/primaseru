@@ -52,7 +52,7 @@ class ParticipantGraduationForm(forms.ModelForm):
 
     class Meta:
         model = ParticipantGraduation
-        exclude = ['participant']
+        exclude = ['participant', 'updated_at']
 
 class RegisterStudentForm(forms.ModelForm):
     password = forms.CharField(max_length=100, widget=forms.PasswordInput)

@@ -54,6 +54,6 @@ Test by typing:
 [X] add "dana sumbangan"
 [X] dowload ziip
 [X] add virtual account number to repayment-page
-[] create 'skl'
-[] create registration card
+[X] create 'skl'
+[X] create registration card
 [] create grafik or analytic page

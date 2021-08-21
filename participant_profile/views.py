@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import JsonResponse, QueryDict
 from django.contrib import messages
@@ -14,6 +14,7 @@ from crispy_forms.utils import render_crispy_form
 from . import models, forms
 from .mixins import IsPassessTestPPDB
 from .initial_forms import initial_forms
+
 from dashboard.models import ParticipantGraduation, ParticipantLMS, Participant, ParticipantRePayment
 
 @login_required
@@ -48,10 +49,29 @@ def set_photo_profile(request):
 
 @login_required
 def id_card(request):
-    data = models.ParticipantProfile.objects.get(participant=request.user.pk)
-    image = models.PhotoProfile.objects.get(participant=request.user.pk)
+    data = get_object_or_404(Participant, account=request.user.pk)
+    image = get_object_or_404(models.PhotoProfile, participant=request.user.pk)
 
     return render(request, 'participant_profile/id_card.html', {'data': data, 'image': image})
+
+@login_required
+def skl_view(request):
+    pk = request.user.pk
+
+    data = get_object_or_404(Participant, account=pk)
+    image = get_object_or_404(models.PhotoProfile, participant=pk)
+    graduation = get_object_or_404(ParticipantGraduation, participant=pk)
+    test = get_object_or_404(ParticipantLMS, participant=pk)
+
+    ctx = {
+        'data': data,
+        'image': image,
+        'graduation': graduation,
+        'test': test,
+    }
+
+
+    return render(request, 'participant_profile/skl.html', ctx)
 
 @login_required
 def upload_files(request):

@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name="profile"),
     path('id-card/', views.id_card, name="id-card"),
     path('files-upload/', views.upload_files, name="files-upload"),
+    path('skl/', views.skl_view, name="skl"),
     path('photo-profile/', views.set_photo_profile, name="set-photo-profile"),
     # path('initial/', views.InitialFormView.as_view(), name="initial-form"),
     # path('initial/photo', views.initial_photo, name="initial-photo"),

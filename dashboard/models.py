@@ -35,6 +35,8 @@ class ParticipantGraduation(models.Model):
     letter = models.FileField('Surat Kelulusan', null=True, blank=True, upload_to='berkas_kelulusan/')
     chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR, null=True, blank=True)
 
+    updated_at = models.DateTimeField(default=timezone.now)
+
 class ParticipantCount(models.Model):
     count = models.CharField(max_length=6, db_index=True)
 

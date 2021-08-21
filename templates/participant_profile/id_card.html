@@ -7,61 +7,106 @@
      .no-border td {
          border: none !important;
      }
+     .header {
+         background: #CC0000;
+     }
+     tbody tr th, td {
+         border: 1px solid black !important;
+     }
+     .header-table {
+         border: 1px solid black;
+         background: #CC0000;
+         color: #fff;
+     }
+     .bg-abu {
+         background: #E7E6E6;
+     }
+     #photo-profile {
+         width: 170px;
+         height: 200px;
+     }
+     #id-card {
+         display: grid;
+         place-items: center;
+         background: #fff;
+     }
     </style>
 {% endblock head %}
+{% block container %}
+    container-fluid
+{% endblock container %}
 {% block main %}
-    <div class="row mt-5">
-        <div class="col-6 p-2 border border-dark bg-white">
-            <div class="d-flex flex-row align-items-center justify-content-between">
-                <div class="mb-1">
-                    <img src="{%  static 'homepage/images/prima_1.png'  %}" width="82px" />
-                </div>
-                <p class="text-center m-0">
-                    KARTU PESERTA <br />
-                    <b>UJIAN MASUK</b><br />
-                    SMK TELKOM BANDUNG<br />
-                </p>
-                <div class="">
-                    <img src="{% static 'users/images/Sekunder.png'  %}" alt="logo smk telkom bandung" width="82px" />
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-6 border border-dark bg-white">
-            <table class="table">
+
+    <div id="id-card">
+        <div class="d-flex justify-content-between header w-100 text-center text-white p-3">
+            <img src="{% static 'homepage/images/logo-putih.png' %}" class="img-fluid" width="180" />
+            <h1>Kartu Peserta</h1>
+            <img src="{% static 'homepage/images/Primaseru_2022.png' %}" alt="" width="180" />
+        </div>
+
+        <div class="mx-5 mb-3 mt-5 px-3 w-75">
+            <table class="table border border-dark" style="font-size: 1.2rem;">
                 <tbody>
-                    <tr class="no-border">
-                        <th scope="row">No. Peserta</th>
-                        <td>:</td>
-                        <td>{{ data.participant.participant.registration_number  }}</td>
-                    </tr>
                     <tr>
+                        <th colspan="3" class="py-1 header-table"><h5><b>Data Pendaftar</b></h5></th>
+                    </tr>
+                    <tr class="bg-abu">
+                        <th scope="row">No. Pendaftar</th>
+                        <td>{{ data.registration_number  }}</td>
+                        <td rowspan="3" class="text-center">
+                            <img src="{{  image.image.url }}" alt="photo-profile" id="photo-profile"/>
+                        </td>
+                    </tr>
+                    <tr class="bg-abu">
                         <th scope="row">Nama Lengkap</th>
-                        <td>:</td>
-                        <td>{{ data.participant.participant.full_name  }}</td>
+                        <td>{{ data.full_name  }}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">Tempat, Tanggal Lahir</th>
-                        <td>:</td>
-                        <td>{{ data.city_born|capfirst  }}, {{ data.date_born  }}</td>
-                    </tr>
-                    <tr>
+                    <tr class="bg-abu">
                         <th scope="row">Asal Sekolah</th>
-                        <td>:</td>
-                        <td>{{ data.school_origin|upper  }}</td>
+                        <td>{{ data.previous_school|upper  }}</td>
                     </tr>
                 </tbody>
             </table>
-            <img src="{{  image.image.url }}" class="border border-dark mb-3" width="114px" height="152px" />
+        </div>
+
+        <div class="mx-5 px-3 w-75">
+            <table class="table border border-dark" style="font-size: 1.2rem">
+                <tbody>
+                    <tr>
+                        <th colspan="3" class="py-1 h-50 header-table"><h5><b>Pilihan Program Studi (Prodi)</b></h5></th>
+                        <th rowspan="2" class="text-center bg-abu">
+                            <img src="{% static 'homepage/images/prima_1.png' %}" alt="logo-prima"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="font-size: 1.3rem; vertical-align: middle" class="bg-abu">
+                            Program Studi 1: {{ data.account.majorstudent.get_first_major_display }} <br />
+                            Program Studi 2: {{ data.account.majorstudent.get_second_major_display }} <br />
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
 {% endblock main %}
 
 {% block js %}
+    <script type="text/javascript" src="{% static 'js/dom-to-image.min.js' %}"></script>
     <script type="text/javascript">
-     window.print();
+     var node = document.getElementById('id-card');
+
+    domtoimage.toPng(node)
+              .then(function (dataUrl) {
+                  var link = document.createElement('a');
+                  link.download = 'kartu_peserta.jpeg';
+                  link.href = dataUrl;
+                  link.click();
+              })
+              .catch(function (error) {
+                  console.error('oops, something went wrong!', error);
+              });
+
     </script>
 {% endblock js %}
