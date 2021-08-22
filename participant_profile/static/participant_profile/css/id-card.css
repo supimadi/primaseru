@@ -1,0 +1,86 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    text-align: left;
+}
+main{
+    width: 21cm;
+    height: 29.7cm;
+    font-family: arial;
+    text-align: left;
+    /* change the margins as you want them to be. */
+}
+.text-center {
+    text-align: center !important;
+}
+.toolbar {
+    margin-bottom: 1rem;
+}
+.toolbar button {
+    background: #CC0000;
+    color: #fff;
+    padding: .5rem;
+    border: none;
+    border-radius: .25rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.toolbar button:hover {
+
+}
+.no-border td {
+    border: none !important;
+}
+.header {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.bg-red {
+    background: #CC0000;
+    color: #fff;
+}
+.data-pendaftar {
+    margin: 2rem;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.img-fluid {
+    width: 100%;
+}
+table th {
+    padding: 0.5rem;
+    font-size: 1.1rem;
+    vertical-align: top;
+}
+table td {
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    vertical-align: top;
+}
+tbody tr th, td {
+    border: 1px solid black !important;
+}
+.header-table {
+    border: 1px solid black;
+    background: #CC0000;
+    color: #fff;
+}
+.bg-abu {
+    background: #E7E6E6;
+}
+#photo-profile {
+    width: 170px;
+    height: 200px;
+}
+#id-card {
+    display: grid;
+    place-items: center;
+    background: #fff;
+}

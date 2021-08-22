@@ -52,7 +52,7 @@ def id_card(request):
     data = get_object_or_404(Participant, account=request.user.pk)
     image = get_object_or_404(models.PhotoProfile, participant=request.user.pk)
 
-    return render(request, 'participant_profile/id_card.html', {'data': data, 'image': image})
+    return render(request, 'participant_profile/id_card_new.html', {'data': data, 'image': image})
 
 @login_required
 def skl_view(request):

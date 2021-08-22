@@ -1,0 +1,87 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Kartu Peserta</title>
+        <link rel="stylesheet" href="{% static 'participant_profile/css/id-card.css' %}" type="text/css" media="screen" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+
+        <section class="toolbar">
+            <hr />
+            <button id="unduh">Download Kartu Peserta</button>
+            <hr />
+        </section>
+
+        <main id="main">
+            <section id="id-card">
+
+                <div class="bg-red header">
+                    <img src="{% static 'homepage/images/logo-putih.png' %}" width="180" />
+                    <h1>Kartu Peserta</h1>
+                    <img src="{% static 'homepage/images/Primaseru_2022.png' %}" alt="" width="130" />
+                </div>
+
+                <div class="data-pendaftar">
+                    <table class="table border border-dark">
+                        <tbody>
+                            <tr>
+                                <th colspan="3" class="header-table"><h4><b>Data Pendaftar</b></h4></th>
+                            </tr>
+                            <tr class="bg-abu">
+                                <th scope="row">No. Pendaftar</th>
+                                <td>{{ data.registration_number  }}</td>
+                                <td rowspan="3" class="text-center">
+                                    <img src="{{  image.image.url }}" alt="photo-profile" id="photo-profile"/>
+                                </td>
+                            </tr>
+                            <tr class="bg-abu">
+                                <th scope="row">Nama Lengkap</th>
+                                <td>{{ data.full_name  }}</td>
+                            </tr>
+                            <tr class="bg-abu">
+                                <th scope="row">Asal Sekolah</th>
+                                <td>{{ data.previous_school|upper  }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="data-pendaftar">
+                    <table class="table border border-dark">
+                        <tbody>
+                            <tr>
+                                <th colspan="2" class="header-table"><h4><b>Pilihan Program Studi (Prodi)</b></h4></th>
+                            </tr>
+                            <tr>
+                                <th style="font-size: 1.3rem; vertical-align: middle" class="bg-abu">
+                                    <p>
+                                        Program Studi 1: {{ data.account.majorstudent.get_first_major_display }}
+                                    </p>
+                                    <p>
+                                        Program Studi 2: {{ data.account.majorstudent.get_second_major_display }}
+                                    </p>
+                                </th>
+                                <th class="text-center bg-abu">
+                                    <img src="{% static 'homepage/images/prima_1.png' %}" alt="logo-prima" width="200"/>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+        </main>
+
+    </body>
+    <script type="text/javascript">
+     var name = 'Kartu Peserta'; 
+    </script>
+    <script type="text/javascript" src="{% static 'js/dom-to-image.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/file-saver.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'participant_profile/js/screenshoot.js' %}"></script>
+</html>
