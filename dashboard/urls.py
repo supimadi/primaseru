@@ -40,6 +40,7 @@ urlpatterns = [
     path('peserta/ibu/<int:pk>/', views.ParticipantMotherProfileView.as_view(), name='participant-mother'),
     path('peserta/wali/<int:pk>/', views.ParticipantGuardianProfile.as_view(), name='participant-guardian'),
     path('peserta/berkas/<int:pk>/', views.ParticipantFilesView.as_view(), name='participant-files'),
+    path('peserta/kk/<int:pk>/', views.ParticipantFamilyCertView.as_view(), name='participant-family-cert'),
     path('peserta/jurusan/<int:pk>/', views.ParticipantMajorView.as_view(), name='participant-major'),
     path('peserta/kelulusan/<int:pk>/', views.ParticipantGradiationView.as_view(), name='participant-graduation'),
     path('peserta/lms/<int:pk>/', views.ParticipantLMSView.as_view(), name='participant-lms'),

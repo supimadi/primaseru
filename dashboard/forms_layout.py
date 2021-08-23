@@ -160,12 +160,34 @@ LMS_FORM_LAYOUT = Layout(
     ),
 )
 
-PAYMENT_FORM_DASHBOARD_LAYOUT = Layout(
-    forms_layout_participant.PAYMENT_FORM_LAYOUT,
+LMS_FORM_LAYOUT = Layout(
+    Fieldset('Akun Ujian LMS',
+        Div(
+            'username',
+            'password',
+            'schedule',
+            'time',
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
     Div(
-        # Submit('submit', 'Submit'),
-        'verified',
+        Submit('submit', 'Submit'),
         css_class="mx-3"
+    ),
+)
+
+FAMILY_CERT_DASHBOARD_FORM = Layout(
+    Fieldset('Kartu Keluarga',
+        Div(
+            'family_cert',
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
+    Row(
+        Div('verified',
+            Submit('submit', 'Submit'),
+            css_class="col-sm-6"
+            ), css_class="mx-3"
     ),
 )
 

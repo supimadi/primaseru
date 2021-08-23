@@ -186,7 +186,7 @@ class MajorParticipantView(ProfileView):
 
 class ParticipantKKView(ProfileView):
     form_class = forms.ParticipantKKForm
-    model = models.StudentFile
+    model = models.ParticipantFamilyCert
     url_name = 'participant-kk'
     # template_name = "participant_profile/participant_files.html"
     name = "Kartu Keluarga"

@@ -185,3 +185,14 @@ class ParticipantRePaymentForm(forms.ModelForm):
     class Meta:
         model = ParticipantRePayment
         exclude = ['participant', 'created_at', 'updated_at']
+
+class ParticipantFamilyCertForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.FAMILY_CERT_DASHBOARD_FORM
+
+    class Meta:
+        model = participant_models.ParticipantFamilyCert
+        fields = ['verified', 'family_cert']

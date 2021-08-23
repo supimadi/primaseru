@@ -60,7 +60,7 @@ Test by typing:
 [] make telegram bot
 [X] create grafik or analytic page
 [] seperate 'raport' from file student model
-[] seperate 'kk' from file student model
+[X] seperate 'kk' from file student model
 [X] make fail safe system for generating and reseting register number
 [X] change 'prestasi' to 'penghargaan yang pernah di raih'
 [X] fix mobile view on re-payment page

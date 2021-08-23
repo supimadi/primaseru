@@ -104,7 +104,7 @@ class ParticipantKKForm(forms.ModelForm):
         self.helper.layout = forms_layout.KK_FORM_LAYOUT
 
     class Meta:
-        model = models.StudentFile
+        model = models.ParticipantFamilyCert
         fields = ['family_cert']
 
 class ParticipantPaymentForm(forms.ModelForm):

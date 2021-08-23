@@ -11,6 +11,14 @@ from . import choices
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
 
+class ParticipantFamilyCert(models.Model):
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    verified = models.BooleanField(default=False, db_index=True)
+    family_cert = models.FileField('Kartu Keluarga', upload_to=user_directory_path, null=True, blank=True)
+
+    def __str__(self):
+        return f'Kartu Keluarga {self.participant}'
+
 class StudentFile(models.Model):
     verified = models.BooleanField(default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -22,7 +30,6 @@ class StudentFile(models.Model):
     ra_sem_4 = models.FileField('Rapor Semester 4', upload_to=user_directory_path, null=True, blank=True)
     ra_sem_5 = models.FileField('Rapor Semester 5', upload_to=user_directory_path, null=True, blank=True)
     birth_cert = models.FileField('Akta Kelahiran', upload_to=user_directory_path, null=True, blank=True)
-    family_cert = models.FileField('Kartu Keluarga', upload_to=user_directory_path, null=True, blank=True)
     color_blind_cert = models.FileField('Semester Keterangan Tidak Buta Warna', upload_to=user_directory_path, null=True, blank=True)
     healty_cert = models.FileField('Surat Keterangan Sehat', upload_to=user_directory_path, null=True, blank=True)
     good_behave_cert = models.FileField('Surat Kelakukan Baik', upload_to=user_directory_path, null=True, blank=True)

@@ -32,7 +32,7 @@ from .generator import register_number_generator, reset_register_number
 from participant_profile.models import (
     ParticipantProfile, MotherStudentProfile,
     FatherStudentProfile, StudentGuardianProfile,
-    StudentFile, MajorStudent, PaymentUpload
+    StudentFile, MajorStudent, PaymentUpload, ParticipantFamilyCert
 )
 from participant_profile import forms as participant_profile_forms
 
@@ -475,4 +475,11 @@ class RePaymentDView(ParticipantBaseView):
     form_class = forms.ParticipantRePaymentForm
     success_url_name = 'participant-payment'
     name = 'Pembayaran Daftar Ulang'
+    is_media = True
+
+class ParticipantFamilyCertView(ParticipantBaseView):
+    model = ParticipantFamilyCert
+    form_class = forms.ParticipantFamilyCertForm
+    success_url_name = 'participant-family-cert'
+    name = 'Kartu Keluarga'
     is_media = True
