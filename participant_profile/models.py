@@ -72,7 +72,7 @@ class ParticipantProfile(models.Model):
     city_born = models.CharField('Kota Tempat Lahir', max_length=100, help_text='Contoh: Kabupaten Bandung', db_index=True)
     date_born = models.DateField('Tanggal Lahir', db_index=True)
     social_media = models.CharField('Alamat Sosial Media', max_length=50, help_text='Seperti Instagram atau FB')
-    achievement = models.TextField('Penghargaan', null=True, blank=True, help_text='Contoh: Juara 1 Lomba Basket Tingkat Nasional')
+    achievement = models.TextField('Prestasi yang Pernah diraih', null=True, blank=True, help_text='Contoh: Juara 1 Lomba Basket Tingkat Nasional')
 
     nisn = models.IntegerField('NISN', unique=True, help_text='Isi NISN berdasarkan NISN yang diberikan sewaktu SMP.')
     nik = models.IntegerField('Nomor Induk Kependudukan (NIK)', unique=True, help_text='Bisa dicek di Kartu Keluarga')
@@ -117,7 +117,7 @@ class MajorStudent(models.Model):
      second_major = models.CharField('Pilihan Jurusan Kedua', choices=choices.MAJOR, max_length=4)
 
      enter_smk = models.CharField('Keinginan Siapa Masuk SMK', max_length=4, null=True, choices=choices.ENTER_SMK_CHOICES)
-     charity = models.CharField('Dana Sukarela', max_length=4, null=True, choices=choices.CHARITY_AMOUNT)
+     charity = models.CharField('Dana Sukarela', max_length=4, null=True, choices=choices.CHARITY_AMOUNT, help_text="Dana Sukarela nantinya akan dimanfaatkan untuk pengembangan siswa dibidang non akademik (kompetisi dan perlombaan-perlombaan).")
 
      def __str__(self):
          return f'{self.participant} - {self.first_major}'

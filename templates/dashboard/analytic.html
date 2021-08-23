@@ -1,0 +1,57 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block dashtitle %}
+    Analisis Sumber Info Primaseru <br />
+{% endblock dashtitle %}
+{% block maindash %}
+    <div class="row py-4 my-3 mx-5 bg-white rounded shadow">
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col mx-1 mx-lg-3">
+                    <div class="border rounded p-3">
+                        <canvas id="infoChart" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row">
+                <div class="col mt-4 mx-1 mx-lg-3">
+                    <div class="">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Sumber Info</th>
+                                    <th scope="col">Jumlah Voting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d,l in info %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter  }}</th>
+                                    <td>{{ l  }}</td>
+                                    <td>{{ d  }} Voting</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock maindash %}
+
+{% block js %}
+    {{ block.super  }}
+    <script type="text/javascript">
+     var label = {{ data_list.0|safe }};
+     var data = {{ data_list.1  }};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="{% static 'dashboard/js/analytic.js' %}"></script>
+{% endblock js %}

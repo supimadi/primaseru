@@ -56,4 +56,13 @@ Test by typing:
 [X] add virtual account number to repayment-page
 [X] create 'skl'
 [X] create registration card
-[] create grafik or analytic page
+[] refactor export excel
+[] make telegram bot
+[X] create grafik or analytic page
+[] seperate 'raport' from file student model
+[] seperate 'kk' from file student model
+[] make fail safe system for generating and reseting register number
+[] change 'prestasi' to 'penghargaan yang pernah di raih'
+[] fix mobile view on re-payment page
+[] fix typo 'pribari'
+[] add salution page

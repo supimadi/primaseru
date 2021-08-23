@@ -25,7 +25,7 @@ from . import forms
 from .models import (
     ParticipantCount, RegisterSchedule,
     RegisterStep, Participant, ParticipantGraduation,
-    ParticipantLMS, ParticipantRePayment, InfoSourcePPDB
+    ParticipantLMS, ParticipantRePayment, InfoSourcePPDB,
 )
 from .generator import register_number_generator, reset_register_number
 
@@ -136,6 +136,17 @@ def files_download(request, pk):
     })
 
     return resp
+
+def analytic_view(request):
+    info = InfoSourcePPDB.objects.all()
+
+    label = []
+    data = []
+    for i in info:
+        label.append(i.info_source) # Label
+        data.append(i.participant_set.count()) # vote count
+
+    return render(request, 'dashboard/analytic.html', {'data_list': [label, data], 'info': zip(data, label)})
 
 class ExportToExcel(UserIsStaffMixin, View):
     model = None

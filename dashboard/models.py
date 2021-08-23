@@ -38,13 +38,13 @@ class ParticipantGraduation(models.Model):
     updated_at = models.DateTimeField(default=timezone.now)
 
 class ParticipantCount(models.Model):
-    count = models.CharField(max_length=6, db_index=True)
+    count = models.CharField(max_length=10, db_index=True)
 
     def __str__(self):
         return self.count
 
 class InfoSourcePPDB(models.Model):
-    info_source = models.CharField('Sumber Info Primaseru', max_length=100, unique=True)
+    info_source = models.CharField('Sumber Info Primaseru', max_length=100, unique=True, db_index=True)
 
     def __str__(self):
         return self.info_source

@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.dashboard, name="dashboard"),
     path('add-participant/', views.insert_participant, name="insert-participant"),
     path('export/', views.ExportToExcel.as_view(), name="export"),
+    path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
     path('reg-num/', views.get_register_number, name="register-number"),
     path('reg-num/reset', views.reset_registration_number, name="register-number-reset"),

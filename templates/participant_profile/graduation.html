@@ -125,8 +125,9 @@
                                             Silahkan unggah berkas yang diperlukan untuk menyelesaikan proses pendaftaran.
                                         </p>
                                         <a class="btn btn-block btn-primary" href="{% url 'files-upload' %}">Unggah Berkas</a>
+                                        <a class="btn btn-block btn-outline-danger" href="{% url 'skl' %}">Unduh Kartu Kelulusan</a>
                                         {% if data.letter %}
-                                            <a class="btn btn-block btn-outline-danger" href="{% url 'skl' %}">Unduh Surat Kelulusan</a>
+                                            <a class="btn btn-block btn-outline-danger" href="{{ data.letter.url }}">Unduh Surat Kelulusan</a>
                                         {% endif %}
                                     </div>
                                 </div>
