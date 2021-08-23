@@ -61,7 +61,7 @@ Test by typing:
 [X] create grafik or analytic page
 [] seperate 'raport' from file student model
 [] seperate 'kk' from file student model
-[] make fail safe system for generating and reseting register number
+[X] make fail safe system for generating and reseting register number
 [X] change 'prestasi' to 'penghargaan yang pernah di raih'
 [X] fix mobile view on re-payment page
 [X] fix typo 'pribari'

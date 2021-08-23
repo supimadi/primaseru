@@ -1,4 +1,4 @@
-from .models import ParticipantCount
+from .models import ParticipantCount, Participant
 from django.utils import timezone
 
 def register_number_generator():
@@ -13,9 +13,13 @@ def register_number_generator():
         obj = ParticipantCount(count='001')
         obj.save()
 
-    registration_number = "".join(map(str, year_today)) + str(obj.count)
-    obj.count = "{0:03}".format(int(obj.count) + 1)
-    obj.save()
+    while True:
+        registration_number = "".join(map(str, year_today)) + str(obj.count)
+        obj.count = "{0:03}".format(int(obj.count) + 1)
+        obj.save()
+
+        if not Participant.objects.filter(registration_number__contains=registration_number).exists():
+            break
 
     return registration_number
 
