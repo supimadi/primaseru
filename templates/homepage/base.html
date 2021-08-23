@@ -48,6 +48,9 @@
                             </li>
                             {% if user.is_staff %}
                                 <li class="nav-item mx-2">
+                                    <a class="nav-link my-btn-outline-primary py-2 px-3 text-white" href="{% url 'logout' %}">Logout</a>
+                                </li>
+                                <li class="nav-item mx-2">
                                     <a class="nav-link my-btn-primary py-2 px-3 text-white" href="{% url 'dashboard' %}">Dashboard</a>
                                 </li>
                             {% elif user.is_authenticated %}
