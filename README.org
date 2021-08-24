@@ -66,3 +66,4 @@ Test by typing:
 [X] fix mobile view on re-payment page
 [X] fix typo 'pribari'
 [] add salution page
+[X] change "biaya pendaftaran" to "Test minat bakat"

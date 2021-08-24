@@ -49,6 +49,7 @@
                             <th scope="col">No. Peserta</th>
                             <th scope="col" class="w-25">Nama</th>
                             <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">No. HP</th>
                             <th scope="col">Tanggal Lahir</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
@@ -61,6 +62,7 @@
                                 <td>{{ s.registration_number }}</td>
                                 <td><a href="{% url 'participant-detail' s.account.pk %}">{{ s.full_name|title  }}</a></td>
                                 <td>{{ s.account.participantprofile.get_sex_display  }}</td>
+                                <td>{{ s.participant_phone_number  }}</td>
                                 <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td>
                                 <td>
                                     {% if s.account.participantgraduation.passed == 'L' %}

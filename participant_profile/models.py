@@ -19,6 +19,9 @@ class ParticipantFamilyCert(models.Model):
     def __str__(self):
         return f'Kartu Keluarga {self.participant}'
 
+class ParticipantRaportFiles(models.Model):
+    pass
+
 class StudentFile(models.Model):
     verified = models.BooleanField(default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
