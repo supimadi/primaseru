@@ -177,9 +177,10 @@ LMS_FORM_LAYOUT = Layout(
 )
 
 FAMILY_CERT_DASHBOARD_FORM = Layout(
-    Fieldset('Kartu Keluarga',
+    Fieldset('KK dan Akta Kelahiran',
         Div(
             'family_cert',
+            'birth_cert',
         ),
         css_class=" rounded border border-primary p-3 m-3"
     ),
@@ -224,5 +225,22 @@ RE_PAYMENT_DASHBOARD_FORM = Layout(
     Div(
         Submit('submit', 'Submit'),
         css_class="mx-3"
+    ),
+)
+
+RAPORT_DASHBOARD_FORM = Layout(
+    Fieldset('Raport',
+        Div(
+            'raport',
+            'semester',
+            'part',
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
+    Row(
+        Div(
+            Submit('submit', 'Submit'),
+            css_class="col-sm-6"
+            ), css_class="mx-3"
     ),
 )

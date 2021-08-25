@@ -48,38 +48,29 @@
         <div class="col bg-white p-3 my-4 mr-3 shadow rounded">
             <div class="mx-3 p-3 border border-danger rounded" style="background: #fff2f2">
                 <p class="m-0 judul">
-                    {% if text == 'Berkas Peserta' %}
-                        Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
-                        sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
-                        seperti berkas kurang jelas, silahkan ketik di kolom pesan.
-                    {% elif text == 'Akun Peserta' %}
-                        Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan dengan men-click tombol di bawah. Harap diingat,
-                        admin hanya perlu sekali membuat nomor registrasi untuk setiap peserta. <b>Jangan lupa setelah buat Nomor Registrasi, click Submit</b>
-                    {% elif text == 'Password' %}
-                        Password tidak bisa dilihat. Silahkan masukan password baru pada form yang disediakan.
-                    {% else %}
                     Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
-                    sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit.
-                    {% endif %}
+                    sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
+                    seperti berkas kurang jelas, silahkan ketik di kolom pesan.
                 </p>
             </div>
-            <form method="POST"
-                  {% if is_media %}
-                  enctype="multipart/form-data"
-                  {% endif %}
-                  action="" id="participantForm">
+
+            <div class="border rounded mx-3 mt-3">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'participant-family-cert' pk %}">Berkas Daftar/Identitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'raport-list' pk %}">Berkas Raport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'participant-files' pk %}">Berkas Penting Lainnya</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" action="" id="participantForm">
                 {% crispy form %}
             </form>
-            {% if is_account %}
-                <div class="mx-3">
-                    <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
-                    <form class="d-inline" method="POST" action="{% url 'delete-participant' pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">Hapus Akun</button>
-                    </form>
-                </div>
-            {% endif %}
-            {% block files %}{% endblock files %}
         </div>
     </div>
 {% endblock maindash %}

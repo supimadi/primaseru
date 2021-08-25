@@ -14,28 +14,21 @@ def user_directory_path(instance, filename):
 class ParticipantFamilyCert(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False, db_index=True)
-    family_cert = models.FileField('Kartu Keluarga', upload_to=user_directory_path, null=True, blank=True)
+    family_cert = models.FileField('Kartu Keluarga', upload_to=user_directory_path, null=True)
+    birth_cert = models.FileField('Akta Kelahiran', upload_to=user_directory_path, null=True)
 
     def __str__(self):
-        return f'Kartu Keluarga {self.participant}'
-
-class ParticipantRaportFiles(models.Model):
-    pass
+        return f'KK dan Akta Kelahiran {self.participant}'
 
 class StudentFile(models.Model):
     verified = models.BooleanField(default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    # FIXME need to create seperate model
     msg = models.CharField("Pesan", max_length=120, null=True, blank=True)
-    ra_sem_1 = models.FileField('Rapor Semester 1', upload_to=user_directory_path, null=True, blank=True)
-    ra_sem_2 = models.FileField('Rapor Semester 2', upload_to=user_directory_path, null=True, blank=True)
-    ra_sem_3 = models.FileField('Rapor Semester 3', upload_to=user_directory_path, null=True, blank=True)
-    ra_sem_4 = models.FileField('Rapor Semester 4', upload_to=user_directory_path, null=True, blank=True)
-    ra_sem_5 = models.FileField('Rapor Semester 5', upload_to=user_directory_path, null=True, blank=True)
-    birth_cert = models.FileField('Akta Kelahiran', upload_to=user_directory_path, null=True, blank=True)
+
     color_blind_cert = models.FileField('Semester Keterangan Tidak Buta Warna', upload_to=user_directory_path, null=True, blank=True)
     healty_cert = models.FileField('Surat Keterangan Sehat', upload_to=user_directory_path, null=True, blank=True)
     good_behave_cert = models.FileField('Surat Kelakukan Baik', upload_to=user_directory_path, null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
 
@@ -45,6 +38,17 @@ class StudentFile(models.Model):
     @property
     def is_data_verified(self):
         return self.verified
+
+class ReportFileParticipant(models.Model):
+    verified = models.BooleanField(default=False, db_index=True)
+    participant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    raport = models.FileField('Berkas Raport', upload_to=user_directory_path, null=True, help_text="Harap meng-unggah hasil scan raport, bukan photo supaya terlihat dengan jelas.")
+    semester = models.CharField('Raport Semester', max_length=5, choices=choices.RAPORT_SEMESTER, help_text="Pilih raport semester berapa yang di unggah.")
+    part = models.CharField('Bagian Raport', max_length=3, choices=choices.RAPORT_PART, help_text="Pilih bagian ke berapa raport yang di unggah.")
+
+    def __str__(self):
+        return f'Raport {self.participant}'
 
 class PaymentUpload(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

@@ -93,6 +93,21 @@ class ParticipantFilesForm(forms.ModelForm):
         model = models.StudentFile
         exclude = ['participant', 'verified', 'msg', 'created_at', 'updated_at']
 
+class ParticipantRaportForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.form_tag = False
+        self.helper.add_input(SUBMIT_BUTTON)
+        self.helper.layout = forms_layout.RAPORT_FORM_LAYOUT
+
+    class Meta:
+        model = models.ReportFileParticipant
+        exclude = ['participant', 'verified']
+
+
 class ParticipantKKForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -105,7 +120,7 @@ class ParticipantKKForm(forms.ModelForm):
 
     class Meta:
         model = models.ParticipantFamilyCert
-        fields = ['family_cert']
+        fields = ['family_cert', 'birth_cert']
 
 class ParticipantPaymentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

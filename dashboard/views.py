@@ -32,7 +32,8 @@ from .generator import register_number_generator, reset_register_number
 from participant_profile.models import (
     ParticipantProfile, MotherStudentProfile,
     FatherStudentProfile, StudentGuardianProfile,
-    StudentFile, MajorStudent, PaymentUpload, ParticipantFamilyCert
+    StudentFile, MajorStudent, PaymentUpload,
+    ParticipantFamilyCert, ReportFileParticipant
 )
 from participant_profile import forms as participant_profile_forms
 
@@ -56,6 +57,24 @@ def dashboard(request):
     }
 
     return render(request, 'dashboard/dashboard.html', context)
+
+@permission_required('users.is_staff')
+def verified_raport(request):
+
+    if request.method == 'POST':
+        pk = request.POST.get('primary_key')
+        raport = ReportFileParticipant.objects.get(pk=pk)
+
+        if raport.verified:
+            raport.verified = False
+        else:
+            raport.verified = True
+
+        raport.save()
+        return JsonResponse({'success': True})
+
+    raise PermissionDenied
+
 
 @permission_required('users.is_staff')
 def get_register_number(request):
@@ -113,7 +132,6 @@ def insert_participant(request):
     }
     return render(request, 'dashboard/insert_participant.html', context)
 
-
 @permission_required('users.is_staff')
 def files_download(request, pk):
     participant = Participant.objects.get(account=pk)
@@ -137,6 +155,7 @@ def files_download(request, pk):
 
     return resp
 
+@permission_required('users.is_staff')
 def analytic_view(request):
     info = InfoSourcePPDB.objects.all()
 
@@ -323,6 +342,50 @@ class InfoSourcePPDBUpdate(UserIsStaffMixin, UpdateView):
     template_name = "dashboard/infoppdb_form.html"
     success_url = reverse_lazy('info-ppdb')
 
+
+class RaportFilesView(UserIsStaffMixin, ListView):
+    model = ReportFileParticipant
+    template_name = 'dashboard/raport_list.html'
+    context_object_name = "raport_files"
+
+    def get_queryset(self):
+        return self.model.objects.filter(participant=self.kwargs['account'])
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs['account']
+        context = super().get_context_data(**kwargs)
+        context['pk'] = pk
+        context['form_verify'] = forms.RaportFileVerifyForm
+        context['participant_name'] = CustomUser.objects.get(pk=pk)
+
+        return context
+
+class RaportFileCreate(UserIsStaffMixin, CreateView):
+    model = ReportFileParticipant
+    form_class = forms.RaportFileDashboardForm
+    template_name = "dashboard/participant_files.html"
+
+    def get_success_url(self):
+        return reverse('raport-list', kwargs={"account": self.kwargs['account']})
+
+    def form_valid(self, form):
+        account = CustomUser.objects.get(pk=self.kwargs['account'])
+        form.instance.participant = account
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs['account']
+        context = super().get_context_data(**kwargs)
+        context['pk'] = pk
+        context['participant_name'] = CustomUser.objects.get(pk=pk)
+        return context
+
+class RaportFileDelete(UserIsStaffMixin, DeleteView):
+    model = ReportFileParticipant
+
+    def get_success_url(self):
+        return reverse('raport-list', kwargs={"account": self.kwargs['account']})
+
 # PARTICIPANT PROFILE VIEW
 class ParticipantBaseView(UserIsStaffMixin, View):
     form_class = None
@@ -439,6 +502,7 @@ class ParticipantGuardianProfile(ParticipantBaseView):
 class ParticipantFilesView(ParticipantBaseView):
     model = StudentFile
     form_class = forms.ParticipantFilesDashboardForm
+    template_name = "dashboard/participant_files.html"
     success_url_name = 'participant-files'
     name = 'Berkas Peserta'
     is_verify = True
@@ -480,6 +544,7 @@ class RePaymentDView(ParticipantBaseView):
 class ParticipantFamilyCertView(ParticipantBaseView):
     model = ParticipantFamilyCert
     form_class = forms.ParticipantFamilyCertForm
+    template_name = "dashboard/participant_files.html"
     success_url_name = 'participant-family-cert'
     name = 'Kartu Keluarga'
     is_media = True

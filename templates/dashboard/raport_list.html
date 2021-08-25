@@ -48,38 +48,75 @@
         <div class="col bg-white p-3 my-4 mr-3 shadow rounded">
             <div class="mx-3 p-3 border border-danger rounded" style="background: #fff2f2">
                 <p class="m-0 judul">
-                    {% if text == 'Berkas Peserta' %}
-                        Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
-                        sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
-                        seperti berkas kurang jelas, silahkan ketik di kolom pesan.
-                    {% elif text == 'Akun Peserta' %}
-                        Berikut adalah data <b>{{ text  }}</b>, Nomor Pendaftaran (Nomor Peserta) dibuatkan dengan men-click tombol di bawah. Harap diingat,
-                        admin hanya perlu sekali membuat nomor registrasi untuk setiap peserta. <b>Jangan lupa setelah buat Nomor Registrasi, click Submit</b>
-                    {% elif text == 'Password' %}
-                        Password tidak bisa dilihat. Silahkan masukan password baru pada form yang disediakan.
-                    {% else %}
                     Berikut adalah data <b>{{ text  }}</b>, silahkan lakukan <b>verifikasi</b> atau <b>penyuntingan</b> jika diperlukan. Jika semua
-                    sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit.
-                    {% endif %}
+                    sudah sesuai kriteria, centang <code><b>Verifikasi</b></code> di bawah, lalu submit. Jika ada pesan yang ingin disampaikan
+                    seperti berkas kurang jelas, silahkan ketik di kolom pesan.
                 </p>
             </div>
-            <form method="POST"
-                  {% if is_media %}
-                  enctype="multipart/form-data"
-                  {% endif %}
-                  action="" id="participantForm">
-                {% crispy form %}
-            </form>
-            {% if is_account %}
-                <div class="mx-3">
-                    <a class="btn btn-outline-primary" href="{% url 'participant-change-password' pk %}">Ganti Kata Sandi</a>
-                    <form class="d-inline" method="POST" action="{% url 'delete-participant' pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">Hapus Akun</button>
-                    </form>
-                </div>
-            {% endif %}
-            {% block files %}{% endblock files %}
+
+            <div class="border rounded mx-3 mt-3">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'participant-family-cert' pk %}">Berkas Daftar/Identitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'raport-list' pk %}">Berkas Raport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'participant-files' pk %}">Berkas Penting Lainnya</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert alert-success m-3 d-none" id="alert-raport-berhasil" role="alert">
+                Berhasil Mem-verifikasi Data.
+            </div>
+
+            <div class="table-responsive-md mt-3 mx-3">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Verifikasi</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Bagian</th>
+                            <th scope="col">Berkas Raport</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in raport_files %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter  }}</th>
+                                <td>
+                                    <form method="POST" action="" class="form-raport" id="verified-raport-{{ r.pk  }}">
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" class="custom-control-input"
+                                                   {% if r.verified %}
+                                                   checked
+                                                   {% endif %}
+                                                   name="verified" required="" value="verified" id="id_verified_{{ r.pk  }}">
+                                            <input type="hidden" name="primary_key" value="{{ r.pk }}" />
+                                            <label class="custom-control-label" for="id_verified_{{ r.pk  }}"></label>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td><a href="{{ r.raport.url }}">{{ r.get_semester_display  }}</a></td>
+                                <td>{{ r.get_part_display  }}</td>
+                                <td>
+                                    <form method="POST" action="{% url 'raport-delete' pk r.pk %}">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-danger btn-sm" name="submit" value="Hapus" />
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr />
+                <a href="{% url 'raport-create' pk %}" class="btn btn-outline-primary">Tambah Raport</a>
+            </div>
+
         </div>
     </div>
 {% endblock maindash %}
@@ -90,6 +127,7 @@
     <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/schoolList.js' %}"></script>
     <script type="text/javascript" src="{% static 'dashboard/js/participant_detail.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dashboard/js/raport.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.16/js/bootstrap-select.min.js"></script>
     <script type="text/javascript">
      $('#id_info').selectpicker();

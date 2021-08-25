@@ -2,8 +2,10 @@ import datetime
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
+from django.urls import reverse_lazy
 from django.http import JsonResponse, QueryDict
 from django.contrib import messages
+from django.views.generic import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.template.context_processors import csrf
@@ -141,6 +143,7 @@ class ProfileView(LoginRequiredMixin, View):
             form = self.form_class(request.POST, request.FILES or None, instance=data)
 
         except (self.model.DoesNotExist, ValueError):
+            data = None
             form = self.form_class(request.POST, request.FILES or None)
 
         if form.is_valid():
@@ -188,8 +191,8 @@ class ParticipantKKView(ProfileView):
     form_class = forms.ParticipantKKForm
     model = models.ParticipantFamilyCert
     url_name = 'participant-kk'
-    # template_name = "participant_profile/participant_files.html"
-    name = "Kartu Keluarga"
+    template_name = "participant_profile/participant_files.html"
+    name = "Kartu Keluarga dan Akta Kelahiran"
 
 class ParticipantLMSAccount(ProfileView):
     model = ParticipantLMS
@@ -209,3 +212,80 @@ class RePaymentPage(IsPassessTestPPDB, ProfileView):
     url_name = 'participant-payment'
     template_name = "participant_profile/re_payment.html"
     name = 'Pembayaran Daftar Ulang'
+
+class RaportParticipantView(IsPassessTestPPDB, ProfileView):
+    model = models.ReportFileParticipant
+    form_class = forms.ParticipantRaportForm
+    url_name = 'participant-raport'
+    template_name = "participant_profile/participant_files.html"
+    name = 'Upload Berkas Raport'
+
+    def _get_context(self, data, form):
+        try:
+            pass_test = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
+            raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
+        except ParticipantGraduation.DoesNotExist:
+            pass_test = None
+            raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
+
+        return {
+            'form': form,
+            'name': self.name,
+            'data': data,
+            'pass_test': pass_test,
+            'raport': raport,
+        }
+
+    def get(self, request, *args, **kwargs):
+        request.session['button'] = request.headers.get('X-Button-Clicked')
+
+        data = self.model.objects.filter(participant=request.user)
+        form = self.form_class()
+
+        return render(request, self.template_name, self._get_context(data, form))
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            data = self.model.objects.filter(participant=request.user)
+
+            # if data.verified: # when data is validated user cannot edit it
+            #     return JsonResponse({'success': False}, status=403)
+
+            form = self.form_class(request.POST, request.FILES or None)
+
+        except (self.model.DoesNotExist, ValueError):
+            data = None
+            form = self.form_class(request.POST, request.FILES or None)
+
+        if form.is_valid():
+            form.save(commit=False)
+            form.instance.participant = request.user
+
+            form.save(commit=True)
+            messages.success(request, f'Data {self.name} berhasil di upload.')
+            return redirect(self.url_name)
+
+        return render(request, self.template_name, self._get_context(data, form))
+
+class ParticipantRaportDeleteView(UserPassesTestMixin, DeleteView):
+    model = models.ReportFileParticipant
+    success_url = reverse_lazy('participant-raport')
+
+    def test_func(self):
+        obj =  self.model.objects.get(pk=self.kwargs['pk'])
+
+        # check if the logged user is the author
+        # of the file
+        if obj.participant.pk == self.request.user.pk:
+            return True
+
+        return False
+
+
+class ParticipantFilesView(IsPassessTestPPDB, ProfileView):
+    model = models.StudentFile
+    form_class = forms.ParticipantFilesForm
+    url_name = 'participant-files'
+    template_name = "participant_profile/participant_files.html"
+    name = 'Upload Berkas Penting Lainnya'

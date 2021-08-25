@@ -195,4 +195,21 @@ class ParticipantFamilyCertForm(forms.ModelForm):
 
     class Meta:
         model = participant_models.ParticipantFamilyCert
-        fields = ['verified', 'family_cert']
+        fields = ['verified', 'family_cert', 'birth_cert']
+
+class RaportFileDashboardForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = forms_layout.RAPORT_DASHBOARD_FORM
+
+    class Meta:
+        model = participant_models.ReportFileParticipant
+        exclude = ['participant', 'verified']
+
+class RaportFileVerifyForm(forms.ModelForm):
+    verified = forms.BooleanField(label="")
+    class Meta:
+        model = participant_models.ReportFileParticipant
+        fields = ['verified']

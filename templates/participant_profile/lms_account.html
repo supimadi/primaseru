@@ -4,31 +4,7 @@
 {% block head %}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="{% static 'dashboard/css/insert_participant.css' %}" type="text/css" media="screen" />
-    <style type="text/css" media="screen">
-     .min-vh{
-         min-height: 50vh;
-     }
-     .banner {
-         border-radius: 0.25rem;
-         color: #fff;
-         background-color: #FF0000;
-     }
-     .nav .nav-link:hover::after {
-         width: 100%;
-     }
-     #v-pills-tab .nav-link:hover {
-         border-bottom: 2px solid #aaa;
-     }
-     #v-pills-tab .nav-link.active{
-         color: red;
-         border-bottom: 2px solid red;
-         background: #fff;
-     }
-     .card-bg {
-         background-color: #fff2f4;
-         border-color: #ffc9c6;
-     }
-    </style>
+    <link rel="stylesheet" href="{% static 'participant_profile/css/primaseru.css' %}" type="text/css" media="screen" />
 {% endblock head %}
 {% block navbar %}{% endblock navbar %}
 {% block container %}container-fluid{% endblock container %}
@@ -55,6 +31,9 @@
                 <a class="btn btn-danger btn-sm" href="{% url 'set-photo-profile' %}">
                     Unggah Photo
                 </a>
+                <a class="btn btn-danger btn-sm" href="{% url 'participant-kk' %}">
+                    Unggah Berkas
+                </a>
             </div>
         </div>
     </div>
@@ -64,15 +43,14 @@
         <div class="col-12 px-2 px-lg-5 bg-light border-bottom border-top">
             <div class="nav nav-fill mx-0 mx-lg-5 px-0 px-lg-3" id="v-pills-tab" role="navigation">
                 <a class="nav-link tab-profile" href="{% url 'participant-major' %}" role="tab">Jurusan</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-kk' %}" role="tab">Unggah KK</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
                 {% if pass_test == 'L' %}
-                <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab">Data Wali</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
+                    <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
+                    <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
+                    <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
+                    <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab">Data Wali</a>
+                    <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
                 {% endif %}
             </div>
         </div>

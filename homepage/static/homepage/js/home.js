@@ -34,12 +34,15 @@ function update_countdown() {
         document.getElementById('hour').innerHTML = hours;
         document.getElementById('minute').innerHTML = minutes;
         document.getElementById('second').innerHTML = seconds;
+
+        // If the count down is finished, write some text
+        if (distance <= 0) {
+            clearInterval(update_countdown);
+            document.getElementById("countdown").innerHTML = "Primaseru Telah Ditutup.";
+            document.getElementById("schedule-headline").innerHTML = "Sampai Jumpa Dilain Waktu.";
+        }
+
     }, 1000)
 
-    // // If the count down is finished, write some text
-    // if (distance < 0) {
-    //     clearInterval(x);
-    //     document.getElementById("").innerHTML = "EXPIRED";
-    // }
 }
 update_countdown();

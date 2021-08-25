@@ -56,14 +56,19 @@ Test by typing:
 [X] add virtual account number to repayment-page
 [X] create 'skl'
 [X] create registration card
-[] refactor export excel
-[] make telegram bot
 [X] create grafik or analytic page
-[] seperate 'raport' from file student model
 [X] seperate 'kk' from file student model
 [X] make fail safe system for generating and reseting register number
 [X] change 'prestasi' to 'penghargaan yang pernah di raih'
 [X] fix mobile view on re-payment page
 [X] fix typo 'pribari'
-[] add salution page
 [X] change "biaya pendaftaran" to "Test minat bakat"
+[] refactor export excel
+[] make telegram bot
+[] add salution page
+[X] seperate 'raport' from file student model
+[] create "berkas pendaftaran" model
+[] create "berkas pendaftaran ulang" model
+[] create showoff dashboard
+[] make data on homepage editable
+[] rework summary data on dashboard

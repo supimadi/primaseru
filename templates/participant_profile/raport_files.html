@@ -23,7 +23,6 @@
                     <h5 class="judul mt-2 mb-0">Berkas Identitas</h5>
                 </a>
 
-                {% if pass_test == 'L' %}
                 <a class="nav-link tab-profile  px-3 text-center" href="{% url 'participant-raport' %}" role="tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-file-earmark-binary" viewBox="0 0 16 16">
                         <path d="M7.05 11.885c0 1.415-.548 2.206-1.524 2.206C4.548 14.09 4 13.3 4 11.885c0-1.412.548-2.203 1.526-2.203.976 0 1.524.79 1.524 2.203zm-1.524-1.612c-.542 0-.832.563-.832 1.612 0 .088.003.173.006.252l1.559-1.143c-.126-.474-.375-.72-.733-.72zm-.732 2.508c.126.472.372.718.732.718.54 0 .83-.563.83-1.614 0-.085-.003-.17-.006-.25l-1.556 1.146zm6.061.624V14h-3v-.595h1.181V10.5h-.05l-1.136.747v-.688l1.19-.786h.69v3.633h1.125z"/>
@@ -32,14 +31,13 @@
                     <h5 class="judul mt-2 mb-0">Berkas Raport</h5>
                 </a>
 
-                <a class="nav-link tab-profile  px-3 text-center" href="{% url 'participant-files' %}" role="tab">
+                <a class="nav-link tab-profile  px-3 text-center" href="{% url 'files-upload' %}" role="tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-file-earmark-medical" viewBox="0 0 16 16">
                         <path d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                         <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
                     </svg>
                     <h5 class="judul mt-2 mb-0">Berkas Penting Lainnya</h5>
                 </a>
-                {% endif %}
 
                 <a class="nav-link tab-profile  px-3 text-center" href="{% url 'participant-major' %}" role="tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
@@ -47,7 +45,6 @@
                     </svg>
                     <h5 class="judul mt-2 mb-0">Kembali</h5>
                 </a>
-
 
             </div>
         </div>
@@ -68,56 +65,13 @@
                                 Silahkan melengkapi data {{ name|capfirst }} Anda sesuai kolom yang tersedia, jika terdapat tanda bintang (<span class="text-danger">*</span>) berarti wajib diisi.
                                 <samp class="text-danger">Data yang sudah terverifikasi tidak bisa diubah.</samp>
                             </p>
-                            {% if data.verified %}
-                                Status : <span class="badge badge-success">Terverifikasi</span>
-                            {% else %}
-                                Status : <span class="badge badge-warning">Belum Terverifikasi</span>
-                            {% endif %}
+                                {% if data.verified %}
+                                    Status : <span class="badge badge-success">Terverifikasi</span>
+                                {% else %}
+                                    Status : <span class="badge badge-warning">Belum Terverifikasi</span>
+                                {% endif %}
                         </div>
                     </div>
-
-                    {% if raport %}
-                    <div class="col mx-4 mt-4">
-                        <div class="table-responsive-md">
-                            <table class="table">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Semester</th>
-                                        <th scope="col">Bagian</th>
-                                        <th scope="col">Verifikasi</th>
-                                        <th scope="col">Berkas Raport</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for r in raport %}
-                                        <tr>
-                                            <th scope="row">{{ forloop.counter  }}</th>
-                                            <td>{{ r.get_semester_display  }}</td>
-                                            <td>{{ r.get_part_display  }}</td>
-                                            <td>
-                                                {% if r.verified %}
-                                                    <span class="badge badge-success">Terverifikasi</span>
-                                                {% else %}
-                                                    <span class="badge badge-warning">Belum Terverifikasi</span>
-                                                {% endif %}
-                                            </td>
-                                            <td>
-                                                <form method="POST" action="{% url 'participant-raport-delete' r.pk %}">
-                                                    <a class="pb-1" href="{{ r.raport.url  }}">Unduh</a>
-                                                    {% if not r.verified %}
-                                                        {% csrf_token %}
-                                                        | <input type="submit" class="pb-1 p-0 btn btn-link text-danger" name="submit" value="Hapus" />
-                                                    {% endif %}
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {% endif %}
 
                     <form method="POST" enctype="multipart/form-data" class="col-12" action="">
                         {% crispy form %}

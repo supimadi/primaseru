@@ -5,6 +5,20 @@ SEX = [
     ('L', 'Laki - Laki'),
 ]
 
+RAPORT_SEMESTER = [
+    ('SEM_1', 'Semester 1'),
+    ('SEM_2', 'Semester 2'),
+    ('SEM_3', 'Semester 3'),
+    ('SEM_4', 'Semester 4'),
+    ('SEM_5', 'Semester 5'),
+]
+
+RAPORT_PART = [
+    ('P_1', 'Bagian 1'),
+    ('P_2', 'Bagian 2'),
+    ('P_3', 'Bagian 3'),
+]
+
 RELIGION = [
     ('ISL', 'Islam'),
     ('PRS', 'Protestan'),

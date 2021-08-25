@@ -8,8 +8,9 @@ urlpatterns = [
     path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
     path('reg-num/', views.get_register_number, name="register-number"),
-    path('reg-num/reset', views.reset_registration_number, name="register-number-reset"),
-    path('delete-participant/<int:pk>', views.ParticipantDeleteView.as_view(), name="delete-participant"),
+    path('reg-num/reset/', views.reset_registration_number, name="register-number-reset"),
+    path('raport/verified/', views.verified_raport, name="register-number-reset"),
+    path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
 
     path('export/participant/', views.ExExcelParticipant.as_view(), name="export-participant"),
     path('export/ayah/', views.ExExcelFather.as_view(), name="export-father"),
@@ -21,6 +22,10 @@ urlpatterns = [
     path('info/ppdb/insert/', views.InfoSourcePPDBCreate.as_view(), name='info-ppdb-create'),
     path('info/ppdb/delete/<int:pk>/', views.InfoSourcePPDBDelete.as_view(), name='info-ppdb-delete'),
     path('info/ppdb/update/<int:pk>/', views.InfoSourcePPDBUpdate.as_view(), name='info-ppdb-update'),
+
+    path('raport/<int:account>/', views.RaportFilesView.as_view(), name='raport-list'),
+    path('raport/<int:account>/create/', views.RaportFileCreate.as_view(), name='raport-create'),
+    path('raport/<int:account>/<int:pk>/delete/', views.RaportFileDelete.as_view(), name='raport-delete'),
 
     path('jadwal/pendaftaran/', views.RegisterScheduleListView.as_view(), name='register-schedule'),
     path('jadwal/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),

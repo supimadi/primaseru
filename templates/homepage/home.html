@@ -294,13 +294,13 @@
                     <div class="card-red-gradient box-countdown text-center">
                         {% for s in schedule %}
                             {% if s.is_ongoing %}
-                                <h1 class="font-weight-bold mb-5">{{ s }} <br> Sedang Dibuka sampai</h1>
+                                <h1 class="font-weight-bold mb-5" id="schedule-headline">{{ s }} <br> Sedang Dibuka sampai</h1>
                                 <script type="text/javascript">
                                     var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
                                 </script>
                             {% endif %}
                         {% endfor %}
-                        <div class="countdown d-flex justify-content-center">
+                        <div class="countdown d-flex justify-content-center" id="countdown">
                             <div class="flex mx-3 mx-md-4 text-center">
                                 <h1 class="mb-1" id="day">00</h1>
                                 <span>HARI</span>
@@ -345,7 +345,7 @@
                             <div class="card-red-gradient text-center card-biaya">
                                 <h2 class="font-weight-bold">Biaya Test Minat Bakat</h2>
                                 <h1 class="font-weight-bold mb-4">Rp 300.000</h1>
-                                <p>Transfer ke No. Rek Bank Mandiri <br> 131 00 884 848 88 <br> Nofrizal</p>
+                                <p>Transfer ke No. Rek Bank Mandiri <br> 131 00 154 128 95 <br> Nofrizal</p>
                             </div>
                         </div>
                         <div class="col-md-6 text-center py-5">
