@@ -46,7 +46,10 @@
                 <a class="nav-link tab-profile" href="{% url 'participant-major' %}" role="tab">Jurusan</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
-                {% if pass_test == 'L' %}
+                {% if passed %}
+                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
+                {% endif %}
+                {% if pay %}
                 <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
@@ -82,12 +85,12 @@
                                             <tr>
                                                 <td>Nama Lengkap</td>
                                                 <td>:</td>
-                                                <td>{{ data.participant.participant.full_name  }}</td>
+                                                <td>{{ data.participant.participant.full_name|title  }}</td>
                                             </tr>
                                             <tr>
-                                                <td>Tanggal Lahir</td>
+                                                <td>Asal Seklah</td>
                                                 <td>:</td>
-                                                <td>{{ data.participant.participantprofile.date_born|date:"d F Y"  }}</td>
+                                                <td>{{ data.participant.participant.previous_school|upper  }}</td>
                                             </tr>
                                         </table>
                                     </p>
@@ -102,7 +105,7 @@
                                         <p>
                                             Silahkan unggah berkas yang diperlukan untuk menyelesaikan proses pendaftaran.
                                         </p>
-                                        <a class="btn btn-block btn-primary" href="{% url 'files-upload' %}">Unggah Berkas</a>
+                                        <a class="btn btn-block btn-primary" href="{% url 'participant-files' %}">Unggah Berkas</a>
                                         <a class="btn btn-block btn-outline-danger" href="{% url 'skl' %}">Unduh Kartu Kelulusan</a>
                                         {% if data.letter %}
                                             <a class="btn btn-block btn-outline-danger" href="{{ data.letter.url }}">Unduh Surat Kelulusan</a>

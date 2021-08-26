@@ -156,6 +156,14 @@ LOGOUT_REDIRECT_URL = 'homepage'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 
+# Username that allows access dummy
+# dashboard page
+ALLOW_VIEW_DASHBOARD_DUMMY = [
+    'mata',
+    'prima',
+    'admin'
+]
+
 # Cors
 CORS_ALLOWED_ORIGINS = [
     "https://referensi.data.kemdikbud.go.id",

@@ -67,8 +67,8 @@ Test by typing:
 [] make telegram bot
 [] add salution page
 [X] seperate 'raport' from file student model
-[] create "berkas pendaftaran" model
+[] create "download berkas" model
 [] create "berkas pendaftaran ulang" model
-[] create showoff dashboard
+[X] create dummy dashboard
 [] make data on homepage editable
-[] rework summary data on dashboard
+[X] rework summary data on dashboard

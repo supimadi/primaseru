@@ -13,6 +13,7 @@
 {% endblock head %}
 {% block container %}
 {% endblock container %}
+{% block alert %}{% endblock alert %}
 {% block body-color %}{% endblock body-color %}
 {% block main %}
 
@@ -20,6 +21,13 @@
     <section class="form-pendaftaran">
         <div class="container">
             <h1 class="heading-section mb-5">Form Pendaftaran PPDB <br><span class="red-text">SMK Telkom Bandung</span></h1>
+            {% if messages %}
+                {% for m in messages%}
+                    <div class="alert alert-{{ m.tags }}">
+                        <b>{{m}}</b>
+                    </div>
+                {% endfor%}
+            {% endif %}
             <div class="row justify-content-center">
                 <div class="col-lg-9">
                     <form action="" method="POST">

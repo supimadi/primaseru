@@ -1,6 +1,7 @@
 import datetime
 
 from django.shortcuts import render, redirect, get_object_or_404
+from django.conf import settings
 from django.views import View
 from django.urls import reverse_lazy
 from django.http import JsonResponse, QueryDict
@@ -24,7 +25,11 @@ def index(request):
     if request.user.is_staff:
         return redirect('dashboard')
 
+    if request.user.username in settings.ALLOW_VIEW_DASHBOARD_DUMMY:
+        return redirect('dashboard')
+
     participant = Participant.objects.get(account=request.user.pk)
+
     if not participant.verified:
         return render(request, 'participant_profile/payment.html')
 
@@ -109,16 +114,19 @@ class ProfileView(LoginRequiredMixin, View):
 
     def _get_context(self, data, form):
         try:
-            pass_test = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
-        except ParticipantGraduation.DoesNotExist:
-            pass_test = None
+            pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
+            passed = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
+        except (ParticipantGraduation.DoesNotExist, ParticipantRePayment.DoesNotExist):
+            passed = None
+            pay = None
 
         return {
             'form_ph': forms.PhotoProfileForm(),
             'form': form,
             'name': self.name,
             'data': data,
-            'pass_test': pass_test
+            'pay': pay,
+            'passed': passed,
         }
 
     def get(self, request, *args, **kwargs):

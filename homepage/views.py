@@ -1,8 +1,10 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 from . import forms
+
 from users.models import CustomUser
 from dashboard.models import Participant, RegisterSchedule, RegisterStep
 from dashboard.generator import register_number_generator
@@ -25,8 +27,17 @@ def register(request):
 
         if form.is_valid() and form2.is_valid():
 
-            CustomUser.objects.create_user(form2.cleaned_data['participant_phone_number'], form.cleaned_data['password2'])
-            user = authenticate(request, username=form2.cleaned_data['participant_phone_number'], password=form.cleaned_data['password2'])
+            ctx = {
+                'form': form,
+                'form2': form2,
+            }
+
+            try:
+                CustomUser.objects.create_user(form2.cleaned_data['participant_phone_number'], form.cleaned_data['password2'])
+                user = authenticate(request, username=form2.cleaned_data['participant_phone_number'], password=form.cleaned_data['password2'])
+            except Exception:
+                messages.warning(request, 'Data Tidak Valid, Kemungkinan No. HP Telah Digunakan.')
+                return render(request, 'homepage/register.html', ctx)
 
             if user is not None:
                 login(request, user) # Attach user to session

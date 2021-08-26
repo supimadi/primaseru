@@ -12,22 +12,27 @@
         <div class="col-md m-2 p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4>
             <br />
-            <h3 class="mb-0 mt-1">{{ part_count }} <small class="text-muted h6 judul">siswa</small></h3>
-        </div>
-        <div class="col-md m-2 p-3 bg-white rounded shadow">
-            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-danger">BELUM TERVERIFIKASI</span>
-            <br />
-            <h3 class="mb-0 mt-1">{{ not_verified }} <small class="text-muted h6 judul">siswa</small></h3>
-        </div>
-        <div class="col-md m-2  p-3 bg-white rounded shadow">
-            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-primary">TERVERIFIKASI</span>
-            <br />
-            <h3 class="mb-0 mt-1">{{ verified }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ total_participant }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
         <div class="col-md m-2  p-3 bg-white rounded shadow">
             <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-success">DITERIMA/LULUS</span>
             <br />
-            <h3 class="mb-0 mt-1">{{ passed_test }} <small class="text-muted h6 judul">siswa</small></h3>
+            <h3 class="mb-0 mt-1">{{ total_participant_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2 p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-danger">SUDAH BAYAR DAFTAR ULANG</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ total_participant_pay }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2  p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-primary">LUNAS BAYAR DAFTAR ULANG</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ total_participant_paid_off }} <small class="text-muted h6 judul">siswa</small></h3>
+        </div>
+        <div class="col-md m-2  p-3 bg-white rounded shadow">
+            <h4 class="mb-1 judul">Total Pendaftar</h4><span class="badge badge-warning">SUDAH MENGISI FORM DAFTAR ULANG</span>
+            <br />
+            <h3 class="mb-0 mt-1">{{ total_participant_profile }} <small class="text-muted h6 judul">siswa</small></h3>
         </div>
     </div>
 
@@ -48,11 +53,11 @@
                             <th scope="col">#</th>
                             <th scope="col">No. Peserta</th>
                             <th scope="col" class="w-25">Nama</th>
-                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Asal Sekolah</th>
                             <th scope="col">No. HP</th>
-                            <th scope="col">Tanggal Lahir</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <!-- <th scope="col">Tanggal Lahir</th> -->
+                            <th scope="col" data-toggle="tooltip" data-placement="top" title="Sesuaikan Dengan Warna Statik di Atas.">Status</th>
+                            <th scope="col" >Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,16 +66,37 @@
                                 <th scope="row">{{ forloop.counter  }}</th>
                                 <td>{{ s.registration_number }}</td>
                                 <td><a href="{% url 'participant-detail' s.account.pk %}">{{ s.full_name|title  }}</a></td>
-                                <td>{{ s.account.participantprofile.get_sex_display  }}</td>
+                                <td>{{ s.previous_school  }}</td>
                                 <td>{{ s.participant_phone_number  }}</td>
-                                <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td>
+                                <!-- <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td> -->
                                 <td>
                                     {% if s.account.participantgraduation.passed == 'L' %}
-                                        <span class="badge badge-success">DITERIMA</span>
-                                    {% elif s.verified %}
-                                        <span class="badge badge-primary">TERVERIFIKASI</span>
-                                    {% else %}
-                                        <span class="badge badge-danger">BELUM TERVERIFIKASI</span>
+                                        <span class="badge badge-success">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-success bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                    {% if s.account.participantrepayment.paid_off %}
+                                        <span class="badge badge-primary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-primary bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                    {% if s.account.participantrepayment %}
+                                        <span class="badge badge-danger">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-danger bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                    {% if s.account.participantprofile %}
+                                        <span class="badge badge-warning">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-warning bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
                                     {% endif %}
                                 </td>
                                 <td>
@@ -150,3 +176,11 @@
 
     </div>
 {% endblock maindash %}
+{% block js %}
+    {{ block.super  }}
+    <script type="text/javascript">
+     $(function () {
+         $('[data-toggle="tooltip"]').tooltip()
+     })
+    </script>
+{% endblock js %}

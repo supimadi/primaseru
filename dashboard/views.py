@@ -7,12 +7,12 @@ from django.utils import timezone
 from django.views import View
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
+from django.conf import settings
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import PasswordChangeView
-from django.conf import settings
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -38,22 +38,26 @@ from participant_profile.models import (
 from participant_profile import forms as participant_profile_forms
 
 
-@permission_required('users.is_staff')
 def dashboard(request):
+
+    if not request.user.username in settings.ALLOW_VIEW_DASHBOARD_DUMMY:
+        raise PermissionDenied
 
     participant = Participant.objects.all()
     profile = ParticipantProfile.objects.all()
     passed_test = ParticipantGraduation.objects.all().count()
+    payment = ParticipantRePayment.objects.all()
 
     verified = participant.filter(verified=True).count()
     not_verified = participant.count() - verified
 
     context = {
         'participant': participant,
-        'part_count': participant.count(),
-        'not_verified': not_verified,
-        'verified': verified,
-        'passed_test': passed_test,
+        'total_participant': participant.count(),
+        'total_participant_accepted': passed_test,
+        'total_participant_pay': payment.count(),
+        'total_participant_paid_off': payment.filter(paid_off=True).count(),
+        'total_participant_profile': profile.count(),
     }
 
     return render(request, 'dashboard/dashboard.html', context)
@@ -471,7 +475,6 @@ class ParticipantUpdateView(ParticipantBaseView):
     form_class = forms.RegisterStudentFormDashboard
     success_url_name = 'participant-detail'
     name = 'Akun Peserta'
-    is_media = True
     is_verify = True
     is_account = True
 
