@@ -16,6 +16,14 @@
             <img src="{{ user.photoprofile.image.url }}" alt="photo profile" width="175" height="175" />
         </div>
         <div class="col-sm-9">
+            {% if pay %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Selamat!</strong> Bergabung di Keluarga SMK Telkom bandung.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
             <div class="border rounded p-3 mt-3 mt-md-0 bg-white">
                 <h1 class="judul">{{ user.participant.full_name|title  }} </h1>
                 <h6 class="text-muted mb-1">Asal Sekolah: {{ user.participantprofile.school_origin|upper  }}</h6>
@@ -53,7 +61,7 @@
                 <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab">Data Wali</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
+                <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab"></a>
                 {% endif %}
             </div>
         </div>

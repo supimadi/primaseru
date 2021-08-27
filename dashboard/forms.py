@@ -7,18 +7,30 @@ from crispy_forms.helper import FormHelper
 from .models import (
     Participant, RegisterSchedule, RegisterStep,
     ParticipantGraduation, REPRESENTATIVE_CHOICES, ParticipantLMS,
-    ParticipantRePayment, InfoSourcePPDB
+    ParticipantRePayment, InfoSourcePPDB, PaymentBanner
     )
 from . import forms_layout
+
+from homepage.models import FilesPool
 
 from participant_profile import models as participant_models
 from participant_profile.choices import INFORMATION_PRIMASERU
 
 
+class PaymentBannerForm(forms.ModelForm):
+    class Meta:
+        model = PaymentBanner
+        fields = '__all__'
+
 class InfoSourcePPDBForm(forms.ModelForm):
     class Meta:
         model = InfoSourcePPDB
         fields = ['info_source']
+
+class FilesPoolForm(forms.ModelForm):
+    class Meta:
+        model = FilesPool
+        fields = '__all__'
 
 class SetPasswordDashboardForm(forms.Form):
     password1 = forms.CharField(max_length=120, widget=forms.PasswordInput, label="Password Baru")

@@ -18,6 +18,8 @@ from . import models, forms
 from .mixins import IsPassessTestPPDB
 from .initial_forms import initial_forms
 
+from dashboard.models import PaymentBanner
+
 from dashboard.models import ParticipantGraduation, ParticipantLMS, Participant, ParticipantRePayment
 
 @login_required
@@ -31,7 +33,8 @@ def index(request):
     participant = Participant.objects.get(account=request.user.pk)
 
     if not participant.verified:
-        return render(request, 'participant_profile/payment.html')
+        data = PaymentBanner.objects.get(pk=1)
+        return render(request, 'participant_profile/payment.html', {'data': data})
 
     return redirect('participant-major')
 
@@ -232,8 +235,10 @@ class RaportParticipantView(IsPassessTestPPDB, ProfileView):
         try:
             pass_test = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
             raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
+            pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
         except ParticipantGraduation.DoesNotExist:
             pass_test = None
+            pay = None
             raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
 
         return {
@@ -241,6 +246,7 @@ class RaportParticipantView(IsPassessTestPPDB, ProfileView):
             'name': self.name,
             'data': data,
             'pass_test': pass_test,
+            'pay': pay,
             'raport': raport,
         }
 

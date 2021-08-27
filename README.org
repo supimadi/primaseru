@@ -36,39 +36,40 @@ Test by typing:
 #+BEGIN_SRC shell
 ./manage.py runserver
 #+END_SRC
+
 * TODO
-[X] Move PPDB information source to register page
-[X] Re-arrange side bar dashboard
-[X] add verification status at family certificate
-[X] add alert when update the data in the dashboard
-[x] add length to test schedule
-[X] fix LMS account schedule page
-[X] make form legend changes dynamically
-[X] make visual change on generate register number button
-[X] fix button on on "Pengumuman"
-[X] add re-register payment page
-[x] apply new payment page
-[X] change from choice to multiple choice, ppdb
-[X] add "keinginan siapa masuk ke smk"
-[X] make first repayment not mandatory
-[X] add "dana sumbangan"
-[X] dowload ziip
-[X] add virtual account number to repayment-page
-[X] create 'skl'
-[X] create registration card
-[X] create grafik or analytic page
-[X] seperate 'kk' from file student model
-[X] make fail safe system for generating and reseting register number
-[X] change 'prestasi' to 'penghargaan yang pernah di raih'
-[X] fix mobile view on re-payment page
-[X] fix typo 'pribari'
-[X] change "biaya pendaftaran" to "Test minat bakat"
-[] refactor export excel
-[] make telegram bot
-[] add salution page
-[X] seperate 'raport' from file student model
-[] create "download berkas" model
-[] create "berkas pendaftaran ulang" model
-[X] create dummy dashboard
-[] make data on homepage editable
-[X] rework summary data on dashboard
+** [X] Move PPDB information source to register page
+** [X] Re-arrange side bar dashboard
+** [X] add verification status at family certificate
+** [X] add alert when update the data in the dashboard
+** [X] add length to test schedule
+** [X] fix LMS account schedule page
+** [X] make form legend changes dynamically
+** [X] make visual change on generate register number button
+** [X] fix button on on "Pengumuman"
+** [X] add re-register payment page
+** [X] apply new payment page
+** [X] change from choice to multiple choice, ppdb
+** [X] add "keinginan siapa masuk ke smk"
+** [X] make first repayment not mandatory
+** [X] add "dana sumbangan"
+** [X] dowload ziip
+** [X] add virtual account number to repayment-page
+** [X] create 'skl'
+** [X] create registration card
+** [X] create grafik or analytic page
+** [X] seperate 'kk' from file student model
+** [X] make fail safe system for generating and reseting register number
+** [X] change 'prestasi' to 'penghargaan yang pernah di raih'
+** [X] fix mobile view on re-payment page
+** [X] fix typo 'pribari'
+** [X] change "biaya pendaftaran" to "Test minat bakat"
+** [] refactor export excel
+** [] make telegram bot
+** [X] add salution alert
+** [X] make contact model
+** [X] seperate 'raport' from file student model
+** [X] create "download berkas" model
+** [X] create dummy dashboard
+** [X] make data on homepage editable
+** [X] rework summary data on dashboard

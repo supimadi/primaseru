@@ -69,6 +69,14 @@ class Participant(models.Model):
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'
 
+class PrimaseruContacts(models.Model):
+    name = models.CharField('Nama Kontak', max_length=100, null=True)
+    wa_number = models.CharField('Nomor Whatsapp', max_length=20)
+    link_wa = models.CharField('Link Wa', max_length=100)
+
+    def __str__(self):
+        return f'Contacts {self.wa_number}'
+
 class RegisterSchedule(models.Model):
    name = models.CharField('Nama Gelombang Pendaftaran', max_length=120)
    start_date = models.DateField('Tanggal Dimulai Pendaftaran')
@@ -90,6 +98,29 @@ class RegisterStep(models.Model):
 
     def __str__(self):
         return self.step
+
+class RegisterFilePrimaseru(models.Model):
+    file_name = models.CharField('Nama Berkas', max_length=100)
+
+    def __str__(self):
+        return 'Berkas Pendaftaran ({self.file_name})'
+
+class ReRegisterFilePrimaseru(models.Model):
+    file_name = models.CharField('Nama Berkas', max_length=100)
+
+    def __str__(self):
+        return 'Berkas Daftar Ulang ({self.file_name})'
+
+class PaymentBanner(models.Model):
+    rek_num = models.CharField('Nomor Rekening', max_length=50)
+    whom_rek = models.CharField('Rekening Atas Nama', max_length=100)
+    bank = models.CharField('Bank', max_length=100)
+    money = models.CharField('Nominal Pembayaran', max_length=7, help_text="Isi hanya dengan angka.")
+    wa_number = models.CharField('Nomor Whatsapp', max_length=20)
+    wa_link = models.CharField('Link Whatsapp', max_length=100)
+
+    def __str__(self):
+        return self.wa_number
 
 class ParticipantRePayment(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

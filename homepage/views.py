@@ -3,17 +3,26 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
-from . import forms
+from . import forms, models
+
+from dashboard.models import PaymentBanner, PrimaseruContacts
 
 from users.models import CustomUser
-from dashboard.models import Participant, RegisterSchedule, RegisterStep
+from dashboard.models import Participant, RegisterSchedule, RegisterStep, RegisterFilePrimaseru, ReRegisterFilePrimaseru
 from dashboard.generator import register_number_generator
 
+def download_menu(request):
+    files = models.FilesPool.objects.all()
+
+    return render(request, 'homepage/download-menu.html', {'files': files})
 
 def home(request):
     ctx = {
         'schedule': RegisterSchedule.objects.all(),
-        'step': RegisterStep.objects.all()
+        'step': RegisterStep.objects.all(),
+        'register_files': RegisterFilePrimaseru.objects.all(),
+        're_register_files': ReRegisterFilePrimaseru.objects.all(),
+        'banner': PaymentBanner.objects.get(pk=1),
     }
     return render(request, 'homepage/home.html', ctx)
 
@@ -60,5 +69,6 @@ def register(request):
     ctx = {
         'form': form,
         'form2': form2,
+        'kontak': PrimaseruContacts.objects.all(),
     }
     return render(request, 'homepage/register.html', ctx)

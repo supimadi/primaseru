@@ -202,18 +202,16 @@
                     <div class="card-berkas card-red-gradient">
                         <h5>A. Berkas Pendaftaran</h5>
                         <ul>
-                            <li>Scan Kartu Keluarga</li>
-                            <li>Scan Akte Kelahiran</li>
+                            {% for r in register_files %}
+                            <li>{{ r.file_name  }}</li>
+                            {% endfor %}
                         </ul>
                         <hr class="my-3">
                         <h5>B. Berkas Daftar Ulang</h5>
                         <ul>
-                            <li>Surat Kelakuan Baik dari Sekolah Asal</li>
-                            <li>Surat Keterangan Sehat dari Puskesmas, RS atau Klinik</li>
-                            <li>Surat Keterangan Tidak Buta Warna dari Puskesmas, RS atau Klinik</li>
-                            <li>Scan Rapor Semester 1-5</li>
-                            <li>Pas Foto 3x4 sejumlah 4 lembar Latar Merah (Pakai Seragam Sekolah)</li>
-                            <li>Scan Ijazah (menyusul)</li>
+                            {% for r in re_register_files %}
+                            <li>{{ r.file_name  }}</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -344,8 +342,8 @@
                         <div class="col-md-6">
                             <div class="card-red-gradient text-center card-biaya">
                                 <h2 class="font-weight-bold">Biaya Test Minat Bakat</h2>
-                                <h1 class="font-weight-bold mb-4">Rp 300.000</h1>
-                                <p>Transfer ke No. Rek Bank Mandiri <br> 131 00 154 128 95 <br> Nofrizal</p>
+                                <h1 class="font-weight-bold mb-4">Rp {{ banner.money|floatformat:"0g"  }}</h1>
+                                <p>Transfer ke No. Rek {{ banner.bank|title }} <br> {{ banner.rek_num  }} <br> {{ banner.whom_rek|title  }}</p>
                             </div>
                         </div>
                         <div class="col-md-6 text-center py-5">

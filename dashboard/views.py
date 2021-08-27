@@ -5,7 +5,7 @@ import zipfile
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils import timezone
 from django.views import View
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse_lazy, reverse
@@ -26,6 +26,8 @@ from .models import (
     ParticipantCount, RegisterSchedule,
     RegisterStep, Participant, ParticipantGraduation,
     ParticipantLMS, ParticipantRePayment, InfoSourcePPDB,
+    RegisterFilePrimaseru, ReRegisterFilePrimaseru, PaymentBanner,
+    PrimaseruContacts
 )
 from .generator import register_number_generator, reset_register_number
 
@@ -36,6 +38,8 @@ from participant_profile.models import (
     ParticipantFamilyCert, ReportFileParticipant
 )
 from participant_profile import forms as participant_profile_forms
+
+from homepage.models import FilesPool
 
 
 def dashboard(request):
@@ -142,7 +146,12 @@ def files_download(request, pk):
 
     fbuffer = BytesIO()
     path = f'{settings.MEDIA_ROOT}/berkas_{participant.account.username}/'
-    files = os.listdir(path=path)
+
+    try:
+        files = os.listdir(path=path)
+    except FileNotFoundError:
+        messages.warning(request, 'Tidak Ada Folder atau File.')
+        return redirect('participant-detail', pk=pk)
 
     zf = zipfile.ZipFile(fbuffer, "w")
     os.chdir(path)
@@ -345,6 +354,124 @@ class InfoSourcePPDBUpdate(UserIsStaffMixin, UpdateView):
     form_class = forms.InfoSourcePPDBForm
     template_name = "dashboard/infoppdb_form.html"
     success_url = reverse_lazy('info-ppdb')
+
+# FILES POOL VIEW
+class FilesPoolView(UserIsStaffMixin, ListView):
+    model = FilesPool
+    template_name = 'dashboard/filespool_list.html'
+
+class FilesPoolDeleteView(UserIsStaffMixin, DeleteView):
+    model = FilesPool
+    success_url = reverse_lazy('files-pool')
+
+class FilesPoolCreateView(UserIsStaffMixin, CreateView):
+    model = FilesPool
+    form_class = forms.FilesPoolForm
+    template_name = 'dashboard/filespool_form.html'
+    success_url = reverse_lazy('files-pool')
+
+class FilesPoolUpdateView(UserIsStaffMixin, UpdateView):
+    model = FilesPool
+    form_class = forms.FilesPoolForm
+    template_name = 'dashboard/filespool_form.html'
+    success_url = reverse_lazy('files-pool')
+
+# Register File View
+class RegisterFileView(UserIsStaffMixin, ListView):
+    model = RegisterFilePrimaseru
+    template_name = 'dashboard/registerfiles_list.html'
+
+class RegisterFileDeleteView(UserIsStaffMixin, DeleteView):
+    model = RegisterFilePrimaseru
+    success_url = reverse_lazy('files-register')
+
+class RegisterFileUpdateView(UserIsStaffMixin, UpdateView):
+    model = RegisterFilePrimaseru
+    fields = '__all__'
+    template_name = 'dashboard/registerfiles_form.html'
+    success_url = reverse_lazy('files-register')
+
+class RegisterFileCreateView(UserIsStaffMixin, CreateView):
+    model = RegisterFilePrimaseru
+    fields = '__all__'
+    template_name = 'dashboard/registerfiles_form.html'
+    success_url = reverse_lazy('files-register')
+
+# Re Register File View
+class ReRegisterFileView(UserIsStaffMixin, ListView):
+    model = ReRegisterFilePrimaseru
+    template_name = 'dashboard/reregisterfiles_list.html'
+
+class ReRegisterFileDeleteView(UserIsStaffMixin, DeleteView):
+    model = ReRegisterFilePrimaseru
+    success_url = reverse_lazy('files-re-register')
+
+class ReRegisterFileUpdateView(UserIsStaffMixin, UpdateView):
+    model = ReRegisterFilePrimaseru
+    fields = '__all__'
+    template_name = 'dashboard/reregisterfiles_form.html'
+    success_url = reverse_lazy('files-re-register')
+
+class ReRegisterFileCreateView(UserIsStaffMixin, CreateView):
+    model = ReRegisterFilePrimaseru
+    fields = '__all__'
+    template_name = 'dashboard/reregisterfiles_form.html'
+    success_url = reverse_lazy('files-re-register')
+
+# Re Register File View
+class PrimaseruContactsView(UserIsStaffMixin, ListView):
+    model = PrimaseruContacts
+    template_name = 'dashboard/primaserucontacts_list.html'
+
+class PrimaseruContactsDeleteView(UserIsStaffMixin, DeleteView):
+    model = PrimaseruContacts
+    success_url = reverse_lazy('primaseru-contacts')
+
+class PrimaseruContactsUpdateView(UserIsStaffMixin, UpdateView):
+    model = PrimaseruContacts
+    fields = '__all__'
+    template_name = 'dashboard/primaserucontacts_form.html'
+    success_url = reverse_lazy('primaseru-contacts')
+
+class PrimaseruContactsCreateView(UserIsStaffMixin, CreateView):
+    model = PrimaseruContacts
+    fields = '__all__'
+    template_name = 'dashboard/primaserucontacts_form.html'
+    success_url = reverse_lazy('primaseru-contacts')
+
+
+# PAYMENT BANNER VIEW
+class BannerPayment(UserIsStaffMixin, View):
+    model = PaymentBanner
+    form_class = forms.PaymentBannerForm
+    template_name = 'dashboard/bannerpayment_form.html'
+
+    def get(self, request, *args, **kwargs):
+
+        try:
+            data = self.model.objects.get(pk=1)
+            form = self.form_class(instance=data)
+        except self.model.DoesNotExist:
+            form = self.form_class()
+            data = None
+
+        return render(request, self.template_name, {'data': data, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            data = self.model.objects.get(pk=1)
+            form = self.form_class(request.POST, instance=data)
+        except self.model.DoesNotExist:
+            data = None
+            form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data Berhasil di-update.')
+            return redirect("banner-payment")
+
+        return render(request, self.template_name, {'data': data, 'form': form})
 
 
 class RaportFilesView(UserIsStaffMixin, ListView):

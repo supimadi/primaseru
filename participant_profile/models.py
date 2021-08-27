@@ -61,7 +61,7 @@ class PaymentUpload(models.Model):
         return self.participant
 
 class PhotoProfile(models.Model):
-    image = models.ImageField('Photo', default='default_photo.png', upload_to='profile_pics')
+    image = models.ImageField('Photo', default='default_photo.png', upload_to=user_directory_path)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):

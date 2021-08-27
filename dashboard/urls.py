@@ -9,8 +9,9 @@ urlpatterns = [
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
     path('reg-num/', views.get_register_number, name="register-number"),
     path('reg-num/reset/', views.reset_registration_number, name="register-number-reset"),
-    path('raport/verified/', views.verified_raport, name="register-number-reset"),
+    path('raport/verified/', views.verified_raport, name="verify-raport"),
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
+    path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
 
     path('export/participant/', views.ExExcelParticipant.as_view(), name="export-participant"),
     path('export/ayah/', views.ExExcelFather.as_view(), name="export-father"),
@@ -23,6 +24,26 @@ urlpatterns = [
     path('info/ppdb/delete/<int:pk>/', views.InfoSourcePPDBDelete.as_view(), name='info-ppdb-delete'),
     path('info/ppdb/update/<int:pk>/', views.InfoSourcePPDBUpdate.as_view(), name='info-ppdb-update'),
 
+    path('files/pool/', views.FilesPoolView.as_view(), name='files-pool'),
+    path('files/pool/create/', views.FilesPoolCreateView.as_view(), name='files-pool-create'),
+    path('files/pool/update/<int:pk>/', views.FilesPoolUpdateView.as_view(), name='files-pool-update'),
+    path('files/pool/delete/<int:pk>/', views.FilesPoolDeleteView.as_view(), name='files-pool-delete'),
+
+    path('files/register/', views.RegisterFileView.as_view(), name='files-register'),
+    path('files/register/create/', views.RegisterFileCreateView.as_view(), name='files-register-create'),
+    path('files/register/update/<int:pk>/', views.RegisterFileUpdateView.as_view(), name='files-register-update'),
+    path('files/register/delete/<int:pk>/', views.RegisterFileDeleteView.as_view(), name='files-register-delete'),
+
+    path('files/re-register/', views.ReRegisterFileView.as_view(), name='files-re-register'),
+    path('files/re-register/create/', views.ReRegisterFileCreateView.as_view(), name='files-re-register-create'),
+    path('files/re-register/update/<int:pk>/', views.ReRegisterFileUpdateView.as_view(), name='files-re-register-update'),
+    path('files/re-register/delete/<int:pk>/', views.ReRegisterFileDeleteView.as_view(), name='files-re-register-delete'),
+
+    path('primaseru/contacts/', views.PrimaseruContactsView.as_view(), name='primaseru-contacts'),
+    path('primaseru/contacts/delete/<int:pk>/', views.PrimaseruContactsDeleteView.as_view(), name='primaseru-contacts-delete'),
+    path('primaseru/contacts/update/<int:pk>/', views.PrimaseruContactsUpdateView.as_view(), name='primaseru-contacts-update'),
+    path('primaseru/contacts/create/', views.PrimaseruContactsCreateView.as_view(), name='primaseru-contacts-create'),
+
     path('raport/<int:account>/', views.RaportFilesView.as_view(), name='raport-list'),
     path('raport/<int:account>/create/', views.RaportFileCreate.as_view(), name='raport-create'),
     path('raport/<int:account>/<int:pk>/delete/', views.RaportFileDelete.as_view(), name='raport-delete'),
@@ -34,8 +55,8 @@ urlpatterns = [
 
     path('langkah/pendaftaran/', views.RegisterStepListView.as_view(), name='register-step'),
     path('langkah/pendaftaran/insert/', views.RegisterStepCreateView.as_view(), name='register-step-create'),
-    path('langkah/pendaftaran/delete/<int:pk>', views.RegisterStepDeleteView.as_view(), name='register-step-delete'),
-    path('langkah/pendaftaran/update/<int:pk>', views.RegisterStepUpdateView.as_view(), name='register-step-update'),
+    path('langkah/pendaftaran/delete/<int:pk>/', views.RegisterStepDeleteView.as_view(), name='register-step-delete'),
+    path('langkah/pendaftaran/update/<int:pk>/', views.RegisterStepUpdateView.as_view(), name='register-step-update'),
 
     path('ganti-password/<int:pk>/', views.PasswordChangeViewDashboard.as_view(), name='participant-change-password'),
 
