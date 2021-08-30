@@ -112,6 +112,7 @@ class ReRegisterFilePrimaseru(models.Model):
         return 'Berkas Daftar Ulang ({self.file_name})'
 
 class PaymentBanner(models.Model):
+    sub_title = models.CharField('Sub Judul', max_length=100, null=True)
     rek_num = models.CharField('Nomor Rekening', max_length=50)
     whom_rek = models.CharField('Rekening Atas Nama', max_length=100)
     bank = models.CharField('Bank', max_length=100)
@@ -124,7 +125,7 @@ class PaymentBanner(models.Model):
 
 class ParticipantRePayment(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    virt_acc_number = models.CharField('Nomor Virtual Account', max_length=30, null=True, help_text="Nomor Virtual Account Bank Mandiri atau CIMB Niaga.")
+    virt_acc_number = models.CharField('Nomor Virtual Account', max_length=30, null=True, help_text="Nomor Virtual Account Bank Mandiri.")
     paid_off = models.BooleanField('Lunas', default=False)
 
     # FIXME need to make seperate model

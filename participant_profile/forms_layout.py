@@ -152,6 +152,9 @@ FILE_FORM_LAYOUT = Layout(
         Row(
             Div('good_behave_cert', css_class='col-md-12')
         ),
+        Row(
+            Div('ijazah', css_class='col-md-12')
+        ),
         css_class=FIELDSET_CLASS
     )
 )

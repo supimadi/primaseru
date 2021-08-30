@@ -59,8 +59,13 @@ def set_photo_profile(request):
 
 @login_required
 def id_card(request):
-    data = get_object_or_404(Participant, account=request.user.pk)
-    image = get_object_or_404(models.PhotoProfile, participant=request.user.pk)
+
+    try:
+        data = Participant.objects.get(account=request.user.pk)
+        image = models.PhotoProfile.objects.get(participant=request.user.pk)
+    except Exception:
+        messages.warning(request, 'Photo Belum diunggah!')
+        return redirect('profile')
 
     return render(request, 'participant_profile/id_card_new.html', {'data': data, 'image': image})
 

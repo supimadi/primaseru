@@ -54,6 +54,7 @@
                             <th scope="col">No. Peserta</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Nama Orang Tua</th>
+                            <th scope="col">No. HP Orang Tua</th>
                             <th scope="col">Asal Sekolah</th>
                             <th scope="col">No. HP</th>
                             <!-- <th scope="col">Tanggal Lahir</th> -->
@@ -74,6 +75,7 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ s.parent_full_name|title  }}</td>
+                                <td>{{ s.parent_phone_number  }}</td>
                                 <td>{{ s.previous_school  }}</td>
                                 <td>{{ s.participant_phone_number  }}</td>
                                 <!-- <td>{{ s.account.participantprofile.date_born|date:"d M Y"  }}</td> -->

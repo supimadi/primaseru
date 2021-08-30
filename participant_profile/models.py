@@ -28,6 +28,7 @@ class StudentFile(models.Model):
     color_blind_cert = models.FileField('Semester Keterangan Tidak Buta Warna', upload_to=user_directory_path, null=True, blank=True)
     healty_cert = models.FileField('Surat Keterangan Sehat', upload_to=user_directory_path, null=True, blank=True)
     good_behave_cert = models.FileField('Surat Kelakukan Baik', upload_to=user_directory_path, null=True, blank=True)
+    ijazah = models.FileField('Ijazah', upload_to=user_directory_path, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
