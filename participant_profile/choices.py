@@ -66,17 +66,24 @@ INFORMATION_PRIMASERU = [
 ]
 
 ENTER_SMK_CHOICES = [
-    ('ORT', 'Orang Tua'),
-    ('SDR', 'Sendiri'),
-    ('ODS', 'Orang Tua dan Sendiri'),
+    ('Orang Tua', 'Orang Tua'),
+    ('Sendiri', 'Sendiri'),
+    ('Orang Tua dan Sendiri', 'Orang Tua dan Sendiri'),
 ]
 
 CHARITY_AMOUNT = [
     ('0', 'Rp. 0'),
-    ('50', 'Rp. 500.000,-'),
-    ('100', 'Rp. 1.000.000,-'),
-    ('150', 'Rp. 1.500.000,-'),
-    ('200', 'Rp. 2.000.000,-'),
-    ('250', 'Rp. 2.500.000,-'),
-    ('300', 'Rp. 3.000.000,-'),
+    ('Rp. 500.000,-', 'Rp. 500.000,-'),
+    ('Rp. 1.000.000,-', 'Rp. 1.000.000,-'),
+    ('Rp. 1.500.000,-', 'Rp. 1.500.000,-'),
+    ('Rp. 2.000.000,-', 'Rp. 2.000.000,-'),
+    ('Rp. 2.500.000,-', 'Rp. 2.500.000,-'),
+    ('Rp. 3.000.000,-', 'Rp. 3.000.000,-'),
+]
+
+JALUR_MASUK = [
+    ('Jalur Prestasi', 'Jalur Prestasi'),
+    ('Jalur Reguler 1', 'Jalur Reguler 1'),
+    ('Jalur Reguler 2', 'Jalur Reguler 2'),
+    ('Jalur Reguler 3', 'Jalur Reguler 3'),
 ]

@@ -64,8 +64,6 @@ Test by typing:
 ** [X] fix mobile view on re-payment page
 ** [X] fix typo 'pribari'
 ** [X] change "biaya pendaftaran" to "Test minat bakat"
-** [] refactor export excel
-** [] make telegram bot
 ** [X] add salution alert
 ** [X] make contact model
 ** [X] seperate 'raport' from file student model
@@ -73,3 +71,6 @@ Test by typing:
 ** [X] create dummy dashboard
 ** [X] make data on homepage editable
 ** [X] rework summary data on dashboard
+** [X] refactor export excel
+** [X] change 'berkas' button to nav
+** [X] add 'jalur pendaftaran' to major form

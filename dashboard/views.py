@@ -17,9 +17,10 @@ from django.contrib.auth.views import PasswordChangeView
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
 
+
 from excel_response import ExcelResponse
-from openpyxl import Workbook
-from openpyxl.writer.excel import save_virtual_workbook
+
+import xlsxwriter
 
 from . import forms
 from .models import (
@@ -168,6 +169,80 @@ def files_download(request, pk):
 
     return resp
 
+def export_to_excel(request):
+    fbuffer = BytesIO()
+    workbook = xlsxwriter.Workbook(fbuffer)
+
+    ws1 = workbook.add_worksheet('Data Peserta')
+    ws2 = workbook.add_worksheet('Profile Peserta')
+    ws3 = workbook.add_worksheet('Profile Ayah')
+    ws4 = workbook.add_worksheet('Profile Ibu')
+    ws5 = workbook.add_worksheet('Profile Wali')
+    ws6 = workbook.add_worksheet('Jurusan Peserta')
+
+    name_list = Participant.objects.values_list('full_name', flat=True)
+    model_worksheet = [
+        [Participant.objects.all(),False, ws1],
+        [ParticipantProfile.objects.all(),True, ws2],
+        [FatherStudentProfile.objects.all(),True, ws3],
+        [MotherStudentProfile.objects.all(),True, ws4],
+        [StudentGuardianProfile.objects.all(),True, ws5],
+        [MajorStudent.objects.all(),True, ws6]
+    ]
+
+    def set_header(data):
+        header_list = []
+        try:
+            for f in data.first()._meta.fields:
+                header_list.append(f.verbose_name)
+        except Exception:
+            header_list = 'Tidak Ada Data!'
+
+        return header_list
+
+    def write_data(worksheet, data, header, add_name=False):
+        if header == 'Tidak Ada Data!':
+            worksheet.write(0,0, str(header))
+        else:
+            row = 0
+            if add_name:
+                worksheet.write(row,0, 'Nama Peserta')
+                for name in name_list:
+                    worksheet.write(row+1, 0, name)
+                    row += 1
+
+            col = 1 if add_name else 0
+            for h in header:
+                worksheet.write(0, col, str(h))
+                col += 1
+
+            col = 1 if add_name else 0
+            row = 1
+            for data in data.values():
+                for value in data.values():
+                    worksheet.write(row, col, str(value))
+                    col += 1
+                col = 1 if add_name else 0
+                row += 1
+
+    for mw in model_worksheet:
+        data_header = set_header(mw[0])
+        data_values = mw[0].values()
+        write_data(mw[2], data_values, data_header)
+
+        if mw[1]:
+            write_data(mw[2], data_values, data_header, add_name=True)
+        else:
+            write_data(mw[2], data_values, data_header)
+
+    workbook.close()
+    resp = HttpResponse(fbuffer.getvalue(), headers={
+        'Content-Type': "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        'Content-Disposition': f'attachment; filename="Primaseru.xlsx"',
+    })
+
+    return resp
+
 @permission_required('users.is_staff')
 def analytic_view(request):
     info = InfoSourcePPDB.objects.all()
@@ -179,77 +254,6 @@ def analytic_view(request):
         data.append(i.participant_set.count()) # vote count
 
     return render(request, 'dashboard/analytic.html', {'data_list': [label, data], 'info': zip(data, label)})
-
-class ExportToExcel(UserIsStaffMixin, View):
-    model = None
-    file_name = 'Data PPDB'
-
-    def get(self, request, *args, **kwargs):
-        ctx = {
-            'export': [
-                {
-                    'title': 'Data Peserta',
-                    'link': reverse('export-participant'),
-                },
-                {
-                    'title': 'Data Ayah',
-                    'link': reverse('export-father'),
-                },
-                {
-                    'title': 'Data Ibu',
-                    'link': reverse('export-mother'),
-                },
-                {
-                    'title': 'Data Wali',
-                    'link': reverse('export-guardian'),
-                },
-                {
-                    'title': 'Data Jurusan Peserta',
-                    'link': reverse('export-major'),
-                },
-            ]
-        }
-        return render(request, 'dashboard/export.html', ctx)
-
-    def post(self, request, *args, **kwargs):
-        PARTICIPANT = list(Participant.objects.values_list('registration_number', 'full_name'))
-        PARTICIPANT_PROFILE = [
-            x for x in self.model.objects.values_list(*[i.name for i in self.model._meta.fields[3:]])
-        ]
-
-        for a in range(1, len(PARTICIPANT)+1):
-            try:
-                PARTICIPANT[a-1] = list(PARTICIPANT[a-1])
-                PARTICIPANT[a-1] += (PARTICIPANT_PROFILE[a-1])
-            except IndexError:
-                continue
-
-        column = ['No. Pendaftaran', 'Nama Lengkap']
-        column += [i.verbose_name for i in self.model._meta.fields[3:]]
-        data = [column]
-
-        data += PARTICIPANT
-        return ExcelResponse(data, self.file_name)
-
-class ExExcelParticipant(ExportToExcel):
-    model = ParticipantProfile
-    file_name = 'Data Peserta PPDB'
-
-class ExExcelFather(ExportToExcel):
-    model = FatherStudentProfile
-    file_name = 'Data Ayah Peserta PPDB'
-
-class ExExcelMother(ExportToExcel):
-    model = MotherStudentProfile
-    file_name = 'Data Ibu Peserta PPDB'
-
-class ExExcelGuardian(ExportToExcel):
-    model = StudentGuardianProfile
-    file_name = 'Data Wali Peserta PPDB'
-
-class ExExcelMajor(ExportToExcel):
-    model = MajorStudent
-    file_name = 'Data Jurusan Pilihan Peserta PPDB'
 
 class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
     model = CustomUser

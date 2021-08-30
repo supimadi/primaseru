@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.dashboard, name="dashboard"),
     path('add-participant/', views.insert_participant, name="insert-participant"),
-    path('export/', views.ExportToExcel.as_view(), name="export"),
+    path('export/', views.export_to_excel, name="export"),
     path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
     path('reg-num/', views.get_register_number, name="register-number"),
@@ -12,12 +12,6 @@ urlpatterns = [
     path('raport/verified/', views.verified_raport, name="verify-raport"),
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
-
-    path('export/participant/', views.ExExcelParticipant.as_view(), name="export-participant"),
-    path('export/ayah/', views.ExExcelFather.as_view(), name="export-father"),
-    path('export/ibu/', views.ExExcelMother.as_view(), name="export-mother"),
-    path('export/wali/', views.ExExcelGuardian.as_view(), name="export-guardian"),
-    path('export/jurusan/', views.ExExcelMajor.as_view(), name="export-major"),
 
     path('info/ppdb/', views.InfoSourcePPDBView.as_view(), name='info-ppdb'),
     path('info/ppdb/insert/', views.InfoSourcePPDBCreate.as_view(), name='info-ppdb-create'),

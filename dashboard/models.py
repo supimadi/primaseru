@@ -66,6 +66,9 @@ class Participant(models.Model):
 
     info = models.ManyToManyField(InfoSourcePPDB)
 
+    updated_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'
 

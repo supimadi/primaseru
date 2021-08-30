@@ -124,9 +124,11 @@ class ProfileView(LoginRequiredMixin, View):
         try:
             pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
             passed = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
-        except (ParticipantGraduation.DoesNotExist, ParticipantRePayment.DoesNotExist):
+            lms = ParticipantLMS.objects.filter(participant=self.request.user.pk).exists()
+        except (ParticipantGraduation.DoesNotExist, ParticipantRePayment.DoesNotExist, ParticipantLMS.DoesNotExist):
             passed = None
             pay = None
+            lms = None
 
         return {
             'form_ph': forms.PhotoProfileForm(),
@@ -134,6 +136,7 @@ class ProfileView(LoginRequiredMixin, View):
             'name': self.name,
             'data': data,
             'pay': pay,
+            'lms': lms,
             'passed': passed,
         }
 

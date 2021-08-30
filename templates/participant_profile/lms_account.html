@@ -31,9 +31,6 @@
                 <a class="btn btn-danger btn-sm" href="{% url 'set-photo-profile' %}">
                     Unggah Photo
                 </a>
-                <a class="btn btn-danger btn-sm" href="{% url 'participant-kk' %}">
-                    Unggah Berkas
-                </a>
             </div>
         </div>
     </div>
@@ -45,10 +42,11 @@
                 <a class="nav-link tab-profile" href="{% url 'participant-major' %}" role="tab">Jurusan</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
+                <a class="nav-link tab-profile" href="{% url 'participant-kk' %}" role="tab">Berkas</a>
                 {% if passed %}
                 <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
                 {% endif %}
-                {% if pay %}
+                {% if lms %}
                 <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
