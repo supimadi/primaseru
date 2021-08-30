@@ -180,7 +180,7 @@ def export_to_excel(request):
     ws5 = workbook.add_worksheet('Profile Wali')
     ws6 = workbook.add_worksheet('Jurusan Peserta')
 
-    name_list = Participant.objects.values_list('full_name', flat=True)
+    name_list = Participant.objects.values_list('full_name', 'account')
     model_worksheet = [
         [Participant.objects.all(),False, ws1],
         [ParticipantProfile.objects.all(),True, ws2],
@@ -208,22 +208,43 @@ def export_to_excel(request):
             if add_name:
                 worksheet.write(row,0, 'Nama Peserta')
                 for name in name_list:
-                    worksheet.write(row+1, 0, name)
+                    worksheet.write(row+1, 0, name[0])
+
+                    for value in data.values():
+
+                        col = 1
+                        if not value['participant_id'] == name[1]:
+                            continue
+
+                        for v in value.values():
+                            worksheet.write(row+1, col, v)
+                            col += 1
                     row += 1
 
-            col = 1 if add_name else 0
-            for h in header:
-                worksheet.write(0, col, str(h))
-                col += 1
-
-            col = 1 if add_name else 0
-            row = 1
-            for data in data.values():
-                for value in data.values():
-                    worksheet.write(row, col, str(value))
-                    col += 1
                 col = 1 if add_name else 0
-                row += 1
+                for h in header:
+                    worksheet.write(0, col, str(h))
+                    col += 1
+            else:
+                col = 0
+                for h in header:
+                    worksheet.write(0, col, str(h))
+                    col += 1
+
+                row = 1
+                for value in data.values():
+                    col = 0
+                    for v in value.values():
+                        worksheet.write(row, col, str(v))
+                        col += 1
+
+                    row += 1
+
+
+
+    # data_header = set_header(model_worksheet[5][0])
+    # data_values = model_worksheet[5][0].values()
+    # write_data(model_worksheet[5][2], data_values, data_header, add_name=True)
 
     for mw in model_worksheet:
         data_header = set_header(mw[0])
