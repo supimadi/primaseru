@@ -17,6 +17,9 @@ class ParticipantFamilyCert(models.Model):
     family_cert = models.FileField('Kartu Keluarga', upload_to=user_directory_path, null=True)
     birth_cert = models.FileField('Akta Kelahiran', upload_to=user_directory_path, null=True)
 
+    class Meta:
+        ordering = ['participant']
+
     def __str__(self):
         return f'KK dan Akta Kelahiran {self.participant}'
 
@@ -33,6 +36,9 @@ class StudentFile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['participant']
+
     def __str__(self):
         return f'Raport {self.participant}'
 
@@ -48,6 +54,9 @@ class ReportFileParticipant(models.Model):
     semester = models.CharField('Raport Semester', max_length=5, choices=choices.RAPORT_SEMESTER, help_text="Pilih raport semester berapa yang di unggah.")
     part = models.CharField('Bagian Raport', max_length=3, choices=choices.RAPORT_PART, help_text="Pilih bagian ke berapa raport yang di unggah.")
 
+    class Meta:
+        ordering = ['participant']
+
     def __str__(self):
         return f'Raport {self.participant}'
 
@@ -58,12 +67,18 @@ class PaymentUpload(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['participant']
+
     def __str__(self):
         return self.participant
 
 class PhotoProfile(models.Model):
     image = models.ImageField('Photo', default='default_photo.png', upload_to=user_directory_path)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['participant']
 
     def __str__(self):
         return f'Photo {self.participant}'
@@ -115,6 +130,9 @@ class ParticipantProfile(models.Model):
     private_doctor = models.CharField('Nama Dokter Keluarga', max_length=120, null=True, blank=True, help_text="Jika kamu mempunyai dokter keluarga, silahkan input     disini")
     phone_doctor = models.CharField('No Telepon Dokter', max_length=15, null=True, blank=True, help_text="Isi jika memiliki dokter keluarga dan atau dalam masa pen    yambuhan penyakit")
 
+    class Meta:
+        ordering = ['participant']
+
     def __str__(self):
         return f'{self.id} profile'
 
@@ -134,6 +152,9 @@ class MajorStudent(models.Model):
      enter_smk = models.CharField('Keinginan Siapa Masuk SMK', max_length=25, null=True, choices=choices.ENTER_SMK_CHOICES)
      charity = models.CharField('Dana Sukarela', max_length=20, null=True, choices=choices.CHARITY_AMOUNT, help_text="Dana Sukarela nantinya akan dimanfaatkan untuk pengembangan siswa dibidang non akademik (kompetisi dan perlombaan-perlombaan).")
      way_in = models.CharField('Jalur Masuk', max_length=20, null=True, choices=choices.JALUR_MASUK)
+
+     class Meta:
+         ordering = ['participant']
 
      def __str__(self):
          return f'{self.participant} - {self.first_major}'
@@ -158,6 +179,9 @@ class ProfileParent(models.Model):
     salary = models.PositiveIntegerField(f'Penghasilan', null=True, blank=True, help_text="Diisi dengan angka")
     email = models.EmailField(f'Email', null=True, blank=True)
     phone = models.CharField(f'No. HP', null=True, max_length=15)
+
+    class Meta:
+        ordering = ['participant']
 
     def __str__(self):
         return self.full_name

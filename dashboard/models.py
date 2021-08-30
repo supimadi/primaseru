@@ -29,6 +29,12 @@ class ParticipantLMS(models.Model):
     schedule = models.DateField('Tanggal')
     time = models.CharField('Pukul', max_length=20)
 
+    class Meta:
+        ordering = ['participant']
+
+    def __str__(self):
+        return f'LMS {self.participant.username}'
+
 class ParticipantGraduation(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     passed = models.CharField('Lulus/Tidak Lulus', max_length=2, choices=PASSED_CHOICES, default='TL')
@@ -36,6 +42,9 @@ class ParticipantGraduation(models.Model):
     chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR, null=True, blank=True)
 
     updated_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['participant']
 
 class ParticipantCount(models.Model):
     count = models.CharField(max_length=10, db_index=True)
@@ -68,6 +77,9 @@ class Participant(models.Model):
 
     updated_at = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['account']
 
     def __str__(self):
         return f'{self.full_name}-{self.registration_number}'
@@ -152,6 +164,9 @@ class ParticipantRePayment(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['participant']
 
     def __str__(self):
         return f'Pembayaran {self.participant}'
