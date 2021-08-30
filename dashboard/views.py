@@ -240,8 +240,6 @@ def export_to_excel(request):
 
                     row += 1
 
-
-
     # data_header = set_header(model_worksheet[5][0])
     # data_values = model_worksheet[5][0].values()
     # write_data(model_worksheet[5][2], data_values, data_header, add_name=True)
@@ -249,7 +247,6 @@ def export_to_excel(request):
     for mw in model_worksheet:
         data_header = set_header(mw[0])
         data_values = mw[0].values()
-        write_data(mw[2], data_values, data_header)
 
         if mw[1]:
             write_data(mw[2], data_values, data_header, add_name=True)
