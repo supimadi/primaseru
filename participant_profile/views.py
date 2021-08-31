@@ -121,13 +121,20 @@ class ProfileView(LoginRequiredMixin, View):
     name = 'peserta'
 
     def _get_context(self, data, form):
+
         try:
             pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
-            passed = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
-            lms = ParticipantLMS.objects.filter(participant=self.request.user.pk).exists()
-        except (ParticipantGraduation.DoesNotExist, ParticipantRePayment.DoesNotExist, ParticipantLMS.DoesNotExist):
-            passed = None
+        except ParticipantRePayment.DoesNotExist:
             pay = None
+
+        try:
+            passed = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
+        except ParticipantGraduation.DoesNotExist:
+            passed = None
+
+        try:
+            lms = ParticipantLMS.objects.get(participant=self.request.user.pk)
+        except ParticipantLMS.DoesNotExist:
             lms = None
 
         return {
@@ -175,26 +182,26 @@ class ProfileView(LoginRequiredMixin, View):
 
         return render(request, self.template_name, self._get_context(data, form))
 
-class ParticipantProfileView(IsPassessTestPPDB, ProfileView):
+class ParticipantProfileView(ProfileView):
     form_class = forms.ParticipantProfileForm
     model = models.ParticipantProfile
     template_name = 'participant_profile/primaseru.html'
     url_name =  'participant-profile'
     name = 'peserta'
 
-class FatherProfileView(IsPassessTestPPDB, ProfileView):
+class FatherProfileView(ProfileView):
     form_class = forms.FatherParticipantForm
     model = models.FatherStudentProfile
     url_name = 'participant-father'
     name = "ayah"
 
-class MotherProfileView(IsPassessTestPPDB, ProfileView):
+class MotherProfileView(ProfileView):
     form_class = forms.MotherParticipantForm
     model = models.MotherStudentProfile
     url_name = 'participant-mother'
     name = "ibu"
 
-class GuardianProfileView(IsPassessTestPPDB, ProfileView):
+class GuardianProfileView(ProfileView):
     form_class = forms.GuardianParticipantForm
     model = models.StudentGuardianProfile
     url_name = 'participant-guardian'
@@ -242,12 +249,15 @@ class RaportParticipantView(IsPassessTestPPDB, ProfileView):
     def _get_context(self, data, form):
         try:
             pass_test = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
-            raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
-            pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
         except ParticipantGraduation.DoesNotExist:
             pass_test = None
+
+        try:
+            pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).verified_1
+        except ParticipantRePayment.DoesNotExist:
             pay = None
-            raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
+
+        raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
 
         return {
             'form': form,

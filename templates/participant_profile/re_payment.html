@@ -48,18 +48,17 @@
         <div class="col-12 px-2 px-lg-5 bg-light border-bottom border-top">
             <div class="nav nav-fill mx-0 mx-lg-5 px-0 px-lg-3" id="v-pills-tab" role="navigation">
                 <a class="nav-link tab-profile" href="{% url 'participant-major' %}" role="tab">Jurusan</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-kk' %}" role="tab">Berkas</a>
-                {% if passed %}
-                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
-                {% endif %}
-                {% if pay %}
                 <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
                 <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab">Data Wali</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab"></a>
+                <a class="nav-link tab-profile" href="{% url 'participant-kk' %}" role="tab">Berkas</a>
+                {% if lms %}
+                <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
+                <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
+                {% endif %}
+                {% if passed %}
+                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
                 {% endif %}
             </div>
         </div>
@@ -86,6 +85,14 @@
                             </p>
                             <p>
                                 <span class="card-detail card-bg border border-danger rounded p-2">Nomor Virtual Account: {{ data.virt_acc_number  }}</span>
+                            </p>
+                            <hr />
+                            <p>
+                                {% if data.paid_off %}
+                                Status : <span class="badge badge-success">LUNAS</span>
+                                {% else %}
+                                Status : <span class="badge badge-warning">Belum Lunas</span>
+                                {% endif %}
                             </p>
                             <hr />
                             <div class="row px-3">
@@ -176,7 +183,7 @@
 {% endblock main %}
 {% block js %}
     <script type="text/javascript">
-     var verifikasi = '{{ data.verified }}';
+     var verifikasi = '{{ data.paid_off }}';
     </script>
     <script type="text/javascript" src="{% static 'participant_profile/js/jquery-auto-resize.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'participant_profile/js/primaseru.js' %}"></script>

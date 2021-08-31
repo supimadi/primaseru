@@ -169,6 +169,7 @@ def files_download(request, pk):
 
     return resp
 
+@permission_required('users.is_staff')
 def export_to_excel(request):
     fbuffer = BytesIO()
     workbook = xlsxwriter.Workbook(fbuffer)
@@ -179,15 +180,19 @@ def export_to_excel(request):
     ws4 = workbook.add_worksheet('Profile Ibu')
     ws5 = workbook.add_worksheet('Profile Wali')
     ws6 = workbook.add_worksheet('Jurusan Peserta')
+    ws7 = workbook.add_worksheet('Sumber Info PPDB')
+
 
     name_list = Participant.objects.values_list('full_name', 'account')
+    info_source = InfoSourcePPDB.objects.all()
+
     model_worksheet = [
         [Participant.objects.all(),False, ws1],
         [ParticipantProfile.objects.all(),True, ws2],
         [FatherStudentProfile.objects.all(),True, ws3],
         [MotherStudentProfile.objects.all(),True, ws4],
         [StudentGuardianProfile.objects.all(),True, ws5],
-        [MajorStudent.objects.all(),True, ws6]
+        [MajorStudent.objects.all(),True, ws6],
     ]
 
     def set_header(data):
@@ -239,6 +244,25 @@ def export_to_excel(request):
                         col += 1
 
                     row += 1
+
+
+    info_sorce_header = ['Sumber Info PPDB', 'Jumlah Voting']
+    data_info_source = []
+    label_info_source = []
+    for i in info_source:
+        data_info_source.append(i.participant_set.count())
+        label_info_source.append(i.info_source)
+
+    row = 1
+    for l,d in zip(label_info_source, data_info_source):
+        ws7.write(row, 0, l)
+        ws7.write(row, 1, d)
+        row += 1
+
+    col = 0
+    for h in info_sorce_header:
+        ws7.write(0, col, h)
+        col += 1
 
     # data_header = set_header(model_worksheet[5][0])
     # data_values = model_worksheet[5][0].values()

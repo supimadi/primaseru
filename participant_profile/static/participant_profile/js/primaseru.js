@@ -5,7 +5,7 @@ $(document).ready( () => {
     }
 
     let textbox = [
-        $('#id_address_kk'),
+        $('#id_kk_address'),
         $('#id_real_address'),
         $('#id_medic_record')
     ];
