@@ -13,9 +13,9 @@ RAPORT_SEMESTER = [
 ]
 
 RAPORT_PART = [
-    ('P_1', 'Bagian 1'),
-    ('P_2', 'Bagian 2'),
-    ('P_3', 'Bagian 3'),
+    ('P_1', 'Lembar 1'),
+    ('P_2', 'Lembar 2'),
+    ('P_3', 'Lembar 3'),
 ]
 
 RELIGION = [
