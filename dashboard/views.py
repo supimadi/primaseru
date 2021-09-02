@@ -491,6 +491,7 @@ class BannerPayment(UserIsStaffMixin, View):
     model = PaymentBanner
     form_class = forms.PaymentBannerForm
     template_name = 'dashboard/bannerpayment_form.html'
+    success_url = "banner-payment"
 
     def get(self, request, *args, **kwargs):
 
@@ -515,10 +516,15 @@ class BannerPayment(UserIsStaffMixin, View):
         if form.is_valid():
             form.save()
             messages.success(request, 'Data Berhasil di-update.')
-            return redirect("banner-payment")
+            return redirect(self.success_url)
 
         return render(request, self.template_name, {'data': data, 'form': form})
 
+class RegisterNumberUpdateView(BannerPayment):
+    model = ParticipantCount
+    form_class = forms.ParticipantCountForm
+    template_name = 'dashboard/participantcount_form.html'
+    success_url = "register-number-update"
 
 class RaportFilesView(UserIsStaffMixin, ListView):
     model = ReportFileParticipant

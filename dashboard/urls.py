@@ -7,11 +7,13 @@ urlpatterns = [
     path('export/', views.export_to_excel, name="export"),
     path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
-    path('reg-num/', views.get_register_number, name="register-number"),
-    path('reg-num/reset/', views.reset_registration_number, name="register-number-reset"),
     path('raport/verified/', views.verified_raport, name="verify-raport"),
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
+
+    path('reg-num/', views.get_register_number, name="register-number"),
+    path('reg-num/reset/', views.reset_registration_number, name="register-number-reset"),
+    path('reg-num/update/', views.RegisterNumberUpdateView.as_view(), name="register-number-update"),
 
     path('info/ppdb/', views.InfoSourcePPDBView.as_view(), name='info-ppdb'),
     path('info/ppdb/insert/', views.InfoSourcePPDBCreate.as_view(), name='info-ppdb-create'),

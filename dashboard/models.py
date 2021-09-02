@@ -47,7 +47,13 @@ class ParticipantGraduation(models.Model):
         ordering = ['participant']
 
 class ParticipantCount(models.Model):
-    count = models.CharField(max_length=10, db_index=True)
+    count = models.CharField('Hitungan', max_length=10, db_index=True, help_text=" \
+    <ul>\
+    <li> Mulai dari angka berapa, untuk nomor pendaftaran.</li> \
+    <li> Tulis dengan 3 digit angka, contoh: 1 menjadi 001</li> \
+    </ul>\
+    ")
+    year = models.CharField('Tahun', max_length=4, db_index=True, null=True)
 
     def __str__(self):
         return self.count
