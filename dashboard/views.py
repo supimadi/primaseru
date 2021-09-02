@@ -50,7 +50,7 @@ def dashboard(request):
         raise PermissionDenied
 
     if request.GET.get('search-name'):
-        participant = Participant.objects.filter(full_name__contains=request.GET.get('search-name'))
+        participant = Participant.objects.filter(full_name__icontains=request.GET.get('search-name'))
     else:
         participant = Participant.objects.all()
 
