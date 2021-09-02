@@ -3,6 +3,7 @@ from io import BytesIO
 import zipfile
 
 from django.shortcuts import render, redirect, HttpResponse
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views import View
 from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
@@ -48,21 +49,50 @@ def dashboard(request):
     if not request.user.username in settings.ALLOW_VIEW_DASHBOARD_DUMMY:
         raise PermissionDenied
 
-    participant = Participant.objects.all()
+    if request.GET.get('search-name'):
+        participant = Participant.objects.filter(full_name__contains=request.GET.get('search-name'))
+    else:
+        participant = Participant.objects.all()
+
+    if request.GET.get('sort'):
+        participant.order_by('-created_at')
+
     profile = ParticipantProfile.objects.all()
     passed_test = ParticipantGraduation.objects.all().count()
     payment = ParticipantRePayment.objects.all()
+
+    paginator = Paginator(participant, 20)
+    page_number = request.GET.get('page')
+    participant_obj = paginator.get_page(page_number)
+
+    raport_participant = ReportFileParticipant.objects.all()
+    files_participant = StudentFile.objects.all()
+
+    total_re_register_files = min([raport_participant.count(), files_participant.count()])
+
+    total_payment = payment.count()
+
+    tkj = MajorStudent.objects.filter(first_major='TKJ').count()
+    mm = MajorStudent.objects.filter(first_major='MM').count()
+    tjat = MajorStudent.objects.filter(first_major='TJAT').count()
 
     verified = participant.filter(verified=True).count()
     not_verified = participant.count() - verified
 
     context = {
-        'participant': participant,
+        'participant': participant_obj,
         'total_participant': participant.count(),
         'total_participant_accepted': passed_test,
         'total_participant_pay': payment.count(),
         'total_participant_paid_off': payment.filter(paid_off=True).count(),
         'total_participant_profile': profile.count(),
+        'total_participant_pay_1': payment.filter(verified_1=True).count(),
+        'total_participant_pay_2': payment.filter(verified_2=True).count(),
+        'total_participant_pay_3': payment.filter(verified_3=True).count(),
+        'total_re_register_files': total_re_register_files,
+        'total_mm': mm,
+        'total_tjat': tjat,
+        'total_tkj': tkj,
     }
 
     return render(request, 'dashboard/dashboard.html', context)
