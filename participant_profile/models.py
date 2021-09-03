@@ -106,7 +106,7 @@ class ParticipantProfile(models.Model):
 
     nisn = models.IntegerField('NISN', unique=True, help_text='Isi NISN berdasarkan NISN yang diberikan sewaktu SMP.')
     nik = models.CharField('Nomor Induk Kependudukan (NIK)',max_length=20, unique=True, help_text='Bisa dicek di Kartu Keluarga')
-    kk_number = models.PositiveIntegerField('Nomor Kartu Keluarga (KK)', help_text='Diisi berdasarkan Kartu Keluarga')
+    kk_number = models.CharField('Nomor Kartu Keluarga (KK)',max_length=20, help_text='Diisi berdasarkan Kartu Keluarga')
     kk_address = models.TextField('Alamat Kartu Keluarga (KK)', help_text='Contoh: Jalan Radio Palasari')
 
     city = models.CharField('Kota', max_length=120, help_text='Contoh: Kota Bandung')
