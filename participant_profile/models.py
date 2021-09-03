@@ -105,7 +105,7 @@ class ParticipantProfile(models.Model):
     achievement = models.TextField('Prestasi yang Pernah diraih', null=True, blank=True, help_text='Contoh: Juara 1 Lomba Basket Tingkat Nasional')
 
     nisn = models.IntegerField('NISN', unique=True, help_text='Isi NISN berdasarkan NISN yang diberikan sewaktu SMP.')
-    nik = models.IntegerField('Nomor Induk Kependudukan (NIK)', unique=True, help_text='Bisa dicek di Kartu Keluarga')
+    nik = models.CharField('Nomor Induk Kependudukan (NIK)',max_length=20, unique=True, help_text='Bisa dicek di Kartu Keluarga')
     kk_number = models.PositiveIntegerField('Nomor Kartu Keluarga (KK)', help_text='Diisi berdasarkan Kartu Keluarga')
     kk_address = models.TextField('Alamat Kartu Keluarga (KK)', help_text='Contoh: Jalan Radio Palasari')
 
@@ -173,7 +173,7 @@ class ProfileParent(models.Model):
     full_name = models.CharField('Nama Lengkap', max_length=120, db_index=True)
     city_born = models.CharField('Kota/Kabupaten Kelahiran', max_length=120, help_text="Contoh pengisian tempat lahir: Kab bandung")
     date_born = models.DateField('Tanggal Lahir', null=True)
-    nik = models.PositiveIntegerField('Nomor Induk Kependudukan (NIK)', null=True, help_text="Diisi berdasarkan Kartu Keluarga")
+    nik = models.CharField('Nomor Induk Kependudukan (NIK)',max_length=20, null=True, help_text="Diisi berdasarkan Kartu Keluarga")
     education = models.CharField(f'Pendidikan Terakhir', max_length=4, choices=choices.EDUCATION_LEVEL)
     job = models.CharField(f'Pekerjaan', max_length=100, null=True, blank=True)
     salary = models.PositiveIntegerField(f'Penghasilan', null=True, blank=True, help_text="Diisi dengan angka")
