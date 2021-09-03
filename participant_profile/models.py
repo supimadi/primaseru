@@ -175,8 +175,8 @@ class ProfileParent(models.Model):
     date_born = models.DateField('Tanggal Lahir', null=True)
     nik = models.CharField('Nomor Induk Kependudukan (NIK)',max_length=20, null=True, help_text="Diisi berdasarkan Kartu Keluarga")
     education = models.CharField(f'Pendidikan Terakhir', max_length=4, choices=choices.EDUCATION_LEVEL)
-    job = models.CharField(f'Pekerjaan', max_length=100, null=True, blank=True)
-    salary = models.PositiveIntegerField(f'Penghasilan', null=True, blank=True, help_text="Diisi dengan angka")
+    job = models.CharField(f'Pekerjaan', max_length=100, null=True)
+    salary = models.PositiveIntegerField(f'Penghasilan', null=True, help_text="Diisi dengan angka")
     email = models.EmailField(f'Email', null=True, blank=True)
     phone = models.CharField(f'No. HP', null=True, max_length=15)
 
