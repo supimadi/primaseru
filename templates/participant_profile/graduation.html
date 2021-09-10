@@ -66,7 +66,7 @@
                 <div class="shadow rounded py-2 bg-white min-vh mb-4">
                     <div class="mx-0 mx-sm-5 py-0 p-sm-3 d-flex justify-content-center"  id="kartu-peserta">
                         <div class="w-100">
-                            {% if data.passed == 'L' %}
+                            {% if data.passed == 'L' and data.is_announced %}
                                 <div class="border rounded p-3" style="background: #f4fff2">
                                     <h4 class="judul text-center">Pengumuman Hasil Seleksi</h4>
                                     <hr />
@@ -112,7 +112,7 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                            {% elif data.passed == 'TL' %}
+                            {% elif data.passed == 'TL' and data.is_announced %}
                                 <div class="border rounded p-3" style="background: #fff5f2">
                                     <h4 class="judul text-center">Pengumuman Hasil Seleksi</h4>
                                     <hr />

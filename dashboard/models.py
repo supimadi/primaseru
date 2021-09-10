@@ -1,4 +1,4 @@
-from datetime import date
+import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -41,7 +41,23 @@ class ParticipantGraduation(models.Model):
     letter = models.FileField('Surat Kelulusan', null=True, blank=True, upload_to='berkas_kelulusan/')
     chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR, null=True, blank=True)
 
+    date_announce = models.DateField('Tanggal Diumumkan', null=True, help_text="Tanggal berapa kelulusan akan diumumkan.")
+    clock_announce = models.TimeField('Jam Diumumkan', null=True, help_text="Pukul berapa kelulusan diumumkan (WIB). Contoh: 08.00 atau 17.00")
+
     updated_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Graduation {self.participant}'
+
+    @property
+    def is_announced(self):
+        announce = timezone.datetime.combine(self.date_announce, self.clock_announce)
+        announce = timezone.make_aware(announce)
+
+        if announce <= timezone.now():
+            return True
+        else:
+            return False
 
     class Meta:
         ordering = ['participant']
@@ -108,7 +124,7 @@ class RegisterSchedule(models.Model):
 
    @property
    def is_ongoing(self):
-       return date.today().month <= self.end_date.month and date.today().month >= self.start_date.month
+       return datetime.date.today().month <= self.end_date.month and datetime.date.today().month >= self.start_date.month
 
    @property
    def is_past_date(self):

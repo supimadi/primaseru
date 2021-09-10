@@ -136,6 +136,8 @@ GRADUATION_FORM_DASHBOARD = Layout(
         'letter',
         'passed',
         'chose_major',
+        'date_announce',
+        'clock_announce',
         css_class="rounded border border-primary p-3 m-3"
     ),
     Div(
