@@ -164,6 +164,7 @@ class ParticipantRePayment(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     virt_acc_number = models.CharField('Nomor Virtual Account', max_length=30, null=True, help_text="Nomor Virtual Account Bank Mandiri.")
     paid_off = models.BooleanField('Lunas', default=False)
+    whom_acc = models.CharField('Virtual Account Atas Nama',max_length=100, null=True)
 
     # FIXME need to make seperate model
     payment_1 = models.FileField('Pembayaran Ke 1', upload_to=user_directory_path, null=True, blank=True)
