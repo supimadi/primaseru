@@ -37,7 +37,7 @@ EDUCATION_LEVEL = [
 
 MAJOR = [
     ('TKJ', 'Teknik Komputer dan Jaringan'),
-    ('TJAT', 'Teknik Jaringan Akses dan Telekomunikasi'),
+    ('TJAT', 'Teknik Jaringan Akses Telekomunikasi'),
     ('MM', 'Multimedia'),
 ]
 
