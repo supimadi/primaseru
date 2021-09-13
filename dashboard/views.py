@@ -68,7 +68,15 @@ def dashboard(request):
     raport_participant = ReportFileParticipant.objects.all()
     files_participant = StudentFile.objects.all()
 
-    total_re_register_files = min([raport_participant.count(), files_participant.count()])
+    accounts = CustomUser.objects.all()
+
+    total_re_register_files = 0
+    for acc in accounts:
+        try:
+            if acc.reportfileparticipant_set.all() and acc.studentfile:
+                total_re_register_files += 1
+        except Exception:
+            pass
 
     total_payment = payment.count()
 

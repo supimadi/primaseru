@@ -226,7 +226,7 @@
                                             </svg>
                                         </span>
                                     {% endif %}
-                                    {% if s.account.studentfile %}
+                                    {% if s.account.studentfile and s.account.reportfileparticipant_set.all %}
                                         <span class="badge badge-cyan" data-toggle="tooltip" data-placement="top" title="Sudah Mengumpulkan Berkas Daftar Ulang">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-cyan bi bi-circle-fill" viewBox="0 0 16 16">
                                                 <circle cx="8" cy="8" r="8"/>
