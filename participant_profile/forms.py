@@ -1,5 +1,6 @@
 import datetime
 from django import forms
+from django.core.validators import FileExtensionValidator
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -94,6 +95,7 @@ class ParticipantFilesForm(forms.ModelForm):
         exclude = ['participant', 'verified', 'msg', 'created_at', 'updated_at']
 
 class ParticipantRaportForm(forms.ModelForm):
+    raport = forms.FileField(label='Berkas Raport', validators=[FileExtensionValidator(['pdf'])], help_text="Harap meng-unggah hasil scan raport, bukan photo supaya terlihat dengan jelas, dan berformat pdf.")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

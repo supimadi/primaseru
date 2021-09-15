@@ -107,7 +107,7 @@ PARENT_FORM_LAYOUT = Layout(
 RAPORT_FORM_LAYOUT = Layout(
     Fieldset("Berkas Raport",
         Row(
-            Div('raport', css_class='col-md-12')
+            Div(Field('raport', accept="application/pdf"), css_class='col-md-12')
         ),
         Row(
             Div('semester', css_class='col-md-12')
