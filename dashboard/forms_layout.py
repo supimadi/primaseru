@@ -236,7 +236,23 @@ RAPORT_DASHBOARD_FORM = Layout(
         Div(
             'raport',
             'semester',
-            'part',
+            # 'part',
+        ),
+        css_class=" rounded border border-primary p-3 m-3"
+    ),
+    Row(
+        Div(
+            Submit('submit', 'Submit'),
+            css_class="col-sm-6"
+            ), css_class="mx-3"
+    ),
+)
+
+CERT_DASHBOARD_FORM = Layout(
+    Fieldset('Raport',
+        Div(
+            'certificate',
+            'certi_name',
         ),
         css_class=" rounded border border-primary p-3 m-3"
     ),

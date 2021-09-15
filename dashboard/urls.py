@@ -7,7 +7,6 @@ urlpatterns = [
     path('export/', views.export_to_excel, name="export"),
     path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
-    path('raport/verified/', views.verified_raport, name="verify-raport"),
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
 
@@ -40,9 +39,15 @@ urlpatterns = [
     path('primaseru/contacts/update/<int:pk>/', views.PrimaseruContactsUpdateView.as_view(), name='primaseru-contacts-update'),
     path('primaseru/contacts/create/', views.PrimaseruContactsCreateView.as_view(), name='primaseru-contacts-create'),
 
+    path('raport/verified/', views.verified_raport, name="verify-raport"),
     path('raport/<int:account>/', views.RaportFilesView.as_view(), name='raport-list'),
     path('raport/<int:account>/create/', views.RaportFileCreate.as_view(), name='raport-create'),
     path('raport/<int:account>/<int:pk>/delete/', views.RaportFileDelete.as_view(), name='raport-delete'),
+
+    path('sertifikat/verified/', views.verified_cert, name="verify-cert"),
+    path('sertifikat/<int:account>/', views.CertFilesView.as_view(), name='cert-list'),
+    path('sertifikat/<int:account>/create/', views.CertFileCreate.as_view(), name='cert-create'),
+    path('sertifikat/<int:account>/<int:pk>/delete/', views.CertFileDelete.as_view(), name='cert-delete'),
 
     path('jadwal/pendaftaran/', views.RegisterScheduleListView.as_view(), name='register-schedule'),
     path('jadwal/pendaftaran/insert/', views.RegisterScheduleCreateView.as_view(), name='register-schedule-create'),

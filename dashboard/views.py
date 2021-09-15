@@ -37,7 +37,8 @@ from participant_profile.models import (
     ParticipantProfile, MotherStudentProfile,
     FatherStudentProfile, StudentGuardianProfile,
     StudentFile, MajorStudent, PaymentUpload,
-    ParticipantFamilyCert, ReportFileParticipant
+    ParticipantFamilyCert, ReportFileParticipant,
+    ParticipantCert
 )
 from participant_profile import forms as participant_profile_forms
 
@@ -122,6 +123,22 @@ def verified_raport(request):
 
     raise PermissionDenied
 
+@permission_required('users.is_staff')
+def verified_cert(request):
+
+    if request.method == 'POST':
+        pk = request.POST.get('primary_key')
+        raport = ParticipantCert.objects.get(pk=pk)
+
+        if raport.verified:
+            raport.verified = False
+        else:
+            raport.verified = True
+
+        raport.save()
+        return JsonResponse({'success': True})
+
+    raise PermissionDenied
 
 @permission_required('users.is_staff')
 def get_register_number(request):
@@ -564,10 +581,12 @@ class RegisterNumberUpdateView(BannerPayment):
     template_name = 'dashboard/participantcount_form.html'
     success_url = "register-number-update"
 
+# Repost Views
 class RaportFilesView(UserIsStaffMixin, ListView):
     model = ReportFileParticipant
     template_name = 'dashboard/raport_list.html'
     context_object_name = "raport_files"
+    text = 'Sertifikat Penghargaan'
 
     def get_queryset(self):
         return self.model.objects.filter(participant=self.kwargs['account'])
@@ -576,6 +595,7 @@ class RaportFilesView(UserIsStaffMixin, ListView):
         pk = self.kwargs['account']
         context = super().get_context_data(**kwargs)
         context['pk'] = pk
+        context['text'] = self.text
         context['form_verify'] = forms.RaportFileVerifyForm
         context['participant_name'] = CustomUser.objects.get(pk=pk)
 
@@ -606,6 +626,52 @@ class RaportFileDelete(UserIsStaffMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('raport-list', kwargs={"account": self.kwargs['account']})
+
+# Achievment Certificate
+class CertFilesView(UserIsStaffMixin, ListView):
+    model = ParticipantCert
+    template_name = 'dashboard/cert_list.html'
+    context_object_name = "cert_files"
+    text = 'Sertifikat Penghargaan'
+
+    def get_queryset(self):
+        return self.model.objects.filter(participant=self.kwargs['account'])
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs['account']
+        context = super().get_context_data(**kwargs)
+        context['pk'] = pk
+        context['text'] = self.text
+        context['form_verify'] = forms.RaportFileVerifyForm
+        context['participant_name'] = CustomUser.objects.get(pk=pk)
+
+        return context
+
+class CertFileCreate(UserIsStaffMixin, CreateView):
+    model = ParticipantCert
+    form_class = forms.CertDashboardForm
+    template_name = "dashboard/participant_files.html"
+
+    def get_success_url(self):
+        return reverse('cert-list', kwargs={"account": self.kwargs['account']})
+
+    def form_valid(self, form):
+        account = CustomUser.objects.get(pk=self.kwargs['account'])
+        form.instance.participant = account
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        pk = self.kwargs['account']
+        context = super().get_context_data(**kwargs)
+        context['pk'] = pk
+        context['participant_name'] = CustomUser.objects.get(pk=pk)
+        return context
+
+class CertFileDelete(UserIsStaffMixin, DeleteView):
+    model = ParticipantCert
+
+    def get_success_url(self):
+        return reverse('cert-list', kwargs={"account": self.kwargs['account']})
 
 # PARTICIPANT PROFILE VIEW
 class ParticipantBaseView(UserIsStaffMixin, View):

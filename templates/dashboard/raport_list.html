@@ -60,6 +60,9 @@
                         <a class="nav-link" href="{% url 'participant-family-cert' pk %}">Berkas Daftar/Identitas</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cert-list' pk %}">Sertifikat Penghargaan</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'raport-list' pk %}">Berkas Raport</a>
                     </li>
                     <li class="nav-item">
@@ -69,7 +72,7 @@
             </div>
 
             <div class="alert alert-success m-3 d-none" id="alert-raport-berhasil" role="alert">
-                Berhasil Mem-verifikasi Data.
+                Berhasil Meng-update Data.
             </div>
 
             <div class="table-responsive-md mt-3 mx-3">
@@ -79,7 +82,6 @@
                             <th scope="col">#</th>
                             <th scope="col">Verifikasi</th>
                             <th scope="col">Semester</th>
-                            <th scope="col">Bagian</th>
                             <th scope="col">Berkas Raport</th>
                         </tr>
                     </thead>
@@ -102,7 +104,6 @@
                                     </form>
                                 </td>
                                 <td><a href="{{ r.raport.url }}">{{ r.get_semester_display  }}</a></td>
-                                <td>{{ r.get_part_display  }}</td>
                                 <td>
                                     <form method="POST" action="{% url 'raport-delete' pk r.pk %}">
                                         {% csrf_token %}

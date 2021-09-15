@@ -71,21 +71,57 @@
                 </ul>
             </div>
 
-            <form method="POST" enctype="multipart/form-data" action="" id="participantForm">
-                {% crispy form %}
-            </form>
+            <div class="alert alert-success m-3 d-none" id="alert-raport-berhasil" role="alert">
+                Berhasil Meng-update Data.
+            </div>
+
+            <div class="table-responsive-md mt-3 mx-3">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Verifikasi</th>
+                            <th scope="col">Nama Lomba</th>
+                            <th scope="col">Berkas Raport</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in cert_files %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter  }}</th>
+                                <td>
+                                    <form method="POST" action="" class="form-cert" id="verified-raport-{{ r.pk  }}">
+                                        <div class="custom-control custom-checkbox">
+                                            {% csrf_token %}
+                                            <input type="checkbox" class="custom-control-input"
+                                                   {% if r.verified %}
+                                                   checked
+                                                   {% endif %}
+                                                   name="verified" required="" value="verified" id="id_verified_{{ r.pk  }}">
+                                            <input type="hidden" name="primary_key" value="{{ r.pk }}" />
+                                            <label class="custom-control-label" for="id_verified_{{ r.pk  }}"></label>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td><a href="{{ r.certificate.url }}">{{ r.certi_name  }}</a></td>
+                                <td>
+                                    <form method="POST" action="{% url 'cert-delete' pk r.pk %}">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-danger btn-sm" name="submit" value="Hapus" />
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr />
+                <a href="{% url 'cert-create' pk %}" class="btn btn-outline-primary">Tambah Sertifikat</a>
+            </div>
+
         </div>
     </div>
 {% endblock maindash %}
 {% block js %}
     {{ block.super  }}
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/schoolList.js' %}"></script>
-    <script type="text/javascript" src="{% static 'dashboard/js/participant_detail.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.16/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript">
-     $('#id_info').selectpicker();
-    </script>
+    <script type="text/javascript" src="{% static 'dashboard/js/cert.js' %}"></script>
 {% endblock js %}

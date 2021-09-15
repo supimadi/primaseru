@@ -23,7 +23,6 @@
                     <h5 class="judul mt-2 mb-0">Berkas Identitas</h5>
                 </a>
 
-                {% if achiev == 'Jalur Prestasi' %}
                 <a class="nav-link tab-profile px-3 text-center" href="{% url 'participant-cert' %}" role="tab">
                     <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-file-earmark-font" viewBox="0 0 16 16">
                         <path d="M10.943 6H5.057L5 8h.5c.18-1.096.356-1.192 1.694-1.235l.293-.01v5.09c0 .47-.1.582-.898.655v.5H9.41v-.5c-.803-.073-.903-.184-.903-.654V6.755l.298.01c1.338.043 1.514.14 1.694 1.235h.5l-.057-2z"/>
@@ -31,7 +30,6 @@
                     </svg>
                     <h5 class="judul mt-2 mb-0">Sertifikat Penghargaan</h5>
                 </a>
-                {% endif %}
 
                 {% if pay %}
                 <a class="nav-link tab-profile  px-3 text-center" href="{% url 'participant-raport' %}" role="tab">
@@ -57,7 +55,6 @@
                     </svg>
                     <h5 class="judul mt-2 mb-0">Kembali</h5>
                 </a>
-
 
             </div>
         </div>
@@ -93,7 +90,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Semester</th>
+                                        <th scope="col">Nama Sertifikat</th>
                                         <th scope="col">Verifikasi</th>
                                         <th scope="col">Berkas Raport</th>
                                     </tr>
@@ -102,7 +99,7 @@
                                     {% for r in data %}
                                         <tr>
                                             <th scope="row">{{ forloop.counter  }}</th>
-                                            <td>{{ r.get_semester_display  }}</td>
+                                            <td>{{ r.certi_name  }}</td>
                                             <td>
                                                 {% if r.verified %}
                                                     <span class="badge badge-success">Terverifikasi</span>

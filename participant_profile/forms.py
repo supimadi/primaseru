@@ -109,7 +109,6 @@ class ParticipantRaportForm(forms.ModelForm):
 
 
 class ParticipantKKForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
@@ -144,3 +143,16 @@ class ParticipantRePaymentForm(forms.ModelForm):
     class Meta:
         model = ParticipantRePayment
         fields = ['payment_1', 'payment_2', 'payment_3']
+
+class ParticipantCertForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'post'
+        self.helper.form_tag = False
+        self.helper.add_input(SUBMIT_BUTTON)
+        self.helper.layout = forms_layout.CERT_FORM_LAYOUT
+
+    class Meta:
+        model = models.ParticipantCert
+        exclude = ['participant', 'verified']

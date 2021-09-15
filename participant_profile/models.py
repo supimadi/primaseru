@@ -11,6 +11,18 @@ from . import choices
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
 
+class ParticipantCert(models.Model):
+    participant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    verified = models.BooleanField(default=False, db_index=True)
+    certificate = models.FileField('Sertifikat Penghargaan', upload_to=user_directory_path)
+    certi_name = models.CharField('Nama Sertifikat', max_length=120, help_text="Tuliskan beserta nomor Juara", null=True)
+
+    class Meta:
+        ordering = ['participant']
+
+    def __str__(self):
+        return f'Sertifikat {self.participant}'
+
 class ParticipantFamilyCert(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(default=False, db_index=True)
@@ -31,7 +43,8 @@ class StudentFile(models.Model):
     color_blind_cert = models.FileField('Surat Keterangan Tidak Buta Warna', upload_to=user_directory_path, null=True, blank=True)
     healty_cert = models.FileField('Surat Keterangan Sehat', upload_to=user_directory_path, null=True, blank=True)
     good_behave_cert = models.FileField('Surat Kelakukan Baik', upload_to=user_directory_path, null=True, blank=True)
-    ijazah = models.FileField('Ijazah', upload_to=user_directory_path, null=True, blank=True, help_text="Ijazah dapat menyusul.")
+    ijazah = models.FileField('Ijazah SMP/MTS', upload_to=user_directory_path, null=True, blank=True, help_text="Ijazah dapat menyusul.")
+    ijazah_elem = models.FileField('Ijazah SD/MI', upload_to=user_directory_path, null=True, blank=True, help_text="Ijazah dapat menyusul.")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(default=timezone.now)
@@ -52,7 +65,6 @@ class ReportFileParticipant(models.Model):
 
     raport = models.FileField('Berkas Raport', upload_to=user_directory_path, null=True, help_text="Harap meng-unggah hasil scan raport, bukan photo supaya terlihat dengan jelas.")
     semester = models.CharField('Raport Semester', max_length=5, choices=choices.RAPORT_SEMESTER, help_text="Pilih raport semester berapa yang di unggah.")
-    part = models.CharField('Bagian Raport', max_length=3, choices=choices.RAPORT_PART, help_text="Pilih bagian ke berapa raport yang di unggah.")
 
     class Meta:
         ordering = ['participant']

@@ -119,8 +119,9 @@ class ProfileView(LoginRequiredMixin, View):
     template_name = 'participant_profile/primaseru.html'
     url_name =  'participant-profile'
     name = 'peserta'
+    multiple_files = False
 
-    def _get_context(self, data, form):
+    def _get_context(self, data, form, **kwargs):
 
         try:
             pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).payment_1
@@ -137,7 +138,7 @@ class ProfileView(LoginRequiredMixin, View):
         except ParticipantLMS.DoesNotExist:
             lms = None
 
-        return {
+        ctx = {
             'form_ph': forms.PhotoProfileForm(),
             'form': form,
             'name': self.name,
@@ -145,13 +146,21 @@ class ProfileView(LoginRequiredMixin, View):
             'pay': pay,
             'lms': lms,
             'passed': passed,
+            'multiple_files': self.multiple_files,
         }
 
+        ctx.update(kwargs)
+        return ctx
+
     def get(self, request, *args, **kwargs):
-        request.session['button'] = request.headers.get('X-Button-Clicked')
 
         try:
-            data = self.model.objects.get(participant=request.user)
+
+            if self.multiple_files:
+                data = self.model.objects.filter(participant=request.user)
+            else:
+                data = self.model.objects.get(participant=request.user)
+
             form = self.form_class(instance=data)
         except self.model.DoesNotExist:
             data = None
@@ -162,7 +171,11 @@ class ProfileView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
 
         try:
-            data = self.model.objects.get(participant=request.user)
+
+            data = None # when multiple files we assume no instance will attached
+            if not self.multiple_files:
+                data = self.model.objects.get(participant=request.user)
+
             # if data.verified: # when data is validated user cannot edit it
             #     return JsonResponse({'success': False}, status=403)
 
@@ -220,6 +233,15 @@ class ParticipantKKView(ProfileView):
     template_name = "participant_profile/participant_files.html"
     name = "Kartu Keluarga dan Akta Kelahiran"
 
+    def get(self, request, *args, **kwargs):
+
+        achiev = models.MajorStudent.objects.get(participant=request.user)
+
+        data = self.model.objects.get(participant=request.user)
+        form = self.form_class()
+
+        return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))
+
 class ParticipantLMSAccount(ProfileView):
     model = ParticipantLMS
     url_name = 'participant-lms'
@@ -245,60 +267,37 @@ class RaportParticipantView(IsPassessTestPPDB, ProfileView):
     url_name = 'participant-raport'
     template_name = "participant_profile/participant_files.html"
     name = 'Upload Berkas Raport'
-
-    def _get_context(self, data, form):
-        try:
-            pass_test = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
-        except ParticipantGraduation.DoesNotExist:
-            pass_test = None
-
-        try:
-            pay = ParticipantRePayment.objects.get(participant=self.request.user.pk).verified_1
-        except ParticipantRePayment.DoesNotExist:
-            pay = None
-
-        raport = models.ReportFileParticipant.objects.filter(participant=self.request.user.pk)
-
-        return {
-            'form': form,
-            'name': self.name,
-            'data': data,
-            'pass_test': pass_test,
-            'pay': pay,
-            'raport': raport,
-        }
+    multiple_files = True
 
     def get(self, request, *args, **kwargs):
-        request.session['button'] = request.headers.get('X-Button-Clicked')
+
+        achiev = models.MajorStudent.objects.get(participant=request.user)
 
         data = self.model.objects.filter(participant=request.user)
         form = self.form_class()
 
-        return render(request, self.template_name, self._get_context(data, form))
+        return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))
 
-    def post(self, request, *args, **kwargs):
+class CertProfileView(ProfileView):
+    model = models.ParticipantCert
+    form_class = forms.ParticipantCertForm
+    url_name = 'participant-cert'
+    template_name = "participant_profile/participant_cert.html"
+    name = 'Sertifikat Penghargaan'
+    multiple_files = True
 
-        try:
-            data = self.model.objects.filter(participant=request.user)
+    def get(self, request, *args, **kwargs):
 
-            # if data.verified: # when data is validated user cannot edit it
-            #     return JsonResponse({'success': False}, status=403)
+        achiev = models.MajorStudent.objects.get(participant=request.user)
 
-            form = self.form_class(request.POST, request.FILES or None)
+        # just a student with 'Jalur Pestasi' may pass
+        if not achiev.way_in == 'Jalur Prestasi':
+            raise PermissionDenied
 
-        except (self.model.DoesNotExist, ValueError):
-            data = None
-            form = self.form_class(request.POST, request.FILES or None)
+        data = self.model.objects.filter(participant=request.user)
+        form = self.form_class()
 
-        if form.is_valid():
-            form.save(commit=False)
-            form.instance.participant = request.user
-
-            form.save(commit=True)
-            messages.success(request, f'Data {self.name} berhasil di upload.')
-            return redirect(self.url_name)
-
-        return render(request, self.template_name, self._get_context(data, form))
+        return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))
 
 class ParticipantRaportDeleteView(UserPassesTestMixin, DeleteView):
     model = models.ReportFileParticipant
@@ -314,10 +313,18 @@ class ParticipantRaportDeleteView(UserPassesTestMixin, DeleteView):
 
         return False
 
-
 class ParticipantFilesView(IsPassessTestPPDB, ProfileView):
     model = models.StudentFile
     form_class = forms.ParticipantFilesForm
     url_name = 'participant-files'
     template_name = "participant_profile/participant_files.html"
     name = 'Upload Berkas Penting Lainnya'
+
+    def get(self, request, *args, **kwargs):
+
+        achiev = models.MajorStudent.objects.get(participant=request.user)
+
+        data = self.model.objects.get(participant=request.user)
+        form = self.form_class()
+
+        return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))

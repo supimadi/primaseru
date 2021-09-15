@@ -112,9 +112,9 @@ RAPORT_FORM_LAYOUT = Layout(
         Row(
             Div('semester', css_class='col-md-12')
         ),
-        Row(
-            Div('part', css_class='col-md-12')
-        ),
+        # Row(
+        #     Div('part', css_class='col-md-12')
+        # ),
         css_class=FIELDSET_CLASS
     )
 )
@@ -154,6 +154,9 @@ FILE_FORM_LAYOUT = Layout(
         ),
         Row(
             Div('ijazah', css_class='col-md-12')
+        ),
+        Row(
+            Div('ijazah_elem', css_class='col-md-12')
         ),
         css_class=FIELDSET_CLASS
     )
@@ -195,6 +198,16 @@ KK_FORM_LAYOUT = Layout(
         Row(
             Div('family_cert', css_class='col-md-12'),
             Div('birth_cert', css_class='col-md-12'),
+        ),
+        css_class=FIELDSET_CLASS
+    )
+)
+
+CERT_FORM_LAYOUT = Layout(
+    Fieldset("Sertifikat Penghargaan",
+        Row(
+            Div('certificate', css_class='col-md-12'),
+            Div('certi_name', css_class='col-md-12'),
         ),
         css_class=FIELDSET_CLASS
     )
