@@ -235,10 +235,19 @@ class ParticipantKKView(ProfileView):
 
     def get(self, request, *args, **kwargs):
 
-        achiev = models.MajorStudent.objects.get(participant=request.user)
+        try:
 
-        data = self.model.objects.get(participant=request.user)
-        form = self.form_class()
+            if self.multiple_files:
+                data = self.model.objects.filter(participant=request.user)
+            else:
+                data = self.model.objects.get(participant=request.user)
+
+            form = self.form_class(instance=data)
+        except self.model.DoesNotExist:
+            data = None
+            form = self.form_class()
+
+        achiev = models.MajorStudent.objects.get(participant=request.user)
 
         return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))
 
@@ -323,8 +332,16 @@ class ParticipantFilesView(IsPassessTestPPDB, ProfileView):
     def get(self, request, *args, **kwargs):
 
         achiev = models.MajorStudent.objects.get(participant=request.user)
+        try:
 
-        data = self.model.objects.get(participant=request.user)
-        form = self.form_class()
+            if self.multiple_files:
+                data = self.model.objects.filter(participant=request.user)
+            else:
+                data = self.model.objects.get(participant=request.user)
+
+            form = self.form_class(instance=data)
+        except self.model.DoesNotExist:
+            data = None
+            form = self.form_class()
 
         return render(request, self.template_name, self._get_context(data, form, achiev=achiev.way_in))
