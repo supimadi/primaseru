@@ -6,6 +6,7 @@
 {% endblock dashtitle %}
 {% block head %}
     {{ block.super  }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <style type="text/css" media="screen">
      .badge-purple, .bg-purple {
          background: #bf0db6;
@@ -140,14 +141,10 @@
                 </div>
             </div>
             <div class="table-responsive-md mt-2">
-                <table class="table table-hover table-sm">
+                <table class="table table-hover table-sm" id="data-table">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">No. <a href="?sort=desc">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-sort-down" viewBox="0 0 16 16">
-                                    <path d="M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
-                                </svg>
-                            </a></th>
+                            <th scope="col">No.</th>
                             <th scope="col">No. Pendaftaran</th>
                             <th scope="col">Nama Lengkap</th>
                             <th scope="col">Nama Orang Tua</th>
@@ -313,9 +310,16 @@
 {% endblock maindash %}
 {% block js %}
     {{ block.super  }}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
      $(function () {
          $('[data-toggle="tooltip"]').tooltip()
      })
+     let table = $("#data-table").DataTable({
+         "paging": false,
+         "info": false,
+         "searching": false,
+     });
     </script>
 {% endblock js %}
