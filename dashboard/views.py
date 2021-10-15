@@ -2,18 +2,19 @@ import os
 from io import BytesIO
 import zipfile
 
-from django.shortcuts import render, redirect, HttpResponse
+from django.db import IntegrityError
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views import View
-from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy, reverse
+from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.views import PasswordChangeView
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
@@ -173,7 +174,12 @@ def insert_participant(request):
             password = form.cleaned_data['password']
             full_name = form.cleaned_data['full_name']
             phone_number = form.cleaned_data['participant_phone_number']
-            user = CustomUser.objects.create_user(phone_number, password)
+
+            try:
+                user = CustomUser.objects.create_user(phone_number, password)
+            except IntegrityError:
+                messages.warning(request, f'No HP Peserta Telah Digunakan, jika ingin, silahkan delete di primaseru.smktelkom-bdg.sch.id/admin')
+                return render(request, 'dashboard/insert_participant.html', context={'form': form})
 
             form.instance.account = user
 
