@@ -116,7 +116,7 @@ class ParticipantProfile(models.Model):
     social_media = models.CharField('Alamat Sosial Media', max_length=50, help_text='Seperti Instagram atau FB')
     achievement = models.TextField('Prestasi yang Pernah diraih', null=True, blank=True, help_text='Contoh: Juara 1 Lomba Basket Tingkat Nasional')
 
-    nisn = models.IntegerField('NISN', unique=True, help_text='Isi NISN berdasarkan NISN yang diberikan sewaktu SMP.')
+    nisn = models.CharField('NISN', unique=True ,max_length=20, help_text='Isi NISN berdasarkan NISN yang diberikan sewaktu SMP.')
     nik = models.CharField('Nomor Induk Kependudukan (NIK)',max_length=20, unique=True, help_text='Bisa dicek di Kartu Keluarga')
     kk_number = models.CharField('Nomor Kartu Keluarga (KK)',max_length=20, help_text='Diisi berdasarkan Kartu Keluarga')
     kk_address = models.TextField('Alamat Kartu Keluarga (KK)', help_text='Contoh: Jalan Radio Palasari')
