@@ -28,14 +28,18 @@ class UserRegisterForm(UserCreationForm):
         model = CustomUser
         fields = ['password1', 'password2']
 
-class ParticipantRegisterForm(forms.Form):
+class ParticipantRegisterForm(forms.ModelForm):
     full_name = forms.CharField(label='Nama Lengkap', help_text='Isi sesuai dengan akta kelahiran')
-    school = forms.CharField(label='Asal Sekolah', help_text="Harus sesuai dengan data yang muncul (ketika mengetik nama sekolah).")
-    participant_phone_number = forms.CharField(label='No. HP atau WA Calon Siswa')
+    previous_school = forms.CharField(label='Asal Sekolah', help_text="Harus sesuai dengan data yang muncul (ketika mengetik nama sekolah).")
+
+    participant_phone_number = forms.CharField(label='No. HP atau WA Calon Siswa', min_length=9)
+
     parent_full_name = forms.CharField(label='Nama Lengkap Orang Tua')
-    parent_phone_number = forms.CharField(label='No. HP Orang Tua/Wali')
-    homeroom_teacher_phone_number = forms.CharField(label='No. HP Wali Kelas', help_text='Isi dengan nomor HP wali kelas, kelas 9 di SMP.')
-    bk_teacher_phone_number = forms.CharField(label='No. HP Guru BK', help_text='Isi dengan nomor HP BK, kelas 9 di SMP.', required=False)
+    parent_phone_number = forms.CharField(label='No. HP Orang Tua/Wali', min_length=9)
+
+    homeroom_teacher_phone_number = forms.CharField(label='No. HP Wali Kelas', help_text='Isi dengan nomor HP wali kelas, kelas 9 di SMP.', min_length=9)
+    bk_teacher_phone_number = forms.CharField(label='No. HP Guru BK', help_text='Isi dengan nomor HP BK, kelas 9 di SMP.', required=False, min_length=9)
+
     info = forms.ModelMultipleChoiceField(label='Info Primaseru (PPDB)', queryset=InfoSourcePPDB.objects.all(), help_text="Pilih dari mana Anda pengetahui Primaseru (boleh lebih dari 1 pilihan).")
 
     def __init__(self, *args, **kwargs):
@@ -50,7 +54,7 @@ class ParticipantRegisterForm(forms.Form):
             ),
             Row(
                 Div(
-                    Div(Field('school', autocomplete="off"), css_class=''),
+                    Div(Field('previous_school', autocomplete="off"), css_class=''),
                     Div(css_class='autocom-box'),
                     css_class="search-input col-12 input-group"
                 )
@@ -67,3 +71,7 @@ class ParticipantRegisterForm(forms.Form):
                 Div(Field('info', css_class="custom-select custom-select"), css_class="col-md-12"),
             ),
         )
+
+    class Meta:
+        model = Participant
+        exclude = ['account', 'registration_number', 'verified', 'updated_at', 'created_at']
