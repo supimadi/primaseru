@@ -2,12 +2,13 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import RegexValidator
 
 from users.models import CustomUser
 from participant_profile.choices import MAJOR, INFORMATION_PRIMASERU
 
 
-# PHONE_REGEX = '^(\+[62]{1,2}|0)[0-9]{10,12}\b'
+# PHONE_REGEX = '/(\+62[0-9]{10,13})|(08[0-9]{10,12})/g'
 REPRESENTATIVE_CHOICES = [
     ('B', 'Bapak'),
     ('I', 'Ibu'),
@@ -86,7 +87,10 @@ class Participant(models.Model):
 
     full_name = models.CharField(_('Nama Lengkap'), max_length=100)
     registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20, null=True)
-    participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15, unique=True, db_index=True)
+    participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15, unique=True, db_index=True,
+            validators=[RegexValidator(regex="(\\+62[0-9]{10,13})|(08[0-9]{10,13})",
+                message="Masukan nomor HP, tanpa spasi dan strip, dan berjumlah 10-14 digit.")]
+            )
     previous_school = models.CharField(_('Nama Asal Sekolah'), max_length=100, db_index=True, null=True)
 
     parent_phone_number = models.CharField(_('No. HP Orang Tua/Wali'), max_length=15)

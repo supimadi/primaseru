@@ -60,6 +60,7 @@ def register(request):
     except Exception as e:
         # return error when somthing wrong
         messages.warning(request, f'Data Tidak Valid, Kemungkinan No. HP Telah Digunakan. error: {e}')
+        ctx = {'form': form, 'form2': form2, 'kontak': kontak}
         return render(request, 'homepage/register.html', ctx)
 
     login(request, user) # Attach user to session
