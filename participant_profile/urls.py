@@ -18,7 +18,10 @@ urlpatterns = [
     path('pembayaran-daftar-ulang/', views.RePaymentPage.as_view(), name="participant-payment"),
     path('kk/', views.ParticipantKKView.as_view(), name="participant-kk"),
     path('raport/', views.RaportParticipantView.as_view(), name="participant-raport"),
+
     path('cert/', views.CertProfileView.as_view(), name="participant-cert"),
+    path('cert/delete/<int:pk>', views.ParticipantCertDelete.as_view(), name="participant-cert-delete"),
+
     path('files-upload/delete/<int:pk>', views.ParticipantRaportDeleteView.as_view(), name="participant-raport-delete"),
     path('files-upload/', views.ParticipantFilesView.as_view(), name="participant-files"),
 

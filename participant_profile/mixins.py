@@ -5,7 +5,10 @@ from dashboard.models import ParticipantGraduation
 class IsPassessTestPPDB(UserPassesTestMixin):
 
     def test_func(self):
-        data = ParticipantGraduation.objects.get(participant=self.request.user.pk)
+        try:
+            data = ParticipantGraduation.objects.get(participant=self.request.user.pk)
+        except ParticipantGraduation.DoesNotExist:
+            return False
 
         if data.passed == 'L':
             return True

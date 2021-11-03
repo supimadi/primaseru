@@ -1,48 +1,145 @@
-{% extends 'homepage/base.html' %}
-{% load static %}
+{% extends 'participant_profile/primaseru.html' %}
 {% load crispy_forms_tags %}
-{% block head %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <link rel="stylesheet" href="{% static 'dashboard/css/insert_participant.css' %}" type="text/css" media="screen" />
-    <link rel="stylesheet" href="{% static 'participant_profile/css/primaseru.css' %}" type="text/css" media="screen" />
-{% endblock head %}
-{% block navbar %}{% endblock navbar %}
-{% block container %}container-fluid{% endblock container %}
-{% block main %}
+{% load static %}
 
+{% block adon-block %}
 
-    <div class="row mx-1 mx-sm-4 my-0 my-sm-3 py-2 pt-4">
-        <div class="col text-center ml-3">
-            <img src="{{ user.photoprofile.image.url }}" alt="photo profile" width="175" height="175" />
+<div class="row">
+    <div class="col-lg-12 mb-4">
+
+        <!-- Illustrations -->
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            No. Rekening Virtual Account</div>
+                        <div class="h5 mb-3 text-gray-800"><span class="font-weight-bold">{{ data.virt_acc_number  }}</span> a.n. <span class="font-weight-bold">{{ data.whom_acc  }}</span></div>
+                        <p class="text-gray-600">
+                            Lakukan pembayaran daftar ulang ke Nomor Virtual Account <b>Bank Mandiri</b>.
+                        </p>
+                        <p>
+                            {% if data.paid_off %}
+                            Status Pembayaran : <span class="badge badge-success">LUNAS</span>
+                            {% else %}
+                            Status Pembayaran : <span class="badge badge-warning">Belum Lunas</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="col-auto d-none d-sm-block">
+                        <img src="{% static 'participant_profile/images/undraw_Payments_re_77x0.svg' %}" style="width: 17rem;" class="img-fluid" alt="image banner">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-9">
-            {% if pay %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Selamat!</strong> Bergabung di Keluarga SMK Telkom bandung.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Payment Area -->
+    <div class="col-12 col-md-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-danger">Pembayaran Pertama</h6>
+
+                {% if data.verified_1 %}
+                <span class="badge badge-success mb-0">Terverifikasi</span>
+                {% else %}
+                <span class="badge badge-warning mb-0">Belum Terverifikasi</span>
+                {% endif %}
             </div>
-            {% endif %}
-            <div class="border rounded p-3 mt-3 mt-md-0 bg-white">
-                <h1 class="judul">{{ user.participant.full_name|title  }} </h1>
-                <h6 class="text-muted mb-1">Asal Sekolah: {{ user.participantprofile.school_origin|upper  }}</h6>
-                <h6 class="text-muted">Nomor Peserta: {{ user.participant.registration_number  }}</h6>
-            </div>
-            <div class="mt-3">
-                <a class="btn btn-outline-secondary btn-sm" href="{% url 'logout' %}">Logout</a>
-                <a class="btn btn-info btn-sm" href="{% url 'id-card' %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
-                        <path d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z"/>
-                    </svg>
-                    Kartu Peserta
-                </a>
-                <a class="btn btn-danger btn-sm" href="{% url 'set-photo-profile' %}">
-                    Unggah Photo
-                </a>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    Nominal Pembayaran:
+                    <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_1|floatformat:"0g" }},-</h4>
+                    Tenggat: {{ data.deadline_1|date:'d F Y'  }}
+
+		    {% if data.comment_1 %}
+		    <hr/>	
+		    <p class="text-danger">
+			    {{ data.comment_1 }}
+		    </p>
+		    {% endif %}
+
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="col-12 col-md-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-danger">Pembayaran Kedua</h6>
+
+                {% if data.verified_2 %}
+                <span class="badge badge-success mb-0">Terverifikasi</span>
+                {% else %}
+                <span class="badge badge-warning mb-0">Belum Terverifikasi</span>
+                {% endif %}
+
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    Nominal Pembayaran:
+                    <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_2|floatformat:"0g" }},-</h4>
+                    Tenggat: {{ data.deadline_2|date:'d F Y'  }}
+		{% if data.comment_2 %}
+	    <hr/>	
+	    <p class="text-danger">
+		    {{ data.comment_2 }}
+	    </p>
+	    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-danger">Pembayaran Ketiga</h6>
+
+                {% if data.verified_3 %}
+                <span class="badge badge-success mb-0">Terverifikasi</span>
+                {% else %}
+                <span class="badge badge-warning mb-0">Belum Terverifikasi</span>
+                {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    Nominal Pembayaran:
+                    <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_3|floatformat:"0g" }},-</h4>
+                    Tenggat: {{ data.deadline_3|date:'d F Y'  }}
+
+	         	{% if data.comment_3 %}
+		    <hr/>	
+		    <p class="text-danger">
+			    {{ data.comment_3 }}
+		    </p>
+		    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock adon-block %}
+{% block banner-text %}
+Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan <b>scan</b> terhadap file yang akan di unggah, supaya terlihat jelas. Pembayaran
+Daftar Ulang dapat dilakukan maksimal selama <b>tiga kali</b>.
+{% endblock banner-text %}
+{% block content %}{% crispy form %}{% endblock content %}
 
     <div class="row">
         <div class="col-12 px-2 px-lg-5 bg-light border-bottom border-top">
@@ -79,8 +176,7 @@
                             </h4>
                             <hr />
                             <p class="card-text">
-                                Silahkan Mengunggah {{ name }} sesuai kolom yang tersedia, harap melakukan <b>scan</b> terhadap file yang akan di unggah, supaya terlihat jelas. Pembayaran
-                                Daftar Ulang dapat dilakukan maksimal selama <b>tiga kali</b>.
+                                
                             </p>
                             <hr />
                             <p>
@@ -187,15 +283,3 @@
             </div>
         </div>
     </div>
-
-{% endblock main %}
-{% block js %}
-    <script type="text/javascript">
-     var verifikasi = '{{ data.paid_off }}';
-    </script>
-    <script type="text/javascript" src="{% static 'participant_profile/js/jquery-auto-resize.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'participant_profile/js/primaseru.js' %}"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
-{% endblock js %}
