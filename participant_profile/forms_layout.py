@@ -69,6 +69,16 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
             Div(Field('medic_record', css_class='form-control-sm  auto-size'), css_class="col-sm-12"),
         ),
         css_class=FIELDSET_CLASS
+    ),
+
+    Fieldset('Lainnya',
+        Row(
+            Div(Field("special_needs", css_class='custom-select custom-select-sm'), css_class="col-sm-12"),
+        ),
+        Row(
+            Div(Field('special_needs_text', css_class='form-control-sm  auto-size'), css_class="col-sm-12"),
+        ),
+        css_class=FIELDSET_CLASS
     )
 )
 

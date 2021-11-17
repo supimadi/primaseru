@@ -142,6 +142,12 @@ class ParticipantProfile(models.Model):
     private_doctor = models.CharField('Nama Dokter Keluarga', max_length=120, null=True, blank=True, help_text="Jika kamu mempunyai dokter keluarga, silahkan input     disini")
     phone_doctor = models.CharField('No Telepon Dokter', max_length=15, null=True, blank=True, help_text="Isi jika memiliki dokter keluarga dan atau dalam masa pen    yambuhan penyakit")
 
+    # Other
+    special_needs = models.CharField('Berkebutuhan Khusus', choices=choices.SPESIAL_NEED_CHOICES, max_length=1,
+                                     default='N', help_text="Apakah Anda memilika kebutuhan khusus?"
+                                     )
+    special_needs_text = models.TextField('Penjelasan Kebutuhan Khusus Anda', null=True, blank=True, help_text="Jelaskan seperti apa kebutuhan khusus Anda.")
+
     class Meta:
         ordering = ['participant']
 

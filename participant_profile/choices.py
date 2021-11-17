@@ -5,6 +5,11 @@ SEX = [
     ('L', 'Laki - Laki'),
 ]
 
+SPESIAL_NEED_CHOICES = [
+    ('Y', 'Ya, Berkebutuhan Khusus'),
+    ('N', 'Tidak Berkebutuhan Khusus'),
+]
+
 RAPORT_SEMESTER = [
     ('SEM_1', 'Semester 1'),
     ('SEM_2', 'Semester 2'),
