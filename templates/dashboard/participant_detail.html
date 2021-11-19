@@ -63,6 +63,14 @@
                     {% endif %}
                 </p>
             </div>
+            {% if lms.special_needs == 'Y' and text == 'Akun LMS' %}
+            <div class="m-3 p-3 border border-danger rounded">
+                <p class="m-0 judul">
+                    Paserta ini memikili kebutuhan khusus, yaitu: <br>
+                    {{ lms.special_needs_text }}
+                </p>
+            </div>
+            {% endif %}
             <form method="POST"
                   {% if is_media %}
                   enctype="multipart/form-data"

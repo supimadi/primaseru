@@ -679,7 +679,8 @@ class CertFileDelete(UserIsStaffMixin, DeleteView):
     def get_success_url(self):
         return reverse('cert-list', kwargs={"account": self.kwargs['account']})
 
-# PARTICIPANT PROFILE VIEW
+# PARTICIPANT PROFILE VIEW 
+# TODO: Need to seperate the business logic
 class ParticipantBaseView(UserIsStaffMixin, View):
     form_class = None
     model = None
@@ -701,6 +702,7 @@ class ParticipantBaseView(UserIsStaffMixin, View):
             'participant_name': CustomUser.objects.get(pk=pk),
             'text': self.name,
             'pk': pk,
+            'lms': ParticipantProfile.objects.get(participant=pk),
             'is_media': self.is_media,
             'is_verify': self.is_verify,
         }
