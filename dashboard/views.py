@@ -4,23 +4,18 @@ import zipfile
 
 from django.db import IntegrityError
 from django.core.paginator import Paginator
-from django.utils import timezone
 from django.views import View
 from django.contrib import messages
 from django.conf import settings
-from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect, HttpResponse
-from django.http import JsonResponse, HttpResponse, HttpResponseForbidden
+from django.http import JsonResponse, HttpResponse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
-from django.core.exceptions import FieldError, ObjectDoesNotExist, PermissionDenied
+from django.core.exceptions import FieldError, PermissionDenied
 from django.contrib.auth.decorators import permission_required
 
 from users.models import CustomUser
 from users.mixins import UserIsStaffMixin
-
-
-from excel_response import ExcelResponse
 
 import xlsxwriter
 
@@ -41,7 +36,6 @@ from participant_profile.models import (
     ParticipantFamilyCert, ReportFileParticipant,
     ParticipantCert
 )
-from participant_profile import forms as participant_profile_forms
 
 from homepage.models import FilesPool
 
@@ -686,6 +680,7 @@ class ParticipantBaseView(UserIsStaffMixin, View):
     model = None
     template_name = "dashboard/participant_detail.html"
     success_url_name = 'participant-detail'
+    added_ctx = {}
     is_account = False
     is_verify = True
     is_media = False
@@ -695,71 +690,68 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         pk = self.kwargs['pk']
         return reverse_lazy(self.success_url_name, kwargs={'pk': pk})
 
-    def _get_context(self, pk, form=None):
-        return {
+    def _get_context(self, pk, form=None, kwargs={}):
+
+        context = {
             'form': form,
             'is_account': self.is_account,
             'participant_name': CustomUser.objects.get(pk=pk),
             'text': self.name,
             'pk': pk,
-            'lms': ParticipantProfile.objects.get(participant=pk),
             'is_media': self.is_media,
             'is_verify': self.is_verify,
         }
 
+        context.update(kwargs)
+        return context
+
     def get(self, request, *args, **kwargs):
         # Taking primary key from url
-        pk = self.kwargs.get('pk') # is this safe? if not pls fix it for me, ty
+        pk = self.kwargs.get('pk') 
 
         try:
-            data = self.model.objects.get(participant=pk)
-            form = self.form_class(instance=data)
-        except FieldError:
-            try:
+            if self.is_account:
                 data = self.model.objects.get(account=pk)
-                form = self.form_class(instance=data)
-            except self.model.DoesNotExist:
-                form = self.form_class()
-        except self.model.DoesNotExist:
-            form = self.form_class()
+            else:
+                data = self.model.objects.get(participant=pk)
 
-        return render(request, self.template_name, self._get_context(pk, form))
+        except (self.model.DoesNotExist, FieldError):
+            data = None
+
+        form = self._set_form_instance(request, data)
+
+        return render(request, self.template_name, self._get_context(pk, form, self.added_ctx))
 
     def _set_form_instance(self, request, data=None):
-        if data:
+        if request.method == 'POST':
             form = self.form_class(request.POST, request.FILES or None, instance=data)
         else:
-            form = self.form_class(request.POST, request.FILES or None)
+            form = self.form_class(instance=data)
 
         return form
 
     def post(self, request, *args, **kwargs):
         # Taking primary key from url
-        pk = self.kwargs.get('pk') # is this safe? if not pls fix it for me, ty
+        pk = self.kwargs.get('pk') 
 
         try:
-            data = self.model.objects.get(participant=pk)
-            form = self._set_form_instance(request, data)
-        except FieldError:
-            try:
+            if self.is_account:
                 data = self.model.objects.get(account=pk)
-                form = self._set_form_instance(request, data)
-            except self.model.DoesNotExist:
-                data = CustomUser.objects.get(pk=pk)
-                form = self._set_form_instance(request)
-                form.instance.participant = data
+            else:
+                data = self.model.objects.get(participant=pk)
+
+            form = self._set_form_instance(request, data)
         except self.model.DoesNotExist:
-            data = CustomUser.objects.get(pk=pk)
+            data = None
             form = self._set_form_instance(request)
-            form.instance.participant = data
+            form.instance.participant = CustomUser.objects.get(pk=pk)
 
         if form.is_valid():
             form.save()
             messages.success(request, f'Data {self.name} berhasil di update.')
             return redirect(self._get_success_url())
-            # return render(request, self.template_name, self._get_context(pk, form))
 
-        return render(request, self.template_name, self._get_context(pk, form))
+        return render(request, self.template_name, self._get_context(pk, form, self.added_ctx))
 
 class ParticipantUpdateView(ParticipantBaseView):
     model = Participant
@@ -820,6 +812,18 @@ class ParticipantLMSView(ParticipantBaseView):
     form_class = forms.ParticipantLMSAccountForm
     success_url_name = 'participant-lms'
     name = 'Akun LMS'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            lms =  ParticipantProfile.objects.get(participant=kwargs['pk'])
+        except ParticipantProfile.DoesNotExist:
+            lms = None
+
+        self.added_ctx.update({
+            "lms": lms
+        })
+        
+        return super().post(request, *args, **kwargs)
 
 class ParticipantPaymentDashboardView(ParticipantBaseView):
     model = PaymentUpload
