@@ -696,13 +696,18 @@ class ParticipantBaseView(UserIsStaffMixin, View):
         return reverse_lazy(self.success_url_name, kwargs={'pk': pk})
 
     def _get_context(self, pk, form=None):
+        try:
+            lms = ParticipantProfile.objects.get(participant=pk)
+        except ParticipantProfile.DoesNotExist:
+            lms = None;
+
         return {
             'form': form,
             'is_account': self.is_account,
             'participant_name': CustomUser.objects.get(pk=pk),
             'text': self.name,
             'pk': pk,
-            'lms': ParticipantProfile.objects.get(participant=pk),
+            'lms': lms,
             'is_media': self.is_media,
             'is_verify': self.is_verify,
         }
