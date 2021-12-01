@@ -46,9 +46,9 @@ def dashboard(request):
         raise PermissionDenied
 
     if request.GET.get('search-name'):
-        participant = Participant.objects.filter(full_name__icontains=request.GET.get('search-name'))
+        participant = Participant.objects.filter(full_name__icontains=request.GET.get('search-name')).order_by('registration_number')
     else:
-        participant = Participant.objects.all()
+        participant = Participant.objects.all().order_by('registration_number')
 
     if request.GET.get('sort'):
         participant.order_by('-created_at')
@@ -57,12 +57,9 @@ def dashboard(request):
     passed_test = ParticipantGraduation.objects.all().count()
     payment = ParticipantRePayment.objects.all()
 
-    paginator = Paginator(participant, 20)
-    page_number = request.GET.get('page')
-    participant_obj = paginator.get_page(page_number)
-
-    raport_participant = ReportFileParticipant.objects.all()
-    files_participant = StudentFile.objects.all()
+    #  paginator = Paginator(participant, 20)
+    #  page_number = request.GET.get('page')
+    #  participant_obj = paginator.get_page(page_number)
 
     accounts = CustomUser.objects.all()
 
@@ -74,17 +71,15 @@ def dashboard(request):
         except Exception:
             pass
 
-    total_payment = payment.count()
 
     tkj = MajorStudent.objects.filter(first_major='TKJ').count()
     mm = MajorStudent.objects.filter(first_major='MM').count()
     tjat = MajorStudent.objects.filter(first_major='TJAT').count()
 
     verified = participant.filter(verified=True).count()
-    not_verified = participant.count() - verified
 
     context = {
-        'participant': participant_obj,
+        'participant': participant,
         'total_participant': participant.count(),
         'total_participant_accepted': passed_test,
         'total_participant_pay': payment.count(),
@@ -318,10 +313,6 @@ def export_to_excel(request):
     for h in info_sorce_header:
         ws7.write(0, col, h)
         col += 1
-
-    # data_header = set_header(model_worksheet[5][0])
-    # data_values = model_worksheet[5][0].values()
-    # write_data(model_worksheet[5][2], data_values, data_header, add_name=True)
 
     for mw in model_worksheet:
         data_header = set_header(mw[0])
