@@ -10,6 +10,7 @@ for windows make sure python can be accessed from cmd or powershell (or just ins
 #+BEGIN_SRC shell
 git clone https://github.com/Lukmanhakim112/primaseru
 #+END_SRC
+
 *** Creting a new virtual environments
 #+BEGIN_SRC shell
 python -m venv venv
@@ -37,6 +38,6 @@ Test by typing:
 ./manage.py runserver
 #+END_SRC
 
-* TODO
-** [ ] make test uni
-** [-] redesign ui for student profile
+Dashboard and participant profile page created based on: SB Admin 2 (Start Bootstrap LLC) 
+
+
