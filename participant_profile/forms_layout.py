@@ -179,6 +179,7 @@ MAJOR_FORM_LAYOUT = Layout(
         Field('enter_smk', css_class="custom-select custom-select-sm"),
         Field('charity', css_class="custom-select custom-select-sm"),
         Field('way_in', css_class="custom-select custom-select-sm"),
+        Field('color_blind', css_class="custom-select custom-select-sm"),
         css_class=FIELDSET_CLASS
     )
 )

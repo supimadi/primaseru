@@ -10,6 +10,12 @@ SPESIAL_NEED_CHOICES = [
     ('N', 'Tidak Berkebutuhan Khusus'),
 ]
 
+COLOR_BLIND = [
+    ('N', 'Tidak'),
+    ('YP', 'Ya, Buta Warna Parsial (Sebagian)'),
+    ('YT', 'Ya, Buta Warna Total'),
+]
+
 RAPORT_SEMESTER = [
     ('SEM_1', 'Semester 1'),
     ('SEM_2', 'Semester 2'),
