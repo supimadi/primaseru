@@ -134,7 +134,9 @@ class ProfileView(LoginRequiredMixin, View):
 
         try:
             passed = ParticipantGraduation.objects.get(participant=self.request.user.pk).passed
+            graduation = ParticipantGraduation.objects.get(participant=self.request.user.pk)
         except ParticipantGraduation.DoesNotExist:
+            graduation = None
             passed = None
 
         try:
@@ -149,6 +151,7 @@ class ProfileView(LoginRequiredMixin, View):
             'data': data,
             'pay': pay,
             'lms': lms,
+            'graduation': graduation,
             'passed': passed,
             'multiple_files': self.multiple_files,
         }
