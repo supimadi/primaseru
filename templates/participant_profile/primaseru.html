@@ -109,14 +109,16 @@
                     <span>Jurusan</span></a>
             </li>
 
-            {% if lms or graduation %}
+            {% if lms %}
             <!-- Nav Item - Test -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'participant-lms' %}">
                     <i class="fas fa-fw fa-edit"></i>
                     <span>Tes Minat Bakat</span></a>
             </li>
+            {% endif %}
 
+            {% if graduation %}
             <!-- Nav Item - Graduation -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'participant-graduation' %}">
