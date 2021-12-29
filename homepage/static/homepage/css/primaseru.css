@@ -96,6 +96,14 @@ footer {
     padding: 50px 0;
     border-top: 2px solid #DDDDDD;
 }
+.footer-link {
+    color: #212529;
+    text-decoration: none;
+}
+.footer-link:hover {
+    color: #FF3131;
+    text-decoration: none;
+}
 @media (max-width: 767.98px) {
     nav.scrolled {
         padding: 10px 0;
