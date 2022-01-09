@@ -78,6 +78,9 @@ def dashboard(request):
 
     verified = participant.filter(verified=True).count()
 
+    family_cert = ParticipantFamilyCert.objects.all()
+    family_cert_verified = family_cert.filter(verified=True)
+
     context = {
         'participant': participant,
         'total_participant': participant.count(),
@@ -85,10 +88,13 @@ def dashboard(request):
         'total_participant_pay': payment.count(),
         'total_participant_paid_off': payment.filter(paid_off=True).count(),
         'total_participant_profile': profile.count(),
+        'total_participant_profile_verified': profile.filter(verified=True).count(),
         'total_participant_pay_1': payment.filter(verified_1=True).count(),
         'total_participant_pay_2': payment.filter(verified_2=True).count(),
         'total_participant_pay_3': payment.filter(verified_3=True).count(),
         'total_re_register_files': total_re_register_files,
+        'total_family_cert': family_cert.count(),
+        'total_family_cert_verified': family_cert_verified.count(),
         'total_mm': mm,
         'total_tjat': tjat,
         'total_tkj': tkj,

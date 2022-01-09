@@ -57,6 +57,36 @@
      .border-abu {
          border-color: #b1b5b7 !important;
      }
+	 .badge-peach, .bg-peach {
+		background: #FC2914;
+		color: white;
+	 }
+	 .text-peach {
+         color: #FC2914;
+	 }
+	 .border-peach {
+		 border-color: #FC2914 !important;
+	 }
+	 .badge-lime, .bg-lime {
+		 background: #7AFC56;
+		color: black;
+	 }
+	 .text-lime {
+         color: #7AFC56;
+	 }
+	 .border-lime {
+		 border-color: #7AFC56 !important;
+	 }
+	 .badge-ice, .bg-ice {
+		background: #02B1D9;
+		color: black;
+	 }
+	 .border-ice {
+		 border-color: #02B1D9 !important;
+	 }
+	 .text-ice {
+         color: #02B1D9;
+	 }
     </style>
 {% endblock head %}
 {% block maindash %}
@@ -118,9 +148,24 @@
                 </div>
                 <div class="col-md m-2  p-3 rounded border border-cyan">
                     <h3 class="mb-0 mt-1">{{ total_re_register_files }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-cyan">KUMPUL BERKAS DAFTAR ULANG</span></h4>
+                    <h4 class="mb-1 judul"><span class="badge badge-cyan">UPLOAD BERKAS DAFTAR ULANG</span></h4>
                 </div>
             </div>
+
+			<div class="row">
+				<div class="col-md m-2  p-3 bg-white rounded border border-peach">
+					<h3 class="mb-0 mt-1">{{ total_family_cert }} <small class="text-muted h6 judul">siswa</small></h3>
+                    <h4 class="mb-1 judul"><span class="badge badge-peach">UPLOAD BERKAS PENDAFTARAN</span></h4>
+                </div>
+				<div class="col-md m-2  p-3 bg-white rounded border border-lime">
+					<h3 class="mb-0 mt-1">{{ total_family_cert_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+                    <h4 class="mb-1 judul"><span class="badge badge-lime">BERKAS PENDAFTARAN TERVERFIKASI</span></h4>
+                </div>
+				<div class="col-md m-2  p-3 bg-white rounded border border-ice">
+					<h3 class="mb-0 mt-1">{{ total_participant_profile_verified }} <small class="text-muted h6 judul">siswa</small></h3>
+                    <h4 class="mb-1 judul"><span class="badge badge-ice">IDENTITAS TERVERFIKASI</span></h4>
+                </div>
+			</div>
 
         </div>
     </div>
@@ -229,6 +274,27 @@
                                             </svg>
                                         </span>
                                     {% endif %}
+									{% if s.account.participantfamilycert %}
+										<span class="badge badge-peach" data-toggle="tooltip" data-placement="top" title="Sudah Mengumpulkan Berkas Pendaftaran">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-peach bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+									{% endif %}
+									{% if s.account.participantfamilycert.verified %}
+										<span class="badge badge-lime" data-toggle="tooltip" data-placement="top" title="Berkas Pendaftaran Terverfikasi">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-lime bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+									{% endif %}
+									{% if s.account.participantprofile.verified %}
+										<span class="badge badge-ice" data-toggle="tooltip" data-placement="top" title="Identitas Terverfikasi">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-ice bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+									{% endif %}
                                 </td>
                                 {% if request.user.is_staff %}
                                 <td class="text-center">
