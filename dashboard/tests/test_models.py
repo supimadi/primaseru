@@ -21,17 +21,17 @@ class PrimaseruContactsModelTest(TestCase):
         )
 
     def test_name_label(self):
-        name = ParticipantCount.objects.get(pk=1)
+        name = PrimaseruContacts.objects.get(pk=1)
         field_label = name._meta.get_field("name").verbose_name
         self.assertEqual(field_label, "Nama Kontak")
 
-    def test_name_max_length(self)
-        name = ParticipantCount.objects.get(pk=1)
+    def test_name_max_length(self):
+        name = PrimaseruContacts.objects.get(pk=1)
         field_label = name._meta.get_field("name").max_length
         self.assertEqual(field_label, 100)
 
     def test_wa_number_label(self):
-        wa_number = ParticipantCount.objects.get(pk=1)
+        wa_number = PrimaseruContacts.objects.get(pk=1)
         field_label = wa_number._meta.get_field("wa_number").verbose_name
         self.assertEqual(field_label, "Nomor Whatsapp")
 
@@ -49,7 +49,7 @@ class ParticipantCountModelTest(TestCase):
         field_label = count._meta.get_field("count").verbose_name
         self.assertEqual(field_label, "Hitungan")
 
-    def test_count_max_length(self)
+    def test_count_max_length(self):
         count = ParticipantCount.objects.get(pk=1)
         field_label = count._meta.get_field("count").max_length
         self.assertEqual(field_label, 10)
@@ -59,7 +59,7 @@ class ParticipantCountModelTest(TestCase):
         field_label = count._meta.get_field("year").verbose_name
         self.assertEqual(field_label, "Tahun")
 
-    def test_year_max_length(self)
+    def test_year_max_length(self):
         count = ParticipantCount.objects.get(pk=1)
         field_label = count._meta.get_field("year").max_length
         self.assertEqual(field_label, 4)
