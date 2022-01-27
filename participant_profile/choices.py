@@ -21,6 +21,7 @@ RAPORT_SEMESTER = [
     ('SEM_2', 'Semester 2'),
     ('SEM_3', 'Semester 3'),
     ('SEM_4', 'Semester 4'),
+    ('SEM_5', 'Semester 5'),
 ]
 
 RAPORT_PART = [
