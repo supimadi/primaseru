@@ -20,6 +20,89 @@ navToggler.addEventListener('click', ()=> {
     navToggler.classList.toggle('active')
 })
 
+function quota_chart() {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const labels = [
+        'Siswa yang sudah terdaftar',
+        'Kuota tersisa jurusan TJAT',
+        'Kuota tersisa jurusan TKJ',
+        'Kuota tersisa jurusan MM',
+    ];
+    
+    const data = {
+        labels: labels,
+        datasets: [{
+          label: 'Presentasi Kuota Tersisa',
+          data: [90, 30, 25, 30],
+          backgroundColor: ['#FF3131','#38B0EA', '#6F318B', '#6FCF97'],
+        }],
+    };
+    
+    const config = {
+        type: 'doughnut',
+        plugins: [ChartDataLabels],
+        data: data,
+        options: {
+            aspectRatio: 1,
+            responsive : true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Presentasi Kuota Tersisa',
+                    font: {size: 18}
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {size: 24},
+                    }
+                },
+                datalabels: {
+                    color: '#FFFFFF',
+                    font: {
+                        size: 32
+                    },
+                    formatter: (value, ctx) => {
+                
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value*100 / sum).toFixed(2)+"%";
+                        return percentage;
+      
+                    
+                      },
+                },
+            }
+        }
+    };
+    update_chart_onresize(config);
+    const myChart = new Chart(ctx, config);
+
+}
+
+function update_chart_onresize(config){
+
+    const smallDevice = window.matchMedia("(min-width: 767.98px)");
+    smallDevice.addListener(handle_device_change);
+
+    function handle_device_change(e) {
+        if (e.matches){
+            // config.options.plugins.legend.position='right';
+            config.options.plugins.datalabels.font.size=24;
+            config.options.plugins.legend.labels.font.size=20;
+        }
+        else {
+            // config.options.plugins.legend.position='bottom';
+            config.options.plugins.datalabels.font.size=14;
+            config.options.plugins.legend.labels.font.size=16;
+        }
+    }
+    handle_device_change(smallDevice);
+}
+
 function update_countdown() {
     setInterval(() => {
         let now = new Date().getTime();
@@ -46,3 +129,4 @@ function update_countdown() {
 
 }
 update_countdown();
+quota_chart()
