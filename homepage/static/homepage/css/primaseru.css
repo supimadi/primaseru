@@ -142,6 +142,11 @@ section {
     font-size: 70px;
 }
 
+/* section kelebihan */
+#section-kelebihan {
+    margin-top: 80px;
+}
+
 /* Section 2 */
 .box-jurusan {
     background-color: #FFFFFF;

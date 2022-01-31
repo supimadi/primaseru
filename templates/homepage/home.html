@@ -33,7 +33,7 @@
     <!-- SECTION KELEBIHAN -->
     <div id="section-kelebihan">
         <div class="container">
-            <h1 class="heading-section text-center mb-4">Kenapa Harus <br> SMK <span class="red-text">Telkom Bandung</span>?</h1>
+            <h1 class="heading-section text-center mb-4">Kenapa Harus <br> SMK <span class="red-text">Telkom Bandung?</span></h1>
             <div class="row">
                 <div class="col-6 col-md-4 col-lg-3">
                     <div class="text-center py-3">
@@ -219,11 +219,27 @@
     </section>
     <!-- END SECTION 3 -->
 
+    <!-- SECTION kuota tersisa -->
+    <section class="section-kuota-tersisa">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 my-5 text-center text-lg-left">
+                    <h1 class="heading-section mb-4 mb-lg-5">Jangan sampai kehabisan <span class="red-text">kuota pendaftaran!</span></h1>
+                    <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
+                </div>
+                <div class="col-lg-7">
+                    <canvas id="myChart" width="100%"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION kuota tersisa -->
+
     <!-- SECTION 4 -->
     <section id="section-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
+                <div class="col-lg-6 mx-auto mx-lg-0">
                     <h1 class="heading-section mb-3">Bagaimana Cara  Memulai <span class="red-text">Pendaftaran?</span></h1>
                     <p class="mb-5">Calon siswa akan mengikuti beberapa tahapan yang harus dipenuhi agar semua rangkaian pendaftaran berjalan lancar.</p>
                 </div>
@@ -487,5 +503,7 @@
 {% endblock main %}
 {% block js %}
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script type="text/javascript" src="{% static 'homepage/js/home.js' %}"></script>
 {% endblock js %}
