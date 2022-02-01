@@ -10,6 +10,8 @@ urlpatterns = [
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
 
+    path('cap/', views.school_cap, name="school-cap-chart"),
+
     path('school-capacity/', views.school_cap_view, name="school-cap"),
     path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
 

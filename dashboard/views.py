@@ -398,6 +398,25 @@ def school_cap_update(request, pk):
 
     return render(request, 'dashboard/major_cap_form.html', {'form': form})
 
+def school_cap(request):
+
+    participant = Participant.objects.count()
+    total_cap = SchoolCapacity.objects.all().first().total_cap
+
+    major = MajorStudent.objects.all()
+    major_cap = MajorCapacity.objects.all()
+
+    tkj = major_cap.filter(major='TKJ').first().capacity - major.filter(first_major='TKJ').count()
+    mm = major_cap.filter(major='MM').first().capacity - major.filter(first_major='MM').count() 
+    tjat = major_cap.filter(major='TJAT').first().capacity - major.filter(first_major='TJAT').count()
+
+    data = {
+        "totalCap": total_cap,
+        "data": [participant, tjat, tkj, mm],
+    }
+
+    return JsonResponse(data)
+    
 class MajorCapDeleteView(UserIsStaffMixin, DeleteView):
     model = MajorCapacity
     success_url = reverse_lazy('school-cap')

@@ -20,20 +20,29 @@ navToggler.addEventListener('click', ()=> {
     navToggler.classList.toggle('active')
 })
 
-function quota_chart() {
+async function quota_chart() {
     const ctx = document.getElementById('myChart').getContext('2d');
+
+    const cap = await fetch(`${URL}`)
+      .then(response => response.json())
+        .then(data => {
+            return data;
+        });
+
+    console.log(cap)
+
     const labels = [
         'Siswa yang sudah terdaftar',
         'Kuota tersisa jurusan TJAT',
         'Kuota tersisa jurusan TKJ',
         'Kuota tersisa jurusan MM',
     ];
-    
+
     const data = {
         labels: labels,
         datasets: [{
           label: 'Presentasi Kuota Tersisa',
-          data: [90, 30, 25, 30],
+          data: cap.data,
           backgroundColor: ['#FF3131','#38B0EA', '#6F318B', '#6FCF97'],
         }],
     };
@@ -63,16 +72,8 @@ function quota_chart() {
                         size: 32
                     },
                     formatter: (value, ctx) => {
-                
-                        let sum = 0;
-                        let dataArr = ctx.chart.data.datasets[0].data;
-                        dataArr.map(data => {
-                            sum += data;
-                        });
-                        let percentage = (value*100 / sum).toFixed(2)+"%";
+                        let percentage = (value * 100 / cap.totalCap ).toFixed(2)+"%";
                         return percentage;
-      
-                    
                       },
                 },
             }
