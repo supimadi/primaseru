@@ -1,0 +1,38 @@
+{% extends 'dashboard/list_base.html' %}
+
+{% block table %}
+<table class="table table-hover table-sm m-0">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sumber Informasi</th>
+            <th scope="col">Kuota</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Kuota keseluruhan</td>
+            <td>{{ total_cap.total_cap }}</td>
+            <td>
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'school-cap-update' total_cap.pk %}">Edit</a>
+            </td>
+        </tr>
+        {% for s in major_cap %}
+            <tr>
+                <th scope="row">{{ forloop.counter|add:"1"  }}</th>
+                <td>{{ s.get_major_display  }}</td>
+                <td>{{ s.capacity  }}</td>
+                <td>
+                    <form method="POST" class="" action="{% url 'major-cap-delete' s.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-outline-secondary btn-sm">
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'major-cap-update' s.pk %}">Edit</a>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock table %}

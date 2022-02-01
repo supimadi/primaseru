@@ -6,16 +6,15 @@ from crispy_forms.helper import FormHelper
 
 from .models import (
     Participant, RegisterSchedule, RegisterStep,
-    ParticipantGraduation, REPRESENTATIVE_CHOICES, ParticipantLMS,
-    ParticipantRePayment, InfoSourcePPDB, PaymentBanner, ParticipantCount
+    ParticipantGraduation, ParticipantLMS, ParticipantRePayment,
+    InfoSourcePPDB, PaymentBanner, ParticipantCount,
+    SchoolCapacity, MajorCapacity
     )
 from . import forms_layout
 
 from homepage.models import FilesPool
 
 from participant_profile import models as participant_models
-from participant_profile.choices import INFORMATION_PRIMASERU
-
 
 
 class ParticipantCountForm(forms.ModelForm):
@@ -243,3 +242,22 @@ class RaportFileVerifyForm(forms.ModelForm):
     class Meta:
         model = participant_models.ReportFileParticipant
         fields = ['verified']
+
+class SchoolCapacityForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+    class Meta:
+        model = SchoolCapacity
+        fields = '__all__'
+
+class MajorCapacityForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+
+    class Meta:
+        model = MajorCapacity
+        fields = '__all__'
+

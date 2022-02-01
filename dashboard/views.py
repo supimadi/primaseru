@@ -8,7 +8,7 @@ from django.views import View
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse_lazy, reverse
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from django.http import JsonResponse, HttpResponse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.core.exceptions import FieldError, PermissionDenied
@@ -25,7 +25,7 @@ from .models import (
     RegisterStep, Participant, ParticipantGraduation,
     ParticipantLMS, ParticipantRePayment, InfoSourcePPDB,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru, PaymentBanner,
-    PrimaseruContacts
+    PrimaseruContacts, MajorCapacity, SchoolCapacity
 )
 from .generator import register_number_generator, reset_register_number
 
@@ -348,6 +348,59 @@ def analytic_view(request):
         data.append(i.participant_set.count()) # vote count
 
     return render(request, 'dashboard/analytic.html', {'data_list': [label, data], 'info': zip(data, label)})
+
+@permission_required('users.is_staff')
+def school_cap_view(request):
+    total_cap = SchoolCapacity.objects.all().first()
+    major_cap = MajorCapacity.objects.all()
+
+    ctx = {
+        "total_cap": total_cap,
+        "major_cap": major_cap,
+    }
+
+    return render(request, 'dashboard/school_cap.html', ctx)
+
+@permission_required('users.is_staff')
+def major_cap_create(request):
+    form = forms.MajorCapacityForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data berhasil disubmit.')
+        return redirect('school-cap')
+
+    return render(request, 'dashboard/major_cap_form.html', {'form': form})
+
+@permission_required('users.is_staff')
+def major_cap_update(request, pk):
+
+    data = get_object_or_404(MajorCapacity, pk=pk)
+    form = forms.MajorCapacityForm(request.POST or None, instance=data)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data berhasil disubmit.')
+        return redirect('school-cap')
+
+    return render(request, 'dashboard/major_cap_form.html', {'form': form})
+
+@permission_required('users.is_staff')
+def school_cap_update(request, pk):
+
+    data = get_object_or_404(SchoolCapacity, pk=pk)
+    form = forms.SchoolCapacityForm(request.POST or None, instance=data)
+
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data berhasil disubmit.')
+        return redirect('school-cap')
+
+    return render(request, 'dashboard/major_cap_form.html', {'form': form})
+
+class MajorCapDeleteView(UserIsStaffMixin, DeleteView):
+    model = MajorCapacity
+    success_url = reverse_lazy('school-cap')
 
 class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
     model = CustomUser

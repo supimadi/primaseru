@@ -1,16 +1,20 @@
 {% extends 'dashboard/dashboard_base.html' %}
+
 {% load crispy_forms_tags %}
 {% load static %}
+
 {% block head %}
     {{ block.super  }}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 {% endblock head %}
+
 {% block dashtitle %}
     Data Halaman Pembayaran
 {% endblock dashtitle %}
+
 {% block maindash %}
-    <div class="row px-3 mb-5">
-        <div class="col-12 bg-white rounded p-3 mt-4 shadow">
+    <div class="row mx-1">
+        <div class="col bg-white rounded p-4 mx-3 my-3 shadow">
             <div class="border rounded px-3 pt-3 mb-3">
                 <p>Halaman ini digunakan untuk meng-edit teks Peringatan Pembayaran.</p>
             </div>

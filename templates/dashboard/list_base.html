@@ -1,0 +1,39 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load static %}
+
+{% block dashtitle %}
+    Daftar Kuota Prodi Primaseru  <br />
+    <a class="btn btn-light" href="{% url 'major-cap-create' %}">Tambah Info Kuota</a>
+{% endblock dashtitle %}
+
+{% block head %}
+{{ block.super }}
+<style>
+    table {
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+    }
+    table th {
+        border-bottom: none !important;
+    }
+</style>
+{% endblock head %}
+
+{% block maindash %}
+<div class="row">
+    <div class="col mx-4">
+        <div class="table-responsive bg-white p-4 mt-2 rounded shadow" id="table-container">
+          {% block table %}
+          {% endblock table %}
+        </div>
+    </div>
+</div>
+{% endblock maindash %}
+
+{% block js %}
+{{ block.super }}
+    <script type="text/javascript" src="{% static 'dashboard/js/list-base.js' %}"></script>
+{% endblock js %}
+
+
+

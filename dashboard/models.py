@@ -139,6 +139,7 @@ class RegisterStep(models.Model):
 
     def __str__(self):
         return self.step
+    
 
 class RegisterFilePrimaseru(models.Model):
     file_name = models.CharField('Nama Berkas', max_length=100)
@@ -170,7 +171,7 @@ class ParticipantRePayment(models.Model):
     paid_off = models.BooleanField('Lunas', default=False)
     whom_acc = models.CharField('Virtual Account Atas Nama',max_length=100, null=True)
 
-    # FIXME need to make seperate model
+    # TODO: Refactor to seperate models, and make the ForeignKey
     payment_1 = models.FileField('Pembayaran Ke 1', upload_to=user_directory_path, null=True, blank=True)
     verified_1 = models.BooleanField('Verifikasi Pembayaran 1', default=False)
     comment_1 = models.CharField('Komentar Pembayaran 1', max_length=100, null=True, blank=True)
@@ -197,3 +198,18 @@ class ParticipantRePayment(models.Model):
 
     def __str__(self):
         return f'Pembayaran {self.participant}'
+
+class SchoolCapacity(models.Model):
+    total_cap = models.PositiveIntegerField("Total kapasitas")
+
+    def __str__(self):
+        return f'Total Kapasitas: {self.total_cap}'
+
+class MajorCapacity(models.Model):
+    major = models.CharField('Prodi', max_length=4, choices=MAJOR)
+    capacity = models.PositiveIntegerField("Kapasitan")
+
+    def __str__(self):
+        return f'{self.major} - {self.capacity}'
+
+

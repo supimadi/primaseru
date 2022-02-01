@@ -10,6 +10,13 @@ urlpatterns = [
     path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
 
+    path('school-capacity/', views.school_cap_view, name="school-cap"),
+    path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
+
+    path('major-capacity/create/', views.major_cap_create, name="major-cap-create"),
+    path('major-capacity/delete/<int:pk>/', views.MajorCapDeleteView.as_view(), name="major-cap-delete"),
+    path('major-capacity/update/<int:pk>/', views.major_cap_update, name="major-cap-update"),
+
     path('reg-num/', views.get_register_number, name="register-number"),
     path('reg-num/reset/', views.reset_registration_number, name="register-number-reset"),
     path('reg-num/update/', views.RegisterNumberUpdateView.as_view(), name="register-number-update"),
