@@ -197,7 +197,7 @@ class ProfileParent(models.Model):
     job = models.CharField(f'Pekerjaan', max_length=100, null=True)
     salary = models.PositiveIntegerField(f'Penghasilan', null=True, help_text="Diisi dengan angka")
     email = models.EmailField(f'Email', null=True, blank=True)
-    phone = models.CharField(f'No. HP', null=True, max_length=15)
+    phone = models.CharField(f'No. HP', null=True, max_length=15, db_index=True)
 
     class Meta:
         ordering = ['participant']

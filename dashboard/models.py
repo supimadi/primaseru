@@ -85,7 +85,7 @@ class Participant(models.Model):
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(_('Verified'), default=False, db_index=True)
 
-    full_name = models.CharField(_('Nama Lengkap'), max_length=100)
+    full_name = models.CharField(_('Nama Lengkap'), max_length=100, db_index=True)
     registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20, null=True)
     participant_phone_number = models.CharField(_('No. HP Calon Siswa'), max_length=15, unique=True, db_index=True,
             validators=[RegexValidator(regex="(\\+62[0-9]{10,13})|(08[0-9]{9,14})",
