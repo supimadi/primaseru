@@ -37,7 +37,8 @@ from participant_profile.models import (
     ParticipantCert
 )
 
-from homepage.models import FilesPool
+from homepage.models import FilesPool, ProsTelkomBandung
+from homepage.forms import ProsTelkomBandungForm
 
 
 def dashboard(request):
@@ -420,6 +421,26 @@ def school_cap(request):
 class MajorCapDeleteView(UserIsStaffMixin, DeleteView):
     model = MajorCapacity
     success_url = reverse_lazy('school-cap')
+
+class ProsHomepageDeleteView(UserIsStaffMixin, DeleteView):
+    model = ProsTelkomBandung
+    success_url = reverse_lazy('pros-telkom')
+
+class ProsHomepageCreateView(UserIsStaffMixin, CreateView):
+    model = ProsTelkomBandung
+    form_class = ProsTelkomBandungForm
+    template_name = "dashboard/prostelkombandung_form.html"
+    success_url = reverse_lazy('pros-telkom')
+
+class ProsHomepageUpdateView(UserIsStaffMixin, UpdateView):
+    model = ProsTelkomBandung
+    form_class = ProsTelkomBandungForm
+    template_name = "dashboard/prostelkombandung_form.html"
+    success_url = reverse_lazy('pros-telkom')
+
+class ProsHomepageListView(UserIsStaffMixin, ListView):
+    model = ProsTelkomBandung
+    template_name = "dashboard/prostelkombandung_list.html"
 
 class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
     model = CustomUser

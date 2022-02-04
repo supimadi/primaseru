@@ -1,17 +1,17 @@
-from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 from . import forms, models
+
 from users.models import CustomUser
 
-from dashboard.generator import register_number_generator
 from dashboard.models import (
-    Participant, RegisterSchedule, RegisterStep,
+    RegisterSchedule, RegisterStep,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru,
     PaymentBanner, PrimaseruContacts
 )
+
 
 def download_menu(request):
     files = models.FilesPool.objects.all()
@@ -24,6 +24,7 @@ def home(request):
         'step': RegisterStep.objects.all(),
         'register_files': RegisterFilePrimaseru.objects.all(),
         're_register_files': ReRegisterFilePrimaseru.objects.all(),
+        'pros_telkom': models.ProsTelkomBandung.objects.all(),
         'banner': PaymentBanner.objects.get(pk=1),
     }
     return render(request, 'homepage/home.html', ctx)

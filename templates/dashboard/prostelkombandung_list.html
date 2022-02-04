@@ -1,0 +1,33 @@
+{% extends 'dashboard/list_base.html' %}
+
+{% block dashtitle %}
+    Daftar Point Penting SMK Telkom Bandung  <br />
+    <a class="btn btn-light" href="{% url 'create-pros-telkom' %}">Tambah Point Penting</a>
+{% endblock dashtitle %}
+
+{% block table %}
+<table class="table table-hover table-sm m-0">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Deskripsi</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter  }}</th>
+                <td>{{ s.desc|truncatechars:55  }}</td>
+                <td>
+                    <form method="POST" class="" action="{% url 'delete-pros-telkom' s.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-outline-secondary btn-sm">
+                        <a class="btn btn-outline-primary btn-sm" href="{% url 'update-pros-telkom' s.pk %}">Edit</a>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock table %}

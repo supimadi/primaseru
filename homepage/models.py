@@ -6,3 +6,10 @@ class FilesPool(models.Model):
 
     def __str__(self):
         return self.name
+
+class ProsTelkomBandung(models.Model):
+    image = models.FileField("Gambar (Icon)", upload_to='homepage_icon/')
+    desc = models.TextField(verbose_name="Deskripsi")
+
+    def __str__(self):
+        return self.desc

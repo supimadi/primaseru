@@ -2,13 +2,23 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Div, Field, HTML
+from crispy_forms.layout import Layout, Row, Div, Field
 
 from users.models import CustomUser
 from dashboard.models import Participant, InfoSourcePPDB
 
-from participant_profile.choices import INFORMATION_PRIMASERU
+from .models import ProsTelkomBandung  
 
+
+class ProsTelkomBandungForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = ProsTelkomBandung
+        fields = '__all__'
 
 class UserRegisterForm(UserCreationForm):
 

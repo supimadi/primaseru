@@ -12,6 +12,12 @@ urlpatterns = [
 
     path('cap/', views.school_cap, name="school-cap-chart"),
 
+    path('pros-telkom/create/', views.ProsHomepageCreateView.as_view(), name="create-pros-telkom"),
+    path('pros-telkom/update/<int:pk>/', views.ProsHomepageUpdateView.as_view(), name="update-pros-telkom"),
+    path('pros-telkom/delete/<int:pk>/', views.ProsHomepageDeleteView.as_view(), name="delete-pros-telkom"),
+    path('pros-telkom/', views.ProsHomepageListView.as_view(), name="pros-telkom"),
+
+
     path('school-capacity/', views.school_cap_view, name="school-cap"),
     path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
 

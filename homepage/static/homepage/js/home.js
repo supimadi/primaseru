@@ -29,8 +29,6 @@ async function quota_chart() {
             return data;
         });
 
-    console.log(cap)
-
     const labels = [
         'Siswa yang sudah terdaftar',
         'Kuota tersisa jurusan TJAT',
