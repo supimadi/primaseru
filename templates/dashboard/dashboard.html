@@ -27,6 +27,9 @@
      .border-purple {
          border-color: #bf0db6 !important;
      }
+     .border-left-purple {
+         border-left: .25rem solid #bf0db6 !important;  
+     }
      .badge-orange, .bg-orange {
          background: #f05f13;
          color: white;
@@ -59,49 +62,253 @@
      }
     </style>
 {% endblock head %}
+
+{% block adon-block %}
+<!-- Content Row -->
+<div class="row">
+    <!-- Total Pendaftar -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Total Pendaftar</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_participant }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pendaftar Prodi MM -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Pendaftar Prodi MM</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_mm }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-palette fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pendaftar Prodi TKJ -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Pendaftar Prodi TKJ</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tkj }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pendaftar Prodi TJAT -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Pendaftar Prodi TJAT</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tjat }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-broadcast-tower fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Total Diterima\Lulus -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Diterima\Lulus</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_participant_accepted }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input Tagihan Daftar Ulang -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Input Tagihan Daftar Ulang</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_mm }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-palette fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lunas Bayar Daftar Ulang -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lunas Bayar Daftar Ulang</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tkj }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mengisi Form Pendaftaran -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Mengisi Form Pendaftaran</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tjat }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-broadcast-tower fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Total Diterima\Lulus -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-purple shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-purple text-uppercase mb-1">
+                            Lunas Pembayaran Pertama</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_participant_accepted }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lunas Pembayaran Kedua -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Lunas Pembayaran Kedua</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_mm }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-palette fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lunas Pembayaran Ketika -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Lunas Pembayaran Ketiga</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tkj }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-laptop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+<<<<<<< Updated upstream
+                <div class="col-md m-2  p-3 rounded border border-warning">
+                    <h3 class="mb-0 mt-1">{{ total_participant_profile }} <small class="text-muted h6 judul">siswa</small></h3>
+<<<<<<< Updated upstream
+                    <h4 class="mb-1 judul"><span class="badge badge-warning">MENGISI FORM PENDAFTARAN</span></h4>
+=======
+                    <h4 class="mb-1 judul"><span class="badge badge-warning">MENGISI IDENTITAS</span></h4>
+=======
+            </div>
+        </div>
+    </div>
+
+    <!-- Mengumpulkan Berkas Daftar Ulang -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Mengumpulkan Berkas Daftar Ulang</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_tjat }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-broadcast-tower fa-2x text-gray-300"></i>
+                    </div>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock adon-block %}
+
+
 {% block maindash %}
     <div class="row shadow-sm bg-white border-0 p-3 m-4 rounded">
 
         <div class="col-12 p-3">
             <h4 class="judul font-weight-bold">Statistik Total Pendaftar</h4>
-
-            <div class="row">
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_participant }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Total Pendaftar</h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_mm }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi MM</h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_tkj }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi TKJ</h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_tjat }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi TJAT</h4>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md m-2  p-3 bg-white rounded border border-success">
-                    <h3 class="mb-0 mt-1">{{ total_participant_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-success">DITERIMA/LULUS</span></h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border border-danger">
-                    <h3 class="mb-0 mt-1">{{ total_participant_pay }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-danger">INPUT TAGIHAN DAFTAR ULANG</span></h4>
-                </div>
-                <div class="col-md m-2  p-3 bg-white rounded border border-primary">
-                    <h3 class="mb-0 mt-1">{{ total_participant_paid_off }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-primary">LUNAS BAYAR DAFTAR ULANG</span></h4>
-                </div>
-                <div class="col-md m-2  p-3 rounded border border-warning">
-                    <h3 class="mb-0 mt-1">{{ total_participant_profile }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-warning">MENGISI FORM PENDAFTARAN</span></h4>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-md m-2  p-3 bg-white rounded border border-purple">
