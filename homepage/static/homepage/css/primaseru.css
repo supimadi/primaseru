@@ -399,15 +399,56 @@ section#section-6 {
 }
 
 /* section 8 */
-section#section-8 {
-    margin-bottom: 200px;
-}
 .wrapper-biaya {
     border-radius: 30px;
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
 }
 .card-red-gradient.card-biaya {
     padding: 120px 28px;
+}
+
+/* SECTION TESTIMONIALS */
+section#section-testimonials {
+    margin-bottom: 200px;
+}
+.carousel-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+.carousel-content .desc {
+    font-size: 18px;
+}
+.carousel-content .desc::after,
+.carousel-content .desc::before {
+    content: "\"";
+}
+.profil-alumni {
+    display: flex;
+    margin-top: 24px;
+}
+.profil-alumni img {
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.embed-responsive {
+    border-radius: 30px;
+}
+.carousel-control {
+    background-color: #FFFFFF;
+    border: 1px solid #FF3131;
+    padding: 7px;
+    border-radius: 10px;
+    transition: .3s;
+}
+.carousel-control:hover {
+    background-color: #FF3131;
+}
+.carousel-control:hover svg path{
+    fill: #FFFFFF;
 }
 
 @media (max-width: 991.98px) {
