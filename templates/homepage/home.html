@@ -17,11 +17,14 @@
             <div class="row justify-content-center align-items-center text-center text-lg-left">
                 <div class="col-lg-6 col-md-10">
                     <span class="ml-2 d-block" data-aos="fade-down">Penerimaan Peserta Didik Baru (PRIMASERU)</span>
+
                     <h1 class="my-4 font-weight-bold" data-aos="fade-right" data-aos-delay="200">Achieve Your Dream <span class="red-text">With Us</span></h1>
+
                     <div data-aos="fade-up" data-aos-delay="400">
-                        <p class="mb-5 h5">Kini Mendaftar ke SMK Telkom Bandung lebih Mudah Daftar dari rumah dan tes dari rumah.</p>
+                        <h4 class="mb-5 font-weight-bold">Kini Mendaftar ke SMK Telkom Bandung lebih Mudah <span class="red-text">Daftar dari rumah dan tes dari rumah.</span></h4>
                         <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
                     </div>
+
                 </div>
                 <div class="col-lg-6 col-md-10 mt-5 mt-lg-0">
                     <img loading="lazy" data-aos="fade-left" data-aos-delay="600" class="w-100" src="{% static 'homepage/images/hero-img.jpg' %}" alt="hero image">
@@ -411,63 +414,29 @@
             <h1 class="heading-section mb-5">Apa Kata Mereka Tentang <br> <span class="red-text">SMK Telkom Bandung?</span></h1>
             <div id="testimonial-carousel" class="carousel slide my-4" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+
+                    {% for tes in testimoni %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="carousel-wrapper">
                             <div class="col-12 col-lg-7">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe src="https://www.youtube.com/embed/cBLHvQhVkNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe src="https://www.youtube.com/embed/{{ tes.video_id }}?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>
                             </div>
                             <div class="carousel-content mt-3 mt-lg-0 col-12 col-lg-5">
-                                <p class="desc">SMK Telkom Bandung memberikan begitu banyak pengalaman bagi saya, baik itu pengalaman dalam bidang berorganisasi maupun dalam bidang keahlian.</p>
+                                <p class="desc">{{ tes.testimonial }}</p>
                                 <div class="profil-alumni">
-                                    <img src="{% static 'homepage/images/patriot.jpg' %}" alt="Foto Alumni">
+                                    <img src="{{ tes.photo.url }}" alt="Foto Alumni">
                                     <div class="ml-2 mt-3">
-                                        <p class="font-weight-bold mb-0">Zidan</p>
-                                        <small class="text-secondary">Alumni TKJ angkatan 7</small>
+                                        <p class="font-weight-bold mb-0">{{ tes.full_name }}</p>
+                                        <small class="text-secondary">{{ tes.title }}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="carousel-wrapper">
-                            <div class="col-12 col-lg-7">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe src="https://www.youtube.com/embed/cBLHvQhVkNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="carousel-content mt-3 mt-lg-0 col-12 col-lg-5">
-                                <p class="desc">SMK Telkom Bandung memberikan begitu banyak pengalaman bagi saya, baik itu pengalaman dalam bidang berorganisasi maupun dalam bidang keahlian.</p>
-                                <div class="profil-alumni">
-                                    <img src="{% static 'homepage/images/patriot.jpg' %}" alt="Foto Alumni">
-                                    <div class="ml-2 mt-3">
-                                        <p class="font-weight-bold mb-0">Zidan</p>
-                                        <small class="text-secondary">Alumni TKJ angkatan 7</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="carousel-wrapper">
-                            <div class="col-12 col-lg-7">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe src="https://www.youtube.com/embed/cBLHvQhVkNI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="carousel-content mt-3 mt-lg-0 col-12 col-lg-5">
-                                <p class="desc">SMK Telkom Bandung memberikan begitu banyak pengalaman bagi saya, baik itu pengalaman dalam bidang berorganisasi maupun dalam bidang keahlian.</p>
-                                <div class="profil-alumni">
-                                    <img src="{% static 'homepage/images/patriot.jpg' %}" alt="Foto Alumni">
-                                    <div class="ml-2 mt-3">
-                                        <p class="font-weight-bold mb-0">Zidan</p>
-                                        <small class="text-secondary">Alumni TKJ angkatan 7</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+
                 </div>
             </div>
             <button class="carousel-prev carousel-control ml-3" type="button" data-target="#testimonial-carousel" data-slide="prev">

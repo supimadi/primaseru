@@ -37,8 +37,8 @@ from participant_profile.models import (
     ParticipantCert
 )
 
-from homepage.models import FilesPool, ProsTelkomBandung
-from homepage.forms import ProsTelkomBandungForm
+from homepage.models import FilesPool, ProsTelkomBandung, TestimonialModel
+from homepage.forms import ProsTelkomBandungForm, TestiModelForm
 
 
 def dashboard(request):
@@ -417,6 +417,26 @@ def school_cap(request):
     }
 
     return JsonResponse(data)
+
+class TestimoniListView(UserIsStaffMixin, ListView):
+    model = TestimonialModel
+    template_name = 'dashboard/testimoni_list.html'
+
+class TestimoniDeleteView(UserIsStaffMixin, DeleteView):
+    model = TestimonialModel
+    success_url = reverse_lazy('testimoni')
+
+class TestimoniCreateView(UserIsStaffMixin, CreateView):
+    model = TestimonialModel
+    form_class = TestiModelForm
+    template_name = 'dashboard/testimoni_form.html'
+    success_url = reverse_lazy('testimoni')
+
+class TestimoniUpdateView(UserIsStaffMixin, UpdateView):
+    model = TestimonialModel
+    form_class = TestiModelForm
+    template_name = 'dashboard/testimoni_form.html'
+    success_url = reverse_lazy('testimoni')
     
 class MajorCapDeleteView(UserIsStaffMixin, DeleteView):
     model = MajorCapacity

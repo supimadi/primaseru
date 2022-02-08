@@ -26,6 +26,7 @@ def home(request):
         're_register_files': ReRegisterFilePrimaseru.objects.all(),
         'pros_telkom': models.ProsTelkomBandung.objects.all(),
         'banner': PaymentBanner.objects.get(pk=1),
+        'testimoni': models.TestimonialModel.objects.all(),
     }
     return render(request, 'homepage/home.html', ctx)
 

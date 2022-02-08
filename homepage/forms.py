@@ -7,8 +7,18 @@ from crispy_forms.layout import Layout, Row, Div, Field
 from users.models import CustomUser
 from dashboard.models import Participant, InfoSourcePPDB
 
-from .models import ProsTelkomBandung  
+from .models import ProsTelkomBandung, TestimonialModel  
 
+
+class TestiModelForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = TestimonialModel
+        exclude = ["video_id", ]
 
 class ProsTelkomBandungForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -17,6 +17,10 @@ urlpatterns = [
     path('pros-telkom/delete/<int:pk>/', views.ProsHomepageDeleteView.as_view(), name="delete-pros-telkom"),
     path('pros-telkom/', views.ProsHomepageListView.as_view(), name="pros-telkom"),
 
+    path('testimoni/', views.TestimoniListView.as_view(), name="testimoni"),
+    path('testimoni/create/', views.TestimoniCreateView.as_view(), name="testimoni-create"),
+    path('testimoni/update/<int:pk>/', views.TestimoniUpdateView.as_view(), name="testimoni-update"),
+    path('testimoni/delete/<int:pk>/', views.TestimoniDeleteView.as_view(), name="testimoni-delete"),
 
     path('school-capacity/', views.school_cap_view, name="school-cap"),
     path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
