@@ -33,6 +33,11 @@ class PrimaseruContactsModelTest(TestCase):
         field_label = wa_number._meta.get_field("wa_number").verbose_name
         self.assertEqual(field_label, "Nomor Whatsapp")
 
+    def test_object_name(self):
+        contact = models.PrimaseruContacts.objects.get(pk=1)
+        expected_object_name = f'Contacts {contact.wa_number}'
+        self.assertEqual(str(contact), expected_object_name)
+
 
 class ParticipantCountModelTest(TestCase):
 
@@ -61,6 +66,11 @@ class ParticipantCountModelTest(TestCase):
         count = models.ParticipantCount.objects.get(pk=1)
         field_label = count._meta.get_field("year").max_length
         self.assertEqual(field_label, 4)
+
+    def test_object_name(self):
+        count = models.ParticipantCount.objects.get(pk=1)
+        expected_object_name = f'{count.count}'
+        self.assertEqual(str(count), expected_object_name)
 
 
 class ParticipantLMSModelTest(TestCase):
@@ -113,6 +123,7 @@ class ParticipantLMSModelTest(TestCase):
         obj_name = f'LMS {lms_account.participant.username}'
         self.assertEqual(str(lms_account), obj_name)
 
+
 class ParticipantGraduationTest(TestCase):
     
     @classmethod
@@ -147,7 +158,10 @@ class ParticipantGraduationTest(TestCase):
         field_label = graduation._meta.get_field("clock_announce").verbose_name
         self.assertEqual(field_label, "Jam Diumumkan")
 
-
+    def test_object_name(self):
+        graduation = models.ParticipantGraduation.objects.get(pk=1)
+        obj_name = f'Graduation {graduation.participant}'
+        self.assertEqual(str(graduation), obj_name)
 
 class ParticipantModelTest(TestCase):
 
@@ -346,6 +360,11 @@ class RegisterScheduleModelTest(TestCase):
         is_past_date = data.is_past_date
         self.assertFalse(is_past_date)
 
+    def test_object_name(self):
+        schedule = models.RegisterSchedule.objects.get(pk=1)
+        obj_name = f'{schedule.name}'
+        self.assertEqual(str(schedule), obj_name)
+
 class PaymentBannerModelTest(TestCase):
 
     @classmethod
@@ -434,3 +453,10 @@ class PaymentBannerModelTest(TestCase):
         wa_link = models.PaymentBanner.objects.get(pk=1)
         field_label = wa_link._meta.get_field("wa_link").max_length
         self.assertEqual(field_label, 100)
+
+    def test_object_name(self):
+        banner = models.PaymentBanner.objects.get(pk=1)
+        obj_name = f'{banner.wa_number}'
+        self.assertEqual(str(banner), obj_name)
+
+
