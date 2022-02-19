@@ -87,6 +87,16 @@
 	 .text-ice {
          color: #02B1D9;
 	 }
+     .badge-grape, .bg-grape{
+         background: #6C63FF !important;
+         color: white;
+     }
+     .border-grape {
+         border-color: #6C63FF !important
+     }
+     .text-grape {
+         color: #6C63FF;
+	 }
     </style>
 {% endblock head %}
 {% block maindash %}
@@ -117,7 +127,7 @@
             <div class="row">
                 <div class="col-md m-2  p-3 bg-white rounded border border-success">
                     <h3 class="mb-0 mt-1">{{ total_participant_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><span class="badge badge-success">DITERIMA/LULUS</span></h4>
+                    <h4 class="mb-1 judul"><a href="?lulus"><span class="badge badge-success">DITERIMA/LULUS</span></a></h4>
                 </div>
                 <div class="col-md m-2 p-3 bg-white rounded border border-danger">
                     <h3 class="mb-0 mt-1">{{ total_participant_pay }} <small class="text-muted h6 judul">siswa</small></h3>
@@ -164,6 +174,10 @@
 				<div class="col-md m-2  p-3 bg-white rounded border border-ice">
 					<h3 class="mb-0 mt-1">{{ total_participant_profile_verified }} <small class="text-muted h6 judul">siswa</small></h3>
                     <h4 class="mb-1 judul"><span class="badge badge-ice">IDENTITAS TERVERFIKASI</span></h4>
+                </div>
+				<div class="col-md m-2  p-3 bg-white rounded border border-grape">
+					<h3 class="mb-0 mt-1">{{ total_participant_resign }} <small class="text-muted h6 judul">siswa</small></h3>
+                    <h4 class="mb-1 judul"><span class="badge badge-grape">PESERTA MEMUNDURKAN DIRI</span></h4>
                 </div>
 			</div>
 
@@ -291,6 +305,13 @@
 									{% if s.account.participantprofile.verified %}
 										<span class="badge badge-ice" data-toggle="tooltip" data-placement="top" title="Identitas Terverfikasi">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-ice bi bi-circle-fill" viewBox="0 0 16 16">
+                                                <circle cx="8" cy="8" r="8"/>
+                                            </svg>
+                                        </span>
+									{% endif %}
+									{% if s.status == "RSG" %}
+										<span class="badge badge-grape" data-toggle="tooltip" data-placement="top" title="Identitas Terverfikasi">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-grape bi bi-circle-fill" viewBox="0 0 16 16">
                                                 <circle cx="8" cy="8" r="8"/>
                                             </svg>
                                         </span>

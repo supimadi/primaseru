@@ -54,6 +54,10 @@ def dashboard(request):
     if request.GET.get('sort'):
         participant.order_by('-created_at')
 
+    if 'lulus' in request.GET:
+        passed_participant = CustomUser.objects.filter(participantgraduation__passed="L")
+        participant = Participant.objects.filter(account__in=passed_participant)
+
     profile = ParticipantProfile.objects.all()
     passed_test = ParticipantGraduation.objects.all().count()
     payment = ParticipantRePayment.objects.all()
@@ -72,7 +76,6 @@ def dashboard(request):
         except Exception:
             pass
 
-
     tkj = MajorStudent.objects.filter(first_major='TKJ').count()
     mm = MajorStudent.objects.filter(first_major='MM').count()
     tjat = MajorStudent.objects.filter(first_major='TJAT').count()
@@ -85,6 +88,7 @@ def dashboard(request):
     context = {
         'participant': participant,
         'total_participant': participant.count(),
+        'total_participant_resign': participant.filter(status="RSG").count(),
         'total_participant_accepted': passed_test,
         'total_participant_pay': payment.count(),
         'total_participant_paid_off': payment.filter(paid_off=True).count(),

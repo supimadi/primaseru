@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 
 from users.models import CustomUser
-from participant_profile.choices import MAJOR, INFORMATION_PRIMASERU
+from participant_profile.choices import MAJOR, INFORMATION_PRIMASERU, STATUS
 
 
 # PHONE_REGEX = '/(\+62[0-9]{10,13})|(08[0-9]{10,12})/g'
@@ -84,6 +84,7 @@ class InfoSourcePPDB(models.Model):
 class Participant(models.Model):
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(_('Verified'), default=False, db_index=True)
+    status = models.CharField(_('Status'), default="ACT", max_length=3, choices=STATUS)
 
     full_name = models.CharField(_('Nama Lengkap'), max_length=100, db_index=True)
     registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20, null=True)

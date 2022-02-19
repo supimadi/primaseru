@@ -5,6 +5,11 @@ SEX = [
     ('L', 'Laki - Laki'),
 ]
 
+STATUS = [
+    ('ACT', 'Aktif'),
+    ('RSG', 'Memundurkan Diri'),
+]
+
 SPESIAL_NEED_CHOICES = [
     ('Y', 'Ya, Berkebutuhan Khusus'),
     ('N', 'Tidak Berkebutuhan Khusus'),

@@ -82,7 +82,7 @@ class RegisterStudentForm(forms.ModelForm):
 
     class Meta:
         model = Participant
-        exclude = ['account', 'registration_number', 'updated_at', 'created_at']
+        exclude = ['account', 'status','registration_number', 'updated_at', 'created_at']
 
 class RegisterStudentFormDashboard(forms.ModelForm):
 
