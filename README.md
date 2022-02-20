@@ -35,7 +35,7 @@ $ py manage.py runserver
 
 ## Todo
 
-- [  ] Writing Test Unit
-- [  ] Refactoring some models
-- [  ] Refactoring template
+- [ ] Writing Test Unit
+- [ ] Refactoring some models
+- [ ] Refactoring template
 
