@@ -104,22 +104,13 @@ footer {
     color: #FF3131;
     text-decoration: none;
 }
-@media (max-width: 767.98px) {
-    nav.scrolled {
-        padding: 10px 0;
-    }
-    .navbar-brand img {
-        height: 26px;
-    }
-    .hero h1 {
-        font-size: 42px;
-    }
-    .hero p {
-        font-size: 14px;
-    }
-    .heading-section {
-        font-size: 32px;
-    }
+
+.medsos-link {
+    margin-right: 8px;
+}
+.medsos-link:hover .medsos-icon path {
+    fill: #EB3349;
+    transition: .3s;
 }
 
 .fs-md {
@@ -458,6 +449,21 @@ section#section-testimonials {
 }
 
 @media (max-width: 767.98px) {
+    nav.scrolled {
+        padding: 10px 0;
+    }
+    .navbar-brand img {
+        height: 26px;
+    }
+    .hero h1 {
+        font-size: 42px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+    .heading-section {
+        font-size: 32px;
+    }
     .hero h1 {
         font-size: 42px;
     }
