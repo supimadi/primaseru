@@ -356,7 +356,10 @@ def analytic_view(request):
 
 @permission_required('users.is_staff')
 def school_cap_view(request):
-    total_cap = SchoolCapacity.objects.all().first()
+    total_cap, created = SchoolCapacity.objects.get_or_create(
+        pk=1,
+        defaults={'total_cap': 0},
+    )
     major_cap = MajorCapacity.objects.all()
 
     ctx = {
