@@ -30,16 +30,16 @@ async function quota_chart() {
         });
 
     const labels = [
-        'Siswa yang sudah terdaftar',
-        'Kuota tersisa jurusan TJAT',
-        'Kuota tersisa jurusan TKJ',
-        'Kuota tersisa jurusan MM',
+        'Siswa yang Sudah Terdaftar',
+        'Siswa Diterima di Prodi TJAT',
+        'Siswa Diterima di Prodi TKJ',
+        'Siswa Diterima di Prodi MM',
     ];
 
     const data = {
         labels: labels,
         datasets: [{
-          label: 'Presentasi Kuota Tersisa',
+          label: 'Presentasi Pendaftar Primaseru',
           data: cap.data,
           backgroundColor: ['#FF3131','#38B0EA', '#6F318B', '#6FCF97'],
         }],
@@ -55,7 +55,7 @@ async function quota_chart() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Presentasi Kuota Tersisa',
+                    text: 'Presentasi Pendaftar Primaseru',
                     font: {size: 18}
                 },
                 legend: {

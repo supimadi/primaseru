@@ -8,7 +8,7 @@ from .models import (
     Participant, RegisterSchedule, RegisterStep,
     ParticipantGraduation, ParticipantLMS, ParticipantRePayment,
     InfoSourcePPDB, PaymentBanner, ParticipantCount,
-    SchoolCapacity, MajorCapacity
+    SchoolCapacity, MajorCapacity, MajorStatus
     )
 from . import forms_layout
 
@@ -259,5 +259,15 @@ class MajorCapacityForm(forms.ModelForm):
 
     class Meta:
         model = MajorCapacity
+        fields = '__all__'
+
+class MajorStatusForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = MajorStatus
         fields = '__all__'
 

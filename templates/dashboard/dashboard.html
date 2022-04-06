@@ -1,5 +1,7 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load crispy_forms_tags %}
+{% load phone_filters %}
+
 {% block dashtitle %}
     Dashboard Primaseru <span class="badge badge-warning">{{ request.user.username }}</span> <br />
     <a class="btn btn-light shadow my-3"  href="{% url 'insert-participant' %}">Tambah Pendaftar</a>
@@ -330,6 +332,7 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <input type="submit" value="Delete" class="dropdown-item">
                                                 <a class="dropdown-item" href="{% url 'participant-change-password' s.account.pk %}">Password</a>
+                                                <a class="dropdown-item" target="_blank" href="https://wa.me/{{ s.participant_phone_number|to_wa }}">Whatsapp</a>
                                             </div>
                                         </div>
                                     </form>

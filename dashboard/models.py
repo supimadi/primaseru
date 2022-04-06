@@ -23,6 +23,14 @@ PASSED_CHOICES = [
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
 
+class MajorStatus(models.Model):
+    major = models.CharField('Jurusan', max_length=5, help_text="Tulis singkatan jurusan, <b>contoh: TKJ</b>")
+    major_text = models.CharField('Kepanjangan dari Singkatan Jurusan', max_length=100, null=True)
+    is_avail = models.BooleanField('Kuota Tersedia')
+
+    def __str__(self):
+        return f"{self.major}: {self.is_avail}"
+
 class ParticipantLMS(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField('Username', max_length=120)

@@ -1,6 +1,6 @@
 import os
-from io import BytesIO
 import zipfile
+from io import BytesIO
 
 from django.db import IntegrityError
 from django.core.paginator import Paginator
@@ -25,7 +25,7 @@ from .models import (
     RegisterStep, Participant, ParticipantGraduation,
     ParticipantLMS, ParticipantRePayment, InfoSourcePPDB,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru, PaymentBanner,
-    PrimaseruContacts, MajorCapacity, SchoolCapacity
+    PrimaseruContacts, MajorCapacity, SchoolCapacity, MajorStatus
 )
 from .generator import register_number_generator, reset_register_number
 
@@ -404,23 +404,37 @@ def school_cap_update(request, pk):
     return render(request, 'dashboard/major_cap_form.html', {'form': form})
 
 def school_cap(request):
-
     participant = Participant.objects.count()
-    total_cap = SchoolCapacity.objects.all().first().total_cap
 
-    major = MajorStudent.objects.all()
-    major_cap = MajorCapacity.objects.all()
+    participant_grad = ParticipantGraduation.objects.all()
 
-    tkj = major_cap.filter(major='TKJ').first().capacity - major.filter(first_major='TKJ').count()
-    mm = major_cap.filter(major='MM').first().capacity - major.filter(first_major='MM').count() 
-    tjat = major_cap.filter(major='TJAT').first().capacity - major.filter(first_major='TJAT').count()
+    filters = ['TJAT', 'TKJ', 'MM']
+    data = [participant_grad.filter(chose_major=i).count() for i in filters]
+    data.insert(0, participant)
 
     data = {
-        "totalCap": total_cap,
-        "data": [participant, tjat, tkj, mm],
+        "totalCap": participant,
+        "data": data,
     }
 
     return JsonResponse(data)
+
+class MajorStatusListView(UserIsStaffMixin, ListView):
+    model = MajorStatus
+
+class MajorStatusCreateView(UserIsStaffMixin, CreateView):
+    model = MajorStatus
+    form_class = forms.MajorStatusForm
+    success_url = reverse_lazy('major-status')
+
+class MajorStatusUpdateView(UserIsStaffMixin, UpdateView):
+    model = MajorStatus
+    form_class = forms.MajorStatusForm
+    success_url = reverse_lazy('major-status')
+
+class MajorStatusDeleteView(UserIsStaffMixin, DeleteView):
+    model = MajorStatus
+    success_url = reverse_lazy('major-status')
 
 class TestimoniListView(UserIsStaffMixin, ListView):
     model = TestimonialModel

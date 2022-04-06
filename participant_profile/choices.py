@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+
+MAJOR = [
+    ('TKJ', 'Teknik Komputer dan Jaringan'),
+    ('TJAT', 'Teknik Jaringan Akses Telekomunikasi'),
+    ('MM', 'Multimedia'),
+]
+
 SEX = [
     ('P', 'Perempuan'),
     ('L', 'Laki - Laki'),
@@ -50,12 +57,6 @@ EDUCATION_LEVEL = [
     ('D3', 'D3'), ('D4', 'D4'),
     ('S1', 'S1'), ('S2', 'S2'),
     ('S3', 'S3'),
-]
-
-MAJOR = [
-    ('TKJ', 'Teknik Komputer dan Jaringan'),
-    ('TJAT', 'Teknik Jaringan Akses Telekomunikasi'),
-    ('MM', 'Multimedia'),
 ]
 
 BLOOD_TYPE = [
