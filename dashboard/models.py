@@ -31,6 +31,16 @@ class MajorStatus(models.Model):
     def __str__(self):
         return f"{self.major}: {self.is_avail}"
 
+class RegistrationPath(models.Model):
+    path = models.CharField('Jalur Pendaftaran', max_length=100)
+    is_avail = models.BooleanField('Jalur Masih Tersedia', default=True)
+
+    def __str__(self):
+        if self.is_avail:
+            return f"{self.path} Tersedia"
+        else:
+            return f"{self.path} Ditutup"
+
 class ParticipantLMS(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField('Username', max_length=120)

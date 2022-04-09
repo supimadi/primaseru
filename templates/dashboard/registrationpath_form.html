@@ -1,0 +1,33 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+    {{ block.super  }}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{% endblock head %}
+
+{% block dashtitle %}
+    Form Status Jurusan
+{% endblock dashtitle %}
+
+{% block maindash %}
+    <div class="row px-3">
+        <div class="col-12 bg-white rounded p-3 mt-4 shadow">
+
+            <form method="POST" enctype="multipart/form-data">
+				{% crispy form %}
+                <input type="submit" value="Submit" class="btn btn-outline-primary">
+            </form>
+
+        </div>
+    </div>
+
+{% endblock maindash %}
+
+{% block js %}
+    {{ block.super  }}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>
+{% endblock js %}

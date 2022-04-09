@@ -83,6 +83,11 @@ urlpatterns = [
     path('status/jurusan/update/<int:pk>/', views.MajorStatusUpdateView.as_view(), name='major-status-update'),
     path('status/jurusan/delete/<int:pk>/', views.MajorStatusDeleteView.as_view(), name='major-status-delete'),
 
+    path('jalur/pendaftaran/', views.RegistrationPathListView.as_view(), name='registration-path'),
+    path('jalur/pendaftaran/create/', views.RegistrationPathCreateView.as_view(), name='registration-path-create'),
+    path('jalur/pendaftaran/update/<int:pk>/', views.RegistrationPathUpdateView.as_view(), name='registration-path-update'),
+    path('jalur/pendaftaran/delete/<int:pk>/', views.RegistrationPathDeleteView.as_view(), name='registration-path-delete'),
+
     path('ganti-password/<int:pk>/', views.PasswordChangeViewDashboard.as_view(), name='participant-change-password'),
 
     path('peserta/<int:pk>/', views.ParticipantUpdateView.as_view(), name='participant-detail'),
