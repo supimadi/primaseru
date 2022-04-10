@@ -69,10 +69,6 @@ async function quota_chart() {
                     font: {
                         size: 32
                     },
-                    formatter: (value, ctx) => {
-                        let percentage = (value * 100 / cap.totalCap ).toFixed(2)+"%";
-                        return percentage;
-                      },
                 },
             }
         }
