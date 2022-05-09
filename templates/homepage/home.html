@@ -190,13 +190,30 @@
     <!-- SECTION kuota tersisa -->
     <section class="section-kuota-tersisa">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5 my-5 text-center text-lg-left">
+            <div class="row align-items-center">
+                <div class="col-lg-6 my-5 text-center text-lg-left">
                     <h1 class="heading-section mb-4 mb-lg-5">Jangan sampai kehabisan <span class="red-text">kuota pendaftaran!</span></h1>
                     <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
                 </div>
-                <div class="col-lg-7">
-                    <canvas id="myChart" width="100%"></canvas>
+                
+                <div class="col-lg-6">
+                    <div class="number-container">
+                        <div class="number-item">
+                            <img src="{% static 'homepage/images/pendaftar.svg' %}" alt="">
+                            <h1 class="red-text font-weight-bold mb-0 mt-2">150</h1>
+                            <span class="text-secondary">Pendaftar</span>
+                        </div>
+                        <div class="number-item">
+                            <img src="{% static 'homepage/images/diterima.svg' %}" alt="">
+                            <h1 class="red-text font-weight-bold mb-0 mt-2">124</h1>
+                            <span class="text-secondary">Diterima</span>
+                        </div>
+                        <div class="number-item">
+                            <img src="{% static 'homepage/images/daftar-ulang.svg' %}" alt="">
+                            <h1 class="red-text font-weight-bold mb-0 mt-2">94</h1>
+                            <span class="text-secondary">Pendaftar Ulang</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

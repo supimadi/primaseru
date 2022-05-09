@@ -161,6 +161,28 @@ section#section-3 ul{
     padding: 1rem;
 }
 
+/* section kuota tersisa*/
+.section-kuota-tersisa {
+    padding: 0;
+}
+.number-container {
+    display: flex;
+    justify-content: space-between;
+}
+.number-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.33%;
+}
+.number-item img {
+    width: 80px;
+    height: 80px;
+}
+.number-item span {
+    text-align: center;
+}
+
 /* section 4 Timeline */
 section#section-4 {
     background-image: url(../images/circle-background.svg);
@@ -522,6 +544,14 @@ section#section-testimonials {
         padding-left: 50px;
         margin: 15px;
     }
+    .number-item img {
+        width: 60px;
+        height: 60px;
+    }    
+    .number-item h1 {
+        font-size: 28px;
+    }
+
     /* tahapan daftar */
     .timeline::after {
         left: 6px;
