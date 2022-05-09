@@ -19,9 +19,9 @@ def download_menu(request):
     return render(request, 'homepage/download-menu.html', {'files': files})
 
 def home(request):
-    participant = Participant.objects.filter(status__iexact="RSG").count()
+    participant = Participant.objects.filter(status__contains="ACT").count()
     # number of accepted participant
-    accepted_part = ParticipantGraduation.objects.filter(passed=True).count()
+    accepted_part = ParticipantGraduation.objects.filter(passed='L').count()
     # number of participant doing second register
     re_reg_part = ParticipantRePayment.objects.filter(verified_1=True).count()
 
