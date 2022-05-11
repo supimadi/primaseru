@@ -44,7 +44,7 @@ from homepage.forms import ProsTelkomBandungForm, TestiModelForm
 
 def dashboard(request):
 
-    if not request.user.username in settings.ALLOW_VIEW_DASHBOARD_DUMMY:
+    if not request.user.is_staff:
         raise PermissionDenied
 
     if request.GET.get('search-name'):
