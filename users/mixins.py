@@ -11,17 +11,17 @@ class UserPermissionMixin(UserPassesTestMixin):
         
         return self.is_granted;
 
-class UserIsStaffMixin(UserPassesTestMixin):
+class UserIsStaffMixin(UserPermissionMixin):
     def test_func(self):
         if self.request.user.is_staff:
             self.is_granted = True
         return super().test_func()
 
-class UserIsSuperUserMixin(UserPassesTestMixin):
+class UserIsSuperUserMixin(UserPermissionMixin):
     def test_func(self):
         return super().test_func()
 
-class UserIsVerifierMixin(UserPassesTestMixin):
+class UserIsVerifierMixin(UserPermissionMixin):
     def test_func(self):
         if self.request.user.is_verifier:
             return True

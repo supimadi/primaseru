@@ -79,8 +79,11 @@ def participant_counter_filter(label):
 
 def dashboard(request):
 
-    if not request.user.is_staff and not request.user.is_verifier:
-        messages.warning(request, 'Tidak memiliki izin, jika hal ini merupakan kesalah hubungi Admin.')
+    try:
+        if not request.user.is_staff and not request.user.is_verifier:
+            messages.warning(request, 'Tidak memiliki izin, jika hal ini merupakan kesalah hubungi Admin.')
+            return redirect('login')
+    except Exception:
         return redirect('login')
 
     participant, participant_count = participant_counter_filter(request.GET);
