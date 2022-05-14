@@ -24,7 +24,6 @@ urlpatterns = [
 
     path('school-capacity/', views.school_cap_view, name="school-cap"),
     path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
-
     path('major-capacity/create/', views.major_cap_create, name="major-cap-create"),
     path('major-capacity/delete/<int:pk>/', views.MajorCapDeleteView.as_view(), name="major-cap-delete"),
     path('major-capacity/update/<int:pk>/', views.major_cap_update, name="major-cap-update"),

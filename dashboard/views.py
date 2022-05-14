@@ -3,7 +3,6 @@ import zipfile
 from io import BytesIO
 
 from django.db import IntegrityError
-from django.core.paginator import Paginator
 from django.views import View
 from django.contrib import messages
 from django.conf import settings
@@ -15,7 +14,7 @@ from django.core.exceptions import FieldError, PermissionDenied
 from django.contrib.auth.decorators import permission_required
 
 from users.models import CustomUser
-from users.mixins import UserIsStaffMixin
+from users.mixins import UserIsVerifierMixin, UserIsSuperUserMixin
 
 import xlsxwriter
 
@@ -41,33 +40,56 @@ from participant_profile.models import (
 from homepage.models import FilesPool, ProsTelkomBandung, TestimonialModel
 from homepage.forms import ProsTelkomBandungForm, TestiModelForm
 
+def participant_counter_filter(label):
+    accounts = CustomUser.objects.all()
+
+    participant = Participant.objects.all()
+    participant_count = participant.count()
+
+    if 'lulus' in label:
+        filter_req = accounts.filter(participantgraduation__passed="L")
+    elif 'tag_daftar_ulg' in label:
+        filter_req = accounts.filter(participantrepayment__virt_acc_number__isnull=False)
+    elif 'lunas_bayar_daftar_ulg' in label:
+        filter_req = accounts.filter(participantrepayment__paid_off=True)
+    elif 'mengisi_identitas' in label:
+        filter_req = accounts.filter(participantprofile__id__isnull=False)
+    elif 'lunas_pembayaran_1' in label:
+        filter_req = accounts.filter(participantrepayment__verified_1=True)
+    elif 'lunas_pembayaran_2' in label:
+        filter_req = accounts.filter(participantrepayment__verified_2=True)
+    elif 'lunas_pembayaran_3' in label:
+        filter_req = accounts.filter(participantrepayment__verified_3=True)
+    elif 'up_berkas_dftr_ulang' in label:
+        filter_req = accounts.filter(reportfileparticipant__id__isnull=False, studentfile__id__isnull=False)
+    elif 'up_berkas_pendaftaran' in label:
+        filter_req = accounts.filter(participantfamilycert__id_isnull=False)
+    elif 'up_berkas_pendaftaran_verified' in label:
+        filter_req = accounts.filter(participantfamilycert__verified=True)
+    elif 'verified_profile' in label:
+        filter_req = accounts.filter(participantprofile__verified=True)
+    elif 'resign' in label:
+        participant = participant.filter(status='RSG')
+        label = None
+
+    if label:
+        participant = participant.filter(account__in=filter_req)
+
+    return participant, participant_count
 
 def dashboard(request):
 
-    if not request.user.is_staff:
-        raise PermissionDenied
+    if not request.user.is_staff and not request.user.is_verifier:
+        messages.warning(request, 'Tidak memiliki izin, jika hal ini merupakan kesalah hubungi Admin.')
+        return redirect('login')
 
-    if request.GET.get('search-name'):
-        participant = Participant.objects.filter(full_name__icontains=request.GET.get('search-name')).order_by('registration_number')
-    else:
-        participant = Participant.objects.all().order_by('registration_number')
+    participant, participant_count = participant_counter_filter(request.GET);
 
-    if request.GET.get('sort'):
-        participant.order_by('-created_at')
-
-    if 'lulus' in request.GET:
-        passed_participant = CustomUser.objects.filter(participantgraduation__passed="L")
-        participant = Participant.objects.filter(account__in=passed_participant)
+    accounts = CustomUser.objects.all()
 
     profile = ParticipantProfile.objects.all()
     passed_test = ParticipantGraduation.objects.all().count()
     payment = ParticipantRePayment.objects.all()
-
-    #  paginator = Paginator(participant, 20)
-    #  page_number = request.GET.get('page')
-    #  participant_obj = paginator.get_page(page_number)
-
-    accounts = CustomUser.objects.all()
 
     total_re_register_files = 0
     for acc in accounts:
@@ -77,18 +99,17 @@ def dashboard(request):
         except Exception:
             pass
 
-    tkj = MajorStudent.objects.filter(first_major='TKJ').count()
-    mm = MajorStudent.objects.filter(first_major='MM').count()
-    tjat = MajorStudent.objects.filter(first_major='TJAT').count()
-
-    verified = participant.filter(verified=True).count()
+    major_obj = MajorStudent.objects.all() 
+    tkj = major_obj.filter(first_major='TKJ').count()
+    mm = major_obj.filter(first_major='MM').count()
+    tjat = major_obj.filter(first_major='TJAT').count()
 
     family_cert = ParticipantFamilyCert.objects.all()
     family_cert_verified = family_cert.filter(verified=True)
 
     context = {
         'participant': participant,
-        'total_participant': participant.count(),
+        'total_participant': participant_count,
         'total_participant_resign': participant.filter(status="RSG").count(),
         'total_participant_accepted': passed_test,
         'total_participant_pay': payment.count(),
@@ -108,7 +129,7 @@ def dashboard(request):
 
     return render(request, 'dashboard/dashboard.html', context)
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def verified_raport(request):
 
     if request.method == 'POST':
@@ -125,7 +146,7 @@ def verified_raport(request):
 
     raise PermissionDenied
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def verified_cert(request):
 
     if request.method == 'POST':
@@ -142,7 +163,7 @@ def verified_cert(request):
 
     raise PermissionDenied
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def get_register_number(request):
     if request.method == 'POST':
         register_number = register_number_generator()
@@ -150,7 +171,7 @@ def get_register_number(request):
 
     raise PermissionDenied
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def reset_registration_number(request):
 
     if request.method == 'POST':
@@ -165,7 +186,7 @@ def reset_registration_number(request):
 
     return render(request, 'dashboard/reset_registration_number.html')
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def insert_participant(request):
     if request.method == 'POST':
         form = forms.RegisterStudentForm(request.POST, request.FILES)
@@ -203,7 +224,7 @@ def insert_participant(request):
     }
     return render(request, 'dashboard/insert_participant.html', context)
 
-@permission_required('users.is_staff')
+@permission_required('users.is_verifier')
 def files_download(request, pk):
     participant = Participant.objects.get(account=pk)
 
@@ -343,7 +364,7 @@ def export_to_excel(request):
 
     return resp
 
-@permission_required('users.is_staff')
+@permission_required('users.is_superuser')
 def analytic_view(request):
     info = InfoSourcePPDB.objects.all()
 
@@ -355,7 +376,7 @@ def analytic_view(request):
 
     return render(request, 'dashboard/analytic.html', {'data_list': [label, data], 'info': zip(data, label)})
 
-@permission_required('users.is_staff')
+@permission_required('users.is_superuser')
 def school_cap_view(request):
     total_cap, created = SchoolCapacity.objects.get_or_create(
         pk=1,
@@ -370,7 +391,7 @@ def school_cap_view(request):
 
     return render(request, 'dashboard/school_cap.html', ctx)
 
-@permission_required('users.is_staff')
+@permission_required('users.is_superuser')
 def major_cap_create(request):
     form = forms.MajorCapacityForm(request.POST or None)
 
@@ -381,7 +402,7 @@ def major_cap_create(request):
 
     return render(request, 'dashboard/major_cap_form.html', {'form': form})
 
-@permission_required('users.is_staff')
+@permission_required('users.is_superuser')
 def major_cap_update(request, pk):
 
     data = get_object_or_404(MajorCapacity, pk=pk)
@@ -394,7 +415,7 @@ def major_cap_update(request, pk):
 
     return render(request, 'dashboard/major_cap_form.html', {'form': form})
 
-@permission_required('users.is_staff')
+@permission_required('users.is_superuser')
 def school_cap_update(request, pk):
 
     data = get_object_or_404(SchoolCapacity, pk=pk)
@@ -423,89 +444,92 @@ def school_cap(request):
 
     return JsonResponse(data)
 
-class RegistrationPathListView(UserIsStaffMixin, ListView):
+# REGISTRATION PATH
+class RegistrationPathListView(UserIsSuperUserMixin, ListView):
     model = RegistrationPath
 
-class RegistrationPathCreateView(UserIsStaffMixin, CreateView):
-    model = RegistrationPath
-    form_class = forms.RegistrationPathForm
-    success_url = reverse_lazy('registration-path')
-
-class RegistrationPathUpdateView(UserIsStaffMixin, UpdateView):
+class RegistrationPathCreateView(UserIsSuperUserMixin, CreateView):
     model = RegistrationPath
     form_class = forms.RegistrationPathForm
     success_url = reverse_lazy('registration-path')
 
-class RegistrationPathDeleteView(UserIsStaffMixin, DeleteView):
+class RegistrationPathUpdateView(UserIsSuperUserMixin, UpdateView):
+    model = RegistrationPath
+    form_class = forms.RegistrationPathForm
+    success_url = reverse_lazy('registration-path')
+
+class RegistrationPathDeleteView(UserIsSuperUserMixin, DeleteView):
     model = RegistrationPath
     success_url = reverse_lazy('registration-path')
 
-class MajorStatusListView(UserIsStaffMixin, ListView):
+# MAJOR STATUS
+class MajorStatusListView(UserIsSuperUserMixin, ListView):
     model = MajorStatus
 
-class MajorStatusCreateView(UserIsStaffMixin, CreateView):
-    model = MajorStatus
-    form_class = forms.MajorStatusForm
-    success_url = reverse_lazy('major-status')
-
-class MajorStatusUpdateView(UserIsStaffMixin, UpdateView):
+class MajorStatusCreateView(UserIsSuperUserMixin, CreateView):
     model = MajorStatus
     form_class = forms.MajorStatusForm
     success_url = reverse_lazy('major-status')
 
-class MajorStatusDeleteView(UserIsStaffMixin, DeleteView):
+class MajorStatusUpdateView(UserIsSuperUserMixin, UpdateView):
+    model = MajorStatus
+    form_class = forms.MajorStatusForm
+    success_url = reverse_lazy('major-status')
+
+class MajorStatusDeleteView(UserIsSuperUserMixin, DeleteView):
     model = MajorStatus
     success_url = reverse_lazy('major-status')
 
-class TestimoniListView(UserIsStaffMixin, ListView):
+# TESTIMONI
+class TestimoniListView(UserIsSuperUserMixin, ListView):
     model = TestimonialModel
     template_name = 'dashboard/testimoni_list.html'
 
-class TestimoniDeleteView(UserIsStaffMixin, DeleteView):
+class TestimoniDeleteView(UserIsSuperUserMixin, DeleteView):
     model = TestimonialModel
     success_url = reverse_lazy('testimoni')
 
-class TestimoniCreateView(UserIsStaffMixin, CreateView):
+class TestimoniCreateView(UserIsSuperUserMixin, CreateView):
     model = TestimonialModel
     form_class = TestiModelForm
     template_name = 'dashboard/testimoni_form.html'
     success_url = reverse_lazy('testimoni')
 
-class TestimoniUpdateView(UserIsStaffMixin, UpdateView):
+class TestimoniUpdateView(UserIsSuperUserMixin, UpdateView):
     model = TestimonialModel
     form_class = TestiModelForm
     template_name = 'dashboard/testimoni_form.html'
     success_url = reverse_lazy('testimoni')
     
-class MajorCapDeleteView(UserIsStaffMixin, DeleteView):
+class MajorCapDeleteView(UserIsSuperUserMixin, DeleteView):
     model = MajorCapacity
     success_url = reverse_lazy('school-cap')
 
-class ProsHomepageDeleteView(UserIsStaffMixin, DeleteView):
+class ProsHomepageDeleteView(UserIsSuperUserMixin, DeleteView):
     model = ProsTelkomBandung
     success_url = reverse_lazy('pros-telkom')
 
-class ProsHomepageCreateView(UserIsStaffMixin, CreateView):
-    model = ProsTelkomBandung
-    form_class = ProsTelkomBandungForm
-    template_name = "dashboard/prostelkombandung_form.html"
-    success_url = reverse_lazy('pros-telkom')
-
-class ProsHomepageUpdateView(UserIsStaffMixin, UpdateView):
+class ProsHomepageCreateView(UserIsSuperUserMixin, CreateView):
     model = ProsTelkomBandung
     form_class = ProsTelkomBandungForm
     template_name = "dashboard/prostelkombandung_form.html"
     success_url = reverse_lazy('pros-telkom')
 
-class ProsHomepageListView(UserIsStaffMixin, ListView):
+class ProsHomepageUpdateView(UserIsSuperUserMixin, UpdateView):
+    model = ProsTelkomBandung
+    form_class = ProsTelkomBandungForm
+    template_name = "dashboard/prostelkombandung_form.html"
+    success_url = reverse_lazy('pros-telkom')
+
+class ProsHomepageListView(UserIsSuperUserMixin, ListView):
     model = ProsTelkomBandung
     template_name = "dashboard/prostelkombandung_list.html"
 
-class ParticipantDeleteView(UserIsStaffMixin, DeleteView):
+class ParticipantDeleteView(UserIsSuperUserMixin, DeleteView):
     model = CustomUser
     success_url = reverse_lazy('dashboard')
 
-class PasswordChangeViewDashboard(UserIsStaffMixin, View):
+class PasswordChangeViewDashboard(UserIsVerifierMixin, View):
     template_name = 'dashboard/participant_detail.html'
     success_url = 'participant-detail'
     form_class = forms.SetPasswordDashboardForm
@@ -543,147 +567,147 @@ class PasswordChangeViewDashboard(UserIsStaffMixin, View):
 
 
 # REGISTER SCHEDULE VIEW
-class RegisterScheduleListView(UserIsStaffMixin, ListView):
+class RegisterScheduleListView(UserIsSuperUserMixin, ListView):
     template_name = 'dashboard/registerschedule_list.html'
     model = RegisterSchedule
 
-class RegisterScheduleCreateView(UserIsStaffMixin, CreateView):
+class RegisterScheduleCreateView(UserIsSuperUserMixin, CreateView):
     model = RegisterSchedule
     form_class = forms.RegisterScheduleForm
     template_name = "dashboard/registerschedule_form.html"
     success_url = reverse_lazy('register-schedule')
 
-class RegisterSchduleDeleteView(UserIsStaffMixin, DeleteView):
+class RegisterSchduleDeleteView(UserIsSuperUserMixin, DeleteView):
     model = RegisterSchedule
     success_url = reverse_lazy('register-schedule')
 
-class RegisterSchduleUpdateView(UserIsStaffMixin, UpdateView):
+class RegisterSchduleUpdateView(UserIsSuperUserMixin, UpdateView):
     model = RegisterSchedule
     form_class = forms.RegisterScheduleForm
     template_name = "dashboard/registerschedule_form.html"
     success_url = reverse_lazy('register-schedule')
 
 # REGISTER STEP VIEW
-class RegisterStepListView(UserIsStaffMixin, ListView):
+class RegisterStepListView(UserIsSuperUserMixin, ListView):
     template_name = 'dashoard/registerstep_list.html'
     model = RegisterStep
 
-class RegisterStepCreateView(UserIsStaffMixin, CreateView):
+class RegisterStepCreateView(UserIsSuperUserMixin, CreateView):
     model = RegisterStep
     form_class = forms.RegisterStepForm
     template_name = "dashboard/registerstep_form.html"
     success_url = reverse_lazy('register-step')
 
-class RegisterStepDeleteView(UserIsStaffMixin, DeleteView):
+class RegisterStepDeleteView(UserIsSuperUserMixin, DeleteView):
     model = RegisterStep
     success_url = reverse_lazy('register-step')
 
-class RegisterStepUpdateView(UserIsStaffMixin, UpdateView):
+class RegisterStepUpdateView(UserIsSuperUserMixin, UpdateView):
     model = RegisterStep
     form_class = forms.RegisterStepForm
     template_name = "dashboard/registerstep_form.html"
     success_url = reverse_lazy('register-step')
 
 # INFO SOURCE PPDB
-class InfoSourcePPDBView(UserIsStaffMixin, ListView):
+class InfoSourcePPDBView(UserIsSuperUserMixin, ListView):
     model = InfoSourcePPDB
     template_name = 'dashboard/infoppdb_list.html'
 
-class InfoSourcePPDBDelete(UserIsStaffMixin, DeleteView):
+class InfoSourcePPDBDelete(UserIsSuperUserMixin, DeleteView):
     model = InfoSourcePPDB
     success_url = reverse_lazy('info-ppdb')
 
-class InfoSourcePPDBCreate(UserIsStaffMixin, CreateView):
+class InfoSourcePPDBCreate(UserIsSuperUserMixin, CreateView):
     model = InfoSourcePPDB
     form_class = forms.InfoSourcePPDBForm
     template_name = "dashboard/infoppdb_form.html"
     success_url = reverse_lazy('info-ppdb')
 
-class InfoSourcePPDBUpdate(UserIsStaffMixin, UpdateView):
+class InfoSourcePPDBUpdate(UserIsSuperUserMixin, UpdateView):
     model = InfoSourcePPDB
     form_class = forms.InfoSourcePPDBForm
     template_name = "dashboard/infoppdb_form.html"
     success_url = reverse_lazy('info-ppdb')
 
 # FILES POOL VIEW
-class FilesPoolView(UserIsStaffMixin, ListView):
+class FilesPoolView(UserIsSuperUserMixin, ListView):
     model = FilesPool
     template_name = 'dashboard/filespool_list.html'
 
-class FilesPoolDeleteView(UserIsStaffMixin, DeleteView):
+class FilesPoolDeleteView(UserIsSuperUserMixin, DeleteView):
     model = FilesPool
     success_url = reverse_lazy('files-pool')
 
-class FilesPoolCreateView(UserIsStaffMixin, CreateView):
+class FilesPoolCreateView(UserIsSuperUserMixin, CreateView):
     model = FilesPool
     form_class = forms.FilesPoolForm
     template_name = 'dashboard/filespool_form.html'
     success_url = reverse_lazy('files-pool')
 
-class FilesPoolUpdateView(UserIsStaffMixin, UpdateView):
+class FilesPoolUpdateView(UserIsSuperUserMixin, UpdateView):
     model = FilesPool
     form_class = forms.FilesPoolForm
     template_name = 'dashboard/filespool_form.html'
     success_url = reverse_lazy('files-pool')
 
 # Register File View
-class RegisterFileView(UserIsStaffMixin, ListView):
+class RegisterFileView(UserIsSuperUserMixin, ListView):
     model = RegisterFilePrimaseru
     template_name = 'dashboard/registerfiles_list.html'
 
-class RegisterFileDeleteView(UserIsStaffMixin, DeleteView):
+class RegisterFileDeleteView(UserIsSuperUserMixin, DeleteView):
     model = RegisterFilePrimaseru
     success_url = reverse_lazy('files-register')
 
-class RegisterFileUpdateView(UserIsStaffMixin, UpdateView):
+class RegisterFileUpdateView(UserIsSuperUserMixin, UpdateView):
     model = RegisterFilePrimaseru
     fields = '__all__'
     template_name = 'dashboard/registerfiles_form.html'
     success_url = reverse_lazy('files-register')
 
-class RegisterFileCreateView(UserIsStaffMixin, CreateView):
+class RegisterFileCreateView(UserIsSuperUserMixin, CreateView):
     model = RegisterFilePrimaseru
     fields = '__all__'
     template_name = 'dashboard/registerfiles_form.html'
     success_url = reverse_lazy('files-register')
 
 # Re Register File View
-class ReRegisterFileView(UserIsStaffMixin, ListView):
+class ReRegisterFileView(UserIsSuperUserMixin, ListView):
     model = ReRegisterFilePrimaseru
     template_name = 'dashboard/reregisterfiles_list.html'
 
-class ReRegisterFileDeleteView(UserIsStaffMixin, DeleteView):
+class ReRegisterFileDeleteView(UserIsSuperUserMixin, DeleteView):
     model = ReRegisterFilePrimaseru
     success_url = reverse_lazy('files-re-register')
 
-class ReRegisterFileUpdateView(UserIsStaffMixin, UpdateView):
+class ReRegisterFileUpdateView(UserIsSuperUserMixin, UpdateView):
     model = ReRegisterFilePrimaseru
     fields = '__all__'
     template_name = 'dashboard/reregisterfiles_form.html'
     success_url = reverse_lazy('files-re-register')
 
-class ReRegisterFileCreateView(UserIsStaffMixin, CreateView):
+class ReRegisterFileCreateView(UserIsSuperUserMixin, CreateView):
     model = ReRegisterFilePrimaseru
     fields = '__all__'
     template_name = 'dashboard/reregisterfiles_form.html'
     success_url = reverse_lazy('files-re-register')
 
 # Re Register File View
-class PrimaseruContactsView(UserIsStaffMixin, ListView):
+class PrimaseruContactsView(UserIsSuperUserMixin, ListView):
     model = PrimaseruContacts
     template_name = 'dashboard/primaserucontacts_list.html'
 
-class PrimaseruContactsDeleteView(UserIsStaffMixin, DeleteView):
+class PrimaseruContactsDeleteView(UserIsSuperUserMixin, DeleteView):
     model = PrimaseruContacts
     success_url = reverse_lazy('primaseru-contacts')
 
-class PrimaseruContactsUpdateView(UserIsStaffMixin, UpdateView):
+class PrimaseruContactsUpdateView(UserIsSuperUserMixin, UpdateView):
     model = PrimaseruContacts
     fields = '__all__'
     template_name = 'dashboard/primaserucontacts_form.html'
     success_url = reverse_lazy('primaseru-contacts')
 
-class PrimaseruContactsCreateView(UserIsStaffMixin, CreateView):
+class PrimaseruContactsCreateView(UserIsSuperUserMixin, CreateView):
     model = PrimaseruContacts
     fields = '__all__'
     template_name = 'dashboard/primaserucontacts_form.html'
@@ -691,7 +715,7 @@ class PrimaseruContactsCreateView(UserIsStaffMixin, CreateView):
 
 
 # PAYMENT BANNER VIEW
-class BannerPayment(UserIsStaffMixin, View):
+class BannerPayment(UserIsSuperUserMixin, View):
     model = PaymentBanner
     form_class = forms.PaymentBannerForm
     template_name = 'dashboard/bannerpayment_form.html'
@@ -731,7 +755,7 @@ class RegisterNumberUpdateView(BannerPayment):
     success_url = "register-number-update"
 
 # Repost Views
-class RaportFilesView(UserIsStaffMixin, ListView):
+class RaportFilesView(UserIsVerifierMixin, ListView):
     model = ReportFileParticipant
     template_name = 'dashboard/raport_list.html'
     context_object_name = "raport_files"
@@ -750,7 +774,7 @@ class RaportFilesView(UserIsStaffMixin, ListView):
 
         return context
 
-class RaportFileCreate(UserIsStaffMixin, CreateView):
+class RaportFileCreate(UserIsVerifierMixin, CreateView):
     model = ReportFileParticipant
     form_class = forms.RaportFileDashboardForm
     template_name = "dashboard/participant_files.html"
@@ -770,14 +794,14 @@ class RaportFileCreate(UserIsStaffMixin, CreateView):
         context['participant_name'] = CustomUser.objects.get(pk=pk)
         return context
 
-class RaportFileDelete(UserIsStaffMixin, DeleteView):
+class RaportFileDelete(UserIsVerifierMixin, DeleteView):
     model = ReportFileParticipant
 
     def get_success_url(self):
         return reverse('raport-list', kwargs={"account": self.kwargs['account']})
 
 # Achievment Certificate
-class CertFilesView(UserIsStaffMixin, ListView):
+class CertFilesView(UserIsVerifierMixin, ListView):
     model = ParticipantCert
     template_name = 'dashboard/cert_list.html'
     context_object_name = "cert_files"
@@ -796,7 +820,7 @@ class CertFilesView(UserIsStaffMixin, ListView):
 
         return context
 
-class CertFileCreate(UserIsStaffMixin, CreateView):
+class CertFileCreate(UserIsVerifierMixin, CreateView):
     model = ParticipantCert
     form_class = forms.CertDashboardForm
     template_name = "dashboard/participant_files.html"
@@ -816,7 +840,7 @@ class CertFileCreate(UserIsStaffMixin, CreateView):
         context['participant_name'] = CustomUser.objects.get(pk=pk)
         return context
 
-class CertFileDelete(UserIsStaffMixin, DeleteView):
+class CertFileDelete(UserIsVerifierMixin, DeleteView):
     model = ParticipantCert
 
     def get_success_url(self):
@@ -824,7 +848,7 @@ class CertFileDelete(UserIsStaffMixin, DeleteView):
 
 # PARTICIPANT PROFILE VIEW 
 # TODO: Need to seperate the business logic
-class ParticipantBaseView(UserIsStaffMixin, View):
+class ParticipantBaseView(UserIsVerifierMixin, View):
     form_class = None
     model = None
     template_name = "dashboard/participant_detail.html"
