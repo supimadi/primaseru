@@ -63,7 +63,7 @@ def participant_counter_filter(label):
     elif 'up_berkas_dftr_ulang' in label:
         filter_req = accounts.filter(reportfileparticipant__id__isnull=False, studentfile__id__isnull=False)
     elif 'up_berkas_pendaftaran' in label:
-        filter_req = accounts.filter(participantfamilycert__id_isnull=False)
+        filter_req = accounts.filter(participantfamilycert__id__isnull=False)
     elif 'up_berkas_pendaftaran_verified' in label:
         filter_req = accounts.filter(participantfamilycert__verified=True)
     elif 'verified_profile' in label:
