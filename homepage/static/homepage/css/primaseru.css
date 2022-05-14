@@ -1,4 +1,4 @@
- html {
+html {
     scroll-behavior: smooth;
 }
 * {
@@ -11,6 +11,7 @@ body {
 #app {
     overflow-x: hidden;
 }
+
 /* utilities */
 h1, h2, h3, h1 span, h2 span {
     font-family: 'Poppins', sans-serif;
@@ -21,6 +22,7 @@ p, span, a {
 .red-text {
     color: #FF3131;
 }
+
 /* components */
 .my-btn-primary {
     background: linear-gradient( #FFADAD 10%, #FF0000 );
@@ -50,6 +52,7 @@ p, span, a {
     font-weight: 700;
     font-size: 48px;
 }
+
 /* navbar */
 nav .container {
     padding: 0 15px !important;
@@ -104,22 +107,13 @@ footer {
     color: #FF3131;
     text-decoration: none;
 }
-@media (max-width: 767.98px) {
-    nav.scrolled {
-        padding: 10px 0;
-    }
-    .navbar-brand img {
-        height: 26px;
-    }
-    .hero h1 {
-        font-size: 42px;
-    }
-    .hero p {
-        font-size: 14px;
-    }
-    .heading-section {
-        font-size: 32px;
-    }
+
+.medsos-link {
+    margin-right: 8px;
+}
+.medsos-link:hover .medsos-icon path {
+    fill: #EB3349;
+    transition: .3s;
 }
 
 .fs-md {
@@ -142,7 +136,7 @@ section {
     font-size: 70px;
 }
 
-/* section kelebihan */
+/* section "kelebihan" */
 #section-kelebihan {
     margin-top: 80px;
 }
@@ -168,6 +162,28 @@ section#section-3 h2 {
 }
 section#section-3 ul{
     padding: 1rem;
+}
+
+/* section "kuota tersisa" */
+.section-kuota-tersisa {
+    padding: 0;
+}
+.number-container {
+    display: flex;
+    justify-content: space-between;
+}
+.number-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.33%;
+}
+.number-item img {
+    width: 80px;
+    height: 80px;
+}
+.number-item span {
+    text-align: center;
 }
 
 /* section 4 Timeline */
@@ -458,6 +474,21 @@ section#section-testimonials {
 }
 
 @media (max-width: 767.98px) {
+    nav.scrolled {
+        padding: 10px 0;
+    }
+    .navbar-brand img {
+        height: 26px;
+    }
+    .hero h1 {
+        font-size: 42px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+    .heading-section {
+        font-size: 32px;
+    }
     .hero h1 {
         font-size: 42px;
     }
@@ -516,6 +547,14 @@ section#section-testimonials {
         padding-left: 50px;
         margin: 15px;
     }
+    .number-item img {
+        width: 60px;
+        height: 60px;
+    }    
+    .number-item h1 {
+        font-size: 28px;
+    }
+
     /* tahapan daftar */
     .timeline::after {
         left: 6px;

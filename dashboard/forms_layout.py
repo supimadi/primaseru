@@ -74,6 +74,7 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
             Div('info', css_class="col-md-12"),
         ),
         Row(
+            Div(Field('status'), css_class="col-md-12"),
             Div(Field('verified'), css_class="col-md-12"),
         ),
         Row(

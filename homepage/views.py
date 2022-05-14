@@ -7,7 +7,7 @@ from . import forms, models
 from users.models import CustomUser
 
 from dashboard.models import (
-    RegisterSchedule, RegisterStep,
+    Participant, ParticipantGraduation, ParticipantRePayment, RegisterSchedule, RegisterStep,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru,
     PaymentBanner, PrimaseruContacts
 )
@@ -19,6 +19,13 @@ def download_menu(request):
     return render(request, 'homepage/download-menu.html', {'files': files})
 
 def home(request):
+    participant = Participant.objects.filter(status__contains="ACT").count()
+    # number of accepted participant
+    accepted_part = ParticipantGraduation.objects.filter(passed='L').count()
+    # number of participant doing second register
+    re_reg_part = ParticipantRePayment.objects.filter(verified_1=True).count()
+
+
     ctx = {
         'schedule': RegisterSchedule.objects.all(),
         'step': RegisterStep.objects.all(),
@@ -27,6 +34,10 @@ def home(request):
         'pros_telkom': models.ProsTelkomBandung.objects.all(),
         'banner': PaymentBanner.objects.get(pk=1),
         'testimoni': models.TestimonialModel.objects.all(),
+        
+        'participant_counter': participant,
+        'accepted_part': accepted_part,
+        're_reg_part': re_reg_part,
     }
     return render(request, 'homepage/home.html', ctx)
 

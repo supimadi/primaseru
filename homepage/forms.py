@@ -94,4 +94,4 @@ class ParticipantRegisterForm(forms.ModelForm):
 
     class Meta:
         model = Participant
-        exclude = ['account', 'registration_number', 'verified', 'updated_at', 'created_at']
+        exclude = ['account', 'status','registration_number', 'verified', 'updated_at', 'created_at']

@@ -24,7 +24,6 @@ urlpatterns = [
 
     path('school-capacity/', views.school_cap_view, name="school-cap"),
     path('school-capacity/update/<int:pk>/', views.school_cap_update, name="school-cap-update"),
-
     path('major-capacity/create/', views.major_cap_create, name="major-cap-create"),
     path('major-capacity/delete/<int:pk>/', views.MajorCapDeleteView.as_view(), name="major-cap-delete"),
     path('major-capacity/update/<int:pk>/', views.major_cap_update, name="major-cap-update"),
@@ -77,6 +76,16 @@ urlpatterns = [
     path('langkah/pendaftaran/insert/', views.RegisterStepCreateView.as_view(), name='register-step-create'),
     path('langkah/pendaftaran/delete/<int:pk>/', views.RegisterStepDeleteView.as_view(), name='register-step-delete'),
     path('langkah/pendaftaran/update/<int:pk>/', views.RegisterStepUpdateView.as_view(), name='register-step-update'),
+
+    path('status/jurusan/', views.MajorStatusListView.as_view(), name='major-status'),
+    path('status/jurusan/create/', views.MajorStatusCreateView.as_view(), name='major-status-create'),
+    path('status/jurusan/update/<int:pk>/', views.MajorStatusUpdateView.as_view(), name='major-status-update'),
+    path('status/jurusan/delete/<int:pk>/', views.MajorStatusDeleteView.as_view(), name='major-status-delete'),
+
+    path('jalur/pendaftaran/', views.RegistrationPathListView.as_view(), name='registration-path'),
+    path('jalur/pendaftaran/create/', views.RegistrationPathCreateView.as_view(), name='registration-path-create'),
+    path('jalur/pendaftaran/update/<int:pk>/', views.RegistrationPathUpdateView.as_view(), name='registration-path-update'),
+    path('jalur/pendaftaran/delete/<int:pk>/', views.RegistrationPathDeleteView.as_view(), name='registration-path-delete'),
 
     path('ganti-password/<int:pk>/', views.PasswordChangeViewDashboard.as_view(), name='participant-change-password'),
 

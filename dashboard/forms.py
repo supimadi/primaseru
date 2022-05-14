@@ -8,8 +8,8 @@ from .models import (
     Participant, RegisterSchedule, RegisterStep,
     ParticipantGraduation, ParticipantLMS, ParticipantRePayment,
     InfoSourcePPDB, PaymentBanner, ParticipantCount,
-    SchoolCapacity, MajorCapacity
-    )
+    SchoolCapacity, MajorCapacity, MajorStatus, RegistrationPath
+)
 from . import forms_layout
 
 from homepage.models import FilesPool
@@ -82,7 +82,7 @@ class RegisterStudentForm(forms.ModelForm):
 
     class Meta:
         model = Participant
-        exclude = ['account', 'registration_number', 'updated_at', 'created_at']
+        exclude = ['account', 'status','registration_number', 'updated_at', 'created_at']
 
 class RegisterStudentFormDashboard(forms.ModelForm):
 
@@ -259,5 +259,25 @@ class MajorCapacityForm(forms.ModelForm):
 
     class Meta:
         model = MajorCapacity
+        fields = '__all__'
+
+class MajorStatusForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = MajorStatus
+        fields = '__all__'
+
+class RegistrationPathForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = RegistrationPath
         fields = '__all__'
 

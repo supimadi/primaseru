@@ -1,27 +1,5 @@
 {% extends 'participant_profile/primaseru.html' %}
 {% load static %}
-    {% comment %} <div class="row">
-        <div class="col-12 px-2 px-lg-5 bg-light border-bottom border-top">
-            <div class="nav nav-fill mx-0 mx-lg-5 px-0 px-lg-3" id="v-pills-tab" role="navigation">
-                <a class="nav-link tab-profile" href="{% url 'participant-major' %}" role="tab">Jurusan</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-profile' %}" role="tab">Data Pribadi</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-father' %}" role="tab">Data Ayah</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-mother' %}" role="tab">Data Ibu</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-guardian' %}" role="tab">Data Wali</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-kk' %}" role="tab">Berkas</a>
-                {% if lms %}
-                <a class="nav-link tab-profile" href="{% url 'participant-lms' %}" role="tab">Akun LMS</a>
-                <a class="nav-link tab-profile" href="{% url 'participant-graduation' %}" role="tab">Kelulusan</a>
-                {% endif %}
-                {% if passed %}
-                <a class="nav-link tab-profile" href="{% url 'participant-payment' %}" role="tab">Pembayaran Daftar ulang</a>
-                {% endif %}
-                {% if pay %}
-                <a class="nav-link tab-profile" href="{% url 'participant-raport' %}" role="tab">Berkas Daftar Ulang</a>
-                {% endif %}
-            </div>
-        </div>
-    </div> {% endcomment %}
 
 {% block content %}
 
@@ -51,9 +29,23 @@
         {% endif %}
         {% elif data.passed == 'TL' and data.is_announced %}
         <div class="h5 mb-3 font-weight-bold text-gray-800">Mohon maaf, Anda tidak lulus seleksi Primaseru.</div>
-        <p class="text-gray-600">
-            Jangan menyerah dan putus asa, masih ada banyak jalan yang bisa ditempuh.
-        </p>
+        <div class="quoteContainer text-gray-600">
+            <p id="quoteText"></p>
+            <p class="quoteAuthor">&horbar; <span id="quoteAuthor"></span></p>
+        </div>
+        <script type="text/javascript">
+            fetch("https://type.fit/api/quotes")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var quote = data[Math.floor(Math.random() * data.length)];
+
+                    document.getElementById("quoteText").innerHTML = quote.text;
+                    document.getElementById("quoteAuthor").innerHTML = quote.author;
+                }
+            );
+        </script>
 	{% else %}
 	<div class="h5 mb-3 font-weight-bold text-gray-800">Nothing to see here, yet...</div>
         <p class="text-gray-600">

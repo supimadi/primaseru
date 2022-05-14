@@ -32,6 +32,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_verifier', False)
         return self._create_user(username, password, **extra_fields)
 
     def create_superuser(self, username, password, **extra_fields):
@@ -41,11 +42,17 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_verifier', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True.'))
+
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
+
+        if extra_fields.get('is_verifier') is not True:
+            raise ValueError(_('Superuser must have is_verifier=True.'))
+
         return self.create_user(username, password, **extra_fields)
 
 
@@ -69,10 +76,16 @@ class CustomUser(AbstractUser):
         },
     )
 
+    is_verifier = models.BooleanField(
+        _('verifier'),
+        default=False,
+    )
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['password']
-
+    
     objects = CustomUserManager()
 
     def __str__(self):
         return self.username
+

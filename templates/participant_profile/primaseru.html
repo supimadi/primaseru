@@ -20,6 +20,33 @@
 
  <div id="wrapper">
 
+     {% if user.participant.status == 'RSG' %}
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+                <h2 class="text-dark">{{ user.participant.full_name }}, sampai ketemu lagi dilain waktu 👋</h2>
+                <div class="quoteContainer w-100 text-center my-4">
+                    <p id="quoteText"></p>
+                    <p class="quoteAuthor">&horbar; <span id="quoteAuthor"></span></p>
+                </div>
+                <img class="img-fluid mb-5" style="width: 25em;" src="{% static 'participant_profile/images/undraw_design_thinking_re_644h.svg' %}" alt="illustrasi">
+                <a class="btn btn-outline-secondary" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+            fetch("https://type.fit/api/quotes")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var quote = data[Math.floor(Math.random() * data.length)];
+
+                    document.getElementById("quoteText").innerHTML = quote.text;
+                    document.getElementById("quoteAuthor").innerHTML = quote.author;
+                }
+            );
+        </script>
+     {% else %}
+
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-dark accordion" style="background: #263238;" id="accordionSidebar">
 
@@ -306,6 +333,7 @@
         </div>
         <!-- End of Content Wrapper -->
 
+    {% endif %}
     </div>
     <!-- End of Page Wrapper -->
 

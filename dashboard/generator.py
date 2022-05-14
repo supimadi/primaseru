@@ -1,5 +1,4 @@
 from .models import ParticipantCount, Participant
-from django.utils import timezone
 
 def register_number_generator():
     try:
