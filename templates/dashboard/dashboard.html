@@ -203,6 +203,7 @@
                     <thead class="py-3 thead-light">
                         <tr>
                             <th scope="col">No. Pendaftaran</th>
+                            <th scope="col">Prodi Pilihan</th>
                             <th scope="col">Tgl Daftar</th>
                             <th scope="col">Nama Lengkap</th>
                             <th scope="col">Nama Orang Tua</th>
@@ -219,6 +220,10 @@
                                 <td>
                                     <h5>
                                         <span class="ml-3 badge badge-secondary">{{ s.registration_number }}</span>
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
                                         <span class="ml-3 badge badge-secondary">{{ s.account.majorstudent.first_major }}</span>
                                     </h5>
                                 </td>
