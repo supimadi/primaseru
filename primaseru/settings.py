@@ -150,6 +150,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# API Key for whatsapp messages
+WA_API_KEY = os.getenv('WA_API_KEY')
+
 # Defining a new custom user manager
 AUTH_USER_MODEL = 'users.CustomUser'
 LOGOUT_REDIRECT_URL = 'homepage'

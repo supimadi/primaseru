@@ -1,3 +1,6 @@
+import requests
+
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -12,6 +15,13 @@ from dashboard.models import (
     PaymentBanner, PrimaseruContacts
 )
 
+
+def reformat_phone_number(phone_number: str) -> str:
+
+    if phone_number.startswith("+"):
+        return phone_number.lstrip("+")
+
+    return f"62{phone_number.lstrip('0')}"
 
 def download_menu(request):
     files = models.FilesPool.objects.all()
@@ -86,6 +96,31 @@ def register(request):
     form2.save(commit=True)
     form2.save_m2m()
 
+    message_template = f"""
+Terima kasih Bapak/ Ibu {form2.cleaned_data['parent_full_name']} sudah membuat akun *Penerimaan Peserta Didik Baru* (PRIMASERU) SMK Telkom Bandung T.A. 2022/ 2023, berikut data pendaftaran:
+
+Nama Lengkap : *{form2.cleaned_data['full_name']}* 
+Asal Sekolah : *{form2.cleaned_data['previous_school']}*
+Username : *{form2.cleaned_data['participant_phone_number']}*
+Password : *{form.cleaned_data['password2']}*
+
+
+Tahap selanjutnya silahkan Bapak/ Ibu {form2.cleaned_data['parent_full_name']} segera membayar uang pendaftaran sebesar Rp.300.000.- ke nomor rekening *Mandiri atas nama SMK Telkom Bandung dengan nomor rekening 131-00-0806150-1*
+
+Jika Bapak/ Ibu telah membayarkan uang pendaftarannya, silakan Bapak/ Ibu kirimkan buktinya ke nomor ini.
+
+Terima kasih,
+*SALAM PANITIA PRIMASERU SMK TELKOM BANDUNG*
+    """
+
+    data = {
+        "api_key": settings.WA_API_KEY,
+        "sender": "6281222758538",
+        "number": reformat_phone_number(form2.cleaned_data['parent_phone_number']),
+        "message": message_template
+    }
+
+    requests.post("https://wa.telkomschools.sch.id/send-message", data=data)
     return redirect('profile')
 
 

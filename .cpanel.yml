@@ -9,5 +9,6 @@ deployment:
     - /bin/cp -r templates $DEPLOYPATH
     - /bin/cp -r requirements.txt $DEPLOYPATH
     - source /home/smkbandung/virtualenv/python_app/primaseru/3.7/bin/activate && cd /home/smkbandung/python_app/primaseru
+    - /home/smkbandung/virtualenv/python_app/primaseru/3.7/bin/pip install -r ./requirements.txt
     - ./manage.py collectstatic --noinput
     - ./manage.py migrate
