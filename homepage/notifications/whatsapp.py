@@ -10,28 +10,27 @@ def _reformat_phone_number(phone_number: str) -> str:
 
     return f"62{phone_number.lstrip('0')}"
 
-def send_register_notif(parent_name: str, full_name: str, school: str, username_user: str, password_user: str, phone_number: list[str]):
+def send_register_notif(parent_name: str, full_name: str, school: str, username_user: str, password_user: str, phone_number: list):
     message_template = f"""
-    Terima kasih Bapak/ Ibu {parent_name} sudah membuat akun *Penerimaan Peserta Didik Baru* (PRIMASERU) SMK Telkom Bandung T.A. 2022/ 2023, berikut data pendaftaran:
+Terima kasih Bapak/ Ibu {parent_name} sudah membuat akun *Penerimaan Peserta Didik Baru* (PRIMASERU) SMK Telkom Bandung T.A. 2022/ 2023, berikut data pendaftaran:
 
-    Nama Lengkap : *{full_name}* 
-    Asal Sekolah : *{school}*
-    Username : *{username_user}*
-    Password : *{password_user}*
+Nama Lengkap : *{full_name}* 
+Asal Sekolah : *{school}*
+Username : *{username_user}*
+Password : *{password_user}*
 
 
-    Tahap selanjutnya silahkan Bapak/ Ibu {parent_name} segera membayar uang pendaftaran sebesar Rp.300.000.- ke nomor rekening *Mandiri atas nama SMK Telkom Bandung dengan nomor rekening 131-00-0806150-1*
+Tahap selanjutnya silahkan Bapak/ Ibu {parent_name} segera membayar uang pendaftaran sebesar Rp.300.000.- ke nomor rekening *Mandiri atas nama SMK Telkom Bandung dengan nomor rekening 131-00-0806150-1*
 
-    Jika Bapak/ Ibu telah membayarkan uang pendaftarannya, silakan Bapak/ Ibu kirimkan buktinya ke nomor ini.
+Jika Bapak/ Ibu telah membayarkan uang tes minat bakat, silakan Bapak/ Ibu kirimkan buktinya ke nomor ini.
 
-    Terima kasih,
-    *SALAM PANITIA PRIMASERU SMK TELKOM BANDUNG*
+Terima kasih,
+*SALAM PANITIA PRIMASERU SMK TELKOM BANDUNG*
     """
 
     data = {
         "api_key": settings.WA_API_KEY,
         "sender": "6281222758538",
-        #  "number": _reformat_phone_number(form2.cleaned_data['parent_phone_number']),
         "message": message_template
     }
 
@@ -39,8 +38,8 @@ def send_register_notif(parent_name: str, full_name: str, school: str, username_
     for number in phone_number:
         data["number"] = _reformat_phone_number(number)
 
-        # Give some delay to prefent blocking the phone number
+        # Give some delay to prevent blocking the phone number
         sleep(timeout)
-        timeout += 30.0
+        timeout += 60.0
 
         requests.post("https://wa.telkomschools.sch.id/send-message", data=data)
