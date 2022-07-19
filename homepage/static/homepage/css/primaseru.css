@@ -65,6 +65,29 @@ nav.navbar {
 .navbar-brand img {
     object-fit: scale-down;
 }
+.nav-item {
+    margin: 0 6px;
+}
+.nav-link {
+color: rgba(0, 0, 0, 0.502);
+}
+.nav-link:hover {
+    color: #FF0000;
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+    border-radius: 10px;
+}
+.dropdown-item {
+    font-size: 14px;
+    padding: 12px 16px;
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #E65245;
+}
+
 .navbar-toggler {
     display: flex;
     flex-direction: column;
@@ -165,7 +188,7 @@ section#section-3 ul{
 }
 
 /* section "kuota tersisa" */
-.section-kuota-tersisa {
+#section-kuota {
     padding: 0;
 }
 .number-container {
