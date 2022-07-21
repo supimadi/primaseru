@@ -1,0 +1,346 @@
+body {
+  background-color: #F8F8FF;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h1 span, h2 span {
+  font-family: 'Poppins', sans-serif;
+}
+p, span, a {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ===== navbar ===== */
+nav .container {
+  padding: 0 15px !important;
+}
+
+.navbar {
+  background-color: transparent;
+  padding: 35px 0;
+  transition: .4s;
+}
+.navbar.scrolled {
+  background-color: #F8F8FF;
+  padding: 15px 0;
+  box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand img {
+  filter: brightness(0) invert(1);
+  object-fit: scale-down;
+  transition: .5s;
+}
+.navbar.scrolled .navbar-brand img {
+  filter: brightness(1) invert(0);
+}
+.nav-item {
+  margin: 0 6px;
+}
+.nav-link {
+  color: #FFFFFF;
+}
+.nav-link:hover {
+  color: #d6d6d6;
+}
+.navbar.scrolled  .nav-link {
+  color: rgba(0, 0, 0, 0.502);
+}
+.navbar.scrolled  .nav-link:hover {
+  color: #FF0000;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  border-radius: 10px;
+}
+.dropdown-item {
+  font-size: 14px;
+  padding: 12px 16px;
+}
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #E65245;
+}
+
+.navbar-toggler {
+  display: flex;
+  flex-direction: column;
+  height: 26px;
+  justify-content: space-between;
+  border: none;
+}
+.navbar-toggler.active .hamburger-line:nth-child(1) {
+  transform: rotateZ(47deg) translate(-2px, 14px);
+}
+.navbar-toggler.active .hamburger-line:nth-child(2) {
+  transform: translateX(200px);
+}
+.navbar-toggler.active .hamburger-line:nth-child(3) {
+  transform: rotateZ(-47deg) translate(-3px, -15px);
+}
+
+.hamburger-line {
+  width: 32px;
+  height: 2px;
+  background-color: #FFFFFF;
+  transition: .7s;
+}
+.navbar.scrolled .hamburger-line {
+  background-color: #FF0000;
+}
+
+.my-btn-outline-primary {
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF !important;
+  border-radius: 30px;
+  padding: 16px 24px;
+  transition: .3s;
+}
+.navbar.scrolled .my-btn-outline-primary {
+  color: #f00 !important;
+  border-color: #f00;
+}
+
+.my-btn-primary {
+  background: #FFFFFF;
+  color: #000000 !important;
+  border-radius: 30px;
+  padding: 16px 24px;
+  border: none;
+  transition: .3s;
+}
+.navbar.scrolled .my-btn-primary {
+  background: linear-gradient( #FFADAD 10%, #FF0000 );
+  color: #FFFFFF !important;
+}
+
+.my-btn-outline-primary:hover {
+  text-decoration: none;
+  box-shadow: 0 5px 20px rgba(255, 49, 49, 0.4);
+}
+.my-btn-primary:hover {
+  color: #EEEEEE;
+  text-decoration: none;
+  box-shadow: 0 5px 20px rgba(255, 49, 49, 0.4);
+}
+
+/* ===== Jumbotron ===== */
+.heading-section {
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.jumbotron {
+  text-align: center;
+  padding-top: 140px;
+  background-color: #ED3B3B;
+  background: url(../images/bg-header.jpg);
+  background-size: cover;
+  background-position: center bottom;
+}
+.jumbotron .heading-section {
+  color: #FFFFFF;
+}
+
+.breadcrumb {
+  justify-content: center;
+  background-color: transparent;
+}
+.breadcrumb-item a{
+  color: #FFFFFF;
+}
+.breadcrumb-item.active {
+  color: #dddddd;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+  color: #FFFFFF;
+}
+
+/* ===== Footer =====*/
+footer {
+  padding: 50px 0;
+  border-top: 2px solid #DDDDDD;
+}
+.footer-link {
+  color: #212529;
+  text-decoration: none;
+}
+.footer-link:hover {
+  color: #FF3131;
+  text-decoration: none;
+}
+
+.medsos-link {
+  margin-right: 8px;
+}
+.medsos-link:hover .medsos-icon path {
+  fill: #EB3349;
+  transition: .3s;
+}
+
+@media (max-width: 991.98px) {
+  /*  */
+  .jumbotron {
+    background-position: bottom right;
+  }
+}
+
+
+@media (max-width: 767.98px) {
+  nav.scrolled {
+    padding: 10px 0;
+  }
+  .navbar-brand img {
+    height: 26px;
+  }
+  .heading-section {
+    font-size: 28px;
+  }
+}
+
+/* ACHIEVEMENTS CSS */
+.grid-item,
+.grid-sizer { 
+  width: 25%; 
+}
+.grid-item {
+  /* height: 290px; */
+  padding: 5px;
+}
+
+
+.grid-item:nth-child(odd) .prestasi-wrapper::before {
+  padding-top: 133%;
+}
+
+.prestasi-wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.prestasi-wrapper::before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.grid-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: .5s;
+  border-radius: inherit;
+}
+.prestasi-wrapper:hover img {
+  transform: scale(1.15);
+}
+
+.prestasi-desc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.35);
+  height: 100%;
+  width: 100%;
+  transition: .6s;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  text-decoration: none !important;
+}
+.prestasi-wrapper:hover .prestasi-desc {
+  opacity: 1;
+}
+
+.prestasi-desc h1,
+.prestasi-desc p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+.prestasi-desc p {
+  color: #cacaca;
+  font-size: 12px;
+  margin-top: 4px;
+}
+.prestasi-desc h1 {
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
+  .grid-item {
+    width: 50%;
+    height: 400px;
+  }
+  .prestasi-desc {
+    opacity: 1;
+    height: 80px;
+    top: unset;
+    bottom: 0;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.5);
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .desc-txt {
+    flex: 1;
+  }
+  .prestasi-desc p {
+    -webkit-line-clamp: 1;
+  }
+}
+@media (max-width: 767.98px) {
+  .grid-item {
+    height: 400px;
+    width: 100%;
+  }
+
+  .prestasi-desc p {
+    font-size: 11px;
+  } 
+}
+.ekskul-header {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+.ekskul-header h1 {
+  font-weight: 700;
+  font-size: 32px;
+}
+.ekskul-desc h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+}
+.ekskul-desc p {
+  color: rgba(0, 0, 0, 0.7);
+}
+.ekskul-header img {
+  width: 120px;
+  margin-right: 8px;
+}
+
+@media (max-width: 767.98px) {
+  .ekskul-header img {
+    width: 90px;
+  }
+
+  .ekskul-header h1 {
+    font-size: 24px;
+  }
+}

@@ -53,6 +53,15 @@ def home(request):
     }
     return render(request, 'homepage/home.html', ctx)
 
+def achievements(request):
+    return render(request, 'homepage/achievements.html')
+
+def school_clubs(request):
+    return render(request, 'homepage/school_clubs.html')
+
+def school_community(request):
+    return render(request, 'homepage/school_community.html')
+
 def register(request):
     kontak = PrimaseruContacts.objects.all()
 
