@@ -1,24 +1,59 @@
-const navbar = document.querySelector('.navbar');
-const navToggler = document.querySelector('.navbar-toggler');
-
 // AOS Initzilation
 AOS.init({
     startEvent: 'DOMContentLoaded',
     duration: 1000,
 });
 
-document.addEventListener('scroll', ()=> {
-    const scrollTop = this.pageYOffset;
-    if(scrollTop >= 50){
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+function change_navbar_onscroll(){
+    const navbar = document.querySelector('.navbar');
+    const navToggler = document.querySelector('.navbar-toggler');
+    
+    document.addEventListener('scroll', ()=> {
+        const scrollTop = this.pageYOffset;
+        if(scrollTop >= 50){
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    navToggler.addEventListener('click', ()=> {
+        navToggler.classList.toggle('active')
+    })
+}
 
-navToggler.addEventListener('click', ()=> {
-    navToggler.classList.toggle('active')
-})
+// prestasi slider
+var glide = new Glide('.glide', {
+    gap : 0,
+    type: 'carousel',
+    perView: 5,
+    autoplay: 3000,
+    peek: {
+        before: 0,
+        after: 0,
+      },
+    focusAt: 'center',
+    breakpoints: {
+      800: {
+        gap: 10,
+        perView: 2,
+        peek: {
+            before: 0,
+            after: 50
+        },
+      },
+      480: {
+        gap: 10,
+        perView: 1,
+        peek: {
+            before: 0,
+            after: 100
+        },
+      }
+    }
+  })
+  
+  glide.mount()
 
 async function quota_chart() {
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -123,5 +158,7 @@ function update_countdown() {
     }, 1000)
 
 }
-update_countdown();
-quota_chart()
+
+change_navbar_onscroll();
+// update_countdown();
+// quota_chart()

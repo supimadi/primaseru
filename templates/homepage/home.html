@@ -2,12 +2,13 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.core.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.theme.min.css">
     <link rel="stylesheet" href="{% static 'homepage/css/primaseru.css' %}" type="text/css" media="screen" />
 {% endblock head %}
 
@@ -59,8 +60,8 @@
     </div>
     <!-- END SECTION KELEBIHAN -->
 
-    <!-- SECTION 2 -->
-    <section id="section-2">
+    <!-- SECTION JURUSAN -->
+    <section id="section-jurusan">
         <div class="container">
             <div class="row justify-content-center align-items-center">
 
@@ -91,9 +92,7 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 2 -->
-    <!-- SECTION 3 -->
-    <section id="section-3">
+    <section id="section-jurusan-2">
         <div class="container">
 
             <div class="row align-items-center my-5 py-5 my-lg-4 py-lg-4 justify-content-center">
@@ -190,10 +189,10 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 3 -->
+    <!-- END JURUSAN -->
 
-    <!-- SECTION kuota tersisa -->
-    <section class="section-kuota-tersisa">
+    <!-- SECTION KUOTA TERSISA -->
+    <section id="section-kuota">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 my-5 text-center text-lg-left">
@@ -223,10 +222,10 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION kuota tersisa -->
+    <!-- END SECTION KUOTA TERSISA -->
 
-    <!-- SECTION 4 -->
-    <section id="section-4">
+    <!-- SECTION ALUR PENDAFTARAN -->
+    <section id="section-alur">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto mx-lg-0">
@@ -251,13 +250,13 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 4 -->
-    <!-- SECTION 5 -->
-    <section id="section-5">
+    <!-- END SECTION KUOTA TERSISA -->
+    <!-- SECTION BERKAS -->
+    <section id="section-berkas">
         <div class="container">
             <div class="row ">
                 <div class="col-lg-7 col-md-10 mx-auto mx-lg-0">
-                    <h1 class="heading-section mb-5">Ayo Mulai Kumpulkan Berkas <span class="red-text">Pendaftarannya!</span></h1>
+                    <h1 class="heading-section mb-3">Ayo Mulai Kumpulkan Berkas <span class="red-text">Pendaftarannya!</span></h1>
                 </div>
             </div>
             <div class="row justify-content-center align-items-center">
@@ -285,7 +284,7 @@
 
             <div class="row mt-5 pt-5 mb-4">
                 <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
-                    <h2 class="font-weight-bold mb-5">Khusus Buat Kamu yang <span class="red-text">Berprestasi</span></h2>
+                    <h1 class="heading-section mb-3">Khusus Buat Kamu yang <span class="red-text">Berprestasi</span></h2>
                 </div>
             </div>
             <div class="row align-self-stretch justify-content-center position-relative">
@@ -311,10 +310,10 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 5 -->
+    <!-- END SECTION BERKAS -->
 
-    <!-- SECTION 6 -->
-    <section id="section-6">
+    <!-- SECTION PROGRAM -->
+    <section id="section-program">
         <div class="container">
             <div class="row ">
                 <div class="col-lg-6 col-md-10 mx-auto mx-lg-0">
@@ -365,12 +364,130 @@
                 </div>
 
             </div>
+            
         </div>
     </section>
-    <!-- END SECTION 6 -->
+    <!-- END SECTION PROGRAM -->
 
-    <!-- END SECTION 7 -->
-    <section id="section-7">
+    <!-- Banner ekskul -->
+    <div class="container mt-5 mb-3">
+        <section class="banner-ekskul">
+            <div class="row">
+                <div class="col-lg-6 py-5">
+                <div class="text-center text-lg-left">
+                    <h1 class="text-white heading-section mb-3">Ekstrakurikuler & Komunitas</h1>
+                    <p class="text-white">SMK Telkom Bandung punya banyak ekstrakurikuler & komunitas untuk mengembangkan minat dan bakat peserta didik di bidang non akademik</p>
+                    <a href="ekskul.html" class="btn btn-light rounded-pill py-3 px-4 mr-md-3 mb-3 mb-md-0">Daftar Ekskul</a>
+                    <a href="komunitas.html" class="btn btn-light rounded-pill py-3 px-4">Daftar Komunitas</a>
+                </div>
+                </div>
+                
+                <div class="col-lg-6 join-img d-flex align-items-end">
+                <img src="{% static 'homepage/images/ekskul.png' %}" class="w-100" alt="">
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- end Banner ekskul -->
+    
+    <!-- SECTION PRESTASI -->
+    <section id="section-prestasi">
+        <div class="container-fluid bg-prestasi py-3">
+            <div class="py-5 text-center">
+                <h1 class="text-white heading-section mb-3">Prestasi Siswa-siswi <br> SMK Telkom Bandung</h1>
+                <a href="prestasi.html" class="btn btn-light rounded-pill p-3">Lihat semua prestasi</a>
+            </div>
+        </div>
+        <div class="glide">
+            <div class="glide__track" data-glide-el="track">
+              <ul class="glide__slides">
+
+                <li class="glide__slide prestasi-item">
+                    <img src="{% static 'homepage/images/prestasi/prestasi-1.jpg' %}" alt="Juara 3 Web Design SKOMDA ACT - M. Iqbal alumni XII TKJ 3">                    
+
+                    <!-- slide description -->
+                    <a class="prestasi-desc" href="https://www.instagram.com/p/Cf5hDMkhl_W/" target="_blank">
+                        <div class="desc-txt">
+                            <h1 class="m-0">Juara 3 Web Design SKOMDA ACT</h1>
+                            <p class="mb-2">M. Iqbal alumni XII TKJ 3</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #FFFFFF;transform: ;msFilter:;"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path><path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path></svg>
+                    </a>
+                </li>
+
+                <li class="glide__slide prestasi-item">
+                    <img src="{% static 'homepage/images/prestasi/prestasi-2.jpg' %}" alt="Juara 1 Desain Poster Digital SIK UPI - Vania Rahma Diyanti XII MM 1">                    
+
+                    <!-- slide description -->
+                    <a class="prestasi-desc" href="https://www.instagram.com/p/CcCn7rQBEe-/" target="_blank">
+                        <div class="desc-txt">
+                            <h1 class="m-0">Juara 1 Desain Poster Digital SIK UPI</h1>
+                            <p class="mb-2">Vania Rahma Diyanti XII MM 1</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #FFFFFF;transform: ;msFilter:;"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path><path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path></svg>
+                    </a>
+                </li>
+
+                <li class="glide__slide prestasi-item">
+                    <img src="{% static 'homepage/images/prestasi/prestasi-3.jpg' %}" alt="Penghargaan Medali Emas & Perak pada Kejuaraan Taekwondo ITN Open V 2022">                    
+
+                    <!-- slide description -->
+                    <a class="prestasi-desc" href="https://www.instagram.com/p/CbcYC0EBkMt/" target="_blank">
+                        <div class="desc-txt">
+                            <h1 class="m-0">Penghargaan Medali Emas & Perak pada Kejuaraan Taekwondo ITN Open V 2022</h1>
+                            <p class="mb-2"></p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #FFFFFF;transform: ;msFilter:;"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path><path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path></svg>
+                    </a>
+                </li>
+
+                <li class="glide__slide prestasi-item">
+                    <img src="{% static 'homepage/images/prestasi/prestasi-4.jpg' %}" alt="Juara 2 & Presentasi terbaik Taruna Bakti Social Innovation Award 2022">                    
+
+                    <!-- slide description -->
+                    <a class="prestasi-desc" href="https://www.instagram.com/p/CbEnpc6PaR1/" target="_blank">
+                        <div class="desc-txt">
+                            <h1 class="m-0">Juara 2 & Presentasi terbaik Taruna Bakti Social Innovation Award 2022</h1>
+                            <p class="mb-2">Dzaki Muhammad Hilmi XI TKJ 2, Sitti Naurah Bauw X MM 1, Vidi Ramadhan Adhyaksa X MM 1</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #FFFFFF;transform: ;msFilter:;"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path><path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path></svg>
+                    </a>
+                </li>
+
+                <li class="glide__slide prestasi-item">
+                    <img src="{% static 'homepage/images/prestasi/prestasi-5.jpg' %}" alt="Juara 1 Poomsae Indonesia Expo Battle 2 2022">                    
+
+                    <!-- slide description -->
+                    <a class="prestasi-desc" href="https://www.instagram.com/p/CZd_p31BTe3/" target="_blank">
+                        <div class="desc-txt">
+                            <h1 class="m-0">Juara 1 Poomsae Indonesia Expo Battle 2 2022</h1>
+                            <p class="mb-2">Ryzqa Buana Putri X MM3, Amelia Rizkyani XII TKJ 1, Syakira Azzahra Loryan XII TKJ 2</p>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: #FFFFFF;transform: ;msFilter:;"><path d="m13 3 3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"></path><path d="M19 19H5V5h7l-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2v-5l-2-2v7z"></path></svg>
+                    </a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.4144 3.2721C21.7894 3.64715 22 4.15577 22 4.6861C22 5.21642 21.7894 5.72504 21.4144 6.1001L11.5144 16.0001L21.4144 25.9001C21.7787 26.2773 21.9803 26.7825 21.9758 27.3069C21.9712 27.8313 21.7609 28.3329 21.3901 28.7037C21.0192 29.0746 20.5176 29.2849 19.9932 29.2894C19.4688 29.294 18.9636 29.0924 18.5864 28.7281L7.27243 17.4141C6.89748 17.039 6.68685 16.5304 6.68685 16.0001C6.68685 15.4698 6.89748 14.9612 7.27243 14.5861L18.5864 3.2721C18.9615 2.89715 19.4701 2.68652 20.0004 2.68652C20.5308 2.68652 21.0394 2.89715 21.4144 3.2721V3.2721Z" fill="#FFFFFF"/>
+                    </svg>  
+                </button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.5856 3.2721C10.2106 3.64715 10 4.15577 10 4.6861C10 5.21642 10.2106 5.72504 10.5856 6.1001L20.4856 16.0001L10.5856 25.9001C10.2213 26.2773 10.0197 26.7825 10.0242 27.3069C10.0288 27.8313 10.2391 28.3329 10.6099 28.7037C10.9808 29.0746 11.4824 29.2849 12.0068 29.2894C12.5312 29.294 13.0364 29.0924 13.4136 28.7281L24.7276 17.4141C25.1025 17.039 25.3131 16.5304 25.3131 16.0001C25.3131 15.4698 25.1025 14.9612 24.7276 14.5861L13.4136 3.2721C13.0385 2.89715 12.5299 2.68652 11.9996 2.68652C11.4692 2.68652 10.9606 2.89715 10.5856 3.2721V3.2721Z" fill="#FFFFFF"/>
+                    </svg>       
+                </button>
+            </div>
+          </div>
+    </section>
+    <!-- END SECTION PRESTASI -->
+
+    <!--SECTION JADWAL -->
+    <section id="section-jadwal">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
@@ -417,10 +534,10 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 7 -->
+    <!-- END SECTION JADWAL -->
 
-    <!-- SECTION 8 -->
-    <section id="section-8">
+    <!-- SECTION BIAYA -->
+    <section id="section-biaya">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12 p-4 bg-white wrapper-biaya">
@@ -441,10 +558,10 @@
             </div>
         </div>
     </section>
-    <!-- END SECTION 8 -->
+    <!-- END SECTION BIAYA -->
 
     <!-- SECTION TESTIMONIALS -->
-    <section id="section-testimonials">
+    <section id="section-testimonial">
         <div class="container">
             <h1 class="heading-section mb-5">Apa Kata Mereka Tentang <br> <span class="red-text">SMK Telkom Bandung?</span></h1>
             <div id="testimonial-carousel" class="carousel slide my-4" data-ride="carousel" data-interval="false">
@@ -486,7 +603,7 @@
             </button>
         </div>
     </section>
-    <!-- END SECTION TESTIMONIALS -->
+    <!-- END SECTION TESTIMONIAL -->
 
     <footer>
         <div class="container">
@@ -585,6 +702,7 @@
 {% endblock main %}
 {% block js %}
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/glide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script type="text/javascript">
