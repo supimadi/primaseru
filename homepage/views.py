@@ -12,7 +12,8 @@ from .notifications.whatsapp import send_register_notif
 from users.models import CustomUser
 
 from dashboard.models import (
-    Participant, ParticipantGraduation, ParticipantRePayment, RegisterSchedule, RegisterStep,
+    Participant, ParticipantGraduation, ParticipantRePayment,
+    RegisterSchedule, RegisterStep,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru,
     PaymentBanner, PrimaseruContacts
 )
@@ -63,6 +64,7 @@ def school_community(request):
     return render(request, 'homepage/school_community.html')
 
 def register(request):
+    register_path = RegisterSchedule.objects.all()
     kontak = PrimaseruContacts.objects.all()
 
     # Draw form and ui

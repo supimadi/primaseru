@@ -25,7 +25,6 @@ from .models import (
     ParticipantLMS, ParticipantRePayment, InfoSourcePPDB,
     RegisterFilePrimaseru, ReRegisterFilePrimaseru, PaymentBanner,
     PrimaseruContacts, MajorCapacity, SchoolCapacity, MajorStatus,
-    RegistrationPath
 )
 from .generator import register_number_generator, reset_register_number
 
@@ -446,24 +445,6 @@ def school_cap(request):
     }
 
     return JsonResponse(data)
-
-# REGISTRATION PATH
-class RegistrationPathListView(UserIsSuperUserMixin, ListView):
-    model = RegistrationPath
-
-class RegistrationPathCreateView(UserIsSuperUserMixin, CreateView):
-    model = RegistrationPath
-    form_class = forms.RegistrationPathForm
-    success_url = reverse_lazy('registration-path')
-
-class RegistrationPathUpdateView(UserIsSuperUserMixin, UpdateView):
-    model = RegistrationPath
-    form_class = forms.RegistrationPathForm
-    success_url = reverse_lazy('registration-path')
-
-class RegistrationPathDeleteView(UserIsSuperUserMixin, DeleteView):
-    model = RegistrationPath
-    success_url = reverse_lazy('registration-path')
 
 # MAJOR STATUS
 class MajorStatusListView(UserIsSuperUserMixin, ListView):

@@ -7,7 +7,7 @@ from crispy_forms.layout import Submit
 
 from . import models, forms_layout
 
-from dashboard.models import ParticipantRePayment, MajorStatus, RegistrationPath
+from dashboard.models import ParticipantRePayment, MajorStatus, RegisterSchedule
 
 DATE_BORN = forms.DateField(label='Tanggal Lahir',initial=datetime.date.today, widget=forms.DateInput(format="%d/%m/%Y"),
                                 help_text="Format: <em>DD/MM/YYYY</em>", input_formats=["%d/%m/%Y"])
@@ -44,10 +44,10 @@ class ParticipantMajorForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         MAJOR = MajorStatus.objects.all()
-        PATH = RegistrationPath.objects.all()
+        PATH = RegisterSchedule.objects.all()
 
         major_avail = [(m.major, m.major_text) for m in MAJOR if m.is_avail] 
-        path_avail = [(p.path, p.path) for p in PATH if p.is_avail]
+        path_avail = [(p.name, p.name) for p in PATH if p.is_avail]
 
         self.fields['first_major'].choices = major_avail
         self.fields['second_major'].choices = major_avail
