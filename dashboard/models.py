@@ -145,7 +145,7 @@ class RegisterSchedule(models.Model):
 
    @property
    def is_past_date(self):
-       return date.today() > self.end_date
+       return datetime.date.today() > self.end_date
 
 class RegisterStep(models.Model):
     step = models.CharField('Langkap Pendaftaran', max_length=100)

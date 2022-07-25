@@ -538,7 +538,7 @@ class PasswordChangeViewDashboard(UserIsVerifierMixin, View):
 
     def post(self, request, *args, **kwargs):
         pk = self.kwargs['pk']
-        user = CustomUser.objects.get(pk=pk)
+        user = get_object_or_404(CustomUser, pk=pk) # CustomUser.objects.get(pk=pk)
         form = self.form_class(request.POST)
 
         if form.is_valid():
