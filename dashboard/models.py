@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 
 from users.models import CustomUser
-from participant_profile.choices import MAJOR, INFORMATION_PRIMASERU, STATUS
+from participant_profile.choices import MAJOR, PARTICIPANT_STATUS
 
 
 # PHONE_REGEX = '/(\+62[0-9]{10,13})|(08[0-9]{10,12})/g'
@@ -92,7 +92,7 @@ class InfoSourcePPDB(models.Model):
 class Participant(models.Model):
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     verified = models.BooleanField(_('Verified'), default=False, db_index=True)
-    status = models.CharField(_('Status'), default="ACT", max_length=3, choices=STATUS)
+    status = models.CharField(_('Status'), default="ACT", max_length=3, choices=PARTICIPANT_STATUS)
 
     full_name = models.CharField(_('Nama Lengkap'), max_length=100, db_index=True)
     registration_number = models.CharField(_('Nomor Pendaftaran'), unique=True, db_index=True, max_length=20, null=True)
@@ -107,6 +107,7 @@ class Participant(models.Model):
 
     homeroom_teacher_phone_number = models.CharField(_('No. HP Wali Kelas'), null=True, blank=True, max_length=15)
     bk_teacher_phone_number = models.CharField(_('No. HP Guru BK'), null=True, blank=True, max_length=15)
+    reason_resign = models.CharField(_("Alasan Memundurkan Diri"), max_length=120, null=True, blank=True)
 
     info = models.ManyToManyField(InfoSourcePPDB)
 

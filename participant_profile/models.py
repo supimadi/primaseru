@@ -106,6 +106,7 @@ class PhotoProfile(models.Model):
 
 
 class ParticipantProfile(models.Model):
+
     verified = models.BooleanField('Verifikasi',default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
@@ -127,7 +128,7 @@ class ParticipantProfile(models.Model):
     dusun = models.CharField('Dusun', max_length=120, help_text='Jika tidak tahu diisi dengan -')
     rt_rw = models.CharField('RT/RW', max_length=8, help_text='Contoh: 006/002')
     real_address = models.TextField('Alamat Sekarang', help_text='Contoh: Jalan Bojongsoang')
-    resident = models.CharField('Tempat Tinggal', max_length=50, help_text='Contoh: Rumah Pribadi, Kost, Rumah Keluarga (Keluarga Besar)')
+    resident = models.CharField('Tempat Tinggal', max_length=50, choices=choices.RESIDENT_CHOICES, help_text='Contoh: Rumah Pribadi, Kost, Rumah Keluarga (Keluarga Besar)')
 
     transport = models.CharField('Alat Transportasi', max_length=50, help_text="Contoh: Jalan Kaki, Motor, Ojek Online, Sepeda, Mobil, Angkot.")
 

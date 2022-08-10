@@ -139,10 +139,10 @@ class ProfileView(LoginRequiredMixin, View):
             graduation = None
             passed = None
 
-        try:
-            lms = ParticipantLMS.objects.get(participant=self.request.user.pk)
-        except ParticipantLMS.DoesNotExist:
-            lms = None
+        #  try:
+        #      lms = ParticipantLMS.objects.get(participant=self.request.user.pk)
+        #  except ParticipantLMS.DoesNotExist:
+        #      lms = None
 
         ctx = {
             'form_ph': forms.PhotoProfileForm(),
@@ -150,7 +150,7 @@ class ProfileView(LoginRequiredMixin, View):
             'name': self.name,
             'data': data,
             'pay': pay,
-            'lms': lms,
+            'lms': False,
             'graduation': graduation,
             'passed': passed,
             'multiple_files': self.multiple_files,

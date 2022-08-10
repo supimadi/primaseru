@@ -12,7 +12,7 @@ SEX = [
     ('L', 'Laki - Laki'),
 ]
 
-STATUS = [
+PARTICIPANT_STATUS = [
     ('ACT', 'Aktif'),
     ('RSG', 'Memundurkan Diri'),
 ]
@@ -104,4 +104,12 @@ JALUR_MASUK = [
     ('Jalur Reguler 1', 'Jalur Reguler 1'),
     ('Jalur Reguler 2', 'Jalur Reguler 2'),
     ('Jalur Reguler 3', 'Jalur Reguler 3'),
+]
+
+RESIDENT_CHOICES = [
+    ("Bersama Orang Tua", "Bersama Orang Tua"),
+    ("Kost", "Kost"),
+    ("Asrama", "Asrama"),
+    ("Kontrak", "Kontrak"),
+    ("Bersama Wali", "Bersama Wali"),
 ]

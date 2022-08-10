@@ -75,6 +75,7 @@ REGISTER_STUDENT_LAYOUT_DASHBOARD = Layout(
         ),
         Row(
             Div(Field('status'), css_class="col-md-12"),
+            Div(Field('reason_resign'), css_class="col-md-12"),
             Div(Field('verified'), css_class="col-md-12"),
         ),
         Row(
