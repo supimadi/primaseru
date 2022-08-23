@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import DecimalValidator
 from django.db import models
 from django.utils import timezone
 
@@ -10,6 +12,14 @@ from . import choices
 
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
+
+def validate_two_digits_num(value):
+    try:
+        val = int(value)
+        if val > 99:
+            raise ValidationError(f"{value} lebih dari 3 digit", params={"value": value})
+    except ValueError:
+        raise ValidationError(f"{value} bukan angka", params={"value": value})
 
 class ParticipantCert(models.Model):
     participant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -131,6 +141,19 @@ class ParticipantProfile(models.Model):
     resident = models.CharField('Tempat Tinggal', max_length=50, choices=choices.RESIDENT_CHOICES, help_text='Contoh: Rumah Pribadi, Kost, Rumah Keluarga (Keluarga Besar)')
 
     transport = models.CharField('Alat Transportasi', max_length=50, help_text="Contoh: Jalan Kaki, Motor, Ojek Online, Sepeda, Mobil, Angkot.")
+
+    child_no = models.CharField('Anak Ke-',
+                                max_length=2,
+                                help_text="Masukan kamu anak ke berapa. Contoh: Anak ke 2 (<b>isi hanya dengan angka</b>)",
+                                validators=[validate_two_digits_num],
+                                null=True,
+                                )
+    siblings_no = models.CharField("Dari Berapa Bersaudara",
+                                    max_length=2,
+                                    help_text="Masukan jumlah saudara Anda (<b> isi hanya dengan angka </b>)",
+                                    validators=[validate_two_digits_num],
+                                    null=True,
+                                    )
 
     # Previous School Information
     school_origin = models.CharField('Asal Sekolah', max_length=120, help_text="Isilah sesuai dengan asal sekolah Anda dan dituliskan seperti contoh berikut : SMP     Telkom Bandung ")

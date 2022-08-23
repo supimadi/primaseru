@@ -76,6 +76,9 @@ def participant_counter_filter(label):
 
     return participant, participant_count
 
+def export_participant_files(request):
+    pass
+
 def dashboard(request):
 
     try:
@@ -880,6 +883,9 @@ class ParticipantBaseView(UserIsVerifierMixin, View):
         return render(request, self.template_name, self._get_context(pk, form, self.added_ctx))
 
     def _set_form_instance(self, request, data=None):
+        if self.form_class is None:
+            raise Exception("'form_class' cannot be empty")
+
         if request.method == 'POST':
             form = self.form_class(request.POST, request.FILES or None, instance=data)
         else:
@@ -888,6 +894,10 @@ class ParticipantBaseView(UserIsVerifierMixin, View):
         return form
 
     def post(self, request, *args, **kwargs):
+
+        if self.model is None:
+            raise Exception("Model cannot be empty")
+
         # Taking primary key from url
         pk = self.kwargs.get('pk') 
 

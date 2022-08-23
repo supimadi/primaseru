@@ -19,6 +19,10 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
             Div(Field('date_born', type="date", css_class='form-control-sm'), css_class="col-sm-6"),
         ),
         Row(
+            Div(Field("child_no", css_class='form-control-sm'), css_class="col-sm-6"),
+            Div(Field('relatives_no', css_class='form-control-sm'), css_class="col-sm-6"),
+        ),
+        Row(
             Div(Field('school_origin', css_class='form-control-sm'), css_class="col-sm-6"),
             Div(Field("npsn_school_origin", css_class='form-control-sm'), css_class="col-sm-6"),
         ),

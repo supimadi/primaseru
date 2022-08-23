@@ -21,7 +21,12 @@ PASSED_CHOICES = [
 ]
 
 def user_directory_path(instance, filename):
-    return f'berkas_{instance.participant.username}/{filename}'
+    # TODO: Check if the instance has full_name
+
+    try:
+        return f'berkas_peserta/berkas_{instance.participant.username}_{instance.participant.full_name}/{filename}'
+    except Exception:
+        return f'berkas_peserta/berkas_{instance.account.username}_{instance.account.full_name}/{filename}'
 
 class MajorStatus(models.Model):
     major = models.CharField('Jurusan', max_length=5, help_text="Tulis singkatan jurusan, <b>contoh: TKJ</b>")
