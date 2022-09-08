@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 from users.models import CustomUser
 
@@ -10,6 +11,14 @@ from . import choices
 
 def user_directory_path(instance, filename):
     return f'berkas_{instance.participant.username}/{filename}'
+
+def validate_two_digits_num(value):
+    try:
+        val = int(value)
+        if val > 99:
+            raise ValidationError(f"{value} lebih dari 3 digit", params={"value": value})
+    except ValueError:
+        raise ValidationError(f"{value} bukan angka", params={"value": value})
 
 class ParticipantCert(models.Model):
     participant = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -106,6 +115,7 @@ class PhotoProfile(models.Model):
 
 
 class ParticipantProfile(models.Model):
+
     verified = models.BooleanField('Verifikasi',default=False, db_index=True)
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
@@ -127,9 +137,22 @@ class ParticipantProfile(models.Model):
     dusun = models.CharField('Dusun', max_length=120, help_text='Jika tidak tahu diisi dengan -')
     rt_rw = models.CharField('RT/RW', max_length=8, help_text='Contoh: 006/002')
     real_address = models.TextField('Alamat Sekarang', help_text='Contoh: Jalan Bojongsoang')
-    resident = models.CharField('Tempat Tinggal', max_length=50, help_text='Contoh: Rumah Pribadi, Kost, Rumah Keluarga (Keluarga Besar)')
+    resident = models.CharField('Tempat Tinggal', max_length=50, choices=choices.RESIDENT_CHOICES, help_text='Contoh: Rumah Pribadi, Kost, Rumah Keluarga (Keluarga Besar)')
 
     transport = models.CharField('Alat Transportasi', max_length=50, help_text="Contoh: Jalan Kaki, Motor, Ojek Online, Sepeda, Mobil, Angkot.")
+
+    child_no = models.CharField('Anak Ke-',
+                                max_length=2,
+                                help_text="Masukan kamu anak ke berapa. Contoh: Anak ke 2 (<b>isi hanya dengan angka</b>)",
+                                validators=[validate_two_digits_num],
+                                null=True,
+                                )
+    siblings_no = models.CharField("Dari Berapa Bersaudara",
+                                    max_length=2,
+                                    help_text="Masukan jumlah saudara Anda (<b> isi hanya dengan angka </b>)",
+                                    validators=[validate_two_digits_num],
+                                    null=True,
+                                    )
 
     # Previous School Information
     school_origin = models.CharField('Asal Sekolah', max_length=120, help_text="Isilah sesuai dengan asal sekolah Anda dan dituliskan seperti contoh berikut : SMP     Telkom Bandung ")
@@ -211,7 +234,6 @@ class ProfileParent(models.Model):
 
     class Meta:
         abstract = True
-
 
 class FatherStudentProfile(ProfileParent):
     pass

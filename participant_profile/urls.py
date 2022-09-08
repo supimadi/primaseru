@@ -25,6 +25,6 @@ urlpatterns = [
     path('files-upload/delete/<int:pk>', views.ParticipantRaportDeleteView.as_view(), name="participant-raport-delete"),
     path('files-upload/', views.ParticipantFilesView.as_view(), name="participant-files"),
 
-    path('lms/', views.ParticipantLMSAccount.as_view(), name="participant-lms"),
+    #  path('lms/', views.ParticipantLMSAccount.as_view(), name="participant-lms"),
     path('graduation/', views.ParticipantGraduationView.as_view(), name="participant-graduation"),
 ]

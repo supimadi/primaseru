@@ -1,0 +1,37 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load crispy_forms_tags %}
+{% block dashtitle %}
+    Reset Primaseru <br />
+{% endblock dashtitle %}
+{% block maindash %}
+    <div class="row">
+        <div class="col m-5 p-4 rounded shadow bg-white">
+            <h2 class="judul text-danger">
+			  Konfirmasi Reset Primaseru
+			</h2>
+            <hr />
+            <p style="font-size: 1.1rem;">
+				Apakah Anda yakin untuk reset Primaseru? <br>
+				<span class="text-muted">Semua data peserta akan hilang, pastikan telah melakukan <i>backup</i> jika diperlukan.</span> <br>
+
+				<p class="mb-2">
+				  Hal yang perlu diperhatikan setelah reset Primaseru:
+				  <ul>
+					<li>
+					  Pastikan melakukan edit terhadap nomor pendaftaran;
+					</li>
+					<li>
+					  Process reset ini akan menghapus semua data dan berkan peserta primaseru.
+					</li>
+				  </ul>
+				</p>
+
+                <form method="POST" class="mt-4">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">Reset Primaseru</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'dashboard' %}">Kembali</a>
+                </form>
+            </p>
+        </div>
+    </div>
+{% endblock maindash %}
