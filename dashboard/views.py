@@ -2,7 +2,7 @@ import os
 import zipfile
 from io import BytesIO
 
-from django.db import IntegrityError
+from django.db import IntegrityError, models
 from django.views import View
 from django.contrib import messages
 from django.conf import settings
@@ -234,7 +234,7 @@ def files_download(request, pk):
     participant = Participant.objects.get(account=pk)
 
     fbuffer = BytesIO()
-    path = f'{settings.MEDIA_ROOT}/berkas_{participant.account.username}/'
+    path = f'{settings.MEDIA_ROOT}/berkas_peserta/berkas_{participant.account.username}/'
 
     try:
         files = os.listdir(path=path)
@@ -433,8 +433,23 @@ def school_cap_update(request, pk):
 
     return render(request, 'dashboard/major_cap_form.html', {'form': form})
 
+@permission_required('users.is_superuser')
+def delete_participant(request):
+    # TODO: leater need to implement soft-delete, for the web
+
+    if request.method == "POST":
+        acc = CustomUser.objects.filter(is_staff=False, is_superuser=False, is_verifier=False)
+        acc.delete()
+        messages.success(request, 'Semua data peserta berhasil di hapus.')
+        return redirect("dashboard")
+
+    return render(request, "dashboard/delete_participant_view.html")
+
 def school_cap(request):
-    participant = Participant.objects.count()
+    """
+    get the major pool capacity, and return in as a json
+    """
+    participant = Participant.objects.count() # type: ignore
 
     participant_grad = ParticipantGraduation.objects.all()
 
@@ -866,6 +881,9 @@ class ParticipantBaseView(UserIsVerifierMixin, View):
         return context
 
     def get(self, request, *args, **kwargs):
+        if not issubclass(self.model, models.Model): # type: ignore
+            raise TypeError("model must be an instance of django Model")
+
         # Taking primary key from url
         pk = self.kwargs.get('pk') 
 

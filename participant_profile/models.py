@@ -1,7 +1,6 @@
-from django.core.exceptions import ValidationError
-from django.core.validators import DecimalValidator
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 from users.models import CustomUser
 
@@ -235,7 +234,6 @@ class ProfileParent(models.Model):
 
     class Meta:
         abstract = True
-
 
 class FatherStudentProfile(ProfileParent):
     pass

@@ -7,8 +7,10 @@ urlpatterns = [
     path('export/', views.export_to_excel, name="export"),
     path('analytic/', views.analytic_view, name="analytic"),
     path('export/files/<int:pk>/', views.files_download, name="export-files"),
-    path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
     path('banner/payment/', views.BannerPayment.as_view(), name="banner-payment"),
+
+    path('delete-participant/all/', views.delete_participant, name="delete-all-participant"),
+    path('delete-participant/<int:pk>/', views.ParticipantDeleteView.as_view(), name="delete-participant"),
 
     path('cap/', views.school_cap, name="school-cap-chart"),
 
