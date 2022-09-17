@@ -2,9 +2,9 @@
 
 
 MAJOR = [
-    ('TKJ', 'Teknik Komputer dan Jaringan'),
-    ('TJAT', 'Teknik Jaringan Akses Telekomunikasi'),
-    ('MM', 'Multimedia'),
+    ('TJKT', 'Teknik Jaringan Komputer dan Telekomunikasi'),
+    ('DKV', 'Desain Komunikasi & Visual'),
+    ('Animasi', 'Animasi'),
 ]
 
 SEX = [

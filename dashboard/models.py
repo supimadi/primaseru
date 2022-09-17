@@ -53,7 +53,7 @@ class ParticipantGraduation(models.Model):
     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     passed = models.CharField('Lulus/Tidak Lulus', max_length=2, choices=PASSED_CHOICES, default='TL')
     letter = models.FileField('Surat Kelulusan', null=True, blank=True, upload_to='berkas_kelulusan/')
-    chose_major = models.CharField('Diterima di Jurusan:', max_length=4, choices=MAJOR, null=True, blank=True)
+    chose_major = models.CharField('Diterima di Jurusan:', max_length=10, choices=MAJOR, null=True, blank=True)
 
     date_announce = models.DateField('Tanggal Diumumkan', null=True, help_text="Tanggal berapa kelulusan akan diumumkan.")
     clock_announce = models.TimeField('Jam Diumumkan', null=True, help_text="Pukul berapa kelulusan diumumkan (WIB). Contoh: 08.00 atau 17.00")
@@ -225,7 +225,7 @@ class SchoolCapacity(models.Model):
         return f'Total Kapasitas: {self.total_cap}'
 
 class MajorCapacity(models.Model):
-    major = models.CharField('Prodi', max_length=4, choices=MAJOR)
+    major = models.CharField('Prodi', max_length=10, choices=MAJOR)
     capacity = models.PositiveIntegerField("Kapasitan")
 
     def __str__(self):

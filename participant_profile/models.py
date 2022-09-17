@@ -183,27 +183,27 @@ class ParticipantProfile(models.Model):
 
 
 class MajorStudent(models.Model):
-     # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-     verified = models.BooleanField(default=False, db_index=True)
-     participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    # student = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    verified = models.BooleanField(default=False, db_index=True)
+    participant = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
-     first_major = models.CharField('Pilihan Jurusan Pertama', choices=choices.MAJOR, max_length=4)
-     second_major = models.CharField('Pilihan Jurusan Kedua', choices=choices.MAJOR, max_length=4)
+    first_major = models.CharField('Pilihan Jurusan Pertama', choices=choices.MAJOR, max_length=10)
+    second_major = models.CharField('Pilihan Jurusan Kedua', choices=choices.MAJOR, max_length=10)
 
-     enter_smk = models.CharField('Keinginan Siapa Masuk SMK', max_length=25, null=True, choices=choices.ENTER_SMK_CHOICES)
-     charity = models.CharField('Dana Sukarela', max_length=20, null=True, choices=choices.CHARITY_AMOUNT, help_text="Dana Sukarela nantinya akan dimanfaatkan untuk pengembangan siswa dibidang non akademik (kompetisi dan perlombaan-perlombaan).")
-     way_in = models.CharField('Jalur Masuk', max_length=20, null=True, choices=choices.JALUR_MASUK)
-     color_blind = models.CharField('Buta Warna', max_length=2, default='N', choices=choices.COLOR_BLIND, help_text="Apakah anda buta warna?")
+    enter_smk = models.CharField('Keinginan Siapa Masuk SMK', max_length=25, null=True, choices=choices.ENTER_SMK_CHOICES)
+    charity = models.CharField('Dana Sukarela', max_length=20, null=True, choices=choices.CHARITY_AMOUNT, help_text="Dana Sukarela nantinya akan dimanfaatkan untuk pengembangan siswa dibidang non akademik (kompetisi dan perlombaan-perlombaan).")
+    way_in = models.CharField('Jalur Masuk', max_length=20, null=True, choices=choices.JALUR_MASUK)
+    color_blind = models.CharField('Buta Warna', max_length=2, default='N', choices=choices.COLOR_BLIND, help_text="Apakah anda buta warna?")
 
-     class Meta:
-         ordering = ['participant']
+    class Meta:
+        ordering = ['participant']
 
-     def __str__(self):
-         return f'{self.participant} - {self.first_major}'
+    def __str__(self):
+        return f'{self.participant} - {self.first_major}'
 
-     @property
-     def is_data_verified(self):
-         return self.verified
+    @property
+    def is_data_verified(self):
+        return self.verified
 
 class ProfileParent(models.Model):
     """

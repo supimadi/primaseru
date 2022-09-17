@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.core.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.theme.min.css">
     <link rel="stylesheet" href="{% static 'homepage/css/homepage.css' %}" type="text/css" media="screen" />
+    <script type="text/javascript" src="{% static 'homepage/js/countdown.js' %}"></script>
 {% endblock head %}
 
 {% block container %}
@@ -23,9 +24,7 @@
             <div class="row justify-content-center align-items-center text-center text-lg-left">
                 <div class="col-lg-6 col-md-10">
                     <span class="ml-2 d-block" data-aos="fade-down">Penerimaan Peserta Didik Baru (PRIMASERU)</span>
-
-                    <h1 class="my-4 font-weight-bold" data-aos="fade-right" data-aos-delay="200">Achieve Your Dream <span class="red-text">With Us</span></h1>
-
+                    <h1 class="my-4 font-weight-bold" data-aos="fade-right" data-aos-delay="200">Be a Real <span class="red-text">Digital Talent</span></h1>
                     <div data-aos="fade-up" data-aos-delay="400">
                         <h4 class="mb-5 font-weight-bold">Kini Mendaftar ke SMK Telkom Bandung lebih Mudah <span class="red-text">Daftar dari rumah dan tes dari rumah.</span></h4>
                         <a href="{% url 'register' %}" class="my-btn-primary">Daftar Sekarang</a>
@@ -33,7 +32,7 @@
 
                 </div>
                 <div class="col-lg-6 col-md-10 mt-5 mt-lg-0">
-                    <img loading="lazy" data-aos="fade-left" data-aos-delay="600" class="w-100" src="{% static 'homepage/images/hero-img.jpg' %}" alt="hero image">
+                    <img loading="lazy" data-aos="fade-left" data-aos-delay="600" class="w-100" src="{% static 'homepage/images/hero-img.png' %}" alt="hero image">
                 </div>
             </div>
         </div>
@@ -65,26 +64,25 @@
         <div class="container">
             <div class="row justify-content-center align-items-center">
 
-                <div class="col-lg-6 col-md-10">
-                    <h1 class="heading-section mb-3">Program Studi di SMK Telkom Bandung <span class="red-text">Pilih Passion Kamu!</span></h1>
-                    <!-- <p  class="mb-5 mb-lg-0">Sekolah Berbasis Teknologi Informasi dan Komunikasi Terbaik 3 di Jawa Barat Tahun 2019, UNBK Terbaik di Kabupaten Bandung Tahun 2016 dan 2019. Program Asrama, Patriot dan Tahfizh.</p> -->
+                <div class="col mr-4">
+                    <h1 class="text-center font-weight-bold mb-3">Konsentrasi Keahlian yang bisa kamu pilih <span class="red-text">sesuai passion.</span></h1>
                 </div>
 
-                <div class="col-lg-6 col-md-10">
+                <div class="col mt-3 mt-sm-0">
                     <div class="row">
                         <div class="col-4">
                             <div class="box-jurusan">
-                                <img loading="lazy" src="{% static 'homepage/images/logo-tjat.png' %}" alt="logo tja">
+                                <img loading="lazy" src="https://smktelkom-bdg.sch.id/wp-content/uploads/2022/09/tjkt.svg" alt="logo tjkt" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="box-jurusan">
-                                <img loading="lazy" src="{% static 'homepage/images/logo-tkj.png' %}" alt="logo tkj">
+                                <img loading="lazy" src="https://smktelkom-bdg.sch.id/wp-content/uploads/2022/09/dkv.svg" alt="logo dkv" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="box-jurusan">
-                                <img loading="lazy" src="{% static 'homepage/images/logo-mm.png' %}" llt="logo mm">
+                                <img loading="lazy" src="{% static 'homepage/images/animasi-logo.png' %}" alt="logo animasi" class="img-fluid">
                             </div>
                         </div>
                     </div>
@@ -101,22 +99,12 @@
                 </div>
                 <div class="col-lg-6 col-md-10 order-lg-1">
                     <article>
-                        <h2 class="font-weight-bold">Teknik Jaringan Akses Telekomunikasi</h2>
-                        <p>Tau ga bagaimana internet di rumah kalian bisa tersambung? Atau penasaran sama bagaimana gawai kalian tersambung ke internet? Nah, jika kalian masuk Teknik Jaringan Akses Telekomunikasi (TJAT), kalian akan tau bagaimana jaringan dibangun dan dipelihara, mulai dari jaringan akses tembaga sampai fiber optic, dan tak lupa jaringan akses nirkabel juga seperti VSAT.</p>
-                        <p class="fs-md">Materi Keahlian:</p>
-                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
-                            <ul class="mb-0 py-0">
-                                <li>Sistem Telekomunikasi</li>
-                                <li>Jaringan Akses Fiber Optik</li>
-                                <li>Perangkat Terminal Pelanggan</li>
-                            </ul>
-                            <ul class="pt-0">
-                                <li>Jaringan Akses Radio</li>
-                                <li>Jaringan Akses Tembaga</li>
-                                <li>Jaringan Akses Seluler(3G,4G, LTE-A)</li>
-                            </ul>
-                        </div>
-                        <a href="https://www.youtube.com/watch?v=3Ry_C4pkHsI" target="_blank" class="my-btn-primary ">
+                        <h2 class="font-weight-bold">Teknik Jaringan Komputer dan Telekomunikasi</h2>
+                        <p class="pt-3 pb-4">
+                            Dasar-dasar Teknik Jaringan Komputer dan Telekomunikasi adalah mata pelajaran yang berisi kompetensi-kompetensi
+                            yang mendasari penguasaan keahlian Teknik Jaringan Komputer dan Teknik Telekomunikasi.
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=3Ry_C4pkHsI" target="_blank" class="my-btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                             </svg>
@@ -132,21 +120,11 @@
                 </div>
                 <div class="col-lg-6 col-md-10">
                     <article>
-                        <h2 class="font-weight-bold">Teknik Komputer dan Jaringan</h2>
-                        <p>Jika kalian suka dengan komputer, programing, atau mungkin jaringan komputer, kalian mungkin cocok dengan program studi Teknik Komputer dan Jaringan (TKJ), disini kalian akan mempelajari tentang komputer, mulai dari hardware, jaringan, sampai software pun akan kalian pelajari.</p>
-                        <p class="fs-md">Materi Keahlian:</p>
-                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
-                            <ul class="mb-0 py-0">
-                                <li>Administrasi Jaringan(LAN-WAN)</li>
-                                <li>Servis Jaringan Komputer</li>
-                                <li>Teknik Komputer(Hardware & Software)</li>
-                            </ul>
-                            <ul class="pt-0">
-                                <li>Instalasi Server & Client</li>
-                                <li>Pemrograman Web & Mobile</li>
-                                <li>Internet of Things(IoT)</li>
-                            </ul>
-                        </div>
+                        <h2 class="font-weight-bold">Desain Komunikasi dan Visual</h2>
+                        <p class="pt-3 pb-4">
+                            DKV adalah cabang ilmu desain. Dijurusan ini, siswa belajar konsep komunikasi dan ungkapan kreatif dengan menggunakan berbagai elemen
+                            visual untuk menyampaikan pesan. Dengan gambar visual, siswa belajar menyampaikan pesan secara informatif, efektif, dan komunikatif.
+                        </p>
                         <a href="https://www.youtube.com/watch?v=suJspcDDhQk" target="_blank" class="my-btn-primary ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -163,21 +141,11 @@
                 </div>
                 <div class="col-lg-6 col-md-10 order-lg-1">
                     <article>
-                        <h2 class="font-weight-bold">Multimedia</h2>
-                        <p>Kalian suka menggambar? Atau photo mungkin? Nah kalau kalian suka itu atau yang lainnya seperti animasi, video editing, dan lain - lain, kalian mungkin cocok tuh masuk program studi Multimedia (MM). Di sini kalian akan belajar photography sampai membuat game loh. Seru banget tuh pasti.</p>
-                        <p class="fs-md">Materi Keahlian:</p>
-                        <div class="d-flex mb-4 flex-column flex-md-row justify-content-between">
-                            <ul class="mb-0 py-0">
-                                <li>Desain Grafis</li>
-                                <li>Pengembangan Web</li>
-                                <li>Multimedia Interaktif</li>
-                            </ul>
-                            <ul class="pt-0">
-                                <li>Animasi 2D dan 3D</li>
-                                <li>Audio and Video Production</li>
-                                <li>Fotografi</li>
-                            </ul>
-                        </div>
+                        <h2 class="font-weight-bold">Animasi</h2>
+                        <p class="pt-3 pb-4">
+                            Jurusan Animasi lebih fokus dalam mempelajari teori dan teknik dalam membuat animasi 2D dan 3D, animasi film, animasi game, dan bidang lainnya
+                            yang menggunakan konten animasi. Sedangkan untuk jurusan DKV lebih fokus pada pembuatan desain, ilustrasi, fotografi, animasi, hingga marketing.
+                        </p>
                         <a href="https://www.youtube.com/watch?v=2RSx7ikipWA" target="_blank" class="my-btn-primary ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
@@ -492,41 +460,49 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card-red-gradient box-countdown text-center">
-                        {% for s in schedule %}
-                            {% if s.is_ongoing %}
-                                <h1 class="font-weight-bold mb-5" id="schedule-headline">{{ s }} <br> Sedang Dibuka sampai</h1>
-                                <script type="text/javascript">
-                                    var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
-                                </script>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="countdown d-flex justify-content-center" id="countdown">
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="day">00</h1>
-                                <span>HARI</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="hour">00</h1>
-                                <span>JAM</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="minute">00</h1>
-                                <span>MENIT</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="second">00</h1>
-                                <span>DETIK</span>
-                            </div>
-                        </div>
+                        <h1 class="font-weight-bold mb-5" id="schedule-headline">Jalur Pendaftar yang <br> Sedang Dibuka</h1>
+                        <script type="text/javascript">
+                            var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
+                        </script>
                         <!-- Jadwal pendaftaran -->
                         <div class="timeline-hr">
                             {% for s in schedule %}
                             <div class="container-tl-hr">
                                 <div class="content">
-                                    <p>{{ s  }}</p>
+                                    <p>{{ s }}</p>
                                     <p><b>{{ s.start_date|date:'d F' }} - {{ s.end_date|date:'d F Y'  }}</b></p>
+                                    <p class="mt-3">
+                                        <div class="d-flex justify-content-center" id="countdown-{{ s.id }}">
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1 font-weight-bold" id="day-{{ s.id }}">00</h1>
+                                                <span>HARI</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1 font-weight-bold" id="hour-{{ s.id }}">00</h1>
+                                                <span>JAM</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1 font-weight-bold" id="minute-{{ s.id }}">00</h1>
+                                                <span>MENIT</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1 font-weight-bold" id="second-{{ s.id }}">00</h1>
+                                                <span>DETIK</span>
+                                            </div>
+                                        </div>
+                                    </p>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                update_countdown(
+                                    new Date(0).setUTCSeconds({{ s.end_date|date:'U' }}),
+                                    "day-{{ s.id }}",
+                                    "hour-{{ s.id }}",
+                                    "minute-{{ s.id }}",
+                                    "second-{{ s.id }}",
+                                    "countdown-{{ s.id }}",
+                                )
+                            </script>
                             {% endfor %}
                         </div>
                     </div>
