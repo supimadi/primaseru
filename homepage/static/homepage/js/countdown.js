@@ -16,7 +16,7 @@ function update_countdown(today, day, hour, minute, second, container) {
         // If the count down is finished, write some text
         if (distance <= 0) {
             clearInterval(update_countdown);
-            document.getElementById(container).innerHTML = "<h5 class='mt-3'>Jalur Pendaftar Telah Ditutup.</h5>";
+            document.getElementById(container).innerHTML = "<h5 class='mt-3 font-weight-bold'>Jalur Pendaftar Telah Ditutup.</h5>";
         }
 
     }, 1000)
