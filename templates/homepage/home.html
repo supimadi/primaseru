@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.core.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.5.0/css/glide.theme.min.css">
     <link rel="stylesheet" href="{% static 'homepage/css/homepage.css' %}" type="text/css" media="screen" />
+    <script type="text/javascript" src="{% static 'homepage/js/countdown.js' %}"></script>
 {% endblock head %}
 
 {% block container %}
@@ -492,41 +493,49 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card-red-gradient box-countdown text-center">
-                        {% for s in schedule %}
-                            {% if s.is_ongoing %}
-                                <h1 class="font-weight-bold mb-5" id="schedule-headline">{{ s }} <br> Sedang Dibuka sampai</h1>
-                                <script type="text/javascript">
-                                    var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
-                                </script>
-                            {% endif %}
-                        {% endfor %}
-                        <div class="countdown d-flex justify-content-center" id="countdown">
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="day">00</h1>
-                                <span>HARI</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="hour">00</h1>
-                                <span>JAM</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="minute">00</h1>
-                                <span>MENIT</span>
-                            </div>
-                            <div class="flex mx-3 mx-md-4 text-center">
-                                <h1 class="mb-1" id="second">00</h1>
-                                <span>DETIK</span>
-                            </div>
-                        </div>
+                        <h1 class="font-weight-bold mb-5" id="schedule-headline">Jalur Pendaftar yang <br> Sedang Dibuka</h1>
+                        <script type="text/javascript">
+                            var date = new Date(0).setUTCSeconds({{ s.end_date|date:'U' }});
+                        </script>
                         <!-- Jadwal pendaftaran -->
                         <div class="timeline-hr">
                             {% for s in schedule %}
                             <div class="container-tl-hr">
                                 <div class="content">
-                                    <p>{{ s  }}</p>
+                                    <p>{{ s }}</p>
                                     <p><b>{{ s.start_date|date:'d F' }} - {{ s.end_date|date:'d F Y'  }}</b></p>
+                                    <p class="mt-3">
+                                        <div class="d-flex justify-content-center" id="countdown-{{ s.id }}">
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1" id="day-{{ s.id }}">00</h1>
+                                                <span>HARI</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1" id="hour-{{ s.id }}">00</h1>
+                                                <span>JAM</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1" id="minute-{{ s.id }}">00</h1>
+                                                <span>MENIT</span>
+                                            </div>
+                                            <div class="flex mx-3 mx-md-4 text-center">
+                                                <h1 class="mb-1" id="second-{{ s.id }}">00</h1>
+                                                <span>DETIK</span>
+                                            </div>
+                                        </div>
+                                    </p>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                update_countdown(
+                                    new Date(0).setUTCSeconds({{ s.end_date|date:'U' }}),
+                                    "day-{{ s.id }}",
+                                    "hour-{{ s.id }}",
+                                    "minute-{{ s.id }}",
+                                    "second-{{ s.id }}",
+                                    "countdown-{{ s.id }}",
+                                )
+                            </script>
                             {% endfor %}
                         </div>
                     </div>
