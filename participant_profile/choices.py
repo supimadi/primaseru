@@ -4,7 +4,7 @@
 MAJOR = [
     ('TJKT', 'Teknik Jaringan Komputer dan Telekomunikasi'),
     ('DKV', 'Desain Komunikasi & Visual'),
-    ('Animasi', 'Animasi'),
+    ('ANI', 'Animasi'),
 ]
 
 SEX = [
