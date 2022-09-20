@@ -12,7 +12,11 @@ from .models import StudentFile, MajorStudent
 @receiver(post_save, sender=ParticipantGraduation)
 def create_profile(sender, instance, created, **kwargs):
     if instance.passed:
-        obj = MajorStudent.objects.get(participant=instance.participant)
+        try:
+            obj = MajorStudent.objects.get(participant=instance.participant)
+        except MajorStudent.DoesNotExist:
+            return
+
         obj.verified = True
         obj.save()
 

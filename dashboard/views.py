@@ -44,6 +44,9 @@ def participant_counter_filter(label):
 
     participant = Participant.objects.all()
     participant_count = participant.count()
+    filtered_participant = participant
+
+    filter_req = None
 
     if 'lulus' in label:
         filter_req = accounts.filter(participantgraduation__passed="L")
@@ -68,13 +71,13 @@ def participant_counter_filter(label):
     elif 'verified_profile' in label:
         filter_req = accounts.filter(participantprofile__verified=True)
     elif 'resign' in label:
-        participant = participant.filter(status='RSG')
+        filtered_participant = participant.filter(status='RSG')
         label = None
 
     if label:
-        participant = participant.filter(account__in=filter_req)
+        filtered_participant = participant.filter(account__in=filter_req)
 
-    return participant, participant_count
+    return participant, participant_count, filtered_participant
 
 def export_participant_files(request):
     pass
@@ -85,16 +88,32 @@ def dashboard(request):
         if not request.user.is_staff and not request.user.is_verifier:
             messages.warning(request, 'Tidak memiliki izin, jika hal ini merupakan kesalah hubungi Admin.')
             return redirect('login')
-    except Exception:
+    except Exception as e:
+        messages.warning(request, f'Ada error saat process login: {e}.')
         return redirect('login')
 
-    participant, participant_count = participant_counter_filter(request.GET);
+    # all participant, participant count, filtered participant
+    participant, participant_count, fil_parti = participant_counter_filter(request.GET);
+
+    parti_unverified_count = participant.filter(verified=False).count() # type: ignore
+    participant_rsg = participant.filter(status="RSG").count()
+    parti_verified_count = participant.filter(verified=True).count() # type: ignore
 
     accounts = CustomUser.objects.all()
 
-    profile = ParticipantProfile.objects.all()
-    passed_test = ParticipantGraduation.objects.all().count()
-    payment = ParticipantRePayment.objects.all()
+    parti_acceptance = ParticipantGraduation.objects.all() # type: ignore
+    parti_accepted_count = parti_acceptance.filter(passed="L").count() # type: ignore
+    parti_tjkt = parti_acceptance.filter(passed="L", chose_major="TJKT").count() # type: ignore
+    parti_dkv = parti_acceptance.filter(passed="L", chose_major="DKV").count() # type: ignore
+    parti_anim = parti_acceptance.filter(passed="L", chose_major="Animasi").count() # type: ignore
+
+    payment = ParticipantRePayment.objects.all() # type: ignore
+    payment_paid_count = payment.filter(paid_off=True).count()
+    pay_verified_1 = payment.filter(verified_1=True).count()
+    pay_verified_2 = payment.filter(verified_2=True).count()
+    pay_verified_3 = payment.filter(verified_3=True).count()
+    
+    payment = ParticipantRePayment.objects.all() # type: ignore
 
     total_re_register_files = 0
     for acc in accounts:
@@ -102,34 +121,43 @@ def dashboard(request):
             if acc.reportfileparticipant_set.all() and acc.studentfile:
                 total_re_register_files += 1
         except Exception:
-            pass
+            continue
 
-    major_obj = MajorStudent.objects.all() 
-    tkj = major_obj.filter(first_major='TKJ').count()
-    mm = major_obj.filter(first_major='MM').count()
-    tjat = major_obj.filter(first_major='TJAT').count()
+    major_obj = MajorStudent.objects.all() # type: ignore
+    tjkt_count = major_obj.filter(first_major='TJKT').count()
+    dkv_count = major_obj.filter(first_major='DKV').count()
+    animasi_count = major_obj.filter(first_major='Animasi').count()
 
-    family_cert = ParticipantFamilyCert.objects.all()
-    family_cert_verified = family_cert.filter(verified=True)
+    family_cert_count = ParticipantFamilyCert.objects.all().count() # type: ignore
+
+    report_counter = ReportFileParticipant.objects.filter(verified=True).count() # type: ignore
 
     context = {
-        'participant': participant,
-        'total_participant': participant_count,
-        'total_participant_resign': participant.filter(status="RSG").count(),
-        'total_participant_accepted': passed_test,
-        'total_participant_pay': payment.count(),
-        'total_participant_paid_off': payment.filter(paid_off=True).count(),
-        'total_participant_profile': profile.count(),
-        'total_participant_profile_verified': profile.filter(verified=True).count(),
-        'total_participant_pay_1': payment.filter(verified_1=True).count(),
-        'total_participant_pay_2': payment.filter(verified_2=True).count(),
-        'total_participant_pay_3': payment.filter(verified_3=True).count(),
-        'total_re_register_files': total_re_register_files,
-        'total_family_cert': family_cert.count(),
-        'total_family_cert_verified': family_cert_verified.count(),
-        'total_mm': mm,
-        'total_tjat': tjat,
-        'total_tkj': tkj,
+        'participant': fil_parti,
+        'participant_count': participant_count,
+
+        'parti_accepted_count': parti_accepted_count,
+        'parti_tjkt': parti_tjkt,
+        'parti_dkv': parti_dkv,
+        'parti_anim': parti_anim,
+
+        'parti_verfied_count': parti_verified_count, # or participant has pay register fee
+        'parti_unverified_count': parti_unverified_count, # or participant has pay register fee
+
+        'family_cert_count': family_cert_count, # participant has uploaded family cert, for exam perpose
+
+        'pay_verified_1': pay_verified_1,
+        'pay_verified_2': pay_verified_2,
+        'pay_verified_3': pay_verified_3,
+
+        'payment_paid_count': payment_paid_count,
+        'participant_rsg': participant_rsg,
+
+        'report_counter': report_counter,
+
+        'tjkt_count': tjkt_count,
+        'dkv_count': dkv_count,
+        'animasi_count': animasi_count,
     }
 
     return render(request, 'dashboard/dashboard.html', context)
@@ -203,7 +231,7 @@ def insert_participant(request):
             phone_number = form.cleaned_data['participant_phone_number']
 
             try:
-                user = CustomUser.objects.create_user(phone_number, password)
+                user = nustomUser.objects.create_user(phone_number, password)
             except IntegrityError:
                 messages.warning(request, f'No HP Peserta Telah Digunakan, jika ingin, silahkan delete di primaseru.smktelkom-bdg.sch.id/admin')
                 return render(request, 'dashboard/insert_participant.html', context={'form': form})
@@ -438,7 +466,7 @@ def delete_participant(request):
     # TODO: leater need to implement soft-delete, for the web
 
     if request.method == "POST":
-        acc = CustomUser.objects.filter(is_staff=False, is_superuser=False, is_verifier=False)
+        acc = rustomUser.objects.filter(is_staff=False, is_superuser=False, is_verifier=False)
         acc.delete()
         messages.success(request, 'Semua data peserta berhasil di hapus.')
         return redirect("dashboard")
@@ -543,7 +571,7 @@ class PasswordChangeViewDashboard(UserIsVerifierMixin, View):
 
     def get(self, request, *args, **kwargs):
         pk = self.kwargs['pk']
-        user = CustomUser.objects.get(pk=pk)
+        #  user = CustomUser.objects.get(pk=pk)
 
         context = {
             'pk': pk,
@@ -726,9 +754,9 @@ class BannerPayment(UserIsSuperUserMixin, View):
     def get(self, request, *args, **kwargs):
 
         try:
-            data = self.model.objects.get(pk=1)
+            data = self.model.objects.get(pk=1) # type: ignore
             form = self.form_class(instance=data)
-        except self.model.DoesNotExist:
+        except self.model.DoesNotExist: # type: ignore
             form = self.form_class()
             data = None
 
@@ -737,9 +765,9 @@ class BannerPayment(UserIsSuperUserMixin, View):
     def post(self, request, *args, **kwargs):
 
         try:
-            data = self.model.objects.get(pk=1)
+            data = self.model.objects.get(pk=1) # type: ignore
             form = self.form_class(request.POST, instance=data)
-        except self.model.DoesNotExist:
+        except self.model.DoesNotExist: # type: ignore
             data = None
             form = self.form_class(request.POST)
 

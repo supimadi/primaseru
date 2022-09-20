@@ -20,7 +20,7 @@ PARTICIPANT_PROFILE_FORM_LAYOUT = Layout(
         ),
         Row(
             Div(Field("child_no", css_class='form-control-sm'), css_class="col-sm-6"),
-            Div(Field('relatives_no', css_class='form-control-sm'), css_class="col-sm-6"),
+            Div(Field('siblings_no', css_class='form-control-sm'), css_class="col-sm-6"),
         ),
         Row(
             Div(Field('school_origin', css_class='form-control-sm'), css_class="col-sm-6"),

@@ -4,13 +4,10 @@ from django.core.exceptions import ValidationError
 
 from users.models import CustomUser
 
-from PIL import Image
-
 from . import choices
 
+from dashboard.models import user_directory_path
 
-def user_directory_path(instance, filename):
-    return f'berkas_{instance.participant.username}/{filename}'
 
 def validate_two_digits_num(value):
     try:
@@ -155,8 +152,8 @@ class ParticipantProfile(models.Model):
                                     )
 
     # Previous School Information
-    school_origin = models.CharField('Asal Sekolah', max_length=120, help_text="Isilah sesuai dengan asal sekolah Anda dan dituliskan seperti contoh berikut : SMP     Telkom Bandung ")
-    npsn_school_origin = models.PositiveIntegerField('Nomor NPSN Sekolah Asal', help_text="Bisa Cek <a href='https://referensi.data.kemdikbud.go.id/index11.php' ta    rget='_blank'><b>Disini</b></a>", null=True)
+    school_origin = models.CharField('Asal Sekolah', max_length=120, help_text="Isilah sesuai dengan asal sekolah Anda dan dituliskan seperti contoh berikut : SMP Telkom Bandung ")
+    npsn_school_origin = models.PositiveIntegerField('Nomor NPSN Sekolah Asal', help_text="Bisa Cek <a href='https://referensi.data.kemdikbud.go.id/pendidikan/dikdas' target='_blank'><b>Disini</b></a>", null=True)
 
     # Medical Record
     medic_record = models.TextField('Riwayat Kesehatan', null=True, blank=True, help_text="Jika pernah mempunyai penyakit, silahkan ditulis disini")

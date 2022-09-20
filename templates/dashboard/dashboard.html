@@ -105,83 +105,151 @@
     <div class="row shadow-sm bg-white border-0 p-3 m-4 rounded">
 
         <div class="col-12 p-3">
-            <h4 class="judul font-weight-bold">Statistik Total Pendaftar</h4>
+            <h3 class="judul font-weight-bold mb-0 mb-md-3">Statistik Pendaftar Primaseru</h3>
 
-            <div class="row">
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_participant }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Total Pendaftar</h4>
+            <!-- INFO PENDAFTARAN -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Info Pendaftar
+              </div>
+              <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col mx-2 p-3 rounded border">
+                            <h3 class="mb-0 mt-1">{{ participant_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul">Total Pendaftar</h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border">
+                            <h3 class="mb-0 mt-1">{{ tjkt_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul">Memilih Prodi TJKT</h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border">
+                            <h3 class="mb-0 mt-1">{{ dkv_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul">Memilih Prodi DKV</h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border">
+                            <h3 class="mb-0 mt-1">{{ animasi_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul">Memilih Prodi Animasi</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_mm }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi MM</h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_tkj }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi TKJ</h4>
-                </div>
-                <div class="col-md m-2 p-3 bg-white rounded border">
-                    <h3 class="mb-0 mt-1">{{ total_tjat }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul">Memilih Prodi TJAT</h4>
-                </div>
+              </div>
             </div>
 
-            <div class="row">
-                <div class="col-md m-2  p-3 bg-white rounded border border-success">
-                    <h3 class="mb-0 mt-1">{{ total_participant_accepted }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?lulus"><span class="badge badge-success">DITERIMA/LULUS</span></a></h4>
+            <!-- INFO KELULUSAN -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Info Kelulusan
+              </div>
+              <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col mx-2 p-3 rounded border border-purple">
+                            <h3 class="mb-0 mt-1">{{ parti_accepted_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?lunas_pembayaran_1"><span class="badge badge-purple">LULUS/DITERIMA</span></a></h4>
+                        </div>
+                        <div class="col mx-2 p-3 rounded border border-orange">
+                            <h3 class="mb-0 mt-1">{{ parti_tjkt }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?lunas_pembayaran_2"><span class="badge badge-orange">DITERIMA TJKT</span></a></h4>
+                        </div>
+                        <div class="col mx-2 p-3 rounded border border-abu">
+                            <h3 class="mb-0 mt-1">{{ parti_dkv }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?lunas_pembayaran_3"><span class="badge badge-abu">DITERIMA DKV</span></a></h4>
+                        </div>
+                        <div class="col mx-2 p-3 rounded border border-cyan">
+                            <h3 class="mb-0 mt-1">{{ parti_anim }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?up_berkas_dftr_ulang"><span class="badge badge-cyan">DITERIMA ANIMASI</span></a></h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md m-2 p-3 bg-white rounded border border-danger">
-                    <h3 class="mb-0 mt-1">{{ total_participant_pay }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?tag_daftar_ulg"><span class="badge badge-danger">INPUT TAGIHAN DAFTAR ULANG</span></a></h4>
-                </div>
-                <div class="col-md m-2  p-3 bg-white rounded border border-primary">
-                    <h3 class="mb-0 mt-1">{{ total_participant_paid_off }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?lunas_bayar_daftar_ulg"><span class="badge badge-primary">LUNAS BAYAR DAFTAR ULANG</span></a></h4>
-                </div>
-                <div class="col-md m-2  p-3 rounded border border-warning">
-                    <h3 class="mb-0 mt-1">{{ total_participant_profile }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?mengisi_identitas"><span class="badge badge-warning">MENGISI IDENTITAS</span></a></h4>
-                </div>
+              </div>
             </div>
 
-            <div class="row">
-                <div class="col-md m-2  p-3 bg-white rounded border border-purple">
-                    <h3 class="mb-0 mt-1">{{ total_participant_pay_1 }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?lunas_pembayaran_1"><span class="badge badge-purple">LUNAS PEMBAYARAN PERTAMA</span></a></h4>
+            <!-- INFO PEMBAYARAN -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Info Pembayaran Pendaftaran
+              </div>
+              <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col mx-2 p-3 rounded border border-success">
+                            <h3 class="mb-0 mt-1">{{ parti_unverified_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?lulus"><span class="badge badge-success">BELUM BAYAR PENDAFTARAN</span></a></h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border border-danger">
+                            <h3 class="mb-0 mt-1">{{ parti_verfied_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?tag_daftar_ulg"><span class="badge badge-danger">LUNAS BIAYA PENDAFTARAN</span></a></h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border border-primary">
+                            <h3 class="mb-0 mt-1">{{ family_cert_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?lunas_bayar_daftar_ulg"><span class="badge badge-primary">UNGGAH BERKAS TES</span></a></h4>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="col-md m-2 p-3 bg-white rounded border border-orange">
-                    <h3 class="mb-0 mt-1">{{ total_participant_pay_2 }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?lunas_pembayaran_2"><span class="badge badge-orange">LUNAS PEMBAYARAN KEDUA</span></a></h4>
-                </div>
-                <div class="col-md m-2  p-3 bg-white rounded border border-abu">
-                    <h3 class="mb-0 mt-1">{{ total_participant_pay_3 }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?lunas_pembayaran_3"><span class="badge badge-abu">LUNAS PEMBAYARAN KETIGA</span></a></h4>
-                </div>
-                <div class="col-md m-2  p-3 rounded border border-cyan">
-                    <h3 class="mb-0 mt-1">{{ total_re_register_files }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?up_berkas_dftr_ulang"><span class="badge badge-cyan">UPLOAD BERKAS DAFTAR ULANG</span></a></h4>
-                </div>
+              </div>
             </div>
 
-			<div class="row">
-				<div class="col-md m-2  p-3 bg-white rounded border border-peach">
-					<h3 class="mb-0 mt-1">{{ total_family_cert }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran"><span class="badge badge-peach">UPLOAD BERKAS PENDAFTARAN</span></a></h4>
+            <!-- INFO VERIFIKASI -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Info Verifikasi Pembayaran Daftar Ulang
+              </div>
+              <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col mx-2 p-3 rounded border border-peach">
+                            <h3 class="mb-0 mt-1">{{ pay_verified_1 }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran"><span class="badge badge-peach">VERIFIKASI PEMB. 1</span></a></h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border border-lime">
+                            <h3 class="mb-0 mt-1">{{ pay_verified_2 }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran_verified"><span class="badge badge-lime">VERIFIKASI PEMB. 2</span></a></h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border border-ice">
+                            <h3 class="mb-0 mt-1">{{ pay_verified_3 }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?verified_profile"><span class="badge badge-ice">VERIFIKASI PEMB. 3</span></a></h4>
+                        </div>
+                    </div>
                 </div>
-				<div class="col-md m-2  p-3 bg-white rounded border border-lime">
-					<h3 class="mb-0 mt-1">{{ total_family_cert_verified }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran_verified"><span class="badge badge-lime">BERKAS PENDAFTARAN TERVERFIKASI</span></a></h4>
+              </div>
+            </div>
+
+            <!-- INFO PEMBAYARAN -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Info Verifikasi Data
+              </div>
+              <div class="card-body">
+                <div class="card-text">
+                    <div class="row">
+                        <div class="col mx-2 p-3 rounded border border-lime">
+                            <h3 class="mb-0 mt-1">{{ report_counter }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran_verified"><span class="badge badge-lime">VERIFIKASI DATA DFTR ULANG</span></a></h4>
+                        </div>
+                        
+                        <div class="col mx-2 p-3 rounded border border-peach">
+                            <h3 class="mb-0 mt-1">{{ payment_paid_count }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?up_berkas_pendaftaran"><span class="badge badge-peach">VERIFIKASI SEMUA PEMBY. (LUNAS)</span></a></h4>
+                        </div>
+
+                        <div class="col mx-2 p-3 rounded border border-ice">
+                            <h3 class="mb-0 mt-1">{{ participant_rsg }} <small class="text-muted h6 judul">siswa</small></h3>
+                            <h4 class="mb-1 judul"><a href="?verified_profile"><span class="badge badge-ice">PESERTA MEMUNDURKAN DIRI</span></a></h4>
+                        </div>
+
+                    </div>
                 </div>
-				<div class="col-md m-2  p-3 bg-white rounded border border-ice">
-					<h3 class="mb-0 mt-1">{{ total_participant_profile_verified }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?verified_profile"><span class="badge badge-ice">IDENTITAS TERVERFIKASI</span></a></h4>
-                </div>
-				<div class="col-md m-2  p-3 bg-white rounded border border-grape">
-					<h3 class="mb-0 mt-1">{{ total_participant_resign }} <small class="text-muted h6 judul">siswa</small></h3>
-                    <h4 class="mb-1 judul"><a href="?resign"><span class="badge badge-grape">PESERTA MEMUNDURKAN DIRI</span></a></h4>
-                </div>
-			</div>
+              </div>
+            </div>
 
         </div>
     </div>

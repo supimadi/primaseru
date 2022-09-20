@@ -1,4 +1,5 @@
 import datetime
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -21,12 +22,17 @@ PASSED_CHOICES = [
 ]
 
 def user_directory_path(instance, filename):
-    # TODO: Check if the instance has full_name
 
     try:
-        return f'berkas_peserta/berkas_{instance.participant.username}_{instance.participant.full_name}/{filename}'
+        return f'berkas_peserta/berkas_{instance.participant.username}/{filename}'
     except Exception:
-        return f'berkas_peserta/berkas_{instance.account.username}_{instance.account.full_name}/{filename}'
+        return f'berkas_peserta/berkas_{instance.account.username}/{filename}'
+
+    # TODO: Check if the instance has full_name
+    try:
+        return f'berkas_peserta/berkas_{instance.participant}_{instance.participant.participantprofile}/{filename}'
+    except Exception:
+        return f'berkas_peserta/berkas_{instance.account.username}_{instance.account.participantprofile.full_name}/{filename}'
 
 class MajorStatus(models.Model):
     major = models.CharField('Jurusan', max_length=5, help_text="Tulis singkatan jurusan, <b>contoh: TKJ</b>")
@@ -96,7 +102,7 @@ class InfoSourcePPDB(models.Model):
 
 class Participant(models.Model):
     account = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    verified = models.BooleanField(_('Verified'), default=False, db_index=True)
+    verified = models.BooleanField(_('Verified'), default=False, db_index=True, help_text="Centang jika telah membayar biaya Pendaftaran.")
     status = models.CharField(_('Status'), default="ACT", max_length=3, choices=PARTICIPANT_STATUS)
 
     full_name = models.CharField(_('Nama Lengkap'), max_length=100, db_index=True)
