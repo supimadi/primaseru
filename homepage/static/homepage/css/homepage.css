@@ -168,15 +168,16 @@ section {
 .box-jurusan {
     background-color: #FFFFFF;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-    padding: 30px;
+    padding: 3rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-}
-.box-jurusan img {
     height: 100px;
 }
+/* .box-jurusan img { */
+/*     height: 100px; */
+/* } */
 section#section-3 {
     padding-top: 0;
 }
