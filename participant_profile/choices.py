@@ -7,6 +7,16 @@ MAJOR = [
     ('ANI', 'Animasi'),
 ]
 
+JALUR_MASUK = [
+    ('Jalur Prestasi', 'Jalur Prestasi'),
+    ('Jalur Reguler', 'Jalur Reguler'),
+    ('Jalur Reguler 1', 'Jalur Reguler 1'),
+    ('Jalur Reguler 2', 'Jalur Reguler 2'),
+    ('Jalur Reguler 3', 'Jalur Reguler 3'),
+]
+
+
+
 SEX = [
     ('P', 'Perempuan'),
     ('L', 'Laki - Laki'),
@@ -97,13 +107,6 @@ CHARITY_AMOUNT = [
     ('Rp. 2.000.000,-', 'Rp. 2.000.000,-'),
     ('Rp. 2.500.000,-', 'Rp. 2.500.000,-'),
     ('Rp. 3.000.000,-', 'Rp. 3.000.000,-'),
-]
-
-JALUR_MASUK = [
-    ('Jalur Prestasi', 'Jalur Prestasi'),
-    ('Jalur Reguler 1', 'Jalur Reguler 1'),
-    ('Jalur Reguler 2', 'Jalur Reguler 2'),
-    ('Jalur Reguler 3', 'Jalur Reguler 3'),
 ]
 
 RESIDENT_CHOICES = [
