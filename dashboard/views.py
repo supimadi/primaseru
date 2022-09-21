@@ -86,10 +86,10 @@ def dashboard(request):
 
     try:
         if not request.user.is_staff and not request.user.is_verifier:
-            messages.warning(request, 'Tidak memiliki izin, jika hal ini merupakan kesalah hubungi Admin.')
+            messages.warning(request, 'Tidak memiliki izin untuk masuk, jika hal ini merupakan kesalah hubungi Admin.')
             return redirect('login')
     except Exception as e:
-        messages.warning(request, f'Ada error saat process login: {e}.')
+        messages.warning(request, f'Ops... {e}')
         return redirect('login')
 
     # all participant, participant count, filtered participant
@@ -99,7 +99,7 @@ def dashboard(request):
     participant_rsg = participant.filter(status="RSG").count()
     parti_verified_count = participant.filter(verified=True).count() # type: ignore
 
-    accounts = CustomUser.objects.all()
+    #  accounts = CustomUser.objects.all()
 
     parti_acceptance = ParticipantGraduation.objects.all() # type: ignore
     parti_accepted_count = parti_acceptance.filter(passed="L").count() # type: ignore
@@ -115,13 +115,13 @@ def dashboard(request):
     
     payment = ParticipantRePayment.objects.all() # type: ignore
 
-    total_re_register_files = 0
-    for acc in accounts:
-        try:
-            if acc.reportfileparticipant_set.all() and acc.studentfile:
-                total_re_register_files += 1
-        except Exception:
-            continue
+    #  total_re_register_files = 0
+    #  for acc in accounts:
+    #      try:
+    #          if acc.reportfileparticipant_set.all() and acc.studentfile:
+    #              total_re_register_files += 1
+    #      except Exception:
+    #          continue
 
     major_obj = MajorStudent.objects.all() # type: ignore
     tjkt_count = major_obj.filter(first_major='TJKT').count()

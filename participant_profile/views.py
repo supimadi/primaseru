@@ -7,6 +7,8 @@ from django.views.generic import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 
+from participant_profile import choices
+
 
 from . import models, forms
 from .mixins import IsPassessTestPPDB
@@ -115,7 +117,7 @@ class ProfileView(LoginRequiredMixin, View):
     model = models.ParticipantProfile
     template_name = 'participant_profile/primaseru.html'
     url_name =  'participant-profile'
-    name = 'peserta'
+    name = 'peserta' # name for header in the user ui
     multiple_files = False
 
     def _get_context(self, data, form, **kwargs):
@@ -153,10 +155,13 @@ class ProfileView(LoginRequiredMixin, View):
         return ctx
 
     def form_valid(self, request, *args, **kwargs):
-        # TODO implement later for reperate logic
+        # TODO implement later for seperate logic
         pass
 
     def get(self, request, *args, **kwargs):
+
+        if self.model is None:
+            return render(request, self.template_name)
 
         try:
 
@@ -173,6 +178,9 @@ class ProfileView(LoginRequiredMixin, View):
         return render(request, self.template_name, self._get_context(data, form))
 
     def post(self, request, *args, **kwargs):
+
+        if self.form_class is None or self.model:
+            return
 
         try:
 
@@ -226,6 +234,27 @@ class MajorParticipantView(ProfileView):
     model = models.MajorStudent
     url_name = 'participant-major'
     name = "jurusan"
+
+    def get(self, request, *args, **kwargs):
+        super().get(request, *args, **kwargs)
+
+        if self.model is None:
+            return render(request, self.template_name)
+
+        try:
+            data = self.model.objects.get(participant=request.user)
+            form = self.form_class(instance=data) if self.form_class else None
+            
+            if data.verified:
+                form.fields['first_major'].choices = choices.MAJOR # type: ignore
+                form.fields['second_major'].choices = choices.MAJOR # type: ignore
+                form.fields['way_in'].choices = choices.JALUR_MASUK # type: ignore
+
+        except self.model.DoesNotExist:
+            data = None
+            form = self.form_class() if self.form_class else None
+
+        return render(request, self.template_name, self._get_context(data, form))
 
 class ParticipantKKView(ProfileView):
     form_class = forms.ParticipantKKForm
