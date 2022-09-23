@@ -231,7 +231,7 @@ def insert_participant(request):
             phone_number = form.cleaned_data['participant_phone_number']
 
             try:
-                user = nustomUser.objects.create_user(phone_number, password)
+                user = CustomUser.objects.create_user(phone_number, password)
             except IntegrityError:
                 messages.warning(request, f'No HP Peserta Telah Digunakan, jika ingin, silahkan delete di primaseru.smktelkom-bdg.sch.id/admin')
                 return render(request, 'dashboard/insert_participant.html', context={'form': form})

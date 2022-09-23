@@ -179,9 +179,6 @@ class ProfileView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
 
-        if self.form_class is None or self.model:
-            return
-
         try:
 
             data = None # when multiple files we assume no instance will attached
