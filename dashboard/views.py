@@ -466,7 +466,7 @@ def delete_participant(request):
     # TODO: leater need to implement soft-delete, for the web
 
     if request.method == "POST":
-        acc = rustomUser.objects.filter(is_staff=False, is_superuser=False, is_verifier=False)
+        acc = CustomUser.objects.filter(is_staff=False, is_superuser=False, is_verifier=False)
         acc.delete()
         messages.success(request, 'Semua data peserta berhasil di hapus.')
         return redirect("dashboard")
