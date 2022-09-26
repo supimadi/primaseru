@@ -105,7 +105,7 @@ def dashboard(request):
     parti_accepted_count = parti_acceptance.filter(passed="L").count() # type: ignore
     parti_tjkt = parti_acceptance.filter(passed="L", chose_major="TJKT").count() # type: ignore
     parti_dkv = parti_acceptance.filter(passed="L", chose_major="DKV").count() # type: ignore
-    parti_anim = parti_acceptance.filter(passed="L", chose_major="Animasi").count() # type: ignore
+    parti_anim = parti_acceptance.filter(passed="L", chose_major="ANI").count() # type: ignore
 
     payment = ParticipantRePayment.objects.all() # type: ignore
     payment_paid_count = payment.filter(paid_off=True).count()
@@ -126,7 +126,7 @@ def dashboard(request):
     major_obj = MajorStudent.objects.all() # type: ignore
     tjkt_count = major_obj.filter(first_major='TJKT').count()
     dkv_count = major_obj.filter(first_major='DKV').count()
-    animasi_count = major_obj.filter(first_major='Animasi').count()
+    animasi_count = major_obj.filter(first_major='ANI').count()
 
     family_cert_count = ParticipantFamilyCert.objects.all().count() # type: ignore
 
