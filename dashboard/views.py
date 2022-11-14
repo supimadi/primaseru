@@ -58,10 +58,6 @@ def participant_counter_filter(label):
         filter_req = accounts.filter(participantprofile__id__isnull=False)
     elif 'lunas_pembayaran_1' in label:
         filter_req = accounts.filter(participantrepayment__verified_1=True)
-    elif 'lunas_pembayaran_2' in label:
-        filter_req = accounts.filter(participantrepayment__verified_2=True)
-    elif 'lunas_pembayaran_3' in label:
-        filter_req = accounts.filter(participantrepayment__verified_3=True)
     elif 'up_berkas_dftr_ulang' in label:
         filter_req = accounts.filter(reportfileparticipant__id__isnull=False, studentfile__id__isnull=False)
     elif 'up_berkas_pendaftaran' in label:
@@ -110,8 +106,8 @@ def dashboard(request):
     payment = ParticipantRePayment.objects.all() # type: ignore
     payment_paid_count = payment.filter(paid_off=True).count()
     pay_verified_1 = payment.filter(verified_1=True).count()
-    pay_verified_2 = payment.filter(verified_2=True).count()
-    pay_verified_3 = payment.filter(verified_3=True).count()
+    #  pay_verified_2 = payment.filter(verified_2=True).count()
+    #  pay_verified_3 = payment.filter(verified_3=True).count()
     
     payment = ParticipantRePayment.objects.all() # type: ignore
 
@@ -147,8 +143,8 @@ def dashboard(request):
         'family_cert_count': family_cert_count, # participant has uploaded family cert, for exam perpose
 
         'pay_verified_1': pay_verified_1,
-        'pay_verified_2': pay_verified_2,
-        'pay_verified_3': pay_verified_3,
+        #  'pay_verified_2': pay_verified_2,
+        #  'pay_verified_3': pay_verified_3,
 
         'payment_paid_count': payment_paid_count,
         'participant_rsg': participant_rsg,

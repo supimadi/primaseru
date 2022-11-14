@@ -154,7 +154,8 @@ class ParticipantRePaymentForm(forms.ModelForm):
 
     class Meta:
         model = ParticipantRePayment
-        fields = ['payment_1', 'payment_2', 'payment_3']
+        #  fields = ['payment_1', 'payment_2', 'payment_3']
+        fields = ['payment_1']
 
 class ParticipantCertForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

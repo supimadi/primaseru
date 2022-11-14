@@ -39,7 +39,7 @@
 <div class="row">
 
     <!-- Payment Area -->
-    <div class="col-12 col-md-4">
+    <div class="col-12">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -54,7 +54,7 @@
             <!-- Card Body -->
             <div class="card-body">
                 <div>
-                    Nominal Pembayaran:
+                    <strong>Nominal Pembayaran:</strong>
                     <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_1|floatformat:"0g" }},-</h4>
                     Tenggat: {{ data.deadline_1|date:'d F Y'  }}
 
@@ -62,68 +62,6 @@
 		    <hr/>	
 		    <p class="text-danger">
 			    {{ data.comment_1 }}
-		    </p>
-		    {% endif %}
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-4">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-danger">Pembayaran Kedua</h6>
-
-                {% if data.verified_2 %}
-                <span class="badge badge-success mb-0">Terverifikasi</span>
-                {% else %}
-                <span class="badge badge-warning mb-0">Belum Terverifikasi</span>
-                {% endif %}
-
-
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div>
-                    Nominal Pembayaran:
-                    <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_2|floatformat:"0g" }},-</h4>
-                    Tenggat: {{ data.deadline_2|date:'d F Y'  }}
-		{% if data.comment_2 %}
-	    <hr/>	
-	    <p class="text-danger">
-		    {{ data.comment_2 }}
-	    </p>
-	    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-4">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-danger">Pembayaran Ketiga</h6>
-
-                {% if data.verified_3 %}
-                <span class="badge badge-success mb-0">Terverifikasi</span>
-                {% else %}
-                <span class="badge badge-warning mb-0">Belum Terverifikasi</span>
-                {% endif %}
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div>
-                    Nominal Pembayaran:
-                    <h4 class="text-white font-weight-bold mb-3 mt-0 p-3 rounded bg-danger">Rp. {{ data.pay_mount_3|floatformat:"0g" }},-</h4>
-                    Tenggat: {{ data.deadline_3|date:'d F Y'  }}
-
-	         	{% if data.comment_3 %}
-		    <hr/>	
-		    <p class="text-danger">
-			    {{ data.comment_3 }}
 		    </p>
 		    {% endif %}
 
@@ -212,36 +150,6 @@ Daftar Ulang dapat dilakukan maksimal selama <b>tiga kali</b>.
                                             {% endif %}
                                             <li>Nominal Pembayaran: Rp. {{ data.pay_mount_1|floatformat:"0g" }},-</li>
                                             <li>Tenggat Pembayaran: {{ data.deadline_1|date:'d F Y'  }}</li>
-                                        </ul>
-                                    </p>
-                                </div>
-                                <div class="card-detail card-bg border border-danger  mx-md-2 ml-0 mb-2 mb-md-0 p-2 rounded col-12 col-md">
-                                    <h5 class="judul"><b>Pembayaran Kedua</b></h5>
-                                    <hr class="my-2" />
-                                    <p>
-                                        <ul class="pl-4">
-                                            {% if data.verified_2 %}
-                                                <li>Status : <span class="badge badge-success">Terverifikasi</span></li>
-                                            {% else %}
-                                                <li>Status : <span class="badge badge-warning">Belum Terverifikasi</span></li>
-                                            {% endif %}
-                                            <li>Nominal Pembayaran: Rp. {{ data.pay_mount_2|floatformat:"0g" }},-</li>
-                                            <li>Tenggat Pembayaran: {{ data.deadline_2|date:'d F Y'  }}</li>
-                                        </ul>
-                                    </p>
-                                </div>
-                                <div class="card-detail card-bg border border-danger ml-0 mb-2 mb-md-0 p-2 rounded col-12 col-md">
-                                    <h5 class="judul"><b>Pembayaran Ketiga</b></h5>
-                                    <hr class="my-2" />
-                                    <p>
-                                        <ul class="pl-4">
-                                            {% if data.verified_3 %}
-                                            <li>Status : <span class="badge badge-success">Terverifikasi</span></li>
-                                            {% else %}
-                                            <li>Status : <span class="badge badge-warning">Belum Terverifikasi</span></li>
-                                            {% endif %}
-                                            <li>Nominal Pembayaran: Rp. {{ data.pay_mount_3|floatformat:"0g" }},-</li>
-                                            <li>Tenggat Pembayaran: {{ data.deadline_3|date:'d F Y'  }}</li>
                                         </ul>
                                     </p>
                                 </div>

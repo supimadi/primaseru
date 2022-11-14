@@ -209,22 +209,22 @@ RE_PAYMENT_DASHBOARD_FORM = Layout(
             Div('verified_1', css_class="col-12"),
             css_class="border border-dark rounded p-3 mx-3 mb-3"
         ),
-        Row(
-            Div('payment_2', css_class="col-12"),
-            Div('comment_2', css_class="col-12"),
-            Div('deadline_2', css_class="col-12"),
-            Div('pay_mount_2', css_class="col-12"),
-            Div('verified_2', css_class="col-12"),
-            css_class="border border-dark rounded p-3 mx-3 mb-3"
-        ),
-        Row(
-            Div('payment_3', css_class="col-12"),
-            Div('comment_3', css_class="col-12"),
-            Div('deadline_3', css_class="col-12"),
-            Div('pay_mount_3', css_class="col-12"),
-            Div('verified_3', css_class="col-12"),
-            css_class="border border-dark rounded p-3 mx-3 mb-3"
-        ),
+        #  Row(
+        #      Div('payment_2', css_class="col-12"),
+        #      Div('comment_2', css_class="col-12"),
+        #      Div('deadline_2', css_class="col-12"),
+        #      Div('pay_mount_2', css_class="col-12"),
+        #      Div('verified_2', css_class="col-12"),
+        #      css_class="border border-dark rounded p-3 mx-3 mb-3"
+        #  ),
+        #  Row(
+        #      Div('payment_3', css_class="col-12"),
+        #      Div('comment_3', css_class="col-12"),
+        #      Div('deadline_3', css_class="col-12"),
+        #      Div('pay_mount_3', css_class="col-12"),
+        #      Div('verified_3', css_class="col-12"),
+        #      css_class="border border-dark rounded p-3 mx-3 mb-3"
+        #  ),
         css_class=" rounded border border-primary p-3 m-3"
     ),
     Div(
